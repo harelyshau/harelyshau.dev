@@ -1,0 +1,17 @@
+.phResumePageContent {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sapUiTheme-sap_horizon .phResumePage .phToolbarSeparator {
+    border-bottom-color: #dedede !important;
+}
+
+.sapUiTheme-sap_horizon_dark .phResumePage .phToolbarSeparator {
+    border-bottom-color: #4a4a4a !important;
+}
+
+.phResumeExperiencePositionMobile .sapMFlexItem {
+    height: 1.2rem;
+}

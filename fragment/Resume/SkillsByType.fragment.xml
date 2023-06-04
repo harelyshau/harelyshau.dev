@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <VBox>
+        <!-- Device Laptop -->
+        <HBox visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550 }">
+            <Label text="{resume>Type}:" width="12rem"/>
+            <Text text="{resume>Skills}" />
+        </HBox>
+        <!-- Device Mobile -->
+        <VBox visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} }">
+            <Label text="{resume>Type}:" />
+            <Text text="{resume>Skills}" />
+        </VBox>
+    </VBox>
+</core:FragmentDefinition>

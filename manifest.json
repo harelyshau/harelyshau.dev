@@ -1,0 +1,102 @@
+{
+    "_version": "1.54.0",
+    "sap.app": {
+        "id": "pharelyshau",
+        "type": "application",
+        "i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": ["en", "de", "ru"],
+			"fallbackLocale": "en"
+		},
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "dataSources": {
+
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "minUI5Version": "1.113.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.f": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "pharelyshau.i18n.i18n",
+                    "supportedLocales": ["en", "de", "ru"],
+					"fallbackLocale": "en"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "pharelyshau.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "type": "View",
+                "viewType": "XML",
+                "path": "pharelyshau.view",
+                "controlId": "app",
+                "controlAggregation": "pages"
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "home",
+                    "target": "resume"
+                },
+                {
+                    "pattern": "resume",
+                    "name": "resume",
+                    "target": "resume"
+                },
+                {
+                    "pattern": "calendar",
+                    "name": "calendar",
+                    "target": "calendar"
+                }
+            ],
+            "targets": {
+                "resume": {
+                    "id": "resume",
+                    "name": "Resume"
+                },
+                "calendar": {
+                    "id": "calendar",
+                    "name": "Calendar"
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        }
+    }
+}

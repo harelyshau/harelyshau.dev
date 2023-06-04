@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+    <l:HorizontalLayout allowWrapping="true">
+        <Label text="{resume>/Position} /&#160;"/>
+        <Label text="{i18n>lWilling}&#160;"/>
+        <Link text="{i18n>linkRelocateTo} {resume>/RelocationPreference/Country}"
+            press="onPressOpenRelocationPopover" accessibleRole="Button" ariaHasPopup="Dialog"/>
+    </l:HorizontalLayout>
+</core:FragmentDefinition>

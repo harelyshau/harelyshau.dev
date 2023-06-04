@@ -1,0 +1,66 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">    
+    <VBox>
+        <!-- Main Info -->
+        <!-- Device Laptop -->
+        <FlexBox visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550 }"
+            justifyContent="SpaceBetween" alignItems="Center" class="sapUiTinyMarginBottom">
+            <HBox alignItems="Center">
+                <!-- Avatar WITH Company Popover -->
+                <Avatar visible="{= !!${resume>Company/Description} || !!${resume>Company/Website} }"
+                    src="{resume>Company/Logo}" press="onPressOpenCompanyPopover"
+                    displayShape="Square" fallbackIcon="{i18n>iExperience}"
+                    ariaHasPopup="Dialog" class="sapUiTinyMarginEnd"/>
+                <!-- Avatar WITHOUT Company Popover -->
+                <Avatar visible="{= !${resume>Company/Description} &amp;&amp; !${resume>Company/Website} }"
+                    src="{resume>Company/Logo}" displayShape="Square" decorative="true"
+                    fallbackIcon="{i18n>iExperience}" class="sapUiTinyMarginEnd"/>
+                <VBox>
+                    <Title text="{resume>Position}" wrapping="true"/>
+                    <Text text="{= ${resume>Company/Location} ? ${resume>Company/Name} + ', ' + ${resume>Company/Location} : ${resume>Company/Name}}"/>
+                </VBox>
+            </HBox>
+            <VBox alignItems="End" class="sapUiTinyMarginTop">
+                <Label text="{path: 'resume>StartDate',  formatter: '.formatter.stringDate'} – {path: 'resume>EndDate',  formatter: '.formatter.stringDate'}"/>
+                <Label text="{parts: ['resume>StartDate', 'resume>EndDate'], formatter: '.formatter.datesPeriod'}"/>
+            </VBox>
+        </FlexBox>
+        <!-- Device Mobile -->
+        <HBox visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} }">
+            <!-- Avatar WITH Company Popover -->
+            <Avatar visible="{= !!${resume>Company/Description} || !!${resume>Company/Website} }"
+                src="{resume>Company/Logo}" press="onPressOpenCompanyPopover"
+                displayShape="Square" fallbackIcon="{i18n>iExperience}"
+                ariaHasPopup="Dialog" class="sapUiTinyMarginEnd"/>
+            <Avatar visible="{= !${resume>Company/Description} &amp;&amp; !${resume>Company/Website} }"
+                    src="{resume>Company/Logo}" displayShape="Square" decorative="true"
+                    fallbackIcon="{i18n>iExperience}" class="sapUiTinyMarginEnd"/>
+            <VBox>
+                <VBox class="phResumeExperiencePositionMobile">
+                    <Title text="{resume>Position}" wrapping="true"/>
+                </VBox>
+                <Text text="{= ${resume>Company/Location} ? ${resume>Company/Name} + ', ' + ${resume>Company/Location} : ${resume>Company/Name}}"/>
+                <Label text="{path: 'resume>StartDate',  formatter: '.formatter.stringDate'} – {path: 'resume>EndDate',  formatter: '.formatter.stringDate'} ({parts: ['resume>StartDate', 'resume>EndDate'], formatter: '.formatter.datesPeriod'})" wrapping="true"/>
+            </VBox>
+        </HBox>
+        <!-- Description -->
+        <Text visible="{= !!${resume>Description} }" text="{resume>Description}"/>
+        <!-- Projects -->
+        <VBox visible="{= ${resume>Projects}.length > 0}">
+            <Label text="{= ${resume>Projects}.length > 1 ? ${i18n>lProjects} : ${i18n>lProject} }:" />
+            <Text text="{= ${resume>Projects}.length > 1 ? ${path: 'resume>Projects', formatter: '.formatter.textList'} : ${resume>Projects} }"/>
+        </VBox>
+        <!-- Responsobilities -->
+        <Label text="{i18n>lResponsobilities}:" class="sapUiTinyMarginTop"/>
+        <Text text="{path: 'resume>Responsobilities', formatter: '.formatter.textList'}"/>
+        <!-- Achievements -->
+        <VBox visible="{= ${resume>Achievements}.length > 0}">
+            <Label text="{i18n>lAchievements}:" class="sapUiTinyMarginTop"/>
+            <Text text="{path: 'resume>Achievements', formatter: '.formatter.textList'}"/>
+        </VBox>
+        <!-- Skills -->
+        <Label text="{i18n>lSkills}:" class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>
+        <Text text="{resume>Skills}"/>
+        <Toolbar visible="{= ${resume>/Experience}.indexOf(${resume>}) !== ${resume>/Experience}.length - 1 }"
+            height="0.8rem" class="phToolbarSeparator sapUiTinyMarginBottom"/>
+    </VBox>
+</core:FragmentDefinition>

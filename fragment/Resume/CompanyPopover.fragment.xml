@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+    <Popover contentWidth="20rem" placement="Auto">
+        <customHeader>
+            <Toolbar style="Clear">
+                <Title text="{resume>Name}"/>                
+                <ToolbarSpacer/>
+                <Button tooltip="Close" press="onPressCloseCompanyPopover"
+                    icon="{i18n>iClose}"/>
+            </Toolbar>
+        </customHeader>
+        <VBox class="sapUiTinyMargin">
+            <l:HorizontalLayout visible="{= !!${resume>Website} }" allowWrapping="true">
+                <Label text="{i18n>lWebsite}:" class="sapUiTinyMarginEnd"/>
+                <Link text="{resume>Website}" href="{resume>Website}" target="_blank"/>
+            </l:HorizontalLayout>
+            <Text visible="{= !!${resume>Description} }" text="{resume>Description}"/>
+        </VBox>
+	</Popover>
+</core:FragmentDefinition>

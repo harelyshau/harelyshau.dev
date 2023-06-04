@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <VBox>
+        <HBox alignItems="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Start' : 'Center'}">
+            <Avatar src="{resume>Logo}" displayShape="Square"
+                decorative="true" class="sapUiTinyMarginEnd"/>
+            <VBox>
+                <Title text="{resume>Name}" wrapping="true"/>
+                <Text text="{resume>Description}"/>
+            </VBox>
+        </HBox>
+        <Toolbar visible="{= ${resume>/Education}.indexOf(${resume>}) !== ${resume>/Education}.length - 1 }"
+            height="0.8rem" class="phToolbarSeparator sapUiTinyMarginBottom"/>
+    </VBox>
+</core:FragmentDefinition>
