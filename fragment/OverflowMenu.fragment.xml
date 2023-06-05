@@ -4,27 +4,28 @@
     <Menu title="{i18n>ttlMenu}">
         <!-- Device Mobile -->
         <MenuItem visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} }"
-            text="{i18n>btnDownloadResume}" press="onPressDownloadResume" icon="{i18n>iDownload}"/>
+            text="{i18n>btnMakeAppointment}" press="onPressNavigateToCalendar" icon="{i18n>iAppointment}"/>
         <MenuItem visible="{= ${device>/system/phone} || 750 >= ${device>/resize/width} }"
             text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
+        <MenuItem text="{i18n>btnDownloadResume}" press="onPressDownloadResume" icon="{i18n>iDownload}"/>
         <!-- All Devices -->
         <MenuItem text="{i18n>btnApperance}" icon="{i18n>iApperance}" 
             startsSection="{device>/system/phone}">
             <MenuItem text="{i18n>btnLightMode}" icon="{i18n>iLightMode}"
-                press="onPressTheme('sap_horizon')"/>
+                press="onPressSetTheme('sap_horizon')"/>
             <MenuItem text="{i18n>btnDarkMode}" icon="{i18n>iDarkMode}"
-                press="onPressTheme('sap_horizon_dark')"/>
-            <MenuItem text="{i18n>btnHighContrastWhiteMode}" press="onPressTheme('sap_horizon_hcw')"
+                press="onPressSetTheme('sap_horizon_dark')"/>
+            <MenuItem text="{i18n>btnHighContrastWhiteMode}" press="onPressSetTheme('sap_horizon_hcw')"
                 icon="{= ${appView>/theme} === 'sap_horizon' || ${appView>/theme} === 'sap_horizon_hcw'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
-            <MenuItem text="{i18n>btnHighContrastBlackMode}" press="onPressTheme('sap_horizon_hcb')"
+            <MenuItem text="{i18n>btnHighContrastBlackMode}" press="onPressSetTheme('sap_horizon_hcb')"
                 icon="{= ${appView>/theme} !== 'sap_horizon' &amp;&amp; ${appView>/theme} !== 'sap_horizon_hcw'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
-            <MenuItem text="{i18n>btnAutoMode}" press="onPressTheme('auto')"
+            <MenuItem text="{i18n>btnAutoMode}" press="onPressSetTheme('auto')"
                 icon="{i18n>iSystemSettings}"/>
         </MenuItem>
         <MenuItem text="{i18n>btnLanguage}" icon="{i18n>iLanguage}">
-            <MenuItem text="{i18n>btnEnglish}" press="onPressLanguage('en')"/>
-            <MenuItem text="{i18n>btnRussian}" press="onPressLanguage('ru')"/>
-            <MenuItem text="{i18n>btnGerman}" press="onPressLanguage('de')"/>
+            <MenuItem text="{i18n>btnEnglish}" press="onPressSetLanguage('en')"/>
+            <MenuItem text="{i18n>btnRussian}" press="onPressSetLanguage('ru')"/>
+            <MenuItem text="{i18n>btnGerman}" press="onPressSetLanguage('de')"/>
         </MenuItem>
         <MenuItem text="{i18n>btnShareLink}" press="onPressShareLink"
             icon="{i18n>iShare}" startsSection="{device>/system/phone}"/>

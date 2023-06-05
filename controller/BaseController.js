@@ -49,12 +49,12 @@ sap.ui.define([
             }
         },
 
-		onPressTheme: function (sKey) {
+		onPressSetTheme: function (sKey) {
 			themeHelper.setTheme(sKey);
 			this.getModel("appView").setProperty("/theme", sap.ui.core.Configuration.getTheme());
 		},
 
-		onPressLanguage: function (sKey) {
+		onPressSetLanguage: function (sKey) {
 			languageHelper.setLanguage(sKey);
 			// need to refresh to change controls language
 			location.reload();

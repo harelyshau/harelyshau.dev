@@ -19,6 +19,10 @@ sap.ui.define([
         },
 
         // Header
+        onPressNavigateToCalendar: function() {
+            this.getRouter().navTo("calendar");
+        },
+
         onPressDownloadResume: function () {
             const sFileURL = "/resource/file/Resume Pavel Harelyshau.pdf";
             sap.m.URLHelper.redirect(sFileURL, true);

@@ -5,8 +5,8 @@
 		xmlns:f="sap.f"
 		xmlns:core="sap.ui.core"
 		xmlns:l="sap.ui.layout">
-		<f:DynamicPage headerExpanded="true" class="phResumePage">
-			<!-- DynamicPage Title -->
+		<f:DynamicPage class="phResumePage">
+			<!-- HEADER -->
 			<f:title>
 				<f:DynamicPageTitle>
 					<f:heading>
@@ -21,11 +21,8 @@
 					<f:actions>
 						<!-- Device Laptop -->
 						<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550}"
-							text="{i18n>btnDownloadResume}" press="onPressDownloadResume"
-							icon="{i18n>iDownload}" type="Emphasized"/>
-						<!-- <Button
-								text="Make an appointment"
-								type="Transparent"/> -->
+								text="{i18n>btnMakeAppointment}" press="onPressNavigateToCalendar"
+								icon="{i18n>iAppointment}" type="Emphasized"/>
 						<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 750}"
 							text="{i18n>btnSendEmail}" press="onPressSendEmail"
 							icon="{i18n>iEmail}"/>
