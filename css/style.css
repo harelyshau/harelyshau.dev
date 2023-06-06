@@ -15,3 +15,7 @@
 .phResumeExperiencePositionMobile .sapMFlexItem {
     height: 1.2rem;
 }
+
+.phCalendar .sapMPCHeadNavToolbar{
+    border-radius: 0 !important;
+}

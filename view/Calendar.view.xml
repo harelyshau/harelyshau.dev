@@ -1,8 +1,64 @@
 <mvc:View
     controllerName="pharelyshau.controller.Calendar"
+	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc">
-	<Page
-		title="Calendar">   
-	</Page>
+	xmlns:f="sap.f"
+	xmlns:unified="sap.ui.unified">
+	<f:DynamicPage class="phCalendarPage sapUiNoContentPadding">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Calendar" wrapping="true"/>
+				</f:heading>
+				<f:actions>
+					<!-- Device Laptop -->
+					<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 750}"
+						text="{i18n>btnSendEmail}" press="onPressSendEmail"
+						icon="{i18n>iEmail}"/>
+					<!-- All Devices -->
+					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
+						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox>
+				<!-- <Toolbar design="Transparent" style="Clear">
+					<Select class="sapUiTinyMarginBegin"/>
+					<ToolbarSpacer/>
+					<Button text="{i18n>btnMakeAppointment}" press="handleAppointmentCreate"
+						icon="{i18n>iAppointment}" type="Emphasized" class="sapUiTinyMarginEnd"/>
+				</Toolbar> -->
+				<SinglePlanningCalendar
+					enableAppointmentsCreate="true"
+					fullDay="false" startHour="8" endHour="20"
+					startDate="{path: '/startDate'}"
+					stickyMode="NavBarAndColHeaders"
+					appointments="{path: '/appointments'}"
+					class="phCalendar sapUiSmallMarginTop">
+					<actions>
+						<Button text="{i18n>btnMakeAppointment}" press="handleAppointmentCreate"
+						icon="{i18n>iAppointment}" type="Emphasized" class=""/>
+					</actions>
+					<views>
+						<SinglePlanningCalendarDayView key="DayView" title="Day" />
+						<SinglePlanningCalendarWorkWeekView key="WorkWeekView" title="Work Week"/>
+						<SinglePlanningCalendarWeekView key="WeekView" title="Week"/>
+						<SinglePlanningCalendarView key="View" title="View"/>
+						<SinglePlanningCalendarMonthView key="MonthView" title="Month" />
+					</views>
+					<appointments>
+						<unified:CalendarAppointment
+							title= "{title}"
+							text= "{text}"
+							type= "{type}"
+							icon= "{icon}"
+							startDate= "{startDate}"
+							endDate= "{endDate}">
+						</unified:CalendarAppointment>
+					</appointments>
+				</SinglePlanningCalendar>
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
 </mvc:View>
