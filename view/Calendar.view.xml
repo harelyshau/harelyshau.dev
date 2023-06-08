@@ -29,25 +29,18 @@
 					<Button text="{i18n>btnMakeAppointment}" press="handleAppointmentCreate"
 						icon="{i18n>iAppointment}" type="Emphasized" class="sapUiTinyMarginEnd"/>
 				</Toolbar> -->
-				<SinglePlanningCalendar
-					enableAppointmentsCreate="true"
-					fullDay="false" startHour="8" endHour="20"
-					startDate="{/StartDate}"
-					stickyMode="NavBarAndColHeaders"
-					appointments="{/Appointments}"
+				<SinglePlanningCalendar id="calendar" busy="{calendarView>/Busy}"
+					fullDay="{calendarView>/FullDay}" startDate="{calendarView>/StartDate}"
+					startHour="{calendarView>/StartHour}" endHour="{calendarView>/EndHour}"
+					stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
 					startDateChange="onStartDateChange"
+					moreLinkPress="onMoreLinkPress"
+					enableAppointmentsCreate="true"
 					class="phCalendar sapUiSmallMarginTop">
 					<actions>
 						<Button text="{i18n>btnMakeAppointment}" press="onPressTest"
 						icon="{i18n>iAppointment}" type="Emphasized" class=""/>
 					</actions>
-					<views>
-						<SinglePlanningCalendarDayView key="DayView" title="Day" />
-						<SinglePlanningCalendarWorkWeekView key="WorkWeekView" title="Work Week"/>
-						<SinglePlanningCalendarWeekView key="WeekView" title="Week"/>
-						<!-- <SinglePlanningCalendarView key="View" title="View"/> -->
-						<SinglePlanningCalendarMonthView key="MonthView" title="Month" />
-					</views>
 					<appointments>
 						<unified:CalendarAppointment
 							title= "{Name}"

@@ -23,22 +23,31 @@ sap.ui.define([
 
             const sFilePath = `pharelyshau/resource/data/Resume_${sLanguage}.json`;
             const oModel = new JSONModel(sap.ui.require.toUrl(sFilePath));
+            oModel.setDefaultBindingMode("OneWay");
             return oModel;
         },
 
         createCalendarModel() {
+            const oData = {
+                Email: "pavel@harelyshau.dev",
+                Appointments: []
+            };
+            return new JSONModel(oData);
+        },
+
+        createCalendarViewModel() {
             const oStartDate = new Date();
             const oEndDate = new Date();
             oStartDate.setHours(0, 0, 0);
             oEndDate.setHours(23, 59, 59);
+
             const oData = {
-                Email: "pavel@harelyshau.dev",
-                FullDay: false,
-                StartDate: oStartDate,
-                EndDate: oEndDate,
+                Busy : true,
+                FullDay : false,
                 StartHour: 8,
                 EndHour: 21,
-                Appointments: []
+                StartDate : oStartDate,
+                EndDate : oEndDate
             };
             return new JSONModel(oData);
         }
