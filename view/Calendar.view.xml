@@ -37,7 +37,7 @@
 					appointments="{path: '/appointments'}"
 					class="phCalendar sapUiSmallMarginTop">
 					<actions>
-						<Button text="{i18n>btnMakeAppointment}" press="handleAppointmentCreate"
+						<Button text="{i18n>btnMakeAppointment}" press="onPressTest"
 						icon="{i18n>iAppointment}" type="Emphasized" class=""/>
 					</actions>
 					<views>

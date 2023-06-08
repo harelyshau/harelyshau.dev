@@ -3,18 +3,21 @@
     "sap.app": {
         "id": "pharelyshau",
         "type": "application",
-        "i18n": {
-			"bundleUrl": "i18n/i18n.properties",
-			"supportedLocales": ["en", "de", "ru"],
-			"fallbackLocale": "en"
-		},
         "applicationVersion": {
             "version": "1.0.0"
         },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
+        "i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": ["en", "de", "ru"],
+			"fallbackLocale": "en"
+		},
         "dataSources": {
-
+            "youTubeAPI": {
+                "uri": "/youTubeURL/youtube/v3/playlistItems?part=contentDetails%2Csnippet&playlistId=PL6RpkC85SLQBM78mD6AiJ1vKlSB7OWtUz&key=APIKEY",
+                "type": "JSON"
+            }
         }
     },
     "sap.ui": {
