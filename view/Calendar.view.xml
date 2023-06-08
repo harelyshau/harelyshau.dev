@@ -32,9 +32,10 @@
 				<SinglePlanningCalendar
 					enableAppointmentsCreate="true"
 					fullDay="false" startHour="8" endHour="20"
-					startDate="{path: '/startDate'}"
+					startDate="{/StartDate}"
 					stickyMode="NavBarAndColHeaders"
-					appointments="{path: '/appointments'}"
+					appointments="{/Appointments}"
+					startDateChange="onStartDateChange"
 					class="phCalendar sapUiSmallMarginTop">
 					<actions>
 						<Button text="{i18n>btnMakeAppointment}" press="onPressTest"
@@ -44,17 +45,17 @@
 						<SinglePlanningCalendarDayView key="DayView" title="Day" />
 						<SinglePlanningCalendarWorkWeekView key="WorkWeekView" title="Work Week"/>
 						<SinglePlanningCalendarWeekView key="WeekView" title="Week"/>
-						<SinglePlanningCalendarView key="View" title="View"/>
+						<!-- <SinglePlanningCalendarView key="View" title="View"/> -->
 						<SinglePlanningCalendarMonthView key="MonthView" title="Month" />
 					</views>
 					<appointments>
 						<unified:CalendarAppointment
-							title= "{title}"
+							title= "{Name}"
 							text= "{text}"
 							type= "{type}"
 							icon= "{icon}"
-							startDate= "{startDate}"
-							endDate= "{endDate}">
+							startDate= "{StartDate}"
+							endDate= "{EndDate}">
 						</unified:CalendarAppointment>
 					</appointments>
 				</SinglePlanningCalendar>

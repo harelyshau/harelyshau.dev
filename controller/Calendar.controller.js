@@ -1,6 +1,7 @@
 sap.ui.define([
     "./BaseController",
-], (BaseController) => {
+    "../model/models",
+], (BaseController, models) => {
 
     "use strict"
 
@@ -8,13 +9,13 @@ sap.ui.define([
 
         onInit() {
             this.loadGoogleAPI();
+            // set the calendar model
+            this.setModel(models.createCalendarModel());
         },
 
 
         onPressTest() {
-            this.loadGoogleAPI();
-
-
+            console.log("2")
             // $.ajax({
             //     url: "https://reqres.in/api/products/3",
             //     success: function (sResult) {
@@ -23,46 +24,67 @@ sap.ui.define([
             // });
         },
 
+        onStartDateChange() {
+            const oStartDate = this.getModel().getProperty("/StartDate");
+            const oEndDate = new Date(oStartDate);
+            oEndDate.setHours(23, 59, 59);
+            this.getModel().setProperty("/EndDate", oEndDate);
+            this.getAppointments();
+        },
+
+        // Google Calendar API
+
         loadGoogleAPI() {
             const script = document.createElement('script');
             script.src = 'https://apis.google.com/js/api.js';
 
             script.onload = () => {
                 gapi.load('client', () => {
-                    this.initGoogleAPI();
+                    this.initGoogleCalendarAPI();
                 });
             };
 
             document.head.appendChild(script);
         },
 
-        initGoogleAPI() {
-            const sApiKey = "AIzaSyD2O1sxa8AcJxvF0XQko-TwBD4TwdOv0SM";
+        initGoogleCalendarAPI() {
+            const sGoogleApiKey = "AIzaSyD2O1sxa8AcJxvF0XQko-TwBD4TwdOv0SM";
             gapi.client.init({
-                apiKey: sApiKey,
+                apiKey: sGoogleApiKey,
                 discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
                 scope: 'https://www.googleapis.com/auth/calendar.readonly'
             }).then(() => {
                 this.getAppointments();
-            }, (error) => {
-                console.error('Error initializing Google Calendar API:', error);
+            }, (oError) => {
+                console.error('Error initializing Google Calendar API:', oError);
             });
         },
 
         getAppointments() {
             gapi.client.calendar.events.list({
-                calendarId: 'pavel@harelyshau.dev',
-                timeMin: (new Date()).toISOString(),
-                showDeleted: false,
+                calendarId: this.getModel().getProperty("/Email"),
+                timeMin: this.getModel().getProperty("/StartDate").toISOString(),
+                timeMax: this.getModel().getProperty("/EndDate").toISOString(),
                 singleEvents: true,
-                maxResults: 10,
-                orderBy: 'startTime'
-            }).then(function (response) {
-                const aAppointments = response.result.items;
-                console.log(aAppointments);
-            }, function (error) {
-                console.error('Error fetching events:', error);
+                maxResults: 30
+            }).then((oResponse) => {
+                const aAppointments = oResponse.result.items;
+                this.setAppoitments(aAppointments);
+            }, (oError) => {
+                console.error('Error fetching events:', oError);
             });
+        },
+
+        setAppoitments(aAppointments) {
+            const aFormattedAppointments = aAppointments.map(oAppoinment => {
+                return {
+                    Name: "Busy",
+                    StartDate: new Date(oAppoinment.start.dateTime),
+                    EndDate: new Date(oAppoinment.end.dateTime)
+                }
+            });
+            this.getModel().setProperty("/Appointments", aFormattedAppointments);
         }
+
     });
 });
