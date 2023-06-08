@@ -42,12 +42,12 @@ sap.ui.define([
             oEndDate.setHours(23, 59, 59);
 
             const oData = {
-                Busy : true,
-                FullDay : false,
-                StartHour: 8,
-                EndHour: 21,
-                StartDate : oStartDate,
-                EndDate : oEndDate
+                busy : true,
+                fullDay : localStorage.getItem("fullDay") ?? false,
+                startHour: 8,
+                endHour: 22,
+                startDate : oStartDate,
+                endDate : oEndDate
             };
             return new JSONModel(oData);
         }

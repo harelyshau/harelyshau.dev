@@ -27,7 +27,8 @@ sap.ui.define([
 
 		// HEADER
 		onPressSendEmail: function () {
-			const sEmail = this.getModel("resume").getProperty("/Email");
+			const oModel = this.getModel("resume") ?? this.getModel();
+			const sEmail = oModel.getProperty("/Email");
 			sap.m.URLHelper.triggerEmail(sEmail, "Email from harelyshau.dev website");
 		},
 

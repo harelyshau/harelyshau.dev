@@ -1,9 +1,12 @@
 sap.ui.define([
     "./BaseController",
+    "sap/m/SinglePlanningCalendarDayView",
+    "sap/m/SinglePlanningCalendarWorkWeekView",
+    "sap/m/SinglePlanningCalendarMonthView",
     "../fragment/Calendar/TwoDaysView",
     "../fragment/Calendar/ThreeDaysView",
     "../model/models",
-], (BaseController, TwoDaysView, ThreeDaysView, models) => {
+], (BaseController, DayView, WorkWeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
 
     "use strict"
 
@@ -20,15 +23,9 @@ sap.ui.define([
             this.addCalendarViews();
         },
 
-
         onPressTest() {
-            console.log("2")
-            // $.ajax({
-            //     url: "https://reqres.in/api/products/3",
-            //     success: function (sResult) {
-            //         console.log(sResult);
-            //     }
-            // });
+            const a = 1;
+            console.log(a);
         },
 
         onStartDateChange() {
@@ -38,16 +35,10 @@ sap.ui.define([
 
         updateEndDate() {
             const oViewModel = this.getModel("calendarView");
-            const oStartDate = oViewModel.getProperty("/StartDate");
+            const oStartDate = oViewModel.getProperty("/startDate");
             const oEndDate = new Date(oStartDate);
             oEndDate.setHours(23, 59, 59);
-            oViewModel.setProperty("/EndDate", oEndDate);
-        },
-
-        onMoreLinkPress(oEvent) {
-            const oDate = oEvent.getParameter("date");
-            const oCalendar = oEvent.getSource();
-			oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
+            oViewModel.setProperty("/endDate", oEndDate);
         },
 
         // Google Calendar API
@@ -84,15 +75,15 @@ sap.ui.define([
             const oViewModel = this.getModel("calendarView");
             gapi.client.calendar.events.list({
                 calendarId: this.getModel().getProperty("/Email"),
-                timeMin: oViewModel.getProperty("/StartDate").toISOString(),
-                timeMax: oViewModel.getProperty("/EndDate").toISOString(),
+                timeMin: oViewModel.getProperty("/startDate").toISOString(),
+                timeMax: oViewModel.getProperty("/endDate").toISOString(),
                 singleEvents: true,
                 maxResults: 250 // max value
             }).then((oResponse) => {
                 const aAppointments = oResponse.result.items;
                 this.setAppoitments(aAppointments);
                 console.log(aAppointments)
-                oViewModel.setProperty("/Busy", false);
+                oViewModel.setProperty("/busy", false);
             }, (oError) => {
                 console.error('Error fetching events:', oError);
             });
@@ -118,10 +109,7 @@ sap.ui.define([
             const bDevicePhone = oDeviceModel.getProperty("/system/phone");
             const bDeviceSmallWidth = oDeviceModel.getProperty("/resize/width") <= 550;
 
-            const oDayView = new sap.m.SinglePlanningCalendarDayView({
-                title: "Day",
-                key: "Day"
-            });
+            const oDayView = new DayView({title: "Day", key: "Day"});
             oCalendar.addView(oDayView);
 
             // Add sprecific views for mobile and small size screens
@@ -138,16 +126,16 @@ sap.ui.define([
                 oCalendar.addView(oThreeDaysView);
             }
 
-            const oWorkWeekView = new sap.m.SinglePlanningCalendarWorkWeekView({
-                key: "WorkWeek",
-                title: "Work Week"
-            });
-            const oMonthView = new sap.m.SinglePlanningCalendarMonthView({
-                key: "Month",
-                title: "Month"
-            });
+            const oWorkWeekView = new WorkWeekView({key: "WorkWeek", title: "Work Week"});
+            const oMonthView = new MonthView({key: "Month",title: "Month"});
             oCalendar.addView(oWorkWeekView);
             oCalendar.addView(oMonthView);
+        },
+
+        onMoreLinkPress(oEvent) {
+            const oDate = oEvent.getParameter("date");
+            const oCalendar = oEvent.getSource();
+			oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
         }
 
     });
