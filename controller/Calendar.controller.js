@@ -2,11 +2,12 @@ sap.ui.define([
     "./BaseController",
     "sap/m/SinglePlanningCalendarDayView",
     "sap/m/SinglePlanningCalendarWorkWeekView",
+    "sap/m/SinglePlanningCalendarWorkWeekView",
     "sap/m/SinglePlanningCalendarMonthView",
     "../fragment/Calendar/TwoDaysView",
     "../fragment/Calendar/ThreeDaysView",
     "../model/models",
-], (BaseController, DayView, WorkWeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
+], (BaseController, DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
 
     "use strict"
 
@@ -94,9 +95,9 @@ sap.ui.define([
             }).then((oResponse) => {
                 const aAppointments = oResponse.result.items;
                 this.setAppoitments(aAppointments);
-                console.log(aAppointments)
                 oViewModel.setProperty("/busy", false);
             }, (oError) => {
+                oViewModel.setProperty("/busy", false);
                 console.error('Error fetching events:', oError);
             });
         },
@@ -119,28 +120,34 @@ sap.ui.define([
             const oCalendar = this.byId("calendar");
             const oDeviceModel = this.getOwnerComponent().getModel("device");
             const bDevicePhone = oDeviceModel.getProperty("/system/phone");
-            const bDeviceSmallWidth = oDeviceModel.getProperty("/resize/width") <= 550;
+            const bDeviceSmallWidth = oDeviceModel.getProperty("/resize/width") <= 620;
 
-            const oDayView = new DayView({title: "Day", key: "Day"});
+            const oDayView = new DayView({key: "day", title: "Day"});
             oCalendar.addView(oDayView);
 
             // Add sprecific views for mobile and small size screens
             if (bDevicePhone || bDeviceSmallWidth) {
                 const oTwoDaysView = new TwoDaysView({
 					title: "2 Days",
-					key: "2Days"
+					key: "2days"
 				});
                 const oThreeDaysView = new ThreeDaysView({
 					title: "3 Days",
-					key: "3Days"
+					key: "3days"
 				});
                 oCalendar.addView(oTwoDaysView);
                 oCalendar.addView(oThreeDaysView);
             }
 
-            const oWorkWeekView = new WorkWeekView({key: "WorkWeek", title: "Work Week"});
-            const oMonthView = new MonthView({key: "Month",title: "Month"});
+            const oWorkWeekView = new WorkWeekView({key: "workWeek", title: "Work Week"});
             oCalendar.addView(oWorkWeekView);
+            // add week view for desktop device
+            if (!bDevicePhone && !bDeviceSmallWidth) {
+                const oWeekView = new WeekView({key: "week", title: "Work Week"});
+                oCalendar.addView(oWeekView);
+            }
+
+            const oMonthView = new MonthView({key: "month", title: "Month"});
             oCalendar.addView(oMonthView);
         },
 
@@ -148,6 +155,15 @@ sap.ui.define([
             const oDate = oEvent.getParameter("date");
             const oCalendar = oEvent.getSource();
 			oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
+        },
+
+        onPressToggleFullDay(oEvent) {
+            const bPressed = oEvent.getSource().getProperty("pressed");
+            if (bPressed) {
+                localStorage.setItem("fullDay", bPressed);
+            } else {
+                localStorage.removeItem("fullDay");
+            }
         }
 
     });

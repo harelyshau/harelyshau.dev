@@ -19,6 +19,8 @@ sap.ui.define([], function () {
             // write and apply theme
             if (sTheme) {
                 localStorage.setItem("theme", sTheme);
+            } else {
+                localStorage.removeItem("theme");
             }
             sap.ui.getCore().applyTheme(sThemeSAP);
         },

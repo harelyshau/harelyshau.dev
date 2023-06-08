@@ -43,8 +43,10 @@
 					enableAppointmentsCreate="true"
 					class="phCalendar sapUiSmallMarginTop">
 					<actions>
-						<Button text="{i18n>btnMakeAppointment}" press="onPressTest"
-						icon="{i18n>iAppointment}" type="Emphasized" class=""/>
+						<ToggleButton tooltip="{= ${calendarView>/fullDay} ? 'Show Working Hours' : 'Show Full Day' }" icon="sap-icon://create-entry-time" press="onPressToggleFullDay"
+							pressed="{calendarView>/fullDay}"/>
+						<Button text="{= ${device>/system/phone} || 360 >= ${device>/resize/width}  ? 'Create' : ${i18n>btnMakeAppointment} }" press="onPressTest"
+							icon="{i18n>iAppointment}" type="Emphasized"/>
 					</actions>
 					<appointments>
 						<unified:CalendarAppointment

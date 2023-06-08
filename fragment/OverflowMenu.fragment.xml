@@ -20,7 +20,7 @@
                 icon="{= ${appView>/theme} === 'sap_horizon' || ${appView>/theme} === 'sap_horizon_hcw'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
             <MenuItem text="{i18n>btnHighContrastBlackMode}" press="onPressSetTheme('sap_horizon_hcb')"
                 icon="{= ${appView>/theme} !== 'sap_horizon' &amp;&amp; ${appView>/theme} !== 'sap_horizon_hcw'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
-            <MenuItem text="{i18n>btnAutoMode}" press="onPressSetTheme('auto')"
+            <MenuItem text="{i18n>btnAutoMode}" press="onPressSetTheme(null)"
                 icon="{i18n>iSystemSettings}"/>
         </MenuItem>
         <MenuItem text="{i18n>btnLanguage}" icon="{i18n>iLanguage}">
