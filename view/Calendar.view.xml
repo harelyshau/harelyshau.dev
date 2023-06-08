@@ -8,10 +8,10 @@
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="Calendar" wrapping="true"/>
+					<Title text="Pavel's Calendar" wrapping="true"/>
 				</f:heading>
 				<f:snappedContent>
-						<Label text="Shows appointments for pavel@harelyshau.dev" wrapping="true"/>
+						<Label text="Shows appointments for {/Email}" wrapping="true"/>
 					</f:snappedContent>
 					<f:expandedContent>
 						<Label text="Shows appointments for pavel@harelyshau.dev" wrapping="true"/>
@@ -36,8 +36,7 @@
 						icon="{i18n>iAppointment}" type="Emphasized" class="sapUiTinyMarginEnd"/>
 				</Toolbar> -->
 				<SinglePlanningCalendar id="calendar" busy="{calendarView>/busy}"
-					fullDay="{calendarView>/fullDay}" startDate="{calendarView>/startDate}"
-					startHour="{calendarView>/startHour}" endHour="{calendarView>/endHour}"
+					fullDay="{calendarView>/fullDay}" startHour="{calendarView>/startHour}" endHour="{calendarView>/endHour}"
 					stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
 					startDateChange="onStartDateChange"
 					moreLinkPress="onMoreLinkPress"

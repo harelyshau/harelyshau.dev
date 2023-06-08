@@ -29,16 +29,26 @@ sap.ui.define([
         },
 
         onStartDateChange() {
-            this.updateEndDate();
+            this.updateDateRange();
             this.getAppointments();
         },
 
-        updateEndDate() {
+        updateDateRange() {
             const oViewModel = this.getModel("calendarView");
-            const oStartDate = oViewModel.getProperty("/startDate");
-            const oEndDate = new Date(oStartDate);
+            const oSelectedDate = this.byId("calendar").getStartDate();
+            const oStartDate = new Date(oSelectedDate.getTime());
+            const oEndDate = new Date(oSelectedDate.getTime());
+
+            oStartDate.setDate(1);
+            oStartDate.setHours(0, 0, 0);
+            oStartDate.setMonth(oStartDate.getMonth() - 1);
+
             oEndDate.setHours(23, 59, 59);
-            oViewModel.setProperty("/endDate", oEndDate);
+            oEndDate.setMonth(oEndDate.getMonth() + 2);
+            oEndDate.setDate(0);
+
+            oViewModel.setProperty("/timeMin", oStartDate);
+            oViewModel.setProperty("/timeMax", oEndDate);
         },
 
         // Google Calendar API
@@ -63,6 +73,7 @@ sap.ui.define([
                 discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
                 scope: 'https://www.googleapis.com/auth/calendar.readonly'
             }).then(() => {
+                this.updateDateRange();
                 this.getAppointments();
             }, (oError) => {
                 console.error('Error initializing Google Calendar API:', oError);
@@ -73,10 +84,11 @@ sap.ui.define([
 
         getAppointments() {
             const oViewModel = this.getModel("calendarView");
+            oViewModel.setProperty("/busy", true);
             gapi.client.calendar.events.list({
                 calendarId: this.getModel().getProperty("/Email"),
-                timeMin: oViewModel.getProperty("/startDate").toISOString(),
-                timeMax: oViewModel.getProperty("/endDate").toISOString(),
+                timeMin: oViewModel.getProperty("/timeMin").toISOString(),
+                timeMax: oViewModel.getProperty("/timeMax").toISOString(),
                 singleEvents: true,
                 maxResults: 250 // max value
             }).then((oResponse) => {
