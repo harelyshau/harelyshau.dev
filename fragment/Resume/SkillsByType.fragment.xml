@@ -2,13 +2,13 @@
     <VBox>
         <!-- Device Laptop -->
         <HBox visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550 }">
-            <Label text="{resume>Type}:" width="12rem"/>
-            <Text text="{resume>Skills}" />
+            <Label text="{Type}:" width="12rem"/>
+            <Text text="{Skills}" />
         </HBox>
         <!-- Device Mobile -->
         <VBox visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} }">
-            <Label text="{resume>Type}:" />
-            <Text text="{resume>Skills}" />
+            <Label text="{Type}:" />
+            <Text text="{Skills}" />
         </VBox>
     </VBox>
 </core:FragmentDefinition>

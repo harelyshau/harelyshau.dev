@@ -10,7 +10,7 @@
 			<f:title>
 				<f:DynamicPageTitle>
 					<f:heading>
-						<Title text="{resume>/FirstName} {resume>/LastName}" wrapping="true"/>
+						<Title text="{/FirstName} {/LastName}" wrapping="true"/>
 					</f:heading>
 					<f:snappedContent>
 						<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
@@ -38,13 +38,13 @@
                     <Panel>
                         <VBox>
                             <Title text="{i18n>ttlSummary}" wrapping="true" class="sapUiTinyMarginBottom"/>
-                            <Text text="{resume>/Summary}"/>
+                            <Text text="{/Summary}"/>
                         </VBox>
                     </Panel>
                     <!-- SKILLS -->
                     <Panel class="sapUiSmallMarginTop">
                         <Title text="{i18n>ttlSkills}" wrapping="true"/>
-                        <VBox items="{resume>/SkillsByTypes}">
+                        <VBox items="{/SkillsByTypes}">
 							<core:Fragment fragmentName="pharelyshau.fragment.Resume.SkillsByType"
 								type="XML" class="sapUiTinyMarginTop"/>
 						</VBox>
@@ -52,7 +52,7 @@
                     <!-- EXPERIENCE -->
                     <Panel class="sapUiSmallMarginTop">
                         <Title text="{i18n>ttlExperience}" wrapping="true"/>
-                        <VBox items="{resume>/Experience}">
+                        <VBox items="{/Experience}">
 							<core:Fragment fragmentName="pharelyshau.fragment.Resume.Experience"
 								type="XML" class="sapUiTinyMarginTop"/>
 						</VBox>
@@ -60,7 +60,7 @@
                     <!-- EDUCATION -->
 					<Panel class="sapUiSmallMarginTop">
 						<Title text="{i18n>ttlEducation}" wrapping="true"/>
-						<VBox items="{resume>/Education}">
+						<VBox items="{/Education}">
 							<core:Fragment fragmentName="pharelyshau.fragment.Resume.Education"
 								type="XML" class="sapUiTinyMarginTop"/>
 						</VBox>
@@ -68,29 +68,29 @@
                     <!-- PROFESSIONAL DEVELOPMENT -->
 					<Panel class="sapUiSmallMarginTop">
 						<Title text="{i18n>ttlCourses}" wrapping="true"/>
-						<VBox items="{resume>/Courses}">
-							<Text text="•&#160; {resume>Name}, {resume>Year}" class="sapUiTinyMarginTop"/>
+						<VBox items="{/Courses}">
+							<Text text="•&#160; {Name}, {Year}" class="sapUiTinyMarginTop"/>
 						</VBox>
 					</Panel>
                     <!-- ACHIEVEMENTS -->
 					<Panel class="sapUiSmallMarginTop">
 						<Title text="{i18n>ttlAchievements}" wrapping="true"/>
-						<VBox items="{resume>/Achievements}">
+						<VBox items="{/Achievements}">
 							<HBox class="sapUiTinyMarginTop">
-								<core:Icon src="{resume>Icon}" class="sapUiTinyMarginEnd"/>
-								<FormattedText htmlText="{resume>Name} 
-									{= ${resume>Link} ? '(' : ''}{
-										parts: ['resume>Link', 'i18n>linkClickToSeeProfile'],
+								<core:Icon src="{Icon}" class="sapUiTinyMarginEnd"/>
+								<FormattedText htmlText="{Name} 
+									{= ${Link} ? '(' : ''}{
+										parts: ['Link', 'i18n>linkClickToSeeProfile'],
 										formatter: '.formatter.textLink'
-									}{= ${resume>Link} ? ')' : ''} "/>
+									}{= ${Link} ? ')' : ''} "/>
 							</HBox>
 						</VBox>
 					</Panel>
 					<!-- LANGUAGES -->
 					<Panel class="sapUiSmallMarginTop">
 						<Title text="{i18n>ttlLanguages}" wrapping="true"/>
-						<VBox items="{resume>/Languages}">
-							<Text text="{resume>Icon}&#160; {resume>Name} – {resume>Level}"
+						<VBox items="{/Languages}">
+							<Text text="{Icon}&#160; {Name} – {Level}"
 								class="sapUiTinyMarginTop"/>
 						</VBox>
 					</Panel>

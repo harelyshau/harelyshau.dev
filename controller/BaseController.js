@@ -27,7 +27,7 @@ sap.ui.define([
 
 		// HEADER
 		onPressSendEmail: function () {
-			const oModel = this.getModel("resume") ?? this.getModel();
+			const oModel = this.getModel();
 			const sEmail = oModel.getProperty("/Email");
 			sap.m.URLHelper.triggerEmail(sEmail, "Email from harelyshau.dev website");
 		},
@@ -82,7 +82,7 @@ sap.ui.define([
                 return false;
             }
 
-			const oBindingContext = oDialog.getBindingContext("resume");
+			const oBindingContext = oDialog.getBindingContext();
             const bSamePath = sBinndingPath && oBindingContext ? oBindingContext.getPath() === sBinndingPath : true;
 			const bOpen = oDialog.isOpen();
             return bOpen && bSamePath;

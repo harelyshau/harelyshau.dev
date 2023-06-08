@@ -15,7 +15,7 @@ sap.ui.define([
 
         onInit: function () {
             // set the resume model
-            this.setModel(models.createResumeModel(), "resume");
+            this.setModel(models.createResumeModel());
         },
 
         // Header
@@ -39,12 +39,12 @@ sap.ui.define([
                 }).then((oPopover) => {
                     this.getView().addDependent(oPopover);
                     this._oRelocationPopover = oPopover;
-                    oPopover.bindElement({ path: sBindingPath, model: "resume" });
+                    oPopover.bindElement(sBindingPath);
                     oPopover.openBy(oControl);
                     return oPopover;
                 });
             } else if (!this.isOpenDialog(this._oRelocationPopover, sBindingPath)) {
-                this._oRelocationPopover.bindElement({ path: sBindingPath, model: "resume" });
+                this._oRelocationPopover.bindElement(sBindingPath);
                 this._oRelocationPopover.openBy(oControl);
             } else {
                 this._oRelocationPopover.close();
@@ -58,7 +58,7 @@ sap.ui.define([
         // Page Content
         onPressOpenCompanyPopover: function (oEvent) {
             const oControl = oEvent.getSource();
-            const sBindingPath = oControl.getBindingContext("resume").getPath() + "/Company";
+            const sBindingPath = oControl.getBindingContext().getPath() + "/Company";
 
             if (!this._oCompanyPopover) {
                 Fragment.load({
@@ -67,12 +67,12 @@ sap.ui.define([
                 }).then((oPopover) => {
                     this.getView().addDependent(oPopover);
                     this._oCompanyPopover = oPopover;
-                    oPopover.bindElement({ path: sBindingPath, model: "resume" });
+                    oPopover.bindElement(sBindingPath);
                     oPopover.openBy(oControl);
                     return oPopover;
                 });
             } else if (!this.isOpenDialog(this._oCompanyPopover, sBindingPath)) {
-                this._oCompanyPopover.bindElement({ path: sBindingPath, model: "resume" });
+                this._oCompanyPopover.bindElement(sBindingPath);
                 this._oCompanyPopover.openBy(oControl);
             } else {
                 this._oCompanyPopover.close();
