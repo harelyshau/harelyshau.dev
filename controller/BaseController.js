@@ -82,8 +82,7 @@ sap.ui.define([
                 return false;
             }
 
-			const oBindingContext = oDialog.getBindingContext();
-            const bSamePath = sBinndingPath && oBindingContext ? oBindingContext.getPath() === sBinndingPath : true;
+            const bSamePath = oDialog.getBindingContext()?.getPath() === sBinndingPath;
 			const bOpen = oDialog.isOpen();
             return bOpen && bSamePath;
         }

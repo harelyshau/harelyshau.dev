@@ -1,3 +1,4 @@
+/* RESUME */
 .phResumePageContent {
     max-width: 750px;
     margin-left: auto;
@@ -16,6 +17,33 @@
     height: 1.2rem;
 }
 
-.phCalendar .sapMPCHeadNavToolbar{
+.phCalendar .sapMPCHeadNavToolbar {
     border-radius: 0 !important;
+}
+
+/* CALENDAR */
+
+.phCalendar .sapMPCHeadActionsToolbar {
+    padding-right: 0;
+}
+
+@media (max-width: 600px) {
+    #container-pharelyshau---calendar--calendar-Header-ActionsToolbar-overflowButton, /* make padding for calenar default button */
+    .phResponsiveMarginEnd {
+        margin-right: 1rem !important;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1439px) {
+    #container-pharelyshau---calendar--calendar-Header-ActionsToolbar-overflowButton, /* make padding for calenar default button */
+    .phResponsiveMarginEnd {
+        margin-right: 2rem !important;
+    }
+}
+
+@media (min-width: 1440px) {
+    #container-pharelyshau---calendar--calendar-Header-ActionsToolbar-overflowButton, /* make padding for calenar default button */
+    .phResponsiveMarginEnd {
+        margin-right: 3rem !important;
+    }
 }

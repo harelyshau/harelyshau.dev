@@ -2,7 +2,7 @@ sap.ui.define([
     "./BaseController",
     "sap/m/SinglePlanningCalendarDayView",
     "sap/m/SinglePlanningCalendarWorkWeekView",
-    "sap/m/SinglePlanningCalendarWorkWeekView",
+    "sap/m/SinglePlanningCalendarWeekView",
     "sap/m/SinglePlanningCalendarMonthView",
     "../fragment/Calendar/TwoDaysView",
     "../fragment/Calendar/ThreeDaysView",
@@ -143,7 +143,7 @@ sap.ui.define([
             oCalendar.addView(oWorkWeekView);
             // add week view for desktop device
             if (!bDevicePhone && !bDeviceSmallWidth) {
-                const oWeekView = new WeekView({key: "week", title: "Work Week"});
+                const oWeekView = new WeekView({key: "week", title: "Week"});
                 oCalendar.addView(oWeekView);
             }
 
