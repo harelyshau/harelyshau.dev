@@ -6,11 +6,11 @@ sap.ui.define([
 
     return {
 
-        getLanguage: function () {
+        getLanguage() {
             return localStorage.getItem("language");
         },
 
-        setLanguage: function (sLanguage) {
+        setLanguage(sLanguage) {
             // set up received language
             let sLanguageSAP = sLanguage ?? "auto";
             if (sLanguageSAP === "auto") {
@@ -31,7 +31,7 @@ sap.ui.define([
             Configuration.setLanguage(sLanguageSAP);
         },
 
-        initLanguage: function () {
+        initLanguage() {
             const sLanguage = this.getLanguage();
             this.setLanguage(sLanguage);
         }

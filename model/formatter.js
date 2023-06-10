@@ -5,7 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	// private scope
-	const getPluralForm = function(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
+	const getPluralForm = (nQuantity, sTextSingular, sTextPlural, sTextPlural2) => {
 		if (!nQuantity || nQuantity <= 0) {
 			return "";
 		}
@@ -31,7 +31,7 @@ sap.ui.define([
 
 	return {
 
-		textList: function (aValues) {
+		textList(aValues) {
 			if (!aValues) {
 				return "";
 			}
@@ -42,16 +42,16 @@ sap.ui.define([
 			return sResult;
 		},
 
-		stringDate: function (sDate) {
+		stringDate(sDate) {
 			if (!sDate || sDate === "Present") {
-				return this.getResourceBundle().getText("lPresent");
+				return this.i18n("lPresent");
 			}
 			return sap.ui.core.format.DateFormat.getDateInstance({
 				format: "yMMM"
 			}).format(new Date(sDate));
 		},
 
-		datesPeriod: function (sStartDate, sEndDate) {
+		datesPeriod(sStartDate, sEndDate) {
 			if (!sStartDate) {
 				return "";
 			}
@@ -67,13 +67,13 @@ sap.ui.define([
 				nYears--;
 				nMonths += 12;
 			}
-			let sResult = getPluralForm(nYears, this.getResourceBundle().getText("lYear"), this.getResourceBundle().getText("lYears"), this.getResourceBundle().getText("lYearPlural"));
+			let sResult = getPluralForm(nYears, this.i18n("lYear"), this.i18n("lYears"), this.i18n("lYearPlural"));
 			sResult += nMonths && nYears ? "\u00A0" : "";
-			sResult += getPluralForm(nMonths, this.getResourceBundle().getText("lMonth"), this.getResourceBundle().getText("lMonths"), this.getResourceBundle().getText("lMonthPlural"));
+			sResult += getPluralForm(nMonths, this.i18n("lMonth"), this.i18n("lMonths"), this.i18n("lMonthPlural"));
 			return sResult;
 		},
 
-		textLink: function (sLink, sText) {
+		textLink(sLink, sText) {
 			if (!sLink) {
 				return "";
 			}
@@ -86,7 +86,7 @@ sap.ui.define([
 		},
 
 		// UNUSED
-		numberUnit: function (sValue) {
+		numberUnit(sValue) {
 			if (!sValue) {
 				return "";
 			}

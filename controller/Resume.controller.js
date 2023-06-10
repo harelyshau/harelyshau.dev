@@ -13,22 +13,22 @@ sap.ui.define([
 
         formatter: formatter,
 
-        onInit: function () {
+        onInit() {
             // set the resume model
             this.setModel(models.createResumeModel());
         },
 
         // Header
-        onPressNavigateToCalendar: function() {
+        onPressNavigateToCalendar() {
             this.getRouter().navTo("calendar");
         },
 
-        onPressDownloadResume: function () {
+        onPressDownloadResume() {
             const sFileURL = "/resource/file/Resume Pavel Harelyshau.pdf";
             sap.m.URLHelper.redirect(sFileURL, true);
         },
 
-        onPressOpenRelocationPopover: function (oEvent) {
+        onPressOpenRelocationPopover(oEvent) {
             const oControl = oEvent.getSource();
             const sBindingPath = "/RelocationPreference";
 
@@ -51,12 +51,12 @@ sap.ui.define([
             }
         },
 
-        onPressCloseRelocationPopover: function() {
+        onPressCloseRelocationPopover() {
             this._oRelocationPopover.close();
         },
 
         // Page Content
-        onPressOpenCompanyPopover: function (oEvent) {
+        onPressOpenCompanyPopover(oEvent) {
             const oControl = oEvent.getSource();
             const sBindingPath = oControl.getBindingContext().getPath() + "/Company";
 
@@ -79,7 +79,7 @@ sap.ui.define([
             }
         },
 
-        onPressCloseCompanyPopover: function (oEvent) {
+        onPressCloseCompanyPopover(oEvent) {
             this._oCompanyPopover.close();
         }
 

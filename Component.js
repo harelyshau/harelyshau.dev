@@ -15,7 +15,7 @@ sap.ui.define([
             manifest: "json"
         },
 
-        init: function () {
+        init() {
             // call the base component's init function and create the App view
             UIComponent.prototype.init.apply(this, arguments);
 
@@ -32,12 +32,12 @@ sap.ui.define([
             themeHelper.initTheme();
         },
 
-        destroy: function () {
+        destroy() {
             // call the base component's destroy function
             UIComponent.prototype.destroy.apply(this, arguments);
         },
 
-        getContentDensityClass: function () {
+        getContentDensityClass() {
             if (this._sContentDensityClass === undefined) {
                 // check whether FLP has already set the content density class; do nothing in this case
                 // eslint-disable-next-line sap-no-proprietary-browser-api

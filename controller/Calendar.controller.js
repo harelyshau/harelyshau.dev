@@ -60,9 +60,7 @@ sap.ui.define([
             script.src = 'https://apis.google.com/js/api.js';
 
             script.onload = () => {
-                gapi.load('client', () => {
-                    this.initGoogleCalendarAPI();
-                });
+                gapi.load('client', this.initGoogleCalendarAPI.bind(this));
             };
 
             document.head.appendChild(script);
@@ -79,6 +77,16 @@ sap.ui.define([
                 this.getAppointments();
             }, (oError) => {
                 console.error('Error initializing Google Calendar API:', oError.error);
+            });
+        },
+
+        authGoogleCalendarAPI(oAccountKey) {
+            gapi.auth.authorize({
+                client_id: oAccountKey.client_id,
+                client_email: oAccountKey.client_email,
+                private_key: oAccountKey.private_key,
+                scope: "https://www.googleapis.com/auth/calendar.events",
+                immediate: true
             });
         },
 
@@ -118,15 +126,6 @@ sap.ui.define([
         },
 
         // Requests
-        authGoogleCalendarAPI(oAccountKey) {
-            gapi.auth.authorize({
-                client_id: oAccountKey.client_id,
-                client_email: oAccountKey.client_email,
-                private_key: oAccountKey.private_key,
-                scope: "https://www.googleapis.com/auth/calendar.events",
-                immediate: true
-            });
-        },
 
         async createAppointment() {
             try {
@@ -169,24 +168,23 @@ sap.ui.define([
         // Calendar settings
 
         addCalendarViews() {
-            const oResourceBundle = this.getResourceBundle();
             const oDeviceModel = this.getOwnerComponent().getModel("device");
             const oCalendar = this.byId("calendar");
             const bDevicePhone = oDeviceModel.getProperty("/system/phone");
             const bDeviceSmallWidth = oDeviceModel.getProperty("/resize/width") <= 800;
 
-            oCalendar.addView(new DayView({ key: "day", title: oResourceBundle.getText("ttlDay") }));
+            oCalendar.addView(new DayView({ key: "day", title: this.i18n("ttlDay") }));
             // Add views for mobile and small size screens
             if (bDevicePhone || bDeviceSmallWidth) {
-                oCalendar.addView(new TwoDaysView({ key: "2days", title: oResourceBundle.getText("ttl2Days") }));
-                oCalendar.addView(new ThreeDaysView({ key: "3days", title: oResourceBundle.getText("ttl3Days") }));
+                oCalendar.addView(new TwoDaysView({ key: "2days", title: this.i18n("ttl2Days") }));
+                oCalendar.addView(new ThreeDaysView({ key: "3days", title: this.i18n("ttl3Days") }));
             }
-            oCalendar.addView(new WorkWeekView({ key: "workWeek", title: oResourceBundle.getText("ttlWorkWeek") }));
+            oCalendar.addView(new WorkWeekView({ key: "workWeek", title: this.i18n("ttlWorkWeek") }));
             // Add week view for desktop device
             if (!bDevicePhone && !bDeviceSmallWidth) {
-                oCalendar.addView(new WeekView({ key: "week", title: oResourceBundle.getText("ttlWeek") }));
+                oCalendar.addView(new WeekView({ key: "week", title: this.i18n("ttlWeek") }));
             }
-            oCalendar.addView(new MonthView({ key: "month", title: oResourceBundle.getText("ttlMonth") }));
+            oCalendar.addView(new MonthView({ key: "month", title: this.i18n("ttlMonth") }));
         },
 
         onMoreLinkPress(oEvent) {

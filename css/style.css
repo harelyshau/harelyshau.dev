@@ -17,11 +17,11 @@
     height: 1.2rem;
 }
 
-.phCalendar .sapMPCHeadNavToolbar {
+/* CALENDAR */
+
+.phCalendar .sapMPCHeadNavToolbar { /* to remove borders on mobile device */
     border-radius: 0 !important;
 }
-
-/* CALENDAR */
 
 .phCalendar .sapMPCHeadActionsToolbar {
     padding-right: 0;

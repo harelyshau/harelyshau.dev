@@ -10,7 +10,7 @@ sap.ui.define([
 
         // Device Model
 
-        createDeviceModel: function () {
+        createDeviceModel() {
             const oModel = new JSONModel(Device);
             oModel.setDefaultBindingMode("OneWay");
             return oModel;
@@ -53,7 +53,7 @@ sap.ui.define([
         createCalendarViewModel() {
             const oData = {
                 busy: true,
-                fullDay: Boolean(localStorage.getItem("fullDay")),
+                fullDay: localStorage.getItem("fullDay") === "true",
                 startHour: 8,
                 endHour: 21,
                 timeMin: new Date(), // will change to 1st day of previous month

@@ -4,11 +4,11 @@ sap.ui.define([], function () {
 
     return {
 
-        getTheme: function () {
+        getTheme() {
             return localStorage.getItem("theme");
         },
 
-        setTheme: function (sTheme) {
+        setTheme(sTheme) {
             // set up received theme
             let sThemeSAP = sTheme ?? "auto";
             if (sThemeSAP === 'auto') {
@@ -25,7 +25,7 @@ sap.ui.define([], function () {
             sap.ui.getCore().applyTheme(sThemeSAP);
         },
 
-        initTheme: function () {
+        initTheme() {
             const sTheme = this.getTheme();
             this.setTheme(sTheme);
         }

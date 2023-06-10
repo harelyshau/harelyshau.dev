@@ -5,7 +5,7 @@ sap.ui.define([
    "use strict";
    return BaseController.extend("pharelyshau.controller.App", {
 
-      onInit: function () {
+      onInit() {
          // apply content density mode to root view
          this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
          // set view model

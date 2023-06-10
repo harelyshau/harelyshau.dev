@@ -9,30 +9,34 @@ sap.ui.define([
 
 	return Controller.extend("pharelyshau.controller.BaseController", {
 
-		getRouter: function () {
+		getRouter() {
 			return UIComponent.getRouterFor(this);
 		},
 
-		getModel: function (sName) {
+		getModel(sName) {
 			return this.getView().getModel(sName);
 		},
 
-		setModel: function (oModel, sName) {
+		setModel(oModel, sName) {
 			return this.getView().setModel(oModel, sName);
 		},
 
-		getResourceBundle: function () {
+		getResourceBundle() {
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
 		},
 
+		i18n(sKey) {
+			return this.getResourceBundle().getText(sKey);
+		},
+
 		// HEADER
-		onPressSendEmail: function () {
+		onPressSendEmail() {
 			const oModel = this.getModel();
 			const sEmail = oModel.getProperty("/Email");
 			sap.m.URLHelper.triggerEmail(sEmail, "Email from harelyshau.dev website");
 		},
 
-		onPressOpenOverflowMenu: function (oEvent) {
+		onPressOpenOverflowMenu(oEvent) {
 			const oButton = oEvent.getSource();
 
             if (!this._oOverflowMenu) {
@@ -50,18 +54,18 @@ sap.ui.define([
             }
         },
 
-		onPressSetTheme: function (sKey) {
+		onPressSetTheme(sKey) {
 			themeHelper.setTheme(sKey);
 			this.getModel("appView").setProperty("/theme", sap.ui.core.Configuration.getTheme());
 		},
 
-		onPressSetLanguage: function (sKey) {
+		onPressSetLanguage(sKey) {
 			languageHelper.setLanguage(sKey);
 			// need to refresh to change controls language
 			location.reload();
 		},
 
-		onPressShareLink: function () {
+		onPressShareLink() {
 			const sLink = window.location.href;
 			const oMessageToast = sap.m.MessageToast;
 			navigator.clipboard.writeText(sLink).then(() => {
@@ -71,13 +75,13 @@ sap.ui.define([
 			});
 		},
 
-		onPressShowCode: function() {
+		onPressShowCode() {
             const sWebsiteURL = "https://github.com/harelyshau/harelyshau.dev";
             sap.m.URLHelper.redirect(sWebsiteURL, true);
         },
 
 		// Dialogs
-        isOpenDialog: function (oDialog, sBinndingPath) {
+        isOpenDialog(oDialog, sBinndingPath) {
             if (!oDialog) {
                 return false;
             }
