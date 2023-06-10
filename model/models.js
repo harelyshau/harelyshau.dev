@@ -7,11 +7,16 @@ sap.ui.define([
     "use strict";
 
     return {
+
+        // Device Model
+
         createDeviceModel: function () {
             const oModel = new JSONModel(Device);
             oModel.setDefaultBindingMode("OneWay");
             return oModel;
         },
+
+        // Data Models
 
         createResumeModel() {
             let sLanguage = Configuration.getLanguage();
@@ -35,14 +40,24 @@ sap.ui.define([
             return new JSONModel(oData);
         },
 
+        // View Models
+
+        createAppViewModel() {
+            const oData = {
+                theme: sap.ui.core.Configuration.getTheme(),
+                page: ""
+            };
+            return new JSONModel(oData);
+        },
+
         createCalendarViewModel() {
             const oData = {
-                busy : true,
-                fullDay : Boolean(localStorage.getItem("fullDay")),
+                busy: true,
+                fullDay: Boolean(localStorage.getItem("fullDay")),
                 startHour: 8,
                 endHour: 21,
-                timeMin : new Date(), // will change to 1st day of previous month
-                timeMax : new Date() // will change to last day of next month
+                timeMin: new Date(), // will change to 1st day of previous month
+                timeMax: new Date() // will change to last day of next month
             };
             return new JSONModel(oData);
         }

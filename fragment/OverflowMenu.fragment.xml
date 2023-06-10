@@ -7,7 +7,8 @@
             text="{i18n>btnMakeAppointment}" press="onPressNavigateToCalendar" icon="{i18n>iAppointment}"/>
         <MenuItem visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} || (750 >= ${device>/resize/width} &amp;&amp; ${appView>/page} === 'resume') }"
             text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
-        <MenuItem visible="{= ${appView} === 'resume' }" text="{i18n>btnDownloadResume}"
+        <!-- TODO: Change visible only on resume page, when home page will be ready -->
+        <MenuItem visible="{= ${appView>/page} === 'resume' || ${appView>/page} === 'home'}" text="{i18n>btnDownloadResume}" 
             press="onPressDownloadResume" icon="{i18n>iDownload}"/>
         <!-- All Devices -->
         <MenuItem text="{i18n>btnApperance}" icon="{i18n>iApperance}" 

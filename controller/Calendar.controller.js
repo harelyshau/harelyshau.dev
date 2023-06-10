@@ -6,7 +6,7 @@ sap.ui.define([
     "sap/m/SinglePlanningCalendarMonthView",
     "../fragment/Calendar/TwoDaysView",
     "../fragment/Calendar/ThreeDaysView",
-    "../model/models",
+    "../model/models"
 ], (BaseController, DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
 
     "use strict"
@@ -27,6 +27,7 @@ sap.ui.define([
         onPressTest() {
             const a = 1;
             console.log(a);
+            this.createAppointment()
         },
 
         onStartDateChange() {
@@ -77,7 +78,7 @@ sap.ui.define([
                 this.updateDateRange();
                 this.getAppointments();
             }, (oError) => {
-                console.error('Error initializing Google Calendar API:', oError);
+                console.error('Error initializing Google Calendar API:', oError.error);
             });
         },
 
@@ -85,21 +86,23 @@ sap.ui.define([
 
         getAppointments() {
             const oViewModel = this.getModel("calendarView");
-            oViewModel.setProperty("/busy", true);
-            gapi.client.calendar.events.list({
+            const oParams = {
                 calendarId: this.getModel().getProperty("/Email"),
                 timeMin: oViewModel.getProperty("/timeMin").toISOString(),
                 timeMax: oViewModel.getProperty("/timeMax").toISOString(),
                 singleEvents: true,
                 maxResults: 250 // max value
-            }).then((oResponse) => {
-                const aAppointments = oResponse.result.items;
-                this.setAppoitments(aAppointments);
-                oViewModel.setProperty("/busy", false);
-            }, (oError) => {
-                oViewModel.setProperty("/busy", false);
-                console.error('Error fetching events:', oError);
-            });
+            }
+            oViewModel.setProperty("/busy", true);
+            gapi.client.calendar.events.list(oParams)
+                .then((oResponse) => {
+                    const aAppointments = oResponse.result.items;
+                    this.setAppoitments(aAppointments);
+                    oViewModel.setProperty("/busy", false);
+                }, (oError) => {
+                    console.error('Error fetching appointments:', oError);
+                    oViewModel.setProperty("/busy", false);
+                });
         },
 
         setAppoitments(aAppointments) {
@@ -114,47 +117,82 @@ sap.ui.define([
             this.getModel().setProperty("/Appointments", aFormattedAppointments);
         },
 
+        // Requests
+        authGoogleCalendarAPI(oAccountKey) {
+            gapi.auth.authorize({
+                client_id: oAccountKey.client_id,
+                client_email: oAccountKey.client_email,
+                private_key: oAccountKey.private_key,
+                scope: "https://www.googleapis.com/auth/calendar.events",
+                immediate: true
+            });
+        },
+
+        async createAppointment() {
+            try {
+                const sFilePath = "resource/data/ServiceAccountKey.json";
+                const oResponse = await fetch(sFilePath);
+                const oAccountKey = await oResponse?.json();
+                await this.authGoogleCalendarAPI(oAccountKey);
+                const oParams = {
+                    summary: "New Appointment",
+                    start: {
+                        dateTime: "2023-06-15T10:00:00", // Укажите дату и время начала встречи
+                        timeZone: "America/New_York" // Укажите временную зону
+                    },
+                    end: {
+                        dateTime: "2023-06-15T11:00:00", // Укажите дату и время окончания встречи
+                        timeZone: "America/New_York" // Укажите временную зону
+                    },
+                    attendees: [
+                        { email: "pavel@harelyshau.dev" },
+                        { email: "example2@example.com" }
+                    ]
+                };
+
+                gapi.client.calendar.events.insert({
+                    calendarId: "pavel@harelyshau.dev",
+                    resource: oParams
+                }).then((response) => {
+                    console.log("Appointment created:", response.result);
+                }, (error) => {
+                    console.error("Error creating appointment:", error);
+                });
+
+                // console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
+            } catch (oError) {
+                console.error('Error loading key:', oError);
+            }
+        },
+
+
         // Calendar settings
 
         addCalendarViews() {
-            const oCalendar = this.byId("calendar");
+            const oResourceBundle = this.getResourceBundle();
             const oDeviceModel = this.getOwnerComponent().getModel("device");
+            const oCalendar = this.byId("calendar");
             const bDevicePhone = oDeviceModel.getProperty("/system/phone");
-            const bDeviceSmallWidth = oDeviceModel.getProperty("/resize/width") <= 620;
+            const bDeviceSmallWidth = oDeviceModel.getProperty("/resize/width") <= 800;
 
-            const oDayView = new DayView({key: "day", title: "Day"});
-            oCalendar.addView(oDayView);
-
-            // Add sprecific views for mobile and small size screens
+            oCalendar.addView(new DayView({ key: "day", title: oResourceBundle.getText("ttlDay") }));
+            // Add views for mobile and small size screens
             if (bDevicePhone || bDeviceSmallWidth) {
-                const oTwoDaysView = new TwoDaysView({
-					title: "2 Days",
-					key: "2days"
-				});
-                const oThreeDaysView = new ThreeDaysView({
-					title: "3 Days",
-					key: "3days"
-				});
-                oCalendar.addView(oTwoDaysView);
-                oCalendar.addView(oThreeDaysView);
+                oCalendar.addView(new TwoDaysView({ key: "2days", title: oResourceBundle.getText("ttl2Days") }));
+                oCalendar.addView(new ThreeDaysView({ key: "3days", title: oResourceBundle.getText("ttl3Days") }));
             }
-
-            const oWorkWeekView = new WorkWeekView({key: "workWeek", title: "Work Week"});
-            oCalendar.addView(oWorkWeekView);
-            // add week view for desktop device
+            oCalendar.addView(new WorkWeekView({ key: "workWeek", title: oResourceBundle.getText("ttlWorkWeek") }));
+            // Add week view for desktop device
             if (!bDevicePhone && !bDeviceSmallWidth) {
-                const oWeekView = new WeekView({key: "week", title: "Week"});
-                oCalendar.addView(oWeekView);
+                oCalendar.addView(new WeekView({ key: "week", title: oResourceBundle.getText("ttlWeek") }));
             }
-
-            const oMonthView = new MonthView({key: "month", title: "Month"});
-            oCalendar.addView(oMonthView);
+            oCalendar.addView(new MonthView({ key: "month", title: oResourceBundle.getText("ttlMonth") }));
         },
 
         onMoreLinkPress(oEvent) {
             const oDate = oEvent.getParameter("date");
             const oCalendar = oEvent.getSource();
-			oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
+            oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
         },
 
         onPressToggleFullDay(oEvent) {

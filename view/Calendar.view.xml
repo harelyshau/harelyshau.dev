@@ -8,13 +8,13 @@
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="Pavel's Calendar" wrapping="true"/>
+					<Title text="{i18n>ttlPavelsCalendar}" wrapping="true"/>
 				</f:heading>
 				<f:snappedContent>
-						<Label text="Shows appointments for {/Email}" wrapping="true"/>
+						<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
 					</f:snappedContent>
 					<f:expandedContent>
-						<Label text="Shows appointments for pavel@harelyshau.dev" wrapping="true"/>
+						<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
 					</f:expandedContent>
 				<f:actions>
 					<!-- Device Laptop -->
@@ -43,9 +43,9 @@
 					enableAppointmentsCreate="true"
 					class="phCalendar sapUiTinyMarginTop">
 					<actions>
-						<ToggleButton tooltip="{= ${calendarView>/fullDay} ? 'Show Working Hours' : 'Show Full Day' }" icon="sap-icon://create-entry-time" press="onPressToggleFullDay"
+						<ToggleButton tooltip="{= ${calendarView>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }" icon="sap-icon://create-entry-time" press="onPressToggleFullDay"
 							pressed="{calendarView>/fullDay}"/>
-						<Button text="{= ${device>/system/phone} || 360 >= ${device>/resize/width}  ? 'Create' : ${i18n>btnMakeAppointment} }" press="onPressTest"
+						<Button text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}  ? ${i18n>btnCreate} : ${i18n>btnMakeAppointment} }" press="onPressTest"
 							icon="{i18n>iAppointment}" type="Emphasized" class="phResponsiveMarginEnd"/>
 					</actions>
 					<appointments>

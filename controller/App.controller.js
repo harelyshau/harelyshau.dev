@@ -1,7 +1,7 @@
 sap.ui.define([
    "./BaseController",
-   "sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+   "../model/models"
+], function (BaseController, models) {
    "use strict";
    return BaseController.extend("pharelyshau.controller.App", {
 
@@ -9,11 +9,7 @@ sap.ui.define([
          // apply content density mode to root view
          this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
          // set view model
-         const oViewModel = new JSONModel({
-            theme: sap.ui.core.Configuration.getTheme(),
-            page: ""
-         });
-         this.setModel(oViewModel, "appView");
+         this.setModel(models.createAppViewModel(), "appView");
          // attach routing matching
          this.getRouter().attachRouteMatched(this.onRouteMatched, this);
       },
