@@ -29,12 +29,6 @@
 		</f:title>
 		<f:content>
 			<VBox>
-				<!-- <Toolbar design="Transparent" style="Clear">
-					<Select class="sapUiTinyMarginBegin"/>
-					<ToolbarSpacer/>
-					<Button text="{i18n>btnMakeAppointment}" press="handleAppointmentCreate"
-						icon="{i18n>iAppointment}" type="Emphasized" class="sapUiTinyMarginEnd"/>
-				</Toolbar> -->
 				<SinglePlanningCalendar id="calendar" busy="{calendarView>/busy}"
 					fullDay="{calendarView>/fullDay}" startHour="{calendarView>/startHour}" endHour="{calendarView>/endHour}"
 					stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"

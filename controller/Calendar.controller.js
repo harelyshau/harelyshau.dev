@@ -14,13 +14,17 @@ sap.ui.define([
     return BaseController.extend("pharelyshau.controller.Detail", {
 
         onInit() {
-            // loag google api to see appointments
+            // load google api
             this.loadGoogleAPI();
+            // load node.js authorization function
+            const script = document.createElement('script');
+            script.src = "util/getAccessTokenFromServiceAccount.js";
+            document.head.appendChild(script);
             // set the calendar model
             this.setModel(models.createCalendarModel());
             // create the calendar view model
             this.setModel(models.createCalendarViewModel(), "calendarView");
-            // create view for calendar
+            // create and add views for calendar
             this.addCalendarViews();
         },
 
@@ -30,10 +34,7 @@ sap.ui.define([
             this.createAppointment()
         },
 
-        onStartDateChange() {
-            this.updateDateRange();
-            this.getAppointments();
-        },
+        
 
         updateDateRange() {
             const oViewModel = this.getModel("calendarView");
@@ -57,36 +58,24 @@ sap.ui.define([
 
         loadGoogleAPI() {
             const script = document.createElement('script');
-            script.src = 'https://apis.google.com/js/api.js';
-
+            script.src = "https://apis.google.com/js/api.js";
             script.onload = () => {
-                gapi.load('client', this.initGoogleCalendarAPI.bind(this));
+                gapi.load('client', this.initGoogleApiClient.bind(this));
             };
-
             document.head.appendChild(script);
         },
 
-        initGoogleCalendarAPI() {
-            const sGoogleApiKey = "AIzaSyD2O1sxa8AcJxvF0XQko-TwBD4TwdOv0SM";
+        async initGoogleApiClient() {
+            const oCredentials = {};
             gapi.client.init({
-                apiKey: sGoogleApiKey,
                 discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-                scope: 'https://www.googleapis.com/auth/calendar.readonly'
-            }).then(() => {
+            }).then(async () => {
+                gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
                 this.updateDateRange();
                 this.getAppointments();
             }, (oError) => {
+                this.getModel("calendarView").setProperty("/busy", false);
                 console.error('Error initializing Google Calendar API:', oError.error);
-            });
-        },
-
-        authGoogleCalendarAPI(oAccountKey) {
-            gapi.auth.authorize({
-                client_id: oAccountKey.client_id,
-                client_email: oAccountKey.client_email,
-                private_key: oAccountKey.private_key,
-                scope: "https://www.googleapis.com/auth/calendar.events",
-                immediate: true
             });
         },
 
@@ -125,27 +114,21 @@ sap.ui.define([
             this.getModel().setProperty("/Appointments", aFormattedAppointments);
         },
 
-        // Requests
-
-        async createAppointment() {
+        createAppointment() {
             try {
-                const sFilePath = "resource/data/ServiceAccountKey.json";
-                const oResponse = await fetch(sFilePath);
-                const oAccountKey = await oResponse?.json();
-                await this.authGoogleCalendarAPI(oAccountKey);
                 const oParams = {
-                    summary: "New Appointment",
+                    summary: "New Appointment2",
                     start: {
-                        dateTime: "2023-06-15T10:00:00", // Укажите дату и время начала встречи
-                        timeZone: "America/New_York" // Укажите временную зону
+                        dateTime: "2023-06-17T10:00:00",
+                        timeZone: "America/New_York"
                     },
                     end: {
-                        dateTime: "2023-06-15T11:00:00", // Укажите дату и время окончания встречи
-                        timeZone: "America/New_York" // Укажите временную зону
+                        dateTime: "2023-06-17T11:00:00",
+                        timeZone: "America/New_York"
                     },
                     attendees: [
-                        { email: "pavel@harelyshau.dev" },
-                        { email: "example2@example.com" }
+                        // { email: "pavel@harelyshau.dev" },
+                        // { email: "example2@example.com" }
                     ]
                 };
 
@@ -157,13 +140,10 @@ sap.ui.define([
                 }, (error) => {
                     console.error("Error creating appointment:", error);
                 });
-
-                // console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
             } catch (oError) {
                 console.error('Error loading key:', oError);
             }
         },
-
 
         // Calendar settings
 
@@ -185,6 +165,11 @@ sap.ui.define([
                 oCalendar.addView(new WeekView({ key: "week", title: this.i18n("ttlWeek") }));
             }
             oCalendar.addView(new MonthView({ key: "month", title: this.i18n("ttlMonth") }));
+        },
+
+        onStartDateChange() {
+            this.updateDateRange();
+            this.getAppointments();
         },
 
         onMoreLinkPress(oEvent) {
