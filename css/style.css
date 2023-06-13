@@ -47,3 +47,7 @@
         margin-right: 3rem !important;
     }
 }
+
+.phNoMargin {
+    margin: 0 !important
+}

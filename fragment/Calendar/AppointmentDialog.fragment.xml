@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+    <Dialog stretch="{device>/system/phone}"
+        resizable="true" draggable="true">
+        <customHeader>
+            <Toolbar style="Clear">
+                <Title text="Make Appointment" class="phNoMargin"/>                
+                <ToolbarSpacer/>
+                <Button visible="{device>/system/phone}" tooltip="{i18n>btnClose}"
+                    press="onPressCloseAppointmentDialog" icon="{i18n>iClose}"/>
+            </Toolbar>
+        </customHeader>
+        <VBox class="sapUiSmallMarginBeginEnd">
+            <!-- Title -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Title:" labelFor="inpTitle"/>
+                <Input id="inpTitle" placeholder="Title for Appointment"/>
+            </VBox>
+            <!-- Email -->
+            <VBox class="sapUiTinyMarginTop">
+                <Label text="Your Email:" required="true" labelFor="inpEmail"/>
+                <Input id="inpEmail" placeholder="your@email.com" type="Email"/>
+            </VBox>
+            <!-- Date and Time -->
+            <VBox class="sapUiTinyMarginTop">
+                <Label text="Date &amp; Time:" required="true"/>
+                <FlexBox justifyContent="SpaceBetween" renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
+                    <Label width="0" text="Start Date:" labelFor="dtpStartDate"/> <!-- invsible -->
+                    <DateTimePicker id="dtpStartDate"
+                        value="{'path': 'calendarView>/timeMin', 'type': 'sap.ui.model.type.DateTime', 'formatOptions': {'style': 'medium/short'}}"/>
+                    <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
+                    <Label width="0" text="End Date:" labelFor="dtpEndDate"/> <!-- invsible -->
+                    <DateTimePicker id="dtpEndDate"
+                        value="{'path': 'calendarView>/timeMax', 'type': 'sap.ui.model.type.DateTime', 'formatOptions': {'style': 'medium/short'}}"/>
+                </FlexBox>
+            </VBox>
+            <!-- Location -->
+            <VBox class="sapUiTinyMarginTop">
+                <Label text="Location:" labelFor="inpLocation"/>
+                <Input id="inpLocation" placeholder="Add link to location or Google Meet"/>
+            </VBox>
+            <Button text="Add Google Meet video conferencing" width="100%"
+                icon="/resource/image/GoogleMeetIcon.svg"/>
+            <!-- Agenda -->
+            <VBox class="sapUiTinyMarginTop sapUiSmallMarginBottom">
+                <Label text="Agenda:"/>
+                <TextArea width="100%" rows="4" placeholder="Some points to discuss and additional info"/>
+            </VBox>
+        </VBox>
+        <beginButton>
+            <Button text="Make" type="Emphasized" press="onPressCreateAppointment"/>
+        </beginButton>
+        <endButton>
+            <Button visible="{= !${device>/system/phone} }" text="Cancel"
+                press="onPressCloseAppointmentDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

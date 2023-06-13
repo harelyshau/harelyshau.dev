@@ -1,5 +1,6 @@
 sap.ui.define([
     "./BaseController",
+    "sap/ui/core/Fragment",
     "sap/m/SinglePlanningCalendarDayView",
     "sap/m/SinglePlanningCalendarWorkWeekView",
     "sap/m/SinglePlanningCalendarWeekView",
@@ -7,7 +8,7 @@ sap.ui.define([
     "../fragment/Calendar/TwoDaysView",
     "../fragment/Calendar/ThreeDaysView",
     "../model/models"
-], (BaseController, DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
+], (BaseController, Fragment, DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
 
     "use strict"
 
@@ -28,13 +29,50 @@ sap.ui.define([
             this.addCalendarViews();
         },
 
-        onPressTest() {
-            const a = 1;
-            console.log(a);
-            this.createAppointment()
+        onPressOpenAppointmentDialog() {
+            if (!this._oAppointmentDialog) {
+                Fragment.load({
+                    name: "pharelyshau.fragment.Calendar.AppointmentDialog",
+                    controller: this
+                }).then((oDialog) => {
+                    this.getView().addDependent(oDialog);
+                    this._oAppointmentDialog = oDialog;
+                    oDialog.addStyleClass(this.getOwnerComponent().getContentDensityClass());
+                    oDialog.open();
+                    return oDialog;
+                });
+            } else {
+                this._oAppointmentDialog.open();
+            }
+
+            this.createAppointmentLocal();
+
+            // this.createAppointment();
         },
 
-        
+        onPressCloseAppointmentDialog() {
+            this._oAppointmentDialog.close();
+        },
+
+        onPressCreateAppointment() {
+            this._oAppointmentDialog.close();
+        },
+
+        createAppointmentLocal() {
+            const oAppoinment = {
+                ID: "newAppointment",
+                Name: "",
+                Email: "",
+                StartDate: new Date(),
+                EndDate: new Date(new Date().getTime() + 3600000), // plus one hour
+                Location: "",
+                Description: ""
+            }
+            const aAppointments = this.getModel().getProperty("/Appointments");
+            aAppointments.push(oAppoinment)
+            this.getModel().setProperty("/Appointments", aAppointments);
+            debugger
+        },
 
         updateDateRange() {
             const oViewModel = this.getModel("calendarView");
@@ -66,7 +104,9 @@ sap.ui.define([
         },
 
         async initGoogleApiClient() {
-            const oCredentials = {};
+            const oCredentials = {
+                
+            };
             gapi.client.init({
                 discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
             }).then(async () => {
@@ -88,7 +128,7 @@ sap.ui.define([
                 timeMin: oViewModel.getProperty("/timeMin").toISOString(),
                 timeMax: oViewModel.getProperty("/timeMax").toISOString(),
                 singleEvents: true,
-                maxResults: 250 // max value
+                maxResults: 10 // max value is 250
             }
             oViewModel.setProperty("/busy", true);
             gapi.client.calendar.events.list(oParams)
@@ -105,6 +145,7 @@ sap.ui.define([
         setAppoitments(aAppointments) {
             const aFormattedAppointments = aAppointments.map(oAppoinment => {
                 return {
+                    ID: oAppoinment.id,
                     Name: "Busy",
                     StartDate: new Date(oAppoinment.start.dateTime),
                     EndDate: new Date(oAppoinment.end.dateTime)

@@ -32,6 +32,7 @@
 				<SinglePlanningCalendar id="calendar" busy="{calendarView>/busy}"
 					fullDay="{calendarView>/fullDay}" startHour="{calendarView>/startHour}" endHour="{calendarView>/endHour}"
 					stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
+					appointmentCreate="onAppointmentDrop"
 					startDateChange="onStartDateChange"
 					moreLinkPress="onMoreLinkPress"
 					enableAppointmentsCreate="true"
@@ -39,8 +40,9 @@
 					<actions>
 						<ToggleButton tooltip="{= ${calendarView>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }" icon="sap-icon://create-entry-time" press="onPressToggleFullDay"
 							pressed="{calendarView>/fullDay}"/>
-						<Button text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}  ? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }" press="onPressTest"
-							icon="{i18n>iAppointment}" type="Emphasized" class="phResponsiveMarginEnd"/>
+						<Button text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}  ? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
+							press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
+							type="Emphasized" class="phResponsiveMarginEnd"/>
 					</actions>
 					<appointments>
 						<unified:CalendarAppointment
