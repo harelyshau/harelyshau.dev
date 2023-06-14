@@ -31,6 +31,7 @@ sap.ui.define([
 
         onPressOpenAppointmentDialog() {
             const oAppointment = this.createAppointmentLocal();
+            const sBindingPath = this.getBindindPathForAppoinment(oAppointment);
 
             if (!this._oAppointmentDialog) {
                 Fragment.load({
@@ -40,38 +41,58 @@ sap.ui.define([
                     this.getView().addDependent(oDialog);
                     this._oAppointmentDialog = oDialog;
                     oDialog.addStyleClass(this.getOwnerComponent().getContentDensityClass());
+                    oDialog.bindElement(sBindingPath);
                     oDialog.open();
                     return oDialog;
                 });
             } else {
+                this._oAppointmentDialog.bindElement(sBindingPath);
                 this._oAppointmentDialog.open();
             }
 
             // this.createAppointment();
         },
 
+        onBeforeCloseAppointmentDialog(oEvent) {
+            const oBindingContext = oEvent.getSource().getBindingContext();
+            if (oBindingContext.getProperty("NotCreated")) {
+                this.removeAppointmentLocal(oBindingContext.getObject());
+            }
+        },
+
         onPressCloseAppointmentDialog() {
             this._oAppointmentDialog.close();
         },
 
-        onPressCreateAppointment() {
+        onPressCreateAppointment(oEvent) {
+            const sBindingPath = oEvent.getSource().getBindingContext().getPath();
+            this.getModel().setProperty(sBindingPath + "/NotCreated", false);
             this._oAppointmentDialog.close();
         },
 
         createAppointmentLocal() {
             const oAppoinment = {
                 ID: "newAppointment",
-                Name: "",
                 Email: "",
                 StartDate: new Date(),
                 EndDate: new Date(new Date().getTime() + 3600000), // plus one hour
-                Location: "",
-                Description: ""
+                NotCreated: true
             }
             const aAppointments = this.getModel().getProperty("/Appointments");
             aAppointments.push(oAppoinment)
             this.getModel().setProperty("/Appointments", aAppointments);
-            debugger
+            return oAppoinment;
+        },
+
+        removeAppointmentLocal(oAppoinment) {
+            const aAppointments = this.getModel().getProperty("/Appointments");
+            aAppointments.splice(aAppointments.indexOf(oAppoinment, 1)); // remove by index
+            this.getModel().setProperty("/Appoitments", aAppointments);
+        },
+
+        getBindindPathForAppoinment(oAppoinment) {
+            const aAppointments = this.getModel().getProperty("/Appointments");
+            return "/Appointments/" + aAppointments.indexOf(oAppoinment);
         },
 
         updateDateRange() {

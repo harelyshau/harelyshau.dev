@@ -47,7 +47,7 @@
 					<appointments>
 						<unified:CalendarAppointment
 							title= "{Name}"
-							text= "{text}"
+							text= "{Description}"
 							type= "{type}"
 							icon= "{icon}"
 							startDate= "{StartDate}"

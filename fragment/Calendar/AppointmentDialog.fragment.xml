@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-    <Dialog stretch="{device>/system/phone}"
-        resizable="true" draggable="true">
+    <Dialog stretch="{device>/system/phone}" resizable="true" draggable="true"
+        beforeClose="onBeforeCloseAppointmentDialog">
         <customHeader>
             <Toolbar style="Clear">
                 <Title text="Make Appointment" class="phNoMargin"/>                
@@ -13,12 +13,12 @@
             <!-- Title -->
             <VBox class="sapUiSmallMarginTop">
                 <Label text="Title:" labelFor="inpTitle"/>
-                <Input id="inpTitle" placeholder="Title for Appointment"/>
+                <Input id="inpTitle" value="{Name}" valueLiveUpdate="true" placeholder="Title for Appointment"/>
             </VBox>
             <!-- Email -->
             <VBox class="sapUiTinyMarginTop">
                 <Label text="Your Email:" required="true" labelFor="inpEmail"/>
-                <Input id="inpEmail" placeholder="your@email.com" type="Email"/>
+                <Input id="inpEmail" value="{Email}" placeholder="your@email.com" type="Email"/>
             </VBox>
             <!-- Date and Time -->
             <VBox class="sapUiTinyMarginTop">
@@ -26,24 +26,25 @@
                 <FlexBox justifyContent="SpaceBetween" renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
                     <Label width="0" text="Start Date:" labelFor="dtpStartDate"/> <!-- invsible -->
                     <DateTimePicker id="dtpStartDate"
-                        value="{'path': 'calendarView>/timeMin', 'type': 'sap.ui.model.type.DateTime', 'formatOptions': {'style': 'medium/short'}}"/>
+                        value="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                     <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
                     <Label width="0" text="End Date:" labelFor="dtpEndDate"/> <!-- invsible -->
                     <DateTimePicker id="dtpEndDate"
-                        value="{'path': 'calendarView>/timeMax', 'type': 'sap.ui.model.type.DateTime', 'formatOptions': {'style': 'medium/short'}}"/>
+                        value="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                 </FlexBox>
             </VBox>
             <!-- Location -->
             <VBox class="sapUiTinyMarginTop">
                 <Label text="Location:" labelFor="inpLocation"/>
-                <Input id="inpLocation" placeholder="Add link to location or Google Meet"/>
+                <Input id="inpLocation" value="{Location}" placeholder="Add link to location or Google Meet"/>
             </VBox>
             <Button text="Add Google Meet video conferencing" width="100%"
                 icon="/resource/image/GoogleMeetIcon.svg"/>
             <!-- Agenda -->
             <VBox class="sapUiTinyMarginTop sapUiSmallMarginBottom">
                 <Label text="Agenda:"/>
-                <TextArea width="100%" rows="4" placeholder="Some points to discuss and additional info"/>
+                <TextArea width="100%" value="{Description}" valueLiveUpdate="true"
+                    rows="4" placeholder="Some points to discuss and additional info"/>
             </VBox>
         </VBox>
         <beginButton>
