@@ -14,13 +14,13 @@
         <MenuItem text="{i18n>btnApperance}" icon="{i18n>iApperance}" 
             startsSection="{device>/system/phone}">
             <MenuItem text="{i18n>btnLightMode}" icon="{i18n>iLightMode}"
-                press="onPressSetTheme('sap_horizon')"/>
+                press="onPressSetTheme('light')"/>
             <MenuItem text="{i18n>btnDarkMode}" icon="{i18n>iDarkMode}"
-                press="onPressSetTheme('sap_horizon_dark')"/>
-            <MenuItem text="{i18n>btnHighContrastWhiteMode}" press="onPressSetTheme('sap_horizon_hcw')"
-                icon="{= ${appView>/theme} === 'sap_horizon' || ${appView>/theme} === 'sap_horizon_hcw'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
-            <MenuItem text="{i18n>btnHighContrastBlackMode}" press="onPressSetTheme('sap_horizon_hcb')"
-                icon="{= ${appView>/theme} !== 'sap_horizon' &amp;&amp; ${appView>/theme} !== 'sap_horizon_hcw'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
+                press="onPressSetTheme('dark')"/>
+            <MenuItem text="{i18n>btnHighContrastWhiteMode}" press="onPressSetTheme('contrastWhite')"
+                icon="{= ${appView>/theme} === 'light' || ${appView>/theme} === 'contrastWhite'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
+            <MenuItem text="{i18n>btnHighContrastBlackMode}" press="onPressSetTheme('contrastBlack')"
+                icon="{= ${appView>/theme} !== 'light' &amp;&amp; ${appView>/theme} !== 'contrastWhite'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
             <MenuItem text="{i18n>btnAutoMode}" press="onPressSetTheme(null)"
                 icon="{i18n>iSystemSettings}"/>
         </MenuItem>

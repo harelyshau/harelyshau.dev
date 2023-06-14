@@ -8,21 +8,36 @@ sap.ui.define([], function () {
             return localStorage.getItem("theme");
         },
 
-        setTheme(sTheme) {
+        setTheme(sThemeKey) {
             // set up received theme
-            let sThemeSAP = sTheme ?? "auto";
+            let sThemeSAP = this.mapTheme(sThemeKey) ?? "auto";
             if (sThemeSAP === "auto") {
                 const bLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-                sThemeSAP = bLight ? "sap_horizon" : "sap_horizon_dark";
+                sThemeSAP = bLight ? this.mapTheme("light") : this.mapTheme("dark");
             }
 
             // write and apply theme
-            if (sTheme) {
-                localStorage.setItem("theme", sTheme);
+            if (sThemeKey) {
+                localStorage.setItem("theme", sThemeKey);
             } else {
                 localStorage.removeItem("theme");
             }
             sap.ui.getCore().applyTheme(sThemeSAP);
+        },
+
+        mapTheme(sKey, sValue) {
+            const oThemes = {
+                light: "sap_horizon",
+                dark: "sap_horizon_dark",
+                contrastWhite: "sap_horizon_hcw",
+                contrastBlack: "sap_horizon_hcb"
+            }
+            if (sKey) { // return value by key
+                return oThemes[sKey];
+            } else if (sValue) { // return key by value
+                return Object.keys(oThemes).find(sThemeKey => oThemes[sThemeKey] === sValue);
+            }
+            
         },
 
         initTheme() {

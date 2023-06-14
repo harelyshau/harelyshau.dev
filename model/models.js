@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/Device",
-    "sap/ui/core/Configuration"
-], function (JSONModel, Device, Configuration) {
+    "sap/ui/core/Configuration",
+    "../util/themeHelper"
+], function (JSONModel, Device, Configuration, themeHelper) {
 
     "use strict";
 
@@ -44,8 +45,8 @@ sap.ui.define([
 
         createAppViewModel() {
             const oData = {
-                theme: sap.ui.core.Configuration.getTheme(),
-                page: ""
+                theme: themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme()),
+                page: "home"
             };
             return new JSONModel(oData);
         },
