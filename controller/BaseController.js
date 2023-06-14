@@ -56,7 +56,8 @@ sap.ui.define([
 
 		onPressSetTheme(sKey) {
 			themeHelper.setTheme(sKey);
-			this.getModel("appView").setProperty("/theme", sap.ui.core.Configuration.getTheme());
+			const sThemeKey = themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme());
+			this.getModel("appView").setProperty("/theme", sThemeKey);
 		},
 
 		onPressSetLanguage(sKey) {
