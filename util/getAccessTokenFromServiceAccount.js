@@ -1,8 +1,8 @@
-const scriptJSEncrypt = document.createElement('script');
+const scriptJSEncrypt = document.createElement("script");
 scriptJSEncrypt.src = "https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.0.0-rc.1/jsencrypt.min.js";
 document.head.appendChild(scriptJSEncrypt);
 
-const scriptCryptoJS = document.createElement('script');
+const scriptCryptoJS = document.createElement("script");
 scriptCryptoJS.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js";
 document.head.appendChild(scriptCryptoJS);
 

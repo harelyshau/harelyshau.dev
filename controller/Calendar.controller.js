@@ -18,7 +18,7 @@ sap.ui.define([
             // load google api
             this.loadGoogleAPI();
             // load node.js authorization function
-            const script = document.createElement('script');
+            const script = document.createElement("script");
             script.src = "util/getAccessTokenFromServiceAccount.js";
             document.head.appendChild(script);
             // set the calendar model
@@ -30,6 +30,8 @@ sap.ui.define([
         },
 
         onPressOpenAppointmentDialog() {
+            const oAppointment = this.createAppointmentLocal();
+
             if (!this._oAppointmentDialog) {
                 Fragment.load({
                     name: "pharelyshau.fragment.Calendar.AppointmentDialog",
@@ -44,8 +46,6 @@ sap.ui.define([
             } else {
                 this._oAppointmentDialog.open();
             }
-
-            this.createAppointmentLocal();
 
             // this.createAppointment();
         },
@@ -95,27 +95,26 @@ sap.ui.define([
         // Google Calendar API
 
         loadGoogleAPI() {
-            const script = document.createElement('script');
+            const script = document.createElement("script");
             script.src = "https://apis.google.com/js/api.js";
             script.onload = () => {
-                gapi.load('client', this.initGoogleApiClient.bind(this));
+                gapi.load("client", this.initGoogleApiClient.bind(this));
             };
             document.head.appendChild(script);
         },
 
         async initGoogleApiClient() {
             const oCredentials = {
-                
             };
             gapi.client.init({
-                discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+                discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
             }).then(async () => {
                 gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
                 this.updateDateRange();
                 this.getAppointments();
             }, (oError) => {
                 this.getModel("calendarView").setProperty("/busy", false);
-                console.error('Error initializing Google Calendar API:', oError.error);
+                console.error("Error initializing Google Calendar API:", oError.error);
             });
         },
 
@@ -137,7 +136,7 @@ sap.ui.define([
                     this.setAppoitments(aAppointments);
                     oViewModel.setProperty("/busy", false);
                 }, (oError) => {
-                    console.error('Error fetching appointments:', oError);
+                    console.error("Error fetching appointments:", oError);
                     oViewModel.setProperty("/busy", false);
                 });
         },
@@ -182,7 +181,7 @@ sap.ui.define([
                     console.error("Error creating appointment:", error);
                 });
             } catch (oError) {
-                console.error('Error loading key:', oError);
+                console.error("Error loading key:", oError);
             }
         },
 

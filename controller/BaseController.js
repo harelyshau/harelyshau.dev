@@ -69,7 +69,7 @@ sap.ui.define([
 			const sLink = window.location.href;
 			const oMessageToast = sap.m.MessageToast;
 			navigator.clipboard.writeText(sLink).then(() => {
-				oMessageToast.show(`Website URL "'${sLink}'" has been copied to clipboard`);
+				oMessageToast.show(`Website URL "${sLink}" has been copied to clipboard`);
 			}, (err) => {
 				oMessageToast.show("Could not copy website URL");
 			});

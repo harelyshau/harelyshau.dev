@@ -21,7 +21,7 @@ sap.ui.define([
             const oManifest = sap.ui.getCore().getComponent("container-pharelyshau").getManifest();
             const aSupportedLanguages = oManifest["sap.app"].i18n.supportedLocales;
             if (!aSupportedLanguages.includes(sLanguageSAP)) {
-                sLanguageSAP = 'en';
+                sLanguageSAP = "en";
             }
 
             // write and apply language

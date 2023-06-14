@@ -11,9 +11,9 @@ sap.ui.define([], function () {
         setTheme(sTheme) {
             // set up received theme
             let sThemeSAP = sTheme ?? "auto";
-            if (sThemeSAP === 'auto') {
+            if (sThemeSAP === "auto") {
                 const bLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-                sThemeSAP = bLight ? 'sap_horizon' : 'sap_horizon_dark';
+                sThemeSAP = bLight ? "sap_horizon" : "sap_horizon_dark";
             }
 
             // write and apply theme
