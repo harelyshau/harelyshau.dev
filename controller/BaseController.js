@@ -39,18 +39,16 @@ sap.ui.define([
 		onPressOpenOverflowMenu(oEvent) {
 			const oButton = oEvent.getSource();
 
-            if (!this._oOverflowMenu) {
-                Fragment.load({
-					name: "pharelyshau.fragment.OverflowMenu",
-					controller: this
+            if (!this.oOverflowMenu) {
+                this.loadFragment({
+					name: "pharelyshau.fragment.OverflowMenu"
 				}).then((oMenu) => {
-					this.getView().addDependent(oMenu);
-					this._oOverflowMenu = oMenu;
+					this.oOverflowMenu = oMenu;
 					oMenu.openBy(oButton);
 					return oMenu;
 				});
             } else {
-                this._oOverflowMenu.openBy(oButton);
+                this.oOverflowMenu.openBy(oButton);
             }
         },
 

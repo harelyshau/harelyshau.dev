@@ -1,6 +1,5 @@
 sap.ui.define([
     "./BaseController",
-    "sap/ui/core/Fragment",
     "sap/m/SinglePlanningCalendarDayView",
     "sap/m/SinglePlanningCalendarWorkWeekView",
     "sap/m/SinglePlanningCalendarWeekView",
@@ -8,11 +7,11 @@ sap.ui.define([
     "../fragment/Calendar/TwoDaysView",
     "../fragment/Calendar/ThreeDaysView",
     "../model/models"
-], (BaseController, Fragment, DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
+], (BaseController, DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
 
     "use strict"
 
-    return BaseController.extend("pharelyshau.controller.Detail", {
+    return BaseController.extend("pharelyshau.controller.Calendar", {
 
         onInit() {
             // load google api
@@ -33,24 +32,19 @@ sap.ui.define([
             const oAppointment = this.createAppointmentLocal();
             const sBindingPath = this.getBindindPathForAppoinment(oAppointment);
 
-            if (!this._oAppointmentDialog) {
-                Fragment.load({
-                    name: "pharelyshau.fragment.Calendar.AppointmentDialog",
-                    controller: this
+            if (!this.oAppointmentDialog) {
+                this.loadFragment({
+                    name: "pharelyshau.fragment.Calendar.AppointmentDialog"
                 }).then((oDialog) => {
-                    this.getView().addDependent(oDialog);
-                    this._oAppointmentDialog = oDialog;
+                    this.oAppointmentDialog = oDialog;
                     oDialog.addStyleClass(this.getOwnerComponent().getContentDensityClass());
                     oDialog.bindElement(sBindingPath);
                     oDialog.open();
-                    return oDialog;
                 });
             } else {
-                this._oAppointmentDialog.bindElement(sBindingPath);
-                this._oAppointmentDialog.open();
+                this.oAppointmentDialog.bindElement(sBindingPath);
+                this.oAppointmentDialog.open();
             }
-
-            // this.createAppointment();
         },
 
         onBeforeCloseAppointmentDialog(oEvent) {
@@ -61,13 +55,13 @@ sap.ui.define([
         },
 
         onPressCloseAppointmentDialog() {
-            this._oAppointmentDialog.close();
+            this.oAppointmentDialog.close();
         },
 
         onPressCreateAppointment(oEvent) {
             const sBindingPath = oEvent.getSource().getBindingContext().getPath();
             this.getModel().setProperty(sBindingPath + "/NotCreated", false);
-            this._oAppointmentDialog.close();
+            this.oAppointmentDialog.close();
         },
 
         createAppointmentLocal() {

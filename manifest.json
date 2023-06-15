@@ -27,7 +27,7 @@
     },
     "sap.ui5": {
         "dependencies": {
-            "minUI5Version": "1.113.0",
+            "minUI5Version": "1.115.0",
             "libs": {
                 "sap.ui.core": {},
                 "sap.m": {},
@@ -51,8 +51,8 @@
         "rootView": {
             "viewName": "pharelyshau.view.App",
             "type": "XML",
-            "async": true,
-            "id": "app"
+            "id": "app",
+            "async": true
         },
         "routing": {
             "config": {
@@ -61,7 +61,8 @@
                 "viewType": "XML",
                 "path": "pharelyshau.view",
                 "controlId": "app",
-                "controlAggregation": "pages"
+                "controlAggregation": "pages",
+                "async": true
             },
             "routes": [
                 {

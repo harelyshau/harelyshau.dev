@@ -32,27 +32,25 @@ sap.ui.define([
             const oControl = oEvent.getSource();
             const sBindingPath = "/RelocationPreference";
 
-            if (!this._oRelocationPopover) {
-                Fragment.load({
-                    name: "pharelyshau.fragment.Resume.RelocationPopover",
-                    controller: this
+            if (!this.oRelocationPopover) {
+                this.loadFragment({
+                    name: "pharelyshau.fragment.Resume.RelocationPopover"
                 }).then((oPopover) => {
-                    this.getView().addDependent(oPopover);
-                    this._oRelocationPopover = oPopover;
+                    this.oRelocationPopover = oPopover;
                     oPopover.bindElement(sBindingPath);
                     oPopover.openBy(oControl);
                     return oPopover;
                 });
-            } else if (!this.isOpenDialog(this._oRelocationPopover, sBindingPath)) {
-                this._oRelocationPopover.bindElement(sBindingPath);
-                this._oRelocationPopover.openBy(oControl);
+            } else if (!this.isOpenDialog(this.oRelocationPopover, sBindingPath)) {
+                this.oRelocationPopover.bindElement(sBindingPath);
+                this.oRelocationPopover.openBy(oControl);
             } else {
-                this._oRelocationPopover.close();
+                this.oRelocationPopover.close();
             }
         },
 
         onPressCloseRelocationPopover() {
-            this._oRelocationPopover.close();
+            this.oRelocationPopover.close();
         },
 
         // Page Content
@@ -60,27 +58,26 @@ sap.ui.define([
             const oControl = oEvent.getSource();
             const sBindingPath = oControl.getBindingContext().getPath() + "/Company";
 
-            if (!this._oCompanyPopover) {
-                Fragment.load({
-                    name: "pharelyshau.fragment.Resume.CompanyPopover",
-                    controller: this
+            if (!this.oCompanyPopover) {
+                this.loadFragment({
+                    name: "pharelyshau.fragment.Resume.CompanyPopover"
                 }).then((oPopover) => {
                     this.getView().addDependent(oPopover);
-                    this._oCompanyPopover = oPopover;
+                    this.oCompanyPopover = oPopover;
                     oPopover.bindElement(sBindingPath);
                     oPopover.openBy(oControl);
                     return oPopover;
                 });
-            } else if (!this.isOpenDialog(this._oCompanyPopover, sBindingPath)) {
-                this._oCompanyPopover.bindElement(sBindingPath);
-                this._oCompanyPopover.openBy(oControl);
+            } else if (!this.isOpenDialog(this.oCompanyPopover, sBindingPath)) {
+                this.oCompanyPopover.bindElement(sBindingPath);
+                this.oCompanyPopover.openBy(oControl);
             } else {
-                this._oCompanyPopover.close();
+                this.oCompanyPopover.close();
             }
         },
 
         onPressCloseCompanyPopover(oEvent) {
-            this._oCompanyPopover.close();
+            this.oCompanyPopover.close();
         }
 
     });
