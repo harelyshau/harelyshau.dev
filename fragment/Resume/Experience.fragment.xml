@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">    
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">    
     <VBox>
         <!-- Main Info -->
         <HBox alignItems="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Start' : 'Center' }">

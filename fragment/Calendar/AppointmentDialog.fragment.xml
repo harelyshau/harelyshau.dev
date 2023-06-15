@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
     <Dialog stretch="{device>/system/phone}" resizable="true" draggable="true"
         beforeClose="onBeforeCloseAppointmentDialog">
         <customHeader>
