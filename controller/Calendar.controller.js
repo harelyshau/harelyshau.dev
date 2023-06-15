@@ -125,8 +125,8 @@ sap.ui.define([
         },
 
         async initGoogleApiClient() {
-            const oCredentials = {
-            };
+            const oResponse = await fetch("resource/data/GapiServiceAccountCreds.json");
+            const oCredentials = await oResponse.json();
             gapi.client.init({
                 discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
             }).then(async () => {

@@ -1,46 +1,33 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">    
     <VBox>
         <!-- Main Info -->
-        <!-- Device Laptop -->
-        <FlexBox visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550 }"
-            justifyContent="SpaceBetween" alignItems="Center" class="sapUiTinyMarginBottom">
-            <HBox alignItems="Center">
-                <!-- Avatar WITH Company Popover -->
-                <Avatar visible="{= !!${Company/Description} || !!${Company/Website} }"
-                    src="{Company/Logo}" press="onPressOpenCompanyPopover"
-                    displayShape="Square" fallbackIcon="{i18n>iExperience}"
-                    ariaHasPopup="Dialog" class="sapUiTinyMarginEnd"/>
-                <!-- Avatar WITHOUT Company Popover -->
-                <Avatar visible="{= !${Company/Description} &amp;&amp; !${Company/Website} }"
-                    src="{Company/Logo}" displayShape="Square" decorative="true"
-                    fallbackIcon="{i18n>iExperience}" class="sapUiTinyMarginEnd"/>
-                <VBox>
-                    <Title text="{Position}" wrapping="true"/>
-                    <Text text="{= ${Company/Location} ? ${Company/Name} + ', ' + ${Company/Location} : ${Company/Name}}"/>
-                </VBox>
-            </HBox>
-            <VBox alignItems="End" class="sapUiTinyMarginTop">
-                <Label text="{path: 'StartDate',  formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'}"/>
-                <Label text="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'}"/>
-            </VBox>
-        </FlexBox>
-        <!-- Device Mobile -->
-        <HBox visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} }">
+        <HBox alignItems="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Start' : 'Center' }">
             <!-- Avatar WITH Company Popover -->
             <Avatar visible="{= !!${Company/Description} || !!${Company/Website} }"
                 src="{Company/Logo}" press="onPressOpenCompanyPopover"
                 displayShape="Square" fallbackIcon="{i18n>iExperience}"
                 ariaHasPopup="Dialog" class="sapUiTinyMarginEnd"/>
+            <!-- Avatar WITHOUT Company Popover -->
             <Avatar visible="{= !${Company/Description} &amp;&amp; !${Company/Website} }"
-                    src="{Company/Logo}" displayShape="Square" decorative="true"
-                    fallbackIcon="{i18n>iExperience}" class="sapUiTinyMarginEnd"/>
-            <VBox>
-                <VBox class="phResumeExperiencePositionMobile">
+                src="{Company/Logo}" displayShape="Square" decorative="true"
+                fallbackIcon="{i18n>iExperience}" class="sapUiTinyMarginEnd"/>
+            <FlexBox direction="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Column' : 'Row' }"
+                alignItems="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Start' : 'Center' }"
+                justifyContent="SpaceBetween" width="100%" fitContainer="true">
+                <VBox>
                     <Title text="{Position}" wrapping="true"/>
+                    <Text text="{= ${Company/Location} ? ${Company/Name} + ', ' + ${Company/Location} : ${Company/Name}}"/>
                 </VBox>
-                <Text text="{= ${Company/Location} ? ${Company/Name} + ', ' + ${Company/Location} : ${Company/Name}}"/>
-                <Label text="{path: 'StartDate',  formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'} ({parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'})" wrapping="true"/>
-            </VBox>
+                <!-- Device Laptop -->
+                <VBox visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550 }"
+                    alignItems="End" class="sapUiTinyMarginTop">
+                    <Label text="{path: 'StartDate',  formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'}"/>
+                    <Label text="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'}"/>
+                </VBox>
+                <!-- Device Mobile -->
+                <Label visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} }" wrapping="true"
+                    text="{path: 'StartDate',  formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'} ({parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'})"/>
+            </FlexBox>
         </HBox>
         <!-- Description -->
         <Text visible="{= !!${Description} }" text="{Description}"/>

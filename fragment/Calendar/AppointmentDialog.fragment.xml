@@ -23,7 +23,7 @@
             <!-- Date and Time -->
             <VBox class="sapUiTinyMarginTop">
                 <Label text="Date &amp; Time:" required="true"/>
-                <FlexBox justifyContent="SpaceBetween" renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
+                <HBox justifyContent="SpaceBetween" renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
                     <Label width="0" text="Start Date:" labelFor="dtpStartDate"/> <!-- invsible -->
                     <DateTimePicker id="dtpStartDate"
                         value="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
@@ -31,7 +31,7 @@
                     <Label width="0" text="End Date:" labelFor="dtpEndDate"/> <!-- invsible -->
                     <DateTimePicker id="dtpEndDate"
                         value="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
-                </FlexBox>
+                </HBox>
             </VBox>
             <!-- Location -->
             <VBox class="sapUiTinyMarginTop">
