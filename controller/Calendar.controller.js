@@ -37,7 +37,7 @@ sap.ui.define([
                     name: "pharelyshau.fragment.Calendar.AppointmentDialog"
                 }).then((oDialog) => {
                     this.oAppointmentDialog = oDialog;
-                    oDialog.addStyleClass(this.getOwnerComponent().getContentDensityClass());
+                    oDialog.addStyleClass(this.getContentDensityClass());
                     oDialog.bindElement(sBindingPath);
                     oDialog.open();
                 });

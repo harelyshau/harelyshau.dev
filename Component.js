@@ -35,18 +35,6 @@ sap.ui.define([
         destroy() {
             // call the base component's destroy function
             UIComponent.prototype.destroy.apply(this, arguments);
-        },
-
-        getContentDensityClass() {
-            if (this.sContentDensityClass === undefined) {
-                if (!Device.support.touch) { // apply "compact" mode if touch is not supported
-                    this.sContentDensityClass = "sapUiSizeCompact";
-                } else {
-                    // "cozy" in case of touch support; default for most sap.m controls, but needed for desktop-first controls like sap.ui.table.Table
-                    this.sContentDensityClass = "sapUiSizeCozy";
-                }
-            }
-            return this.sContentDensityClass;
         }
     })
 })

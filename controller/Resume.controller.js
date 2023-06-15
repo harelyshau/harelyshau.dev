@@ -62,7 +62,6 @@ sap.ui.define([
                 this.loadFragment({
                     name: "pharelyshau.fragment.Resume.CompanyPopover"
                 }).then((oPopover) => {
-                    this.getView().addDependent(oPopover);
                     this.oCompanyPopover = oPopover;
                     oPopover.bindElement(sBindingPath);
                     oPopover.openBy(oControl);

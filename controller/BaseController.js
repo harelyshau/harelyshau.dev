@@ -1,10 +1,10 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
-	"sap/ui/core/Fragment",
+	"sap/ui/Device",
 	"../util/themeHelper",
 	"../util/languageHelper"
-], function (Controller, UIComponent, Fragment, themeHelper, languageHelper) {
+], function (Controller, UIComponent, Device, themeHelper, languageHelper) {
 	"use strict";
 
 	return Controller.extend("pharelyshau.controller.BaseController", {
@@ -28,6 +28,10 @@ sap.ui.define([
 		i18n(sKey) {
 			return this.getResourceBundle().getText(sKey);
 		},
+
+		getContentDensityClass() {
+            return Device.support.touch ? "sapUiSizeCozy" : "sapUiSizeCompact";
+        },
 
 		// HEADER
 		onPressSendEmail() {

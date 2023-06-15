@@ -7,7 +7,7 @@ sap.ui.define([
 
       onInit() {
          // apply content density mode to root view
-         this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+         this.getView().addStyleClass(this.getContentDensityClass());
          // set view model
          this.setModel(models.createAppViewModel(), "appView");
          // attach routing matching
