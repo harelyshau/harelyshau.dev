@@ -1,11 +1,8 @@
 sap.ui.define([
     "./BaseController",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/core/format/DateFormat",
     "../model/models",
     "../model/formatter"
-], function (BaseController, Fragment, JSONModel, DateFormat, models, formatter) {
+], function (BaseController, models, formatter) {
 
     "use strict"
 

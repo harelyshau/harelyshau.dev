@@ -17,7 +17,7 @@ sap.ui.define([
 		// for Russian plural forms
 		if (localStorage.language === "ru") {
 			const sLastDigits = String(nQuantity).slice(-2);
-			const nLastDigits = sLastDigits > 20 ? +(sLastDigits.slice(-1)) : +sLastDigits; 
+			const nLastDigits = sLastDigits > 20 ? +(sLastDigits.slice(-1)) : +sLastDigits;
 			if (nLastDigits === 1) {
 				return nQuantity + "\u00A0" + sTextSingular;
 			}
@@ -80,9 +80,27 @@ sap.ui.define([
 
 			if (!sText) {
 				return `<a href="${sLink}">${sLink}</a>`;
-			} 
-			
+			}
+
 			return `<a href="${sLink}">${sText}</a>`;
+		},
+
+		formattedAppointments(aAppointments, sAvailableAppointmentsIDs) {
+			return aAppointments.map((oAppoinment, i) => {
+				let oStartDateTime = oAppoinment.start;
+				let oEndDateTime = oAppoinment.end;
+				const oStartDate = new Date(oStartDateTime.dateTime ?? oStartDateTime.date + "T00:00");
+				const oEndDate = new Date(oEndDateTime.dateTime ?? oEndDateTime.date + "T00:00");
+				if (!oEndDateTime.dateTime) { // set up all-day appointments for correct displaying
+					oEndDate.setDate(oEndDate.getDate() - 1);
+				}
+                return {
+                    ID: oAppoinment.id,
+                    Name: oAppoinment.summary,
+                    StartDate: oStartDate,
+                    EndDate: oEndDate
+                }
+            });
 		},
 
 		// UNUSED

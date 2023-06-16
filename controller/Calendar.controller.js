@@ -6,12 +6,15 @@ sap.ui.define([
     "sap/m/SinglePlanningCalendarMonthView",
     "../fragment/Calendar/TwoDaysView",
     "../fragment/Calendar/ThreeDaysView",
-    "../model/models"
-], (BaseController, DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView, models) => {
+    "../model/models",
+    "../model/formatter"
+], (BaseController, DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView, models, formatter) => {
 
     "use strict"
 
     return BaseController.extend("pharelyshau.controller.Calendar", {
+
+        formatter: formatter,
 
         onInit() {
             // load google api
@@ -142,7 +145,7 @@ sap.ui.define([
                 timeMin: oViewModel.getProperty("/timeMin").toISOString(),
                 timeMax: oViewModel.getProperty("/timeMax").toISOString(),
                 singleEvents: true,
-                maxResults: 10 // max value is 250
+                maxResults: 250 // max value is 250
             }
             oViewModel.setProperty("/busy", true);
             gapi.client.calendar.events.list(oParams)
@@ -157,14 +160,7 @@ sap.ui.define([
         },
 
         setAppoitments(aAppointments) {
-            const aFormattedAppointments = aAppointments.map(oAppoinment => {
-                return {
-                    ID: oAppoinment.id,
-                    Name: "Busy",
-                    StartDate: new Date(oAppoinment.start.dateTime),
-                    EndDate: new Date(oAppoinment.end.dateTime)
-                }
-            });
+            const aFormattedAppointments = formatter.formattedAppointments(aAppointments);
 
             this.getModel().setProperty("/Appointments", aFormattedAppointments);
         },
