@@ -1,6 +1,6 @@
 sap.ui.define([
-
-], function () {
+	"sap/ui/core/format/DateFormat",
+], function (DateFormat) {
 
 	"use strict";
 
@@ -46,7 +46,7 @@ sap.ui.define([
 			if (!sDate || sDate === "Present") {
 				return this.i18n("lPresent");
 			}
-			return sap.ui.core.format.DateFormat.getDateInstance({
+			return DateFormat.getDateInstance({
 				format: "yMMM"
 			}).format(new Date(sDate));
 		},
@@ -96,6 +96,7 @@ sap.ui.define([
 				}
                 return {
                     ID: oAppoinment.id,
+					// TODO: change to busy
                     Name: oAppoinment.summary,
                     StartDate: oStartDate,
                     EndDate: oEndDate

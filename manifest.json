@@ -98,6 +98,7 @@
                     "uri": "css/style.css"
                 }
             ]
-        }
+        },
+        "handleValidation": true
     }
 }

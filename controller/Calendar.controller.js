@@ -31,10 +31,23 @@ sap.ui.define([
             this.addCalendarViews();
         },
 
+        // create by button
         onPressOpenAppointmentDialog() {
             const oAppointment = this.createAppointmentLocal();
             const sBindingPath = this.getBindindPathForAppoinment(oAppointment);
+            this.openAppoinmentDialog(sBindingPath);
+        },
 
+        // create by drag and drop
+        onAppointmentCreateOpenDialog(oEvent) {
+            const oStartDate = oEvent.getParameter("startDate");
+            const oEndDate = oEvent.getParameter("endDate");
+            const oAppointment = this.createAppointmentLocal(oStartDate, oEndDate);
+            const sBindingPath = this.getBindindPathForAppoinment(oAppointment);
+            this.openAppoinmentDialog(sBindingPath);
+        },
+
+        openAppoinmentDialog(sBindingPath) {
             if (!this.oAppointmentDialog) {
                 this.loadFragment({
                     name: "pharelyshau.fragment.Calendar.AppointmentDialog"
@@ -62,17 +75,20 @@ sap.ui.define([
         },
 
         onPressCreateAppointment(oEvent) {
-            const sBindingPath = oEvent.getSource().getBindingContext().getPath();
-            this.getModel().setProperty(sBindingPath + "/NotCreated", false);
+            const oBindingContext = oEvent.getSource().getBindingContext();
+            this.getModel().setProperty(oBindingContext.getPath() + "/NotCreated", false);
+            this.createAppointmentGC(oBindingContext.getObject());
             this.oAppointmentDialog.close();
         },
 
-        createAppointmentLocal() {
+        createAppointmentLocal(oStartDate, oEndDate) {
+            oStartDate = oStartDate ?? new Date();
+            oEndDate = oEndDate ?? new Date(new Date().getTime() + 3600000); // plus one hour
             const oAppoinment = {
                 ID: "newAppointment",
-                Email: "",
-                StartDate: new Date(),
-                EndDate: new Date(new Date().getTime() + 3600000), // plus one hour
+                Email: "some@email.com",
+                StartDate: oStartDate,
+                EndDate: oEndDate,
                 NotCreated: true
             }
             const aAppointments = this.getModel().getProperty("/Appointments");
@@ -129,7 +145,7 @@ sap.ui.define([
             }).then(async () => {
                 gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
                 this.updateDateRange();
-                this.getAppointments();
+                this.getAppointmentsGC();
             }, (oError) => {
                 this.getModel("calendarView").setProperty("/busy", false);
                 console.error("Error initializing Google Calendar API:", oError.error);
@@ -137,8 +153,8 @@ sap.ui.define([
         },
 
         // Requests
-
-        getAppointments() {
+        
+        getAppointmentsGC() { // GC = Google Calendar
             const oViewModel = this.getModel("calendarView");
             const oParams = {
                 calendarId: this.getModel().getProperty("/Email"),
@@ -150,8 +166,7 @@ sap.ui.define([
             oViewModel.setProperty("/busy", true);
             gapi.client.calendar.events.list(oParams)
                 .then((oResponse) => {
-                    const aAppointments = oResponse.result.items;
-                    this.setAppoitments(aAppointments);
+                    this.setAppoitments(oResponse.result.items);
                     oViewModel.setProperty("/busy", false);
                 }, (oError) => {
                     console.error("Error fetching appointments:", oError);
@@ -161,39 +176,45 @@ sap.ui.define([
 
         setAppoitments(aAppointments) {
             const aFormattedAppointments = formatter.formattedAppointments(aAppointments);
-
             this.getModel().setProperty("/Appointments", aFormattedAppointments);
         },
 
-        createAppointment() {
-            try {
-                const oParams = {
-                    summary: "New Appointment2",
-                    start: {
-                        dateTime: "2023-06-17T10:00:00",
-                        timeZone: "America/New_York"
-                    },
-                    end: {
-                        dateTime: "2023-06-17T11:00:00",
-                        timeZone: "America/New_York"
-                    },
-                    attendees: [
-                        // { email: "pavel@harelyshau.dev" },
-                        // { email: "example2@example.com" }
-                    ]
-                };
+        createAppointmentGC(oAppoinment) {
+            const oEvent = {
+                summary: oAppoinment.Name,
+                description: oAppoinment.Description,
+                start: {
+                    dateTime: oAppoinment.StartDate.toISOString()
+                },
+                end: {
+                    dateTime: oAppoinment.EndDate.toISOString()
+                },
+                attendees: [
+                    // { email: "pavel@harelyshau.dev" },
+                    // { email: "example2@example.com" }
+                ],
+                source: {
+                    title: "Meeting from harelyshau.dev",
+                    url: window.location.href
+                },
+                // conferenceData: {
+                //     createRequest: {
+                //       requestId: oAppoinment.Email,
+                //     },
+                // },
+            };
 
-                gapi.client.calendar.events.insert({
-                    calendarId: "pavel@harelyshau.dev",
-                    resource: oParams
-                }).then((response) => {
-                    console.log("Appointment created:", response.result);
-                }, (error) => {
-                    console.error("Error creating appointment:", error);
-                });
-            } catch (oError) {
-                console.error("Error loading key:", oError);
-            }
+            gapi.client.calendar.events.insert({
+                calendarId: "pavel@harelyshau.dev",
+                // guestsCanModify: true,
+                conferenceDataVersion: 1,
+                sendUpdates: "all",
+                resource: oEvent
+            }).then((response) => {
+                console.log("Appointment created:", response.result);
+            }, (error) => {
+                console.error("Error creating appointment:", error);
+            });
         },
 
         // Calendar settings
@@ -218,9 +239,9 @@ sap.ui.define([
             oCalendar.addView(new MonthView({ key: "month", title: this.i18n("ttlMonth") }));
         },
 
-        onStartDateChange() {
+        onStartDateChangeCalendar() {
             this.updateDateRange();
-            this.getAppointments();
+            this.getAppointmentsGC();
         },
 
         onMoreLinkPress(oEvent) {
@@ -236,7 +257,45 @@ sap.ui.define([
             } else {
                 localStorage.removeItem("fullDay");
             }
-        }
+        },
+
+        // Appointment Dialog settings
+
+        onChangeAppointmentStartDate(oEvent) {
+            const sDate = oEvent.getParameter("value");
+            this.byId("calendar").setStartDate(new Date(sDate));
+            // this.updateAppointmentEndDate();
+            this.validatePickers();
+        },
+
+        updateAppointmentEndDate() {
+            // TODO:
+            const oPickerStart = this.byId("dtpStartDate");
+            const oPickerEnd = this.byId("dtpEndDate");
+            debugger
+        },
+
+        validatePickers() {
+            // maybe move to formatter
+            const oPickerStart = this.byId("dtpStartDate");
+            const oPickerEnd = this.byId("dtpEndDate");
+            const oStartDate = oPickerStart.getDateValue();
+            const oEndDate = oPickerEnd.getDateValue();
+            if (oStartDate.getTime() <= oEndDate.getTime()) {
+
+            }
+        },
+
+
+        // need to check
+        updateButtonEnabledState: function (oDateTimePickerStart, oDateTimePickerEnd, oButton) {
+			var bEnabled = oDateTimePickerStart.getValueState() !== ValueState.Error
+				&& oDateTimePickerStart.getValue() !== ""
+				&& oDateTimePickerEnd.getValue() !== ""
+				&& oDateTimePickerEnd.getValueState() !== ValueState.Error;
+
+			oButton.setEnabled(bEnabled);
+		},
 
     });
 });

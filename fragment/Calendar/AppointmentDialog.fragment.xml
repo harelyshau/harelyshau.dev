@@ -18,18 +18,22 @@
             <!-- Email -->
             <VBox class="sapUiTinyMarginTop">
                 <Label text="Your Email:" required="true" labelFor="inpEmail"/>
-                <Input id="inpEmail" value="{Email}" placeholder="your@email.com" type="Email"/>
+                <!-- <Input id="inpEmail" required="true" type="Email" placeholder="your@email.com"
+                    value="{path: 'Email', type: '.types.email'}"/> -->
+                <Input id="inpEmail" required="true" type="Email" placeholder="your@email.com"
+                    value="{path: 'Email', type: 'sap.ui.model.type.String', constraints: {search: '^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$'} }"/>
+                <!-- <Input id="inpEmail" value="{Email}" placeholder="your@email.com" type="Email"/> -->
             </VBox>
             <!-- Date and Time -->
             <VBox class="sapUiTinyMarginTop">
                 <Label text="Date &amp; Time:" required="true"/>
                 <HBox justifyContent="SpaceBetween" renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
                     <Label width="0" text="Start Date:" labelFor="dtpStartDate"/> <!-- invsible -->
-                    <DateTimePicker id="dtpStartDate"
+                    <DateTimePicker id="dtpStartDate" minutesStep="15" change="onChangeAppointmentStartDate"
                         value="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                     <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
                     <Label width="0" text="End Date:" labelFor="dtpEndDate"/> <!-- invsible -->
-                    <DateTimePicker id="dtpEndDate"
+                    <DateTimePicker id="dtpEndDate" minutesStep="15"
                         value="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                 </HBox>
             </VBox>

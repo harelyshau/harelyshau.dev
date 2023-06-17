@@ -32,8 +32,8 @@
 				<SinglePlanningCalendar id="calendar" busy="{calendarView>/busy}"
 					fullDay="{calendarView>/fullDay}" startHour="{calendarView>/startHour}" endHour="{calendarView>/endHour}"
 					stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
-					appointmentCreate="onAppointmentDrop"
-					startDateChange="onStartDateChange"
+					appointmentCreate="onAppointmentCreateOpenDialog"
+					startDateChange="onStartDateChangeCalendar"
 					moreLinkPress="onMoreLinkPress"
 					enableAppointmentsCreate="true"
 					class="phCalendar sapUiTinyMarginTop">
