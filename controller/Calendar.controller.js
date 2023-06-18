@@ -147,15 +147,13 @@ sap.ui.define([
         //////////// CALENDAR ////////////
         //////////////////////////////////
 
-        // create by button
-        onPressOpenAppointmentDialog() {
+        onPressOpenAppointmentDialog() { // create by button
             const oAppointment = this.createAppointmentLocal();
             const sPath = this.getPathForAppoinment(oAppointment);
             this.openAppoinmentDialog(sPath);
         },
 
-        // create by drag and drop
-        onAppointmentCreateOpenDialog(oEvent) {
+        onAppointmentCreateOpenDialog(oEvent) { // create by drag and drop
             const oStartDate = oEvent.getParameter("startDate");
             const sStartDateErrorText = formatter.startDateErrorText(oStartDate);
             if (sStartDateErrorText !== "") {
@@ -228,29 +226,12 @@ sap.ui.define([
             }
         },
 
-        setPickersValue(oStartDate, oEndDate) {
-            const oViewModel = this.getModel("view");
-            oViewModel.setProperty("/pickers/startDate", oStartDate);
-            oViewModel.setProperty("/pickers/endDate", oEndDate);
+        getPathForAppoinment(oAppoinment) {
+            const aAppointments = this.getModel().getProperty("/Appointments");
+            return "/Appointments/" + aAppointments.indexOf(oAppoinment);
         },
 
-        onBeforeCloseAppointmentDialog(oEvent) {
-            const oBindingContext = oEvent.getSource().getBindingContext();
-            if (oBindingContext.getProperty("NotCreated")) {
-                this.removeAppointmentLocal(oBindingContext.getObject());
-            }
-        },
-
-        onPressCreateAppointment(oEvent) {
-            const oBindingContext = oEvent.getSource().getBindingContext();
-            this.getModel().setProperty(oBindingContext.getPath() + "/NotCreated", false);
-            this.createAppointmentGC(oBindingContext.getObject());
-            this.oAppointmentDialog.close();
-        },
-
-        onPressCloseAppointmentDialog() {
-            this.oAppointmentDialog.close();
-        }, 
+        // Appointment create
 
         createAppointmentLocal(oStartDate, oEndDate) {
             oStartDate = oStartDate ?? new Date(new Date().getTime() + 3600000); // plus one hour
@@ -269,10 +250,38 @@ sap.ui.define([
             return oAppoinment;
         },
 
+        onPressCreateAppointment(oEvent) {
+            const oBindingContext = oEvent.getSource().getBindingContext();
+            this.getModel().setProperty(oBindingContext.getPath() + "/NotCreated", false);
+            this.createAppointmentGC(oBindingContext.getObject());
+            this.oAppointmentDialog.close();
+        },
+
+        // Appoinment cancel
+        
+        onPressCloseAppointmentDialog() {
+            this.oAppointmentDialog.close();
+        }, 
+
+        onBeforeCloseAppointmentDialog(oEvent) {
+            const oBindingContext = oEvent.getSource().getBindingContext();
+            if (oBindingContext.getProperty("NotCreated")) {
+                this.removeAppointmentLocal(oBindingContext.getObject());
+            }
+        },
+
         removeAppointmentLocal(oAppoinment) {
             const aAppointments = this.getModel().getProperty("/Appointments");
             aAppointments.splice(aAppointments.indexOf(oAppoinment, 1)); // remove by index
             this.getModel().setProperty("/Appoitments", aAppointments);
+        },
+
+        // Pickers
+
+        setPickersValue(oStartDate, oEndDate) {
+            const oViewModel = this.getModel("view");
+            oViewModel.setProperty("/pickers/startDate", oStartDate);
+            oViewModel.setProperty("/pickers/endDate", oEndDate);
         },
 
         onChangePickerStartDate(oEvent) {
@@ -318,12 +327,7 @@ sap.ui.define([
 
             const oEndDate = this.getModel("view").getProperty("/pickers/endDate");
             this.getModel().setProperty(sPath + "/EndDate", oEndDate);
-        },
-
-        getPathForAppoinment(oAppoinment) {
-            const aAppointments = this.getModel().getProperty("/Appointments");
-            return "/Appointments/" + aAppointments.indexOf(oAppoinment);
-        }, 
+        } 
 
     });
 });
