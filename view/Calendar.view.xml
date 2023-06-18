@@ -33,15 +33,17 @@
 					fullDay="{view>/fullDay}" startHour="{view>/startHour}" endHour="{view>/endHour}"
 					stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
 					appointmentCreate="onAppointmentCreateOpenDialog"
+					appointmentSelect="onAppointmentSelectOpenPopover"
 					startDateChange="onStartDateChangeCalendar"
 					moreLinkPress="onMoreLinkPress"
-					enableAppointmentsCreate="true"
+					enableAppointmentsCreate="{= !${view>/busy} }"
 					class="phCalendar sapUiTinyMarginTop">
 					<actions>
 						<ToggleButton tooltip="{= ${view>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }" icon="sap-icon://create-entry-time" press="onPressToggleFullDay"
 							pressed="{view>/fullDay}"/>
 						<Button text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}  ? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
 							press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
+							enabled="{= !${view>/busy} }"
 							type="Emphasized" class="phResponsiveMarginEnd"/>
 					</actions>
 					<appointments>

@@ -166,6 +166,12 @@ sap.ui.define([
             this.openAppoinmentDialog(sPath);
         },
 
+        onAppointmentSelectOpenPopover(oEvent) {
+            const oControl = oEvent.getParameter("appointment");
+            const sPath = this.getPathForAppoinment(oControl.getBindingContext().getObject());
+            this.openAppoinmentPopover(sPath, oControl);
+        },
+
         addCalendarViews() {
             const oDeviceModel = this.getOwnerComponent().getModel("device");
             const oCalendar = this.byId("calendar");
@@ -327,7 +333,26 @@ sap.ui.define([
 
             const oEndDate = this.getModel("view").getProperty("/pickers/endDate");
             this.getModel().setProperty(sPath + "/EndDate", oEndDate);
-        } 
+        },
+
+        //////////////////////////////////
+        ///////////// POPOVER ////////////
+        //////////////////////////////////
+
+        openAppoinmentPopover(sPath, oControl) {
+            if (!this.oAppointmentPopover) {
+                this.loadFragment({
+                    name: "pharelyshau.fragment.Calendar.AppointmentPopover"
+                }).then((oDialog) => {
+                    this.oAppointmentPopover = oDialog;
+                    oDialog.bindElement(sPath);
+                    oDialog.openBy(oControl);
+                });
+            } else {
+                this.oAppointmentPopover.bindElement(sPath);
+                this.oAppointmentPopover.openBy(oControl);
+            }
+        },
 
     });
 });
