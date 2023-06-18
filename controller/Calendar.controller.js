@@ -30,62 +30,7 @@ sap.ui.define([
             this.setModel(models.createCalendarViewModel(), "view");
             // create and add views for calendar
             this.addCalendarViews();
-        },
-
-        // create by button
-        onPressOpenAppointmentDialog() {
-            const oAppointment = this.createAppointmentLocal();
-            const sPath = this.getPathForAppoinment(oAppointment);
-            this.openAppoinmentDialog(sPath);
-        },
-
-        // create by drag and drop
-        onAppointmentCreateOpenDialog(oEvent) {
-            const oStartDate = oEvent.getParameter("startDate");
-            const sStartDateErrorText = formatter.startDateErrorText(oStartDate);
-            if (sStartDateErrorText !== "") {
-                new MessageToast.show(sStartDateErrorText);
-                return;
-            }
-            const oEndDate = oEvent.getParameter("endDate");
-            const oAppointment = this.createAppointmentLocal(oStartDate, oEndDate);
-            const sPath = this.getPathForAppoinment(oAppointment);
-            this.openAppoinmentDialog(sPath);
-        },
-
-        createAppointmentLocal(oStartDate, oEndDate) {
-            oStartDate = oStartDate ?? new Date(new Date().getTime() + 3600000); // plus one hour
-            oEndDate = oEndDate ?? new Date(new Date().getTime() + 7200000); // plus two hours
-            const oAppoinment = {
-                ID: "newAppointment",
-                Email: "some@email.com",
-                StartDate: oStartDate,
-                EndDate: oEndDate,
-                NotCreated: true
-            }
-            const aAppointments = this.getModel().getProperty("/Appointments");
-            aAppointments.push(oAppoinment)
-            this.getModel().setProperty("/Appointments", aAppointments);
-            this.setPickersValue(oStartDate, oEndDate)
-            return oAppoinment;
-        },
-
-        setPickersValue(oStartDate, oEndDate) {
-            const oViewModel = this.getModel("view");
-            oViewModel.setProperty("/pickers/startDate", oStartDate);
-            oViewModel.setProperty("/pickers/endDate", oEndDate);
-        },
-
-        removeAppointmentLocal(oAppoinment) {
-            const aAppointments = this.getModel().getProperty("/Appointments");
-            aAppointments.splice(aAppointments.indexOf(oAppoinment, 1)); // remove by index
-            this.getModel().setProperty("/Appoitments", aAppointments);
-        },
-
-        getPathForAppoinment(oAppoinment) {
-            const aAppointments = this.getModel().getProperty("/Appointments");
-            return "/Appointments/" + aAppointments.indexOf(oAppoinment);
-        },  
+        }, 
 
         //////////////////////////////////
         ////// GOOGLE CALENDAR API ///////
@@ -202,6 +147,27 @@ sap.ui.define([
         //////////// CALENDAR ////////////
         //////////////////////////////////
 
+        // create by button
+        onPressOpenAppointmentDialog() {
+            const oAppointment = this.createAppointmentLocal();
+            const sPath = this.getPathForAppoinment(oAppointment);
+            this.openAppoinmentDialog(sPath);
+        },
+
+        // create by drag and drop
+        onAppointmentCreateOpenDialog(oEvent) {
+            const oStartDate = oEvent.getParameter("startDate");
+            const sStartDateErrorText = formatter.startDateErrorText(oStartDate);
+            if (sStartDateErrorText !== "") {
+                new MessageToast.show(sStartDateErrorText);
+                return;
+            }
+            const oEndDate = oEvent.getParameter("endDate");
+            const oAppointment = this.createAppointmentLocal(oStartDate, oEndDate);
+            const sPath = this.getPathForAppoinment(oAppointment);
+            this.openAppoinmentDialog(sPath);
+        },
+
         addCalendarViews() {
             const oDeviceModel = this.getOwnerComponent().getModel("device");
             const oCalendar = this.byId("calendar");
@@ -262,6 +228,12 @@ sap.ui.define([
             }
         },
 
+        setPickersValue(oStartDate, oEndDate) {
+            const oViewModel = this.getModel("view");
+            oViewModel.setProperty("/pickers/startDate", oStartDate);
+            oViewModel.setProperty("/pickers/endDate", oEndDate);
+        },
+
         onBeforeCloseAppointmentDialog(oEvent) {
             const oBindingContext = oEvent.getSource().getBindingContext();
             if (oBindingContext.getProperty("NotCreated")) {
@@ -269,15 +241,38 @@ sap.ui.define([
             }
         },
 
-        onPressCloseAppointmentDialog() {
-            this.oAppointmentDialog.close();
-        },
-
         onPressCreateAppointment(oEvent) {
             const oBindingContext = oEvent.getSource().getBindingContext();
             this.getModel().setProperty(oBindingContext.getPath() + "/NotCreated", false);
             this.createAppointmentGC(oBindingContext.getObject());
             this.oAppointmentDialog.close();
+        },
+
+        onPressCloseAppointmentDialog() {
+            this.oAppointmentDialog.close();
+        }, 
+
+        createAppointmentLocal(oStartDate, oEndDate) {
+            oStartDate = oStartDate ?? new Date(new Date().getTime() + 3600000); // plus one hour
+            oEndDate = oEndDate ?? new Date(new Date().getTime() + 7200000); // plus two hours
+            const oAppoinment = {
+                ID: "newAppointment",
+                Email: "some@email.com",
+                StartDate: oStartDate,
+                EndDate: oEndDate,
+                NotCreated: true
+            }
+            const aAppointments = this.getModel().getProperty("/Appointments");
+            aAppointments.push(oAppoinment)
+            this.getModel().setProperty("/Appointments", aAppointments);
+            this.setPickersValue(oStartDate, oEndDate)
+            return oAppoinment;
+        },
+
+        removeAppointmentLocal(oAppoinment) {
+            const aAppointments = this.getModel().getProperty("/Appointments");
+            aAppointments.splice(aAppointments.indexOf(oAppoinment, 1)); // remove by index
+            this.getModel().setProperty("/Appoitments", aAppointments);
         },
 
         onChangePickerStartDate(oEvent) {
@@ -323,7 +318,12 @@ sap.ui.define([
 
             const oEndDate = this.getModel("view").getProperty("/pickers/endDate");
             this.getModel().setProperty(sPath + "/EndDate", oEndDate);
-        }
+        },
+
+        getPathForAppoinment(oAppoinment) {
+            const aAppointments = this.getModel().getProperty("/Appointments");
+            return "/Appointments/" + aAppointments.indexOf(oAppoinment);
+        }, 
 
     });
 });
