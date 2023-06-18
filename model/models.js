@@ -52,13 +52,18 @@ sap.ui.define([
         },
 
         createCalendarViewModel() {
+            const oCurrentDate = new Date();
+            oCurrentDate.setHours(0, 0, 0, 0);
             const oData = {
                 busy: true,
                 fullDay: localStorage.getItem("fullDay") === "true",
                 startHour: 8,
                 endHour: 21,
-                timeMin: new Date(), // will change to 1st day of previous month
-                timeMax: new Date() // will change to last day of next month
+                pickers: {
+                    startDate: new Date(),
+                    endDate: new Date(),
+                    currentDate: oCurrentDate
+                }
             };
             return new JSONModel(oData);
         }

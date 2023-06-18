@@ -31,6 +31,8 @@ sap.ui.define([
 
 	return {
 
+		// RESUME
+
 		textList(aValues) {
 			if (!aValues) {
 				return "";
@@ -85,6 +87,8 @@ sap.ui.define([
 			return `<a href="${sLink}">${sText}</a>`;
 		},
 
+		// CALENDAR
+
 		formattedAppointments(aAppointments, sAvailableAppointmentsIDs) {
 			return aAppointments.map((oAppoinment, i) => {
 				let oStartDateTime = oAppoinment.start;
@@ -104,12 +108,32 @@ sap.ui.define([
             });
 		},
 
-		// UNUSED
-		numberUnit(sValue) {
-			if (!sValue) {
+		startDateState(oStartDate) {
+			if (!oStartDate || oStartDate.getTime() > new Date().getTime()) {
+				return "None";
+			}
+			return "Error";
+		},
+
+		endDateState(oStartDate, oEndDate) {
+			if (!oStartDate || !oEndDate || oEndDate.getTime() >= oStartDate.getTime()) {
+				return "None";
+			}
+			return "Error";
+		},
+
+		startDateErrorText(oStartDate) {
+			if (!oStartDate || oStartDate.getTime() > new Date().getTime()) {
 				return "";
 			}
-			return parseFloat(sValue).toFixed(2);
+			return "Start date must be in the future";
+		},
+
+		endDateErrorText(oStartDate, oEndDate) {
+			if (!oStartDate || !oEndDate || oEndDate.getTime() >= oStartDate.getTime()) {
+				return "";
+			}
+			return "End date must be after start date";
 		}
 
 	};
