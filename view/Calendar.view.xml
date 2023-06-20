@@ -17,7 +17,7 @@
 						<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
 					</f:expandedContent>
 				<f:actions>
-					<!-- Device Laptop -->
+					<!-- Device Desktop -->
 					<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550}"
 						text="{i18n>btnSendEmail}" press="onPressSendEmail"
 						icon="{i18n>iEmail}"/>

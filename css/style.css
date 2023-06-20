@@ -48,3 +48,7 @@
 .phNoMargin {
     margin: 0 !important
 }
+
+.phToolbarNoPaddingBegin {
+    padding-left: 0
+}

@@ -15,7 +15,7 @@ sap.ui.define([
 
     return BaseController.extend("pharelyshau.controller.Calendar", {
 
-        formatter: formatter,
+        formatter,
 
         onInit() {
             // load google api
@@ -113,10 +113,22 @@ sap.ui.define([
                 conferenceDataVersion: 1,
                 sendUpdates: "all",
                 resource: oEvent
-            }).then((response) => {
-                console.log("Appointment created:", response.result);
-            }, (error) => {
-                console.error("Error creating appointment:", error);
+            }).then((oResponse) => {
+                console.log("Appointment created:", oResponse.result);
+            }, (oError) => {
+                console.error("Error creating appointment:", oError);
+            });
+        },
+
+        removeAppointmentGC(sAppointmentID) {
+            gapi.client.calendar.events.delete({
+                calendarId: this.getModel().getProperty("/Email"),
+                eventId: sAppointmentID,
+                sendUpdates: "all"
+            }).then((oResponse) => {
+                console.log("Appointment deleted:", oResponse);
+            }, (oError) => {
+                console.error("Error deleting appointment:", oError);
             });
         },
 
@@ -168,6 +180,9 @@ sap.ui.define([
 
         onAppointmentSelectOpenPopover(oEvent) {
             const oControl = oEvent.getParameter("appointment");
+            if (!oControl) {
+                return;
+            }
             const sPath = this.getPathForAppoinment(oControl.getBindingContext().getObject());
             this.openAppoinmentPopover(sPath, oControl);
         },
@@ -247,7 +262,7 @@ sap.ui.define([
                 Email: "some@email.com",
                 StartDate: oStartDate,
                 EndDate: oEndDate,
-                NotCreated: true
+                Mode: "create"
             }
             const aAppointments = this.getModel().getProperty("/Appointments");
             aAppointments.push(oAppoinment)
@@ -258,7 +273,7 @@ sap.ui.define([
 
         onPressCreateAppointment(oEvent) {
             const oBindingContext = oEvent.getSource().getBindingContext();
-            this.getModel().setProperty(oBindingContext.getPath() + "/NotCreated", false);
+            this.getModel().setProperty(oBindingContext.getPath() + "/Mode", "view");
             this.createAppointmentGC(oBindingContext.getObject());
             this.oAppointmentDialog.close();
         },
@@ -271,14 +286,14 @@ sap.ui.define([
 
         onBeforeCloseAppointmentDialog(oEvent) {
             const oBindingContext = oEvent.getSource().getBindingContext();
-            if (oBindingContext.getProperty("NotCreated")) {
+            if (oBindingContext.getProperty("Mode") === "create") {
                 this.removeAppointmentLocal(oBindingContext.getObject());
             }
         },
 
         removeAppointmentLocal(oAppoinment) {
             const aAppointments = this.getModel().getProperty("/Appointments");
-            aAppointments.splice(aAppointments.indexOf(oAppoinment, 1)); // remove by index
+            aAppointments.splice(aAppointments.indexOf(oAppoinment), 1); // remove by index
             this.getModel().setProperty("/Appoitments", aAppointments);
         },
 
@@ -343,16 +358,34 @@ sap.ui.define([
             if (!this.oAppointmentPopover) {
                 this.loadFragment({
                     name: "pharelyshau.fragment.Calendar.AppointmentPopover"
-                }).then((oDialog) => {
-                    this.oAppointmentPopover = oDialog;
-                    oDialog.bindElement(sPath);
-                    oDialog.openBy(oControl);
+                }).then((oPopover) => {
+                    this.oAppointmentPopover = oPopover;
+                    oPopover.bindElement(sPath);
+                    oPopover.openBy(oControl);
                 });
             } else {
                 this.oAppointmentPopover.bindElement(sPath);
                 this.oAppointmentPopover.openBy(oControl);
             }
         },
+
+        onPressEditOpenAppointmentDialog(oEvent) {
+            this.oAppointmentPopover.close();
+            const sPath = oEvent.getSource().getBindingContext().getPath();
+            this.getModel().setProperty(sPath + "/Mode", "edit");
+            this.openAppoinmentDialog(sPath);
+        },
+
+        onPressDeleteAppointment(oEvent) {
+            this.oAppointmentPopover.close();
+            const oAppoinment = oEvent.getSource().getBindingContext().getObject()
+            this.removeAppointmentGC(oAppoinment.ID);
+            this.removeAppointmentLocal(oAppoinment);
+        },
+
+        onPressCloseAppointmentPopover() {
+            this.oAppointmentPopover.close();
+        }
 
     });
 });

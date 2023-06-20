@@ -13,18 +13,18 @@
                 fallbackIcon="{i18n>iExperience}" class="sapUiTinyMarginEnd"/>
             <FlexBox direction="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Column' : 'Row' }"
                 alignItems="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Start' : 'Center' }"
-                justifyContent="SpaceBetween" width="100%" fitContainer="true">
+                justifyContent="SpaceBetween" width="100%">
                 <VBox>
                     <Title text="{Position}" wrapping="true"/>
                     <Text text="{= ${Company/Location} ? ${Company/Name} + ', ' + ${Company/Location} : ${Company/Name}}"/>
                 </VBox>
-                <!-- Device Laptop -->
+                <!-- Device Desktop -->
                 <VBox visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550 }"
                     alignItems="End" class="sapUiTinyMarginTop">
                     <Label text="{path: 'StartDate',  formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'}"/>
                     <Label text="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'}"/>
                 </VBox>
-                <!-- Device Mobile -->
+                <!-- Device Phone -->
                 <Label visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} }" wrapping="true"
                     text="{path: 'StartDate',  formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'} ({parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'})"/>
             </FlexBox>

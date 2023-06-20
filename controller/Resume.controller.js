@@ -8,7 +8,7 @@ sap.ui.define([
 
     return BaseController.extend("pharelyshau.controller.Resume", {
 
-        formatter: formatter,
+        formatter,
 
         onInit() {
             // set the resume model

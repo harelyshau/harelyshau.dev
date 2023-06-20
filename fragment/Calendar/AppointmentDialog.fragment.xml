@@ -9,11 +9,58 @@
                     press="onPressCloseAppointmentDialog" icon="{i18n>iClose}"/>
             </Toolbar>
         </customHeader>
-        <content>
-            <core:Fragment fragmentName="pharelyshau.fragment.Calendar.Appointment" type="XML"/>
-        </content>
+        <VBox class="sapUiSmallMarginBeginEnd">
+            <!-- Title -->
+            <VBox class="sapUiSmallMarginTop" visible="{= ${Mode} !== 'view' }">
+                <Label text="Title:" labelFor="inpTitle"/>
+                <Input value="{Name}" valueLiveUpdate="true" placeholder="Title for Appointment"/>
+            </VBox>
+            <!-- Email -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Your Email:" required="{= ${Mode} !== 'view' }" labelFor="inpEmail"/>
+                <Input visible="{= ${Mode} !== 'view' }" required="true" type="Email" placeholder="your@email.com"
+                    value="{path: 'Email', type: 'sap.ui.model.type.String', constraints: {search: '^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$'} }"/>
+                <!-- <Input required="true" type="Email" placeholder="your@email.com"
+                    value="{path: 'Email', type: '.types.email'}"/> -->
+            </VBox>
+            <!-- Date and Time -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Date &amp; Time:" required="{= ${Mode} !== 'view' }"/>
+                <HBox visible="{= ${Mode} !== 'view' }" justifyContent="SpaceBetween"
+                    renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
+                    <Label width="0" text="Start Date" labelFor="dtpStartDate"/> <!-- invsible -->
+                    <DateTimePicker visible="{= ${Mode} !== 'view' }" minutesStep="15" change="onChangePickerStartDate"
+                        required="true" minDate="{view>/pickers/currentDate}" showCurrentDateButton="true"
+                        valueState="{path: 'view>/pickers/startDate', formatter: '.formatter.startDateState'}"
+                        valueStateText="{path: 'view>/pickers/startDate', formatter: '.formatter.startDateErrorText'}"
+                        value="{path: 'view>/pickers/startDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
+                    <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
+                    <Label width="0" text="End Date" labelFor="dtpEndDate"/> <!-- invsible -->
+                    <DateTimePicker visible="{= ${Mode} !== 'view' }" minutesStep="15" change="onChangePickerEndDate"
+                        required="true" minDate="{view>/pickers/startDate}" showCurrentDateButton="true"
+                        valueState="{parts: ['view>/pickers/startDate', 'view>/pickers/endDate'], formatter: '.formatter.endDateState'}"
+                        valueStateText="{parts: ['view>/pickers/startDate', 'view>/pickers/endDate'], formatter: '.formatter.endDateErrorText'}"
+                        value="{path: 'view>/pickers/endDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
+                </HBox>
+            </VBox>
+            <!-- Сonference -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Сonference:" labelFor="inpСonference"/>
+                <VBox visible="{= ${Mode} !== 'view' }">
+                    <Input value="{Сonference}" placeholder="Add link to Сonference or add Google Meet"/>
+                    <Button text="Add Google Meet video conferencing" width="100%"
+                        icon="/resource/image/GoogleMeetIcon.svg"/>
+                </VBox>
+            </VBox>
+            <!-- Agenda -->
+            <VBox class="sapUiSmallMarginTopBottom">
+                <Label text="Agenda:"/>
+                <TextArea width="100%" value="{Description}" valueLiveUpdate="true"
+                    rows="4" placeholder="Some points to discuss and additional info"/>
+            </VBox>
+        </VBox>
         <beginButton>
-            <Button text="Create" type="Emphasized" press="onPressCreateAppointment"/>
+            <Button text="{= ${Mode} === 'create'? 'Create' : 'Save' }" type="Emphasized" press="onPressCreateAppointment"/>
         </beginButton>
         <endButton>
             <Button visible="{= !${device>/system/phone} }" text="Cancel"

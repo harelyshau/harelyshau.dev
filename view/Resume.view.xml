@@ -18,7 +18,7 @@
 						<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
 					</f:expandedContent>
 					<f:actions>
-						<!-- Device Laptop -->
+						<!-- Device Desktop -->
 						<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550}"
 								text="{i18n>btnMakeAppointment}" press="onPressNavigateToCalendar"
 								icon="{i18n>iAppointment}" type="Emphasized"/>

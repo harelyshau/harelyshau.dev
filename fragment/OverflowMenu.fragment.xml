@@ -2,7 +2,7 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core">
     <Menu title="{i18n>ttlMenu}">
-        <!-- Device Mobile -->
+        <!-- Device Phone -->
         <MenuItem visible="{= (${device>/system/phone} || 550 >= ${device>/resize/width}) &amp;&amp; ${appView>/page} !== 'calendar' }"
             text="{i18n>btnMakeAppointment}" press="onPressNavigateToCalendar" icon="{i18n>iAppointment}"/>
         <MenuItem visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} || (750 >= ${device>/resize/width} &amp;&amp; ${appView>/page} === 'resume') }"

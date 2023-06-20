@@ -1,18 +1,48 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <ResponsivePopover placement="Auto">
+    <ResponsivePopover placement="Auto" contentWidth="{= ${Description}.length > 60 ? '25rem' : 'auto'}">
         <customHeader>
-            <Toolbar style="Clear">
-                <Title text="{Name}"/>                
+            <Toolbar style="Clear" class="phToolbarNoPaddingBegin">
+                <!-- Device Phone -->
+                <Title visible="{device>/system/phone}" text="{= !!${Name} ? ${Name} : 'Untitled Appointment' }"
+                    class="phNoMargin"/>
+                <!-- Device Desktop -->
+                <Title visible="{= !${device>/system/phone} }" text="{= !!${Name} ? ${Name} : 'Untitled Appointment' }"
+                    class="sapUiSmallMarginBegin"/>                
                 <ToolbarSpacer/>
-                <Button tooltip="Close" press="onPressCloseCompanyPopover"
+                <Button tooltip="{i18n>btnClose}" press="onPressCloseAppointmentPopover"
                     icon="{i18n>iClose}"/>
             </Toolbar>
         </customHeader>
-        <content>
-            <core:Fragment fragmentName="pharelyshau.fragment.Calendar.Appointment" type="XML"/>
-        </content>
+        <VBox class="sapUiSmallMarginBeginEnd">
+            <!-- Email -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Your Email:"/>
+                <Text text="{Email}" emptyIndicatorMode="On"/>
+            </VBox>
+            <!-- Date and Time -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Date &amp; Time:"/>
+                <HBox visible="{= ${Mode} === 'view' }">
+                    <Text text="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/>
+                    <Label text="–" class="sapUiTinyMarginBeginEnd"/>
+                    <Text text="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/>
+                </HBox>
+            </VBox>
+            <!-- Сonference -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Сonference:"/>
+                <Link visible="{= !!${Conference} }" text="{Conference}"/>
+                <Text visible="{= !${Conference} }" text="–"/>
+            </VBox>
+            <!-- Agenda -->
+            <VBox class="sapUiSmallMarginTopBottom" width="100%">
+                <Label text="Agenda:"/>
+                <ExpandableText text="{Description}" maxCharacters="256" emptyIndicatorMode="On"/>
+            </VBox>
+        </VBox>
         <beginButton>
-            <Button text="Edit" type="Emphasized" press="onPressEditAppointment"/>
+            <Button text="Edit"
+                press="onPressEditOpenAppointmentDialog" type="Emphasized"/>
         </beginButton>
         <endButton>
             <Button text="Delete" press="onPressDeleteAppointment"/>

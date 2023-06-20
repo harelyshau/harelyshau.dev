@@ -98,12 +98,16 @@ sap.ui.define([
 				if (!oEndDateTime.dateTime) { // set up all-day appointments for correct displaying
 					oEndDate.setDate(oEndDate.getDate() - 1);
 				}
+				const sEmail = oAppoinment.attendees ? oAppoinment.attendees[0].email : "";
                 return {
                     ID: oAppoinment.id,
 					// TODO: change to busy
+					Email: sEmail,
                     Name: oAppoinment.summary,
+					Description: oAppoinment.description,
                     StartDate: oStartDate,
-                    EndDate: oEndDate
+                    EndDate: oEndDate,
+					Mode: "view"
                 }
             });
 		},
