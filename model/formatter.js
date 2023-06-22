@@ -112,6 +112,28 @@ sap.ui.define([
             });
 		},
 
+		gcEvent(oAppoinment) {
+			return {
+                summary: oAppoinment.Name,
+                description: oAppoinment.Description,
+                start: {
+                    dateTime: oAppoinment.StartDate.toISOString()
+                },
+                end: {
+                    dateTime: oAppoinment.EndDate.toISOString()
+                },
+                attendees: [
+                    // { email: "pavel@harelyshau.dev" },
+                    // { email: "example2@example.com" }
+                ],
+                // conferenceData: {
+                //     createRequest: {
+                //       requestId: oAppoinment.Email,
+                //     },
+                // },
+            };
+		},
+
 		startDateState(oStartDate) {
 			if (!oStartDate || oStartDate.getTime() > new Date().getTime()) {
 				return "None";

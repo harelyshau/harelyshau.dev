@@ -40,20 +40,16 @@ sap.ui.define([
 			sap.m.URLHelper.triggerEmail(sEmail, "Email from harelyshau.dev website");
 		},
 
-		onPressOpenOverflowMenu(oEvent) {
+		async onPressOpenOverflowMenu(oEvent) {
 			const oButton = oEvent.getSource();
 
             if (!this.oOverflowMenu) {
-                this.loadFragment({
+                this.oOverflowMenu = await this.loadFragment({
 					name: "pharelyshau.fragment.OverflowMenu"
-				}).then((oMenu) => {
-					this.oOverflowMenu = oMenu;
-					oMenu.openBy(oButton);
-					return oMenu;
 				});
-            } else {
-                this.oOverflowMenu.openBy(oButton);
             }
+            
+			this.oOverflowMenu.openBy(oButton);
         },
 
 		onPressSetTheme(sKey) {
@@ -68,14 +64,15 @@ sap.ui.define([
 			location.reload();
 		},
 
-		onPressShareLink() {
+		async onPressShareLink() {
 			const sLink = window.location.href;
 			const oMessageToast = sap.m.MessageToast;
-			navigator.clipboard.writeText(sLink).then(() => {
+			try {
+				await navigator.clipboard.writeText(sLink);
 				oMessageToast.show(`Website URL "${sLink}" has been copied to clipboard`);
-			}, (err) => {
+			} catch {
 				oMessageToast.show("Could not copy website URL");
-			});
+			}
 		},
 
 		onPressShowCode() {
@@ -84,7 +81,7 @@ sap.ui.define([
         },
 
 		// Dialogs
-        isOpenDialog(oDialog, sBinndingPath) {
+        isDialogOpen(oDialog, sBinndingPath) {
             if (!oDialog) {
                 return false;
             }

@@ -48,21 +48,23 @@ sap.ui.define([
         async initGoogleApiClient() {
             const oResponse = await fetch("resource/data/GapiServiceAccountCreds.json");
             const oCredentials = await oResponse.json();
-            gapi.client.init({
-                discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
-            }).then(async () => {
+            try {
+                await gapi.client.init({
+                    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+                });
                 gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
                 this.updateDateRange();
                 this.getAppointmentsGC();
-            }, (oError) => {
-                this.getModel("view").setProperty("/busy", false);
+            } catch (oError) {
                 console.error("Error initializing Google Calendar API:", oError.error);
-            });
+            }
+            
+            this.getModel("view").setProperty("/busy", false);
         },
 
         // Requests
 
-        getAppointmentsGC() { // GC = Google Calendar
+        async getAppointmentsGC() { // GC = Google Calendar
             const oViewModel = this.getModel("view");
             const oParams = {
                 calendarId: this.getModel().getProperty("/Email"),
@@ -72,64 +74,47 @@ sap.ui.define([
                 maxResults: 250 // max value is 250
             }
             oViewModel.setProperty("/busy", true);
-            gapi.client.calendar.events.list(oParams)
-                .then((oResponse) => {
-                    this.setAppoitments(oResponse.result.items);
-                    oViewModel.setProperty("/busy", false);
-                }, (oError) => {
-                    console.error("Error fetching appointments:", oError);
-                    oViewModel.setProperty("/busy", false);
+
+            try {
+                const oResponse = await gapi.client.calendar.events.list(oParams);
+                this.setAppoitments(oResponse.result.items);
+            } catch (oError) {
+                console.error("Error fetching appointments:", oError);
+            }
+
+            oViewModel.setProperty("/busy", false);
+        },
+
+        async createAppointmentGC(oAppoinment) {
+            const oEvent = formatter.gcEvent(oAppoinment);
+            
+            try {
+                await gapi.client.calendar.events.insert({
+                    calendarId: "pavel@harelyshau.dev",
+                    // guestsCanModify: true,
+                    conferenceDataVersion: 1,
+                    sendUpdates: "all",
+                    resource: oEvent
                 });
-        },
-
-        createAppointmentGC(oAppoinment) {
-            const oEvent = {
-                summary: oAppoinment.Name,
-                description: oAppoinment.Description,
-                start: {
-                    dateTime: oAppoinment.StartDate.toISOString()
-                },
-                end: {
-                    dateTime: oAppoinment.EndDate.toISOString()
-                },
-                attendees: [
-                    // { email: "pavel@harelyshau.dev" },
-                    // { email: "example2@example.com" }
-                ],
-                source: {
-                    title: "Meeting from harelyshau.dev",
-                    url: window.location.href
-                },
-                // conferenceData: {
-                //     createRequest: {
-                //       requestId: oAppoinment.Email,
-                //     },
-                // },
-            };
-
-            gapi.client.calendar.events.insert({
-                calendarId: "pavel@harelyshau.dev",
-                // guestsCanModify: true,
-                conferenceDataVersion: 1,
-                sendUpdates: "all",
-                resource: oEvent
-            }).then((oResponse) => {
-                console.log("Appointment created:", oResponse.result);
-            }, (oError) => {
+            } catch (oError) {
                 console.error("Error creating appointment:", oError);
-            });
+            }
         },
 
-        removeAppointmentGC(sAppointmentID) {
-            gapi.client.calendar.events.delete({
-                calendarId: this.getModel().getProperty("/Email"),
-                eventId: sAppointmentID,
-                sendUpdates: "all"
-            }).then((oResponse) => {
-                console.log("Appointment deleted:", oResponse);
-            }, (oError) => {
+        async removeAppointmentGC(sAppointmentID) {
+            try {
+                await gapi.client.calendar.events.delete({
+                    calendarId: this.getModel().getProperty("/Email"),
+                    eventId: sAppointmentID,
+                    sendUpdates: "all"
+                });
+            } catch (oError) {
                 console.error("Error deleting appointment:", oError);
-            });
+            }
+        },
+
+        updateAppointmentGC(oAppoinment) {
+
         },
 
         setAppoitments(aAppointments) {
@@ -180,7 +165,7 @@ sap.ui.define([
 
         onAppointmentSelectOpenPopover(oEvent) {
             const oControl = oEvent.getParameter("appointment");
-            if (!oControl) {
+            if (!oControl || oControl.getSelected()) {
                 return;
             }
             const sPath = this.getPathForAppoinment(oControl.getBindingContext().getObject());
@@ -231,20 +216,16 @@ sap.ui.define([
         ///////////// DIALOG /////////////
         //////////////////////////////////
 
-        openAppoinmentDialog(sPath) {
+        async openAppoinmentDialog(sPath) {
             if (!this.oAppointmentDialog) {
-                this.loadFragment({
+                this.oAppointmentDialog = await this.loadFragment({
                     name: "pharelyshau.fragment.Calendar.AppointmentDialog"
-                }).then((oDialog) => {
-                    this.oAppointmentDialog = oDialog;
-                    oDialog.addStyleClass(this.getContentDensityClass());
-                    oDialog.bindElement(sPath);
-                    oDialog.open();
                 });
-            } else {
-                this.oAppointmentDialog.bindElement(sPath);
-                this.oAppointmentDialog.open();
-            }
+                this.oAppointmentDialog.addStyleClass(this.getContentDensityClass());
+            } 
+
+            this.oAppointmentDialog.bindElement(sPath);
+            this.oAppointmentDialog.open();
         },
 
         getPathForAppoinment(oAppoinment) {
@@ -354,19 +335,15 @@ sap.ui.define([
         ///////////// POPOVER ////////////
         //////////////////////////////////
 
-        openAppoinmentPopover(sPath, oControl) {
+        async openAppoinmentPopover(sPath, oControl) {
             if (!this.oAppointmentPopover) {
-                this.loadFragment({
+                this.oAppointmentPopover = await this.loadFragment({
                     name: "pharelyshau.fragment.Calendar.AppointmentPopover"
-                }).then((oPopover) => {
-                    this.oAppointmentPopover = oPopover;
-                    oPopover.bindElement(sPath);
-                    oPopover.openBy(oControl);
                 });
-            } else {
-                this.oAppointmentPopover.bindElement(sPath);
-                this.oAppointmentPopover.openBy(oControl);
             }
+
+            this.oAppointmentPopover.bindElement(sPath);
+            this.oAppointmentPopover.openBy(oControl);
         },
 
         onPressEditOpenAppointmentDialog(oEvent) {

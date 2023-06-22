@@ -29,14 +29,14 @@
                 <HBox visible="{= ${Mode} !== 'view' }" justifyContent="SpaceBetween"
                     renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
                     <Label width="0" text="Start Date" labelFor="dtpStartDate"/> <!-- invsible -->
-                    <DateTimePicker visible="{= ${Mode} !== 'view' }" minutesStep="15" change="onChangePickerStartDate"
+                    <DateTimePicker minutesStep="15" change="onChangePickerStartDate"
                         required="true" minDate="{view>/pickers/currentDate}" showCurrentDateButton="true"
                         valueState="{path: 'view>/pickers/startDate', formatter: '.formatter.startDateState'}"
                         valueStateText="{path: 'view>/pickers/startDate', formatter: '.formatter.startDateErrorText'}"
                         value="{path: 'view>/pickers/startDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                     <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
                     <Label width="0" text="End Date" labelFor="dtpEndDate"/> <!-- invsible -->
-                    <DateTimePicker visible="{= ${Mode} !== 'view' }" minutesStep="15" change="onChangePickerEndDate"
+                    <DateTimePicker minutesStep="15" change="onChangePickerEndDate"
                         required="true" minDate="{view>/pickers/startDate}" showCurrentDateButton="true"
                         valueState="{parts: ['view>/pickers/startDate', 'view>/pickers/endDate'], formatter: '.formatter.endDateState'}"
                         valueStateText="{parts: ['view>/pickers/startDate', 'view>/pickers/endDate'], formatter: '.formatter.endDateErrorText'}"

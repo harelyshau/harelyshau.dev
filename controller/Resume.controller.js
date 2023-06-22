@@ -25,21 +25,18 @@ sap.ui.define([
             sap.m.URLHelper.redirect(sFileURL, true);
         },
 
-        onPressOpenRelocationPopover(oEvent) {
+        async onPressOpenRelocationPopover(oEvent) {
             const oControl = oEvent.getSource();
-            const sBindingPath = "/RelocationPreference";
+            const sPath = "/RelocationPreference";
 
             if (!this.oRelocationPopover) {
-                this.loadFragment({
+                this.oRelocationPopover = await this.loadFragment({
                     name: "pharelyshau.fragment.Resume.RelocationPopover"
-                }).then((oPopover) => {
-                    this.oRelocationPopover = oPopover;
-                    oPopover.bindElement(sBindingPath);
-                    oPopover.openBy(oControl);
-                    return oPopover;
                 });
-            } else if (!this.isOpenDialog(this.oRelocationPopover, sBindingPath)) {
-                this.oRelocationPopover.bindElement(sBindingPath);
+            }
+            
+            if (!this.isDialogOpen(this.oRelocationPopover, sPath)) {
+                this.oRelocationPopover.bindElement(sPath);
                 this.oRelocationPopover.openBy(oControl);
             } else {
                 this.oRelocationPopover.close();
@@ -51,20 +48,17 @@ sap.ui.define([
         },
 
         // Page Content
-        onPressOpenCompanyPopover(oEvent) {
+        async onPressOpenCompanyPopover(oEvent) {
             const oControl = oEvent.getSource();
             const sBindingPath = oControl.getBindingContext().getPath() + "/Company";
 
             if (!this.oCompanyPopover) {
-                this.loadFragment({
+                this.oCompanyPopover = await this.loadFragment({
                     name: "pharelyshau.fragment.Resume.CompanyPopover"
-                }).then((oPopover) => {
-                    this.oCompanyPopover = oPopover;
-                    oPopover.bindElement(sBindingPath);
-                    oPopover.openBy(oControl);
-                    return oPopover;
                 });
-            } else if (!this.isOpenDialog(this.oCompanyPopover, sBindingPath)) {
+            }
+            
+            if (!this.isDialogOpen(this.oCompanyPopover, sBindingPath)) {
                 this.oCompanyPopover.bindElement(sBindingPath);
                 this.oCompanyPopover.openBy(oControl);
             } else {

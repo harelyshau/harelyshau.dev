@@ -34,22 +34,21 @@ const getAccessTokenFromServiceAccount = (function () {
         btoa(JSON.stringify(header)) + "." + btoa(JSON.stringify(claim));
       const sign = new JSEncrypt();
       sign.setPrivateKey(private_key);
-      const jwt =
-        signature + "." + sign.sign(signature, CryptoJS.SHA256, "sha256");
+      const jwt = signature + "." + sign.sign(signature, CryptoJS.SHA256, "sha256");
       const params = {
         method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        assertion: jwt,
-        grant_type: _grant_type,
-      }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          assertion: jwt,
+          grant_type: _grant_type,
+        }),
       };
-    fetch(_url, params)
-      .then((res) => res.json())
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
-  });
-}
+      fetch(_url, params)
+        .then((res) => res.json())
+        .then((res) => resolve(res))
+        .catch((err) => reject(err));
+    });
+  }
 
   return { do: _main };
-}) ();
+})();
