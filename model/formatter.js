@@ -5,7 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	// private scope
-	const getPluralForm = (nQuantity, sTextSingular, sTextPlural, sTextPlural2) => {
+	function getPluralForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
 		if (!nQuantity || nQuantity <= 0) {
 			return "";
 		}
@@ -107,6 +107,7 @@ sap.ui.define([
 					Description: oAppoinment.description,
                     StartDate: oStartDate,
                     EndDate: oEndDate,
+					Duration: oEndDate.getTime() - oStartDate.getTime(),
 					Mode: "view"
                 }
             });
@@ -135,7 +136,7 @@ sap.ui.define([
 		},
 
 		startDateState(oStartDate) {
-			if (!oStartDate || oStartDate.getTime() > new Date().getTime()) {
+			if (!oStartDate || oStartDate.getTime() >= new Date().getTime()) {
 				return "None";
 			}
 			return "Error";
@@ -149,7 +150,7 @@ sap.ui.define([
 		},
 
 		startDateErrorText(oStartDate) {
-			if (!oStartDate || oStartDate.getTime() > new Date().getTime()) {
+			if (!oStartDate || oStartDate.getTime() >= new Date().getTime()) {
 				return "";
 			}
 			return "Start date must be in the future";

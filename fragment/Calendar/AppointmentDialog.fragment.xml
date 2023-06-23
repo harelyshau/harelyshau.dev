@@ -3,7 +3,8 @@
         beforeClose="onBeforeCloseAppointmentDialog">
         <customHeader>
             <Toolbar style="Clear">
-                <Title text="Make Appointment" class="phNoMargin"/>                
+                <Title text="{= ${Mode} === 'create' ? 'Make Appointment' : 'Edit Appointment' }"
+                    class="phNoMargin"/>                
                 <ToolbarSpacer/>
                 <Button visible="{device>/system/phone}" tooltip="{i18n>btnClose}"
                     press="onPressCloseAppointmentDialog" icon="{i18n>iClose}"/>
@@ -30,17 +31,17 @@
                     renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
                     <Label width="0" text="Start Date" labelFor="dtpStartDate"/> <!-- invsible -->
                     <DateTimePicker minutesStep="15" change="onChangePickerStartDate"
-                        required="true" minDate="{view>/pickers/currentDate}" showCurrentDateButton="true"
-                        valueState="{path: 'view>/pickers/startDate', formatter: '.formatter.startDateState'}"
-                        valueStateText="{path: 'view>/pickers/startDate', formatter: '.formatter.startDateErrorText'}"
-                        value="{path: 'view>/pickers/startDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
+                        required="true" minDate="{= ${Mode} === 'create' ? ${view>/currentDate} : null }" showCurrentDateButton="true"
+                        valueState="{= ${Mode} === 'create' ? ${path: 'StartDate', formatter: '.formatter.startDateState'} : 'None' }"
+                        valueStateText="{path: 'StartDate', formatter: '.formatter.startDateErrorText'}"
+                        value="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                     <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
                     <Label width="0" text="End Date" labelFor="dtpEndDate"/> <!-- invsible -->
                     <DateTimePicker minutesStep="15" change="onChangePickerEndDate"
-                        required="true" minDate="{view>/pickers/startDate}" showCurrentDateButton="true"
-                        valueState="{parts: ['view>/pickers/startDate', 'view>/pickers/endDate'], formatter: '.formatter.endDateState'}"
-                        valueStateText="{parts: ['view>/pickers/startDate', 'view>/pickers/endDate'], formatter: '.formatter.endDateErrorText'}"
-                        value="{path: 'view>/pickers/endDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
+                        required="true" minDate="{StartDate}" showCurrentDateButton="true"
+                        valueState="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.endDateState'}"
+                        valueStateText="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.endDateErrorText'}"
+                        value="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                 </HBox>
             </VBox>
             <!-- Сonference -->

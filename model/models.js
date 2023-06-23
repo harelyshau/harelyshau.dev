@@ -59,11 +59,7 @@ sap.ui.define([
                 fullDay: localStorage.getItem("fullDay") === "true",
                 startHour: 8,
                 endHour: 21,
-                pickers: {
-                    startDate: new Date(),
-                    endDate: new Date(),
-                    currentDate: oCurrentDate
-                }
+                currentDate: new Date()
             };
             return new JSONModel(oData);
         }

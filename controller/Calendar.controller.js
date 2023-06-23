@@ -57,9 +57,9 @@ sap.ui.define([
                 this.getAppointmentsGC();
             } catch (oError) {
                 console.error("Error initializing Google Calendar API:", oError.error);
+            } finally {
+                this.getModel("view").setProperty("/busy", false);
             }
-            
-            this.getModel("view").setProperty("/busy", false);
         },
 
         // Requests
@@ -80,9 +80,9 @@ sap.ui.define([
                 this.setAppoitments(oResponse.result.items);
             } catch (oError) {
                 console.error("Error fetching appointments:", oError);
+            } finally {
+                oViewModel.setProperty("/busy", false);
             }
-
-            oViewModel.setProperty("/busy", false);
         },
 
         async createAppointmentGC(oAppoinment) {
@@ -113,7 +113,7 @@ sap.ui.define([
             }
         },
 
-        updateAppointmentGC(oAppoinment) {
+        async updateAppointmentGC(oAppoinment) {
 
         },
 
@@ -206,7 +206,7 @@ sap.ui.define([
         onPressToggleFullDay(oEvent) {
             const bPressed = oEvent.getSource().getProperty("pressed");
             if (bPressed) {
-                localStorage.setItem("fullDay", bPressed);
+                localStorage.setItem("fullDay", true);
             } else {
                 localStorage.removeItem("fullDay");
             }
@@ -243,12 +243,12 @@ sap.ui.define([
                 Email: "some@email.com",
                 StartDate: oStartDate,
                 EndDate: oEndDate,
+                Duration: oEndDate.getTime() - oStartDate.getTime(),
                 Mode: "create"
             }
             const aAppointments = this.getModel().getProperty("/Appointments");
             aAppointments.push(oAppoinment)
             this.getModel().setProperty("/Appointments", aAppointments);
-            this.setPickersValue(oStartDate, oEndDate)
             return oAppoinment;
         },
 
@@ -280,55 +280,47 @@ sap.ui.define([
 
         // Pickers
 
-        setPickersValue(oStartDate, oEndDate) {
-            const oViewModel = this.getModel("view");
-            oViewModel.setProperty("/pickers/startDate", oStartDate);
-            oViewModel.setProperty("/pickers/endDate", oEndDate);
-        },
-
         onChangePickerStartDate(oEvent) {
-            const oPicker = oEvent.getSource();
-            const sPath = oPicker.getBindingContext().getPath();
-            this.updatePickerEndDateByDuration(sPath);
-            if (!this.isValidPickersDateTime()) {
+            const oBindingContext = oEvent.getSource().getBindingContext();
+            const oAppoinment = oBindingContext.getObject();
+            const oStartDate = oAppoinment.StartDate;
+            const bValid = this.isAppointmentDatesValid(oStartDate);
+            if (!oEvent.getParameter("valid") || oAppoinment.Mode === "create" && !bValid) {
                 return;
             }
 
-            this.updateAppointmentDateTime(sPath);
-            this.byId("calendar").setStartDate(oPicker.getDateValue());
+            this.updateAppointmentEndDateByDuration(oBindingContext.getPath());
+            this.byId("calendar").setStartDate(oStartDate);
         },
 
         onChangePickerEndDate(oEvent) {
-            if (!this.isValidPickersDateTime()) {
+            const oBindingContext = oEvent.getSource().getBindingContext();
+            const oAppoinment = oBindingContext.getObject();
+            if (!oEvent.getParameter("valid") || !this.isAppointmentDatesValid(oAppoinment.StartDate, oAppoinment.EndDate)) {
                 return;
             }
 
-            const sPath = oEvent.getSource().getBindingContext().getPath();
-            this.updateAppointmentDateTime(sPath);
+            const sPath = oBindingContext.getPath();
+            this.updateAppointmentDuration(sPath);
         },
 
-        isValidPickersDateTime() {
-            const oDates = this.getModel("view").getProperty("/pickers");
-            const bValidStartDate = formatter.startDateState(oDates.startDate) !== "Error";
-            const bValidEndDate = formatter.endDateState(oDates.startDate, oDates.endDate) !== "Error";
-            return bValidStartDate && bValidEndDate;
+        updateAppointmentDuration(sPath) {
+            const oAppoinment = this.getModel().getProperty(sPath);
+            const nStartTime = oAppoinment.StartDate.getTime();
+            const nEndTime = oAppoinment.EndDate.getTime();
+            this.getModel().setProperty(sPath + "/Duration", nEndTime - nStartTime);
         },
 
-        updatePickerEndDateByDuration(sPath) {
+        updateAppointmentEndDateByDuration(sPath) {
             const oStartDate = this.getModel().getProperty(sPath + "/StartDate");
-            const oEndDate = this.getModel().getProperty(sPath + "/EndDate");
-            const nDuration = oEndDate.getTime() - oStartDate.getTime();
-
-            const oPickerStartDate = this.getModel("view").getProperty("/pickers/startDate");
-            this.getModel("view").setProperty("/pickers/endDate", new Date(oPickerStartDate.getTime() + nDuration));
+            const nDuration = this.getModel().getProperty(sPath + "/Duration");
+            this.getModel().setProperty(sPath + "/EndDate", new Date(oStartDate.getTime() + nDuration));
         },
 
-        updateAppointmentDateTime(sPath) {
-            const oStartDate = this.getModel("view").getProperty("/pickers/startDate");
-            this.getModel().setProperty(sPath + "/StartDate", oStartDate);
-
-            const oEndDate = this.getModel("view").getProperty("/pickers/endDate");
-            this.getModel().setProperty(sPath + "/EndDate", oEndDate);
+        isAppointmentDatesValid(oStartDate, oEndDate) {
+            const bValidStartDate = !oStartDate || formatter.startDateState(oStartDate) !== "Error";
+            const bValidEndDate = !oStartDate || !oEndDate || formatter.endDateState(oStartDate, oEndDate) !== "Error";
+            return bValidStartDate && bValidEndDate;
         },
 
         //////////////////////////////////

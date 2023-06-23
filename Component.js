@@ -1,10 +1,9 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
-    "sap/ui/Device",
     "./model/models",
     "./util/themeHelper",
     "./util/languageHelper"
-], function (UIComponent, Device, models, themeHelper, languageHelper) {
+], function (UIComponent, models, themeHelper, languageHelper) {
 
     "use strict"
 
@@ -18,16 +17,12 @@ sap.ui.define([
         init() {
             // call the base component's init function and create the App view
             UIComponent.prototype.init.apply(this, arguments);
-
             // enable routing
             this.getRouter().initialize();
-
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
-
             //init chosen language
             languageHelper.initLanguage();
-
             //init chosen theme
             themeHelper.initTheme();
         },
