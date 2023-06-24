@@ -1,0 +1,12 @@
+<mvc:View
+	controllerName="pharelyshau.controller.Home"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<IllustratedMessage title="This is Home Page"
+        description="Please check the link or Go to Home Page"
+        enableVerticalResponsiveness="true">
+        <additionalContent>
+            <Button text="Go to Home Page" />
+        </additionalContent>
+    </IllustratedMessage>
+</mvc:View>

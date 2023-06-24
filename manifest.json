@@ -62,13 +62,16 @@
                 "path": "pharelyshau.view",
                 "controlId": "app",
                 "controlAggregation": "pages",
+                "bypassed": {
+					"target": ["notFound"]
+				},
                 "async": true
             },
             "routes": [
                 {
                     "pattern": "",
                     "name": "home",
-                    "target": "resume"
+                    "target": "home"
                 },
                 {
                     "pattern": "resume",
@@ -82,6 +85,10 @@
                 }
             ],
             "targets": {
+                "home": {
+                    "id": "home",
+                    "name": "Home"
+                },
                 "resume": {
                     "id": "resume",
                     "name": "Resume"
@@ -89,6 +96,10 @@
                 "calendar": {
                     "id": "calendar",
                     "name": "Calendar"
+                },
+                "notFound": {
+                    "id": "NotFound",
+                    "name": "notFound"
                 }
             }
         },

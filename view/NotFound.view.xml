@@ -1,0 +1,12 @@
+<mvc:View
+	controllerName="pharelyshau.controller.NotFound"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<IllustratedMessage title="This page Not Found"
+        description="Please check the link or Go to Home Page"
+        enableVerticalResponsiveness="true">
+        <additionalContent>
+            <Button icon="sap-icon://home" text="Go to Home Page" press="onPressNavigateToHome"/>
+        </additionalContent>
+    </IllustratedMessage>
+</mvc:View>

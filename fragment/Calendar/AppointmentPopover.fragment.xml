@@ -22,7 +22,7 @@
             <!-- Date and Time -->
             <VBox class="sapUiSmallMarginTop">
                 <Label text="Date &amp; Time:"/>
-                <HBox visible="{= ${Mode} === 'view' }">
+                <HBox>
                     <Text text="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/>
                     <Label text="–" class="sapUiTinyMarginBeginEnd"/>
                     <Text text="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/>

@@ -50,7 +50,7 @@ sap.ui.define([
         // Page Content
         async onPressOpenCompanyPopover(oEvent) {
             const oControl = oEvent.getSource();
-            const sBindingPath = oControl.getBindingContext().getPath() + "/Company";
+            const sPath = oControl.getBindingContext().getPath() + "/Company";
 
             if (!this.oCompanyPopover) {
                 this.oCompanyPopover = await this.loadFragment({
@@ -58,8 +58,8 @@ sap.ui.define([
                 });
             }
             
-            if (!this.isDialogOpen(this.oCompanyPopover, sBindingPath)) {
-                this.oCompanyPopover.bindElement(sBindingPath);
+            if (!this.isDialogOpen(this.oCompanyPopover, sPath)) {
+                this.oCompanyPopover.bindElement(sPath);
                 this.oCompanyPopover.openBy(oControl);
             } else {
                 this.oCompanyPopover.close();

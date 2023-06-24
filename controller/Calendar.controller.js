@@ -270,6 +270,9 @@ sap.ui.define([
             if (oBindingContext.getProperty("Mode") === "create") {
                 this.removeAppointmentLocal(oBindingContext.getObject());
             }
+            if (oBindingContext.getProperty("Mode") === "edit") {
+                this.getModel().setProperty(oBindingContext.getPath() + "/Mode", "view");
+            }
         },
 
         removeAppointmentLocal(oAppoinment) {
@@ -284,8 +287,9 @@ sap.ui.define([
             const oBindingContext = oEvent.getSource().getBindingContext();
             const oAppoinment = oBindingContext.getObject();
             const oStartDate = oAppoinment.StartDate;
-            const bValid = this.isAppointmentDatesValid(oStartDate);
-            if (!oEvent.getParameter("valid") || oAppoinment.Mode === "create" && !bValid) {
+            const bControlValid = oEvent.getParameter("valid") && !!oEvent.getParameter("value");
+            const bFieldNotValid = oAppoinment.Mode === "create" && !this.isAppointmentDatesValid(oStartDate);
+            if (!bControlValid || bFieldNotValid) {
                 return;
             }
 
@@ -296,7 +300,9 @@ sap.ui.define([
         onChangePickerEndDate(oEvent) {
             const oBindingContext = oEvent.getSource().getBindingContext();
             const oAppoinment = oBindingContext.getObject();
-            if (!oEvent.getParameter("valid") || !this.isAppointmentDatesValid(oAppoinment.StartDate, oAppoinment.EndDate)) {
+            const bControlValid = oEvent.getParameter("valid") && !!oEvent.getParameter("value");
+            const bFieldNotValid = !this.isAppointmentDatesValid(oAppoinment.StartDate, oAppoinment.EndDate);
+            if (!bControlValid || bFieldNotValid) {
                 return;
             }
 
@@ -338,11 +344,11 @@ sap.ui.define([
             this.oAppointmentPopover.openBy(oControl);
         },
 
-        onPressEditOpenAppointmentDialog(oEvent) {
-            this.oAppointmentPopover.close();
+        async onPressEditOpenAppointmentDialog(oEvent) {
             const sPath = oEvent.getSource().getBindingContext().getPath();
             this.getModel().setProperty(sPath + "/Mode", "edit");
-            this.openAppoinmentDialog(sPath);
+            await this.openAppoinmentDialog(sPath);
+            this.oAppointmentPopover.close();
         },
 
         onPressDeleteAppointment(oEvent) {
