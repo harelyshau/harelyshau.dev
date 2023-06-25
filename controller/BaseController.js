@@ -9,6 +9,8 @@ sap.ui.define([
 
 	return Controller.extend("pharelyshau.controller.BaseController", {
 
+		// DEFAULT
+
 		getRouter() {
 			return UIComponent.getRouterFor(this);
 		},
@@ -33,12 +35,7 @@ sap.ui.define([
             return Device.support.touch ? "sapUiSizeCozy" : "sapUiSizeCompact";
         },
 
-		// HEADER
-		onPressSendEmail() {
-			const oModel = this.getModel();
-			const sEmail = oModel.getProperty("/Email");
-			sap.m.URLHelper.triggerEmail(sEmail, "Email from harelyshau.dev website");
-		},
+		// MENU
 
 		async onPressOpenOverflowMenu(oEvent) {
 			const oButton = oEvent.getSource();
@@ -52,6 +49,16 @@ sap.ui.define([
 			this.oOverflowMenu.openBy(oButton);
         },
 
+		onPressNavigateToCalendar() {
+            this.getRouter().navTo("calendar");
+        },
+
+		onPressSendEmail() {
+			const oModel = this.getModel();
+			const sEmail = oModel ? oModel.getProperty("/Email") : "pavel@harelyshau.dev";
+			sap.m.URLHelper.triggerEmail(sEmail, "Email from harelyshau.dev website");
+		},
+
 		onPressSetTheme(sKey) {
 			themeHelper.setTheme(sKey);
 			const sThemeKey = themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme());
@@ -60,8 +67,7 @@ sap.ui.define([
 
 		onPressSetLanguage(sKey) {
 			languageHelper.setLanguage(sKey);
-			// need to refresh to change controls language
-			location.reload();
+			location.reload(); // need to refresh to change controls language
 		},
 
 		async onPressShareLink() {
@@ -80,7 +86,8 @@ sap.ui.define([
             sap.m.URLHelper.redirect(sWebsiteURL, true);
         },
 
-		// Dialogs
+		// DIALOGS
+
         isDialogOpen(oDialog, sBinndingPath) {
             if (!oDialog) {
                 return false;

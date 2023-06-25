@@ -32,13 +32,11 @@
 				</f:DynamicPageTitle>
 			</f:title>
 			<f:content>
-                <VBox class="phResumePageContent sapUiMediumMarginBottom">
+                <VBox class="phLimitedPageContent sapUiMediumMarginBottom">
                     <!-- SUMMARY -->
                     <Panel>
-                        <VBox>
-                            <Title text="{i18n>ttlSummary}" wrapping="true" class="sapUiTinyMarginBottom"/>
-                            <Text text="{/Summary}"/>
-                        </VBox>
+						<Title text="{i18n>ttlSummary}" wrapping="true"/>
+						<Text text="{/Summary}" class="sapUiTinyMarginTop"/>
                     </Panel>
                     <!-- SKILLS -->
                     <Panel class="sapUiSmallMarginTop">
