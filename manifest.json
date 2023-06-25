@@ -98,8 +98,8 @@
                     "name": "Calendar"
                 },
                 "notFound": {
-                    "id": "NotFound",
-                    "name": "notFound"
+                    "id": "notFound",
+                    "name": "NotFound"
                 }
             }
         },
