@@ -23,10 +23,7 @@ sap.ui.define([
 			};
 
             IllustrationPool.registerIllustrationSet(oTntSet, false);
-        },
-
-        onPressNavigateToResume() {
-            this.getRouter().navTo("resume");
         }
+        
     });
 });

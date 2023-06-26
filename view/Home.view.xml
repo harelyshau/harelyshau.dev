@@ -5,17 +5,18 @@
 	xmlns:f="sap.f"
 	xmlns:unified="sap.ui.unified">
 	<f:DynamicPage class="">
+        <!-- HEADER -->
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="Home Page" wrapping="true"/>
+					<Title text="harelyshau.dev" wrapping="true"/>
 				</f:heading>
 				<f:snappedContent>
-						<Label text="Start Page of harelyshau.dev" wrapping="true"/>
-					</f:snappedContent>
-					<f:expandedContent>
-						<Label text="Start Page of harelyshau.dev" wrapping="true"/>
-					</f:expandedContent>
+                    <Label text="{i18n>lHomePage}" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="{i18n>lHomePage}" wrapping="true"/>
+                </f:expandedContent>
 				<f:actions>
 					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
 						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
@@ -24,51 +25,48 @@
 		</f:title>
 		<f:content>
 			<VBox class="phLimitedPageContent sapUiMediumMarginBottom">
+                <!-- WELCOME -->
                 <Panel>
-                    <IllustratedMessage
-                        illustrationType="tnt-Success"
-                        title="Hello and Welcome to harelyshau.dev!"
-                        description="This product is created and maintained by Pavel Harelyshau. Currently the project is still being developed, so any suggestions are welcome."/>
-                    <!-- <VBox class="sapUiTinyMargin">
-                        <Title width="100%" textAlign="Center" titleStyle="H5" wrapping="true" text="Hello and Welcome to harelyshau.dev!"/>
-                        <Text class="sapUiTinyMarginTop" textAlign="Center" text="This product is created and maintained by Pavel Harelyshau. Currently the project is still being developed, so any suggestions are welcome. This product is created and maintained by Pavel Harelyshau. Currently the project is still being developed, so any suggestions are welcome."/>
-                    </VBox> -->
+                    <IllustratedMessage illustrationType="tnt-Success"
+                        title="{i18n>ttlWelcome}" description="{i18n>tWelcomeDescription}">
+                        <additionalContent>
+                            <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
+                                press="onPressSendEmail"/>
+                        </additionalContent>
+                    </IllustratedMessage>
                 </Panel>
+                <!-- OVERVIEW -->
                 <Panel class="sapUiSmallMarginTop">
-                    <VBox class="sapUiTinyMarginTopBottom">
-                    <Title wrapping="true" text="WHAT CAN YOU DO HERE" textAlign="Center" width="100%"/>
-                        <HBox wrap="Wrap" justifyContent="Center" class="sapUiTinyMarginTop">
-                            <GenericTile header="{i18n>btnMakeAppointment}"
-                                subheader="Here you сan make an appointment with me"
-                                press="onPressNavigateToCalendar" tileIcon="{i18n>iAppointment}"
-                                backgroundColor="{= ${view>/tileColors}[${appView>/theme}] }"
-                                mode="IconMode" class="sapUiTinyMargin"/>
-                            <GenericTile header="{i18n>btnSeeResume}" 
-                                subheader="Here you сan make an appointment with me"
-                                press="onPressNavigateToResume" tileIcon="{i18n>iResume}"
-                                backgroundColor="{= ${view>/tileColors}[${appView>/theme}] }"
-                                mode="IconMode" class="sapUiTinyMargin"/>
-                            <GenericTile header="{i18n>btnSendEmail}" 
-                                subheader="Here you сan make an appointment with me"
-                                press="onPressSendEmail" tileIcon="{i18n>iEmail}"
-                                backgroundColor="{= ${view>/tileColors}[${appView>/theme}] }"
-                                mode="IconMode" class="sapUiTinyMargin"/>
-                            <GenericTile header="{i18n>btnShareLink}" 
-                                subheader="Here you сan make an appointment with me"
-                                press="onPressShareLink" tileIcon="{i18n>iShare}"
-                                backgroundColor="{= ${view>/tileColors}[${appView>/theme}] }"
-                                mode="IconMode" class="sapUiTinyMargin"/>
-                            <GenericTile header="{i18n>btnShowCode}" 
-                                subheader="Here you сan make an appointment with me"
-                                press="onPressShowCode" tileIcon="{i18n>iCode}"
-                                backgroundColor="{= ${view>/tileColors}[${appView>/theme}] }"
-                                mode="IconMode" class="sapUiTinyMargin"/>
-                        </HBox>
-                    </VBox>
+                    <IllustratedMessage illustrationType="tnt-Mission"
+                        title="{i18n>ttlOverview}" description="{i18n>tOverview}">
+                        <additionalContent>
+                            <Button icon="{i18n>iCode}" text="{i18n>btnSeeCode}"
+                                press="onPressShowCode"/>
+                        </additionalContent>
+                    </IllustratedMessage>
                 </Panel>
-                <!-- <Panel>
-                    <IllustratedMessage />
-                </Panel> -->
+                <!-- CALENDAR -->
+                <Panel class="sapUiSmallMarginTop">
+                    <IllustratedMessage illustrationType="sapIllus-SimpleCalendar"
+                        title="{i18n>ttlCalendarPage}" description="{i18n>tCalendarOverview}">
+                        <additionalContent>
+                            <Button icon="{i18n>iAppointment}" text="{i18n>btnMakeAppointment}"
+                                press="onPressNavigateToPage('calendar')"/>
+                        </additionalContent>
+                    </IllustratedMessage>
+                </Panel>
+                <!-- RESUME -->
+                <Panel class="sapUiSmallMarginTop">
+                    <IllustratedMessage
+                        illustrationType="sapIllus-NoSavedItems"
+                        title="{i18n>ttlResumepPage}"
+                        description="{i18n>tResumeOverview}">
+                        <additionalContent>
+                            <Button icon="{i18n>iResume}" text="{i18n>btnSeeResume}"
+                                press="onPressNavigateToPage('resume')"/>
+                        </additionalContent>
+                    </IllustratedMessage>
+                </Panel>
 			</VBox>
 		</f:content>
 	</f:DynamicPage>

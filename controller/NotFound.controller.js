@@ -6,8 +6,9 @@ sap.ui.define([
 
     return BaseController.extend("pharelyshau.controller.NotFound", {
 
-        onPressNavigateToHome() {
-            this.getRouter().navTo("home");
+        onInit() {
+
         }
+        
     });
 });

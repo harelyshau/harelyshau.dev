@@ -49,9 +49,9 @@ sap.ui.define([
 			this.oOverflowMenu.openBy(oButton);
         },
 
-		onPressNavigateToCalendar() {
-            this.getRouter().navTo("calendar");
-        },
+		onPressNavigateToPage(sPage) {
+			this.getRouter().navTo(sPage);
+		},
 
 		onPressSendEmail() {
 			const oModel = this.getModel();
