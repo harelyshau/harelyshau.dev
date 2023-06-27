@@ -61,7 +61,7 @@
             </VBox>
         </VBox>
         <beginButton>
-            <Button text="{= ${Mode} === 'create'? 'Create' : 'Save' }" type="Emphasized" press="onPressCreateAppointment"/>
+            <Button text="{= ${Mode} === 'create'? 'Create' : 'Save' }" type="Emphasized" press="onPressCreateEditAppointment"/>
         </beginButton>
         <endButton>
             <Button visible="{= !${device>/system/phone} }" text="Cancel"

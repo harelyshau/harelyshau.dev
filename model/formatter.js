@@ -4,31 +4,6 @@ sap.ui.define([
 
 	"use strict";
 
-	// private scope
-	function getPluralForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
-		if (!nQuantity || nQuantity <= 0) {
-			return "";
-		}
-
-		if (nQuantity === 1) {
-			return nQuantity + "\u00A0" + sTextSingular;
-		}
-
-		// for Russian plural forms
-		if (localStorage.language === "ru") {
-			const sLastDigits = String(nQuantity).slice(-2);
-			const nLastDigits = sLastDigits > 20 ? +(sLastDigits.slice(-1)) : +sLastDigits;
-			if (nLastDigits === 1) {
-				return nQuantity + "\u00A0" + sTextSingular;
-			}
-			if (nLastDigits > 4) {
-				return nQuantity + "\u00A0" + sTextPlural2;
-			}
-		}
-
-		return nQuantity + "\u00A0" + sTextPlural;
-	}
-
 	return {
 
 		// RESUME
@@ -69,10 +44,34 @@ sap.ui.define([
 				nYears--;
 				nMonths += 12;
 			}
-			let sResult = getPluralForm(nYears, this.i18n("lYear"), this.i18n("lYears"), this.i18n("lYearPlural"));
+			let sResult = this.formatter.getPluralForm(nYears, this.i18n("lYear"), this.i18n("lYears"), this.i18n("lYearPlural"));
 			sResult += nMonths && nYears ? "\u00A0" : "";
-			sResult += getPluralForm(nMonths, this.i18n("lMonth"), this.i18n("lMonths"), this.i18n("lMonthPlural"));
+			sResult += this.formatter.getPluralForm(nMonths, this.i18n("lMonth"), this.i18n("lMonths"), this.i18n("lMonthPlural"));
 			return sResult;
+		},
+
+		getPluralForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
+			if (!nQuantity || nQuantity <= 0) {
+				return "";
+			}
+	
+			if (nQuantity === 1) {
+				return nQuantity + "\u00A0" + sTextSingular;
+			}
+	
+			// for Russian plural forms
+			if (localStorage.language === "ru") {
+				const sLastDigits = String(nQuantity).slice(-2);
+				const nLastDigits = sLastDigits > 20 ? +(sLastDigits.slice(-1)) : +sLastDigits;
+				if (nLastDigits === 1) {
+					return nQuantity + "\u00A0" + sTextSingular;
+				}
+				if (nLastDigits > 4) {
+					return nQuantity + "\u00A0" + sTextPlural2;
+				}
+			}
+	
+			return nQuantity + "\u00A0" + sTextPlural;
 		},
 
 		textLink(sLink, sText) {
@@ -90,26 +89,33 @@ sap.ui.define([
 		// CALENDAR
 
 		formattedAppointments(aAppointments, sAvailableAppointmentsIDs) {
-			return aAppointments.map((oAppoinment, i) => {
-				let oStartDateTime = oAppoinment.start;
-				let oEndDateTime = oAppoinment.end;
+			return aAppointments.map((oAppointmentGC, i) => {
+				let oStartDateTime = oAppointmentGC.start;
+				let oEndDateTime = oAppointmentGC.end;
 				const oStartDate = new Date(oStartDateTime.dateTime ?? oStartDateTime.date + "T00:00");
 				const oEndDate = new Date(oEndDateTime.dateTime ?? oEndDateTime.date + "T00:00");
 				if (!oEndDateTime.dateTime) { // set up all-day appointments for correct displaying
 					oEndDate.setDate(oEndDate.getDate() - 1);
 				}
-				const sEmail = oAppoinment.attendees ? oAppoinment.attendees[0].email : "";
-                return {
-                    ID: oAppoinment.id,
-					// TODO: change to busy
-					Email: sEmail,
-                    Name: oAppoinment.summary,
-					Description: oAppoinment.description,
-                    StartDate: oStartDate,
+				
+				const oAppoinment = {
+					ID: oAppointmentGC.id,
+					Name: "Busy",
+					StartDate: oStartDate,
                     EndDate: oEndDate,
 					Duration: oEndDate.getTime() - oStartDate.getTime(),
+					Type: "Type16",
 					Mode: "view"
-                }
+				};
+				const aAvailableAppointmentIDs = JSON.parse(localStorage.getItem("appointments")) ?? [];
+				if (aAvailableAppointmentIDs.includes(oAppoinment.ID)) {
+					const sEmail = oAppointmentGC.attendees ? oAppointmentGC.attendees[0].email : "";
+					oAppoinment.Name = oAppointmentGC.summary;
+					oAppoinment.Description = oAppointmentGC.description;
+					oAppoinment.Email = sEmail;
+					oAppoinment.Type = "Type01"
+				}
+                return oAppoinment;
             });
 		},
 

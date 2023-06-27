@@ -47,10 +47,9 @@
 					</actions>
 					<appointments>
 						<unified:CalendarAppointment
-							title= "{= !!${Name} ? ${Name} : 'Untitled Appointment' }"
+							title= "{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"
 							text= "{Description}"
-							type= "Type16"
-							icon= "{icon}"
+							type= "{Type}"
 							startDate= "{StartDate}"
 							endDate= "{EndDate}">
 							<!-- Type06 -->

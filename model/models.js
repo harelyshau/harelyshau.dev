@@ -70,7 +70,10 @@ sap.ui.define([
                 fullDay: localStorage.getItem("fullDay") === "true",
                 startHour: 8,
                 endHour: 21,
-                currentDate: new Date()
+                currentDate: new Date(),
+                user: {
+                    email: localStorage.getItem("email")
+                }
             };
             return new JSONModel(oData);
         }

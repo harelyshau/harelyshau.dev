@@ -86,15 +86,15 @@ sap.ui.define([
         },
 
         async createAppointmentGC(oAppoinment) {
-            const oEvent = formatter.gcEvent(oAppoinment);
+            const oAppointmentGC = formatter.gcEvent(oAppoinment);
             
             try {
-                await gapi.client.calendar.events.insert({
+                return await gapi.client.calendar.events.insert({
                     calendarId: "pavel@harelyshau.dev",
                     // guestsCanModify: true,
                     conferenceDataVersion: 1,
                     sendUpdates: "all",
-                    resource: oEvent
+                    resource: oAppointmentGC
                 });
             } catch (oError) {
                 console.error("Error creating appointment:", oError);
@@ -114,7 +114,17 @@ sap.ui.define([
         },
 
         async updateAppointmentGC(oAppoinment) {
+            const oAppointmentGC = formatter.gcEvent(oAppoinment);
 
+            try {
+                await gapi.client.calendar.events.update({
+                    calendarId: "pavel@harelyshau.dev",
+                    eventId: oAppoinment.ID,
+                    resource: oAppointmentGC
+                });
+            } catch (oError) {
+                console.error("Error updating appointment:", oError);
+            }
         },
 
         setAppoitments(aAppointments) {
@@ -168,8 +178,15 @@ sap.ui.define([
             if (!oControl || oControl.getSelected()) {
                 return;
             }
-            const sPath = this.getPathForAppoinment(oControl.getBindingContext().getObject());
-            this.openAppoinmentPopover(sPath, oControl);
+            const oAppoinment = oControl.getBindingContext().getObject();
+
+            if (this.getAvailableAppointmentIDs().includes(oAppoinment.ID)) {
+                // show popover only when this is user's appointment
+                const sPath = this.getPathForAppoinment(oAppoinment);
+                this.openAppoinmentPopover(sPath, oControl);
+            } else {
+                new MessageToast.show(this.i18n("msgBusyAtThisTime"));
+            }
         },
 
         addCalendarViews() {
@@ -244,7 +261,8 @@ sap.ui.define([
                 StartDate: oStartDate,
                 EndDate: oEndDate,
                 Duration: oEndDate.getTime() - oStartDate.getTime(),
-                Mode: "create"
+                Mode: "create",
+                Type: "Type01"
             }
             const aAppointments = this.getModel().getProperty("/Appointments");
             aAppointments.push(oAppoinment)
@@ -252,11 +270,36 @@ sap.ui.define([
             return oAppoinment;
         },
 
-        onPressCreateAppointment(oEvent) {
+        async onPressCreateEditAppointment(oEvent) {
             const oBindingContext = oEvent.getSource().getBindingContext();
-            this.getModel().setProperty(oBindingContext.getPath() + "/Mode", "view");
-            this.createAppointmentGC(oBindingContext.getObject());
+            const oAppoinment = oBindingContext.getObject();
+            const sMode = oAppoinment.Mode;
+            this.oAppointmentDialog.setBusy(true);
+            if (sMode === "create") {
+                const oResponse = await this.createAppointmentGC(oAppoinment);
+                this.addAppointmentIdToLocalStorage(oResponse.result.id);
+            }
+            if (sMode === "edit") {
+                await this.updateAppointmentGC(oAppoinment);
+            }
+            this.oAppointmentDialog.setBusy(false);
             this.oAppointmentDialog.close();
+        },
+
+        addAppointmentIdToLocalStorage(sAppointmentID) {
+            const aAppointmentIDs = this.getAvailableAppointmentIDs();
+            aAppointmentIDs.push(sAppointmentID);
+            localStorage.setItem("appointments", JSON.stringify(aAppointmentIDs));
+        },
+
+        removeAppointmentIdFromLocalStorage(sAppointmentID) {
+            const aAppointmentIDs = this.getAvailableAppointmentIDs();
+            aAppointmentIDs.splice(aAppointmentIDs.indexOf(sAppointmentID), 1);
+            localStorage.setItem("appointments", JSON.stringify(aAppointmentIDs));
+        },
+
+        getAvailableAppointmentIDs() {
+            return JSON.parse(localStorage.getItem("appointments")) ?? [];
         },
 
         // Appoinment cancel
@@ -270,9 +313,7 @@ sap.ui.define([
             if (oBindingContext.getProperty("Mode") === "create") {
                 this.removeAppointmentLocal(oBindingContext.getObject());
             }
-            if (oBindingContext.getProperty("Mode") === "edit") {
-                this.getModel().setProperty(oBindingContext.getPath() + "/Mode", "view");
-            }
+            this.getAppointmentsGC();
         },
 
         removeAppointmentLocal(oAppoinment) {
@@ -356,6 +397,7 @@ sap.ui.define([
             const oAppoinment = oEvent.getSource().getBindingContext().getObject()
             this.removeAppointmentGC(oAppoinment.ID);
             this.removeAppointmentLocal(oAppoinment);
+            this.removeAppointmentIdFromLocalStorage(oAppoinment.ID);
         },
 
         onPressCloseAppointmentPopover() {
