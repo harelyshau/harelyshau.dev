@@ -30,7 +30,12 @@ sap.ui.define([
             this.setModel(models.createCalendarViewModel(), "view");
             // create and add views for calendar
             this.addCalendarViews();
-        }, 
+        },
+
+        onAfterRendering() {
+            // to see max count of appointments
+            this.getModel().setSizeLimit(250);
+        },
 
         //////////////////////////////////
         ////// GOOGLE CALENDAR API ///////
@@ -217,6 +222,7 @@ sap.ui.define([
         onMoreLinkPress(oEvent) {
             const oDate = oEvent.getParameter("date");
             const oCalendar = oEvent.getSource();
+            oCalendar.setStartDate(oDate);
             oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
         },
 
@@ -257,7 +263,7 @@ sap.ui.define([
             oEndDate = oEndDate ?? new Date(new Date().getTime() + 7200000); // plus two hours
             const oAppoinment = {
                 ID: "newAppointment",
-                Email: "some@email.com",
+                Email: localStorage.getItem("email"),
                 StartDate: oStartDate,
                 EndDate: oEndDate,
                 Duration: oEndDate.getTime() - oStartDate.getTime(),
@@ -274,16 +280,20 @@ sap.ui.define([
             const oBindingContext = oEvent.getSource().getBindingContext();
             const oAppoinment = oBindingContext.getObject();
             const sMode = oAppoinment.Mode;
-            this.oAppointmentDialog.setBusy(true);
+
+            localStorage.setItem("email", oAppoinment.Email);
+            this.getModel().setProperty(oBindingContext.getPath() + "/Mode", "view");
+
+            this.oAppointmentDialog.close();
+
             if (sMode === "create") {
                 const oResponse = await this.createAppointmentGC(oAppoinment);
-                this.addAppointmentIdToLocalStorage(oResponse.result.id);
-            }
-            if (sMode === "edit") {
+                const sAppointmentID = oResponse.result.id;
+                this.addAppointmentIdToLocalStorage(sAppointmentID);
+                this.getModel().setProperty(oBindingContext.getPath() + "/ID", sAppointmentID);
+            } else if (sMode === "edit") {
                 await this.updateAppointmentGC(oAppoinment);
             }
-            this.oAppointmentDialog.setBusy(false);
-            this.oAppointmentDialog.close();
         },
 
         addAppointmentIdToLocalStorage(sAppointmentID) {
@@ -308,12 +318,21 @@ sap.ui.define([
             this.oAppointmentDialog.close();
         }, 
 
-        onBeforeCloseAppointmentDialog(oEvent) {
+        onAfterCloseAppointmentDialog(oEvent) {
             const oBindingContext = oEvent.getSource().getBindingContext();
-            if (oBindingContext.getProperty("Mode") === "create") {
+            const sMode = oBindingContext.getProperty("Mode");
+            if (sMode === "create") {
                 this.removeAppointmentLocal(oBindingContext.getObject());
+            } else if (sMode === "edit") {
+                this.resetAppointmentLocal(oBindingContext.getObject());
             }
-            this.getAppointmentsGC();
+        },
+
+        resetAppointmentLocal(oAppoinment) {
+            const sPath = this.getPathForAppoinment(oAppoinment);
+            const oInitialAppoinment = this.getModel("view").getProperty("/initialAppointment");
+            this.getModel().setProperty(sPath, oInitialAppoinment);
+            this.byId("calendar").setStartDate(oInitialAppoinment.StartDate);
         },
 
         removeAppointmentLocal(oAppoinment) {
@@ -386,9 +405,15 @@ sap.ui.define([
         },
 
         async onPressEditOpenAppointmentDialog(oEvent) {
-            const sPath = oEvent.getSource().getBindingContext().getPath();
+            const oBindingContext = oEvent.getSource().getBindingContext();
+            const sPath = oBindingContext.getPath();
             this.getModel().setProperty(sPath + "/Mode", "edit");
             await this.openAppoinmentDialog(sPath);
+
+            // write to view model initial appointment to reset it if necessary
+            const oInitialAppoinment = {...oBindingContext.getObject()};
+            this.getModel("view").setProperty("/initialAppointment", oInitialAppoinment);
+
             this.oAppointmentPopover.close();
         },
 

@@ -51,29 +51,15 @@ sap.ui.define([
             return new JSONModel(oData);
         },
 
-        createHomeViewModel() {
-            const oData = {
-                tileColors: {
-                    light: "#5E696E",
-                    dark: "#D3D7D9"
-                }
-            }
-            ;
-            return new JSONModel(oData);
-        },
-
         createCalendarViewModel() {
             const oCurrentDate = new Date();
             oCurrentDate.setHours(0, 0, 0, 0);
             const oData = {
                 busy: true,
-                fullDay: localStorage.getItem("fullDay") === "true",
+                fullDay: !!JSON.parse(localStorage.getItem("fullDay")),
                 startHour: 8,
                 endHour: 21,
-                currentDate: new Date(),
-                user: {
-                    email: localStorage.getItem("email")
-                }
+                currentDate: new Date()
             };
             return new JSONModel(oData);
         }

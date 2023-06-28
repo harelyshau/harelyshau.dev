@@ -9,9 +9,6 @@ sap.ui.define([
     return BaseController.extend("pharelyshau.controller.Home", {
 
         onInit() {
-            // set the home view model
-            this.setModel(models.createHomeViewModel(), "view");
-
             // register tnt illustration set
             this.registerIllustrationSet("tnt", "sap/tnt/themes/base/illustrations");
         },

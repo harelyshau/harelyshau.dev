@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
     <Dialog stretch="{device>/system/phone}" resizable="true" draggable="true"
-        beforeClose="onBeforeCloseAppointmentDialog">
+        afterClose="onAfterCloseAppointmentDialog">
         <customHeader>
             <Toolbar style="Clear">
                 <Title text="{= ${Mode} === 'create' ? 'Make Appointment' : 'Edit Appointment' }"
