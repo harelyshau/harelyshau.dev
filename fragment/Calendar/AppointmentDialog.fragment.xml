@@ -12,14 +12,14 @@
         </customHeader>
         <VBox class="sapUiSmallMarginBeginEnd">
             <!-- Title -->
-            <VBox class="sapUiSmallMarginTop" visible="{= ${Mode} !== 'view' }">
+            <VBox class="sapUiSmallMarginTop">
                 <Label text="Title:" labelFor="inpTitle"/>
                 <Input value="{Name}" valueLiveUpdate="true" placeholder="Title for Appointment"/>
             </VBox>
             <!-- Email -->
             <VBox class="sapUiSmallMarginTop">
                 <Label text="Your Email:" required="{= ${Mode} !== 'view' }" labelFor="inpEmail"/>
-                <Input visible="{= ${Mode} !== 'view' }" required="true" type="Email" placeholder="your@email.com"
+                <Input id="inpEmail" required="true" type="Email" placeholder="your@email.com"
                     value="{path: 'Email', type: 'sap.ui.model.type.String', constraints: {search: '^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$'} }"/>
                 <!-- <Input required="true" type="Email" placeholder="your@email.com"
                     value="{path: 'Email', type: '.types.email'}"/> -->
@@ -27,30 +27,29 @@
             <!-- Date and Time -->
             <VBox class="sapUiSmallMarginTop">
                 <Label text="Date &amp; Time:" required="{= ${Mode} !== 'view' }"/>
-                <HBox visible="{= ${Mode} !== 'view' }" justifyContent="SpaceBetween"
+                <HBox justifyContent="SpaceBetween"
                     renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
                     <Label width="0" text="Start Date" labelFor="dtpStartDate"/> <!-- invsible -->
-                    <DateTimePicker minutesStep="15" change="onChangePickerStartDate"
+                    <DateTimePicker id="dtpStartDate" minutesStep="15" change="onChangePicker($event ,'StartDate')"
                         required="true" minDate="{= ${Mode} === 'create' ? ${view>/currentDate} : null }" showCurrentDateButton="true"
-                        valueState="{= ${Mode} === 'create' ? ${path: 'StartDate', formatter: '.formatter.startDateState'} : 'None' }"
-                        valueStateText="{path: 'StartDate', formatter: '.formatter.startDateErrorText'}"
-                        value="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
+                        value="{path: 'StartDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                     <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
                     <Label width="0" text="End Date" labelFor="dtpEndDate"/> <!-- invsible -->
-                    <DateTimePicker minutesStep="15" change="onChangePickerEndDate"
+                    <DateTimePicker id="dtpEndDate" minutesStep="15" change="onChangePicker($event ,'EndDate')"
                         required="true" minDate="{StartDate}" showCurrentDateButton="true"
-                        valueState="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.endDateState'}"
-                        valueStateText="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.endDateErrorText'}"
-                        value="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
+                        value="{path: 'EndDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                 </HBox>
             </VBox>
-            <!-- Сonference -->
+            <!-- Conference -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Сonference:" labelFor="inpСonference"/>
-                <VBox visible="{= ${Mode} !== 'view' }">
-                    <Input value="{Сonference}" placeholder="Add link to Сonference or add Google Meet"/>
-                    <Button text="Add Google Meet video conferencing" width="100%"
-                        icon="/resource/image/GoogleMeetIcon.svg"/>
+                <Label text="Conference:" labelFor="inpConference"/>
+                <VBox>
+                    <Input value="{Conference}" type="Url"
+                        valueState="{path: 'Conference', formatter: '.formatter.conferenceState'}"
+                        valueStateText="{path: 'Conference', formatter: '.formatter.conferenceStateText'}"
+                        placeholder="Add link to Conference or add Google Meet"/>
+                    <!-- <Button text="Add Google Meet video conferencing" width="100%"
+                        icon="/resource/image/GoogleMeetIcon.svg"/> -->
                 </VBox>
             </VBox>
             <!-- Agenda -->

@@ -6,7 +6,9 @@ sap.ui.define([
 
 	return {
 
-		// RESUME
+		//////////////////////////////////
+        ///////////// RESUME /////////////
+        //////////////////////////////////
 
 		textList(aValues) {
 			if (!aValues) {
@@ -54,11 +56,11 @@ sap.ui.define([
 			if (!nQuantity || nQuantity <= 0) {
 				return "";
 			}
-	
+
 			if (nQuantity === 1) {
 				return nQuantity + "\u00A0" + sTextSingular;
 			}
-	
+
 			// for Russian plural forms
 			if (localStorage.language === "ru") {
 				const sLastDigits = String(nQuantity).slice(-2);
@@ -70,7 +72,7 @@ sap.ui.define([
 					return nQuantity + "\u00A0" + sTextPlural2;
 				}
 			}
-	
+
 			return nQuantity + "\u00A0" + sTextPlural;
 		},
 
@@ -86,7 +88,9 @@ sap.ui.define([
 			return `<a href="${sLink}">${sText}</a>`;
 		},
 
-		// CALENDAR
+		//////////////////////////////////
+        //////////// CALENDAR ////////////
+        //////////////////////////////////
 
 		formattedAppointments(aAppointments, sAvailableAppointmentsIDs) {
 			return aAppointments.map((oAppointmentGC, i) => {
@@ -97,13 +101,12 @@ sap.ui.define([
 				if (!oEndDateTime.dateTime) { // set up all-day appointments for correct displaying
 					oEndDate.setDate(oEndDate.getDate() - 1);
 				}
-				
+
 				const oAppoinment = {
 					ID: oAppointmentGC.id,
 					Name: "Busy",
 					StartDate: oStartDate,
-                    EndDate: oEndDate,
-					Duration: oEndDate.getTime() - oStartDate.getTime(),
+					EndDate: oEndDate,
 					Type: "Type16",
 					Mode: "view"
 				};
@@ -113,60 +116,52 @@ sap.ui.define([
 					oAppoinment.Name = oAppointmentGC.summary;
 					oAppoinment.Description = oAppointmentGC.description;
 					oAppoinment.Email = sEmail;
-					oAppoinment.Type = "Type01"
+					oAppoinment.Type = "Type01",
+						oAppoinment.Conference = oAppointmentGC.location
 				}
-                return oAppoinment;
-            });
+				return oAppoinment;
+			});
 		},
 
-		gcEvent(oAppoinment) {
+		appointmentGC(oAppointment) {
 			return {
-                summary: oAppoinment.Name,
-                description: oAppoinment.Description,
-                start: {
-                    dateTime: oAppoinment.StartDate.toISOString()
-                },
-                end: {
-                    dateTime: oAppoinment.EndDate.toISOString()
-                },
-                attendees: [
-                    // { email: "pavel@harelyshau.dev" },
-                    // { email: "example2@example.com" }
-                ],
-                // conferenceData: {
-                //     createRequest: {
-                //       requestId: oAppoinment.Email,
-                //     },
-                // },
-            };
+				summary: oAppointment.Name,
+				description: oAppointment.Description,
+				location: oAppointment.Conference,
+				start: {
+					dateTime: oAppointment.StartDate.toISOString()
+				},
+				end: {
+					dateTime: oAppointment.EndDate.toISOString()
+				},
+				attendees: [
+					// { email: "pavel@harelyshau.dev" },
+					// { email: "example2@example.com" }
+				],
+				conferenceData: {
+					// createRequest: {
+					// 	requestId: "sample123",
+					// 	conferenceSolutionKey: {
+					// 		type: "hangoutsMeet"
+					// 	}
+					// }
+				},
+			};
 		},
 
-		startDateState(oStartDate) {
-			if (!oStartDate || oStartDate.getTime() >= new Date().getTime()) {
+		// Inputs Validation
+		conferenceState(sConference) {
+			if (!sConference || /^(ftp|http|https):\/\/[^ "]+$/.test(sConference)) {
 				return "None";
 			}
-			return "Error";
+			return "Warning";
 		},
 
-		endDateState(oStartDate, oEndDate) {
-			if (!oStartDate || !oEndDate || oEndDate.getTime() >= oStartDate.getTime()) {
-				return "None";
-			}
-			return "Error";
-		},
-
-		startDateErrorText(oStartDate) {
-			if (!oStartDate || oStartDate.getTime() >= new Date().getTime()) {
+		conferenceStateText(sConference) {
+			if (!sConference || /^(ftp|http|https):\/\/[^ "]+$/.test(sConference)) {
 				return "";
 			}
-			return "Start date must be in the future";
-		},
-
-		endDateErrorText(oStartDate, oEndDate) {
-			if (!oStartDate || !oEndDate || oEndDate.getTime() >= oStartDate.getTime()) {
-				return "";
-			}
-			return "End date must be after start date";
+			return "The «Conference» field expects a URL";
 		}
 
 	};

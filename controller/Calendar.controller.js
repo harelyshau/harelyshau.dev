@@ -91,19 +91,35 @@ sap.ui.define([
         },
 
         async createAppointmentGC(oAppoinment) {
-            const oAppointmentGC = formatter.gcEvent(oAppoinment);
-            
+            const oAppointmentGC = formatter.appointmentGC(oAppoinment);
+
             try {
                 return await gapi.client.calendar.events.insert({
                     calendarId: "pavel@harelyshau.dev",
                     // guestsCanModify: true,
                     conferenceDataVersion: 1,
-                    sendUpdates: "all",
+                    // sendUpdates: "all",
                     resource: oAppointmentGC
                 });
             } catch (oError) {
                 console.error("Error creating appointment:", oError);
             }
+        },
+
+        async addGoogleMeetToAppointmentGC(oAppoinment) {
+            const eventPatch = {
+                conferenceData: {
+                    createRequest: { requestId: "7qxalsvy0e" }
+                }
+            };
+            const oResponse = await gapi.client.calendar.events.patch({
+                calendarId: "pavel@harelyshau.dev",
+                eventId: "0kd649ud9qvbcv83ht8ssanp6s",
+                resource: eventPatch,
+                sendNotifications: true,
+                conferenceDataVersion: 1
+            });
+            console.log(oResponse)
         },
 
         async removeAppointmentGC(sAppointmentID) {
@@ -119,7 +135,7 @@ sap.ui.define([
         },
 
         async updateAppointmentGC(oAppoinment) {
-            const oAppointmentGC = formatter.gcEvent(oAppoinment);
+            const oAppointmentGC = formatter.appointmentGC(oAppoinment);
 
             try {
                 await gapi.client.calendar.events.update({
@@ -167,9 +183,9 @@ sap.ui.define([
 
         onAppointmentCreateOpenDialog(oEvent) { // create by drag and drop
             const oStartDate = oEvent.getParameter("startDate");
-            const sStartDateErrorText = formatter.startDateErrorText(oStartDate);
-            if (sStartDateErrorText !== "") {
-                new MessageToast.show(sStartDateErrorText);
+            const bStartDateInFutute = new Date().getTime() < oStartDate.getTime();
+            if (!bStartDateInFutute) {
+                new MessageToast.show(this.i18n("msgStartDateMustBeInFuture"));
                 return;
             }
             const oEndDate = oEvent.getParameter("endDate");
@@ -245,7 +261,7 @@ sap.ui.define([
                     name: "pharelyshau.fragment.Calendar.AppointmentDialog"
                 });
                 this.oAppointmentDialog.addStyleClass(this.getContentDensityClass());
-            } 
+            }
 
             this.oAppointmentDialog.bindElement(sPath);
             this.oAppointmentDialog.open();
@@ -268,7 +284,8 @@ sap.ui.define([
                 EndDate: oEndDate,
                 Duration: oEndDate.getTime() - oStartDate.getTime(),
                 Mode: "create",
-                Type: "Type01"
+                Type: "Type01",
+                Conference: ""
             }
             const aAppointments = this.getModel().getProperty("/Appointments");
             aAppointments.push(oAppoinment)
@@ -277,14 +294,19 @@ sap.ui.define([
         },
 
         async onPressCreateEditAppointment(oEvent) {
+            const [bValidEmail, sMessage] = this.validateEmailInput();
+            if (!bValidEmail) {
+                new MessageToast.show(sMessage);
+                return;
+            }
+
+            this.oAppointmentDialog.close();
             const oBindingContext = oEvent.getSource().getBindingContext();
             const oAppoinment = oBindingContext.getObject();
             const sMode = oAppoinment.Mode;
 
             localStorage.setItem("email", oAppoinment.Email);
             this.getModel().setProperty(oBindingContext.getPath() + "/Mode", "view");
-
-            this.oAppointmentDialog.close();
 
             if (sMode === "create") {
                 const oResponse = await this.createAppointmentGC(oAppoinment);
@@ -294,6 +316,21 @@ sap.ui.define([
             } else if (sMode === "edit") {
                 await this.updateAppointmentGC(oAppoinment);
             }
+        },
+
+        validateEmailInput() {
+            const oEmailInput = this.byId("inpEmail");
+            const bEmailEmpty = !oEmailInput.getValue();
+            const bEmailWrong = oEmailInput.getValueState() !== "None"
+            if (bEmailEmpty || bEmailWrong) {
+                if (bEmailEmpty) { // set and reset value to show error state
+                    oEmailInput.setValue("s");
+                    oEmailInput.setValue("");
+                }
+                const sMessage = bEmailEmpty ? this.i18n("msgFillEmail") : this.i18n("msgInvalidEmail");
+                return [false, sMessage];
+            }
+            return [true];
         },
 
         addAppointmentIdToLocalStorage(sAppointmentID) {
@@ -313,10 +350,10 @@ sap.ui.define([
         },
 
         // Appoinment cancel
-        
+
         onPressCloseAppointmentDialog() {
             this.oAppointmentDialog.close();
-        }, 
+        },
 
         onAfterCloseAppointmentDialog(oEvent) {
             const oBindingContext = oEvent.getSource().getBindingContext();
@@ -343,50 +380,36 @@ sap.ui.define([
 
         // Pickers
 
-        onChangePickerStartDate(oEvent) {
-            const oBindingContext = oEvent.getSource().getBindingContext();
-            const oAppoinment = oBindingContext.getObject();
-            const oStartDate = oAppoinment.StartDate;
-            const bControlValid = oEvent.getParameter("valid") && !!oEvent.getParameter("value");
-            const bFieldNotValid = oAppoinment.Mode === "create" && !this.isAppointmentDatesValid(oStartDate);
-            if (!bControlValid || bFieldNotValid) {
+        onChangePicker(oEvent, sField) {
+            const oPicker = oEvent.getSource();
+            const oAppoinment = oPicker.getBindingContext().getObject();
+
+
+            const bValueValid = oEvent.getParameter("valid") && !!oEvent.getParameter("value");
+            if (!bValueValid) { // if wrong input reset value
+                this.resetPickerValue(oPicker, oAppoinment[sField]);
                 return;
             }
 
-            this.updateAppointmentEndDateByDuration(oBindingContext.getPath());
-            this.byId("calendar").setStartDate(oStartDate);
-        },
+            const sPath = oPicker.getBindingContext().getPath();
+            const nDuration = oAppoinment.EndDate.getTime() - oAppoinment.StartDate.getTime();
+            const oNewDate = oPicker.getDateValue();
 
-        onChangePickerEndDate(oEvent) {
-            const oBindingContext = oEvent.getSource().getBindingContext();
-            const oAppoinment = oBindingContext.getObject();
-            const bControlValid = oEvent.getParameter("valid") && !!oEvent.getParameter("value");
-            const bFieldNotValid = !this.isAppointmentDatesValid(oAppoinment.StartDate, oAppoinment.EndDate);
-            if (!bControlValid || bFieldNotValid) {
-                return;
+            this.getModel().setProperty(sPath + "/" + sField, oNewDate);
+            if (sField === "StartDate") {
+                this.updateAppointmentEndDateByDuration(sPath, nDuration);
+                this.byId("calendar").setStartDate(oNewDate);
             }
-
-            const sPath = oBindingContext.getPath();
-            this.updateAppointmentDuration(sPath);
         },
 
-        updateAppointmentDuration(sPath) {
-            const oAppoinment = this.getModel().getProperty(sPath);
-            const nStartTime = oAppoinment.StartDate.getTime();
-            const nEndTime = oAppoinment.EndDate.getTime();
-            this.getModel().setProperty(sPath + "/Duration", nEndTime - nStartTime);
+        resetPickerValue(oPicker, oDate) {
+            oPicker.setValue("");
+            oPicker.setDateValue(oDate);
         },
 
-        updateAppointmentEndDateByDuration(sPath) {
+        updateAppointmentEndDateByDuration(sPath, nDuration) {
             const oStartDate = this.getModel().getProperty(sPath + "/StartDate");
-            const nDuration = this.getModel().getProperty(sPath + "/Duration");
             this.getModel().setProperty(sPath + "/EndDate", new Date(oStartDate.getTime() + nDuration));
-        },
-
-        isAppointmentDatesValid(oStartDate, oEndDate) {
-            const bValidStartDate = !oStartDate || formatter.startDateState(oStartDate) !== "Error";
-            const bValidEndDate = !oStartDate || !oEndDate || formatter.endDateState(oStartDate, oEndDate) !== "Error";
-            return bValidStartDate && bValidEndDate;
         },
 
         //////////////////////////////////
@@ -404,17 +427,17 @@ sap.ui.define([
             this.oAppointmentPopover.openBy(oControl);
         },
 
-        async onPressEditOpenAppointmentDialog(oEvent) {
+        onPressEditOpenAppointmentDialog(oEvent) {
+            this.oAppointmentPopover.close();
+
             const oBindingContext = oEvent.getSource().getBindingContext();
             const sPath = oBindingContext.getPath();
             this.getModel().setProperty(sPath + "/Mode", "edit");
-            await this.openAppoinmentDialog(sPath);
+            this.openAppoinmentDialog(sPath);
 
             // write to view model initial appointment to reset it if necessary
-            const oInitialAppoinment = {...oBindingContext.getObject()};
+            const oInitialAppoinment = { ...oBindingContext.getObject() };
             this.getModel("view").setProperty("/initialAppointment", oInitialAppoinment);
-
-            this.oAppointmentPopover.close();
         },
 
         onPressDeleteAppointment(oEvent) {

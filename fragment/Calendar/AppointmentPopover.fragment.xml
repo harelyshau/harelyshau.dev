@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <ResponsivePopover placement="Auto" contentWidth="{= ${Description}.length > 60 ? '25rem' : 'auto'}">
+    <ResponsivePopover placement="Auto" horizontalScrolling="false" contentWidth="25rem">
         <customHeader>
-            <Toolbar style="Clear" class="phToolbarNoPaddingBegin">
+            <Toolbar style="Clear" class="phToolbarNoPaddingBegin" width="25rem">
                 <!-- Device Phone -->
                 <Title visible="{device>/system/phone}" text="{= !!${Name} ? ${Name} : 'Untitled Appointment' }"
                     class="phNoMargin"/>
@@ -23,15 +23,17 @@
             <VBox class="sapUiSmallMarginTop">
                 <Label text="Date &amp; Time:"/>
                 <HBox>
-                    <Text text="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/>
-                    <Label text="–" class="sapUiTinyMarginBeginEnd"/>
-                    <Text text="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/>
+                    <Text text="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} } 
+                        &#160;–&#160; {path: 'EndDate', type: 'sap.ui.model.type.Time', formatOptions: {style: 'short'} }"/>
+                    <!-- <Label text="–" class="sapUiTinyMarginBeginEnd"/>
+                    <Text text="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/> -->
                 </HBox>
             </VBox>
-            <!-- Сonference -->
+            <!-- Conference -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Сonference:"/>
-                <Link visible="{= !!${Conference} }" text="{Conference}"/>
+                <Label text="Conference:"/>
+                <Link visible="{= !!${Conference} }" text="{Conference}" href="{Conference}"
+                    target="_blank" />
                 <Text visible="{= !${Conference} }" text="–"/>
             </VBox>
             <!-- Agenda -->
