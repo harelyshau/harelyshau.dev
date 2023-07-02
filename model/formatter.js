@@ -92,64 +92,7 @@ sap.ui.define([
         //////////// CALENDAR ////////////
         //////////////////////////////////
 
-		formattedAppointments(aAppointments, sAvailableAppointmentsIDs) {
-			return aAppointments.map((oAppointmentGC, i) => {
-				let oStartDateTime = oAppointmentGC.start;
-				let oEndDateTime = oAppointmentGC.end;
-				const oStartDate = new Date(oStartDateTime.dateTime ?? oStartDateTime.date + "T00:00");
-				const oEndDate = new Date(oEndDateTime.dateTime ?? oEndDateTime.date + "T00:00");
-				if (!oEndDateTime.dateTime) { // set up all-day appointments for correct displaying
-					oEndDate.setDate(oEndDate.getDate() - 1);
-				}
-
-				const oAppoinment = {
-					ID: oAppointmentGC.id,
-					Name: "Busy",
-					StartDate: oStartDate,
-					EndDate: oEndDate,
-					Type: "Type16",
-					Mode: "view"
-				};
-				const aAvailableAppointmentIDs = JSON.parse(localStorage.getItem("appointments")) ?? [];
-				if (aAvailableAppointmentIDs.includes(oAppoinment.ID)) {
-					const sEmail = oAppointmentGC.attendees ? oAppointmentGC.attendees[0].email : "";
-					oAppoinment.Name = oAppointmentGC.summary;
-					oAppoinment.Description = oAppointmentGC.description;
-					oAppoinment.Email = sEmail;
-					oAppoinment.Type = "Type01",
-						oAppoinment.Conference = oAppointmentGC.location
-				}
-				return oAppoinment;
-			});
-		},
-
-		appointmentGC(oAppointment) {
-			return {
-				summary: oAppointment.Name,
-				description: oAppointment.Description,
-				location: oAppointment.Conference,
-				start: {
-					dateTime: oAppointment.StartDate.toISOString()
-				},
-				end: {
-					dateTime: oAppointment.EndDate.toISOString()
-				},
-				attendees: [
-					// { email: "pavel@harelyshau.dev" },
-					// { email: "example2@example.com" }
-				],
-				conferenceData: {
-					// createRequest: {
-					// 	requestId: "sample123",
-					// 	conferenceSolutionKey: {
-					// 		type: "hangoutsMeet"
-					// 	}
-					// }
-				},
-			};
-		},
-
-		// Inputs Validation
+		// Input Validation
 		conferenceState(sConference) {
 			if (!sConference || /^(ftp|http|https):\/\/[^ "]+$/.test(sConference)) {
 				return "None";

@@ -1,12 +1,13 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <ResponsivePopover placement="Auto" horizontalScrolling="false" contentWidth="25rem">
+    <ResponsivePopover placement="Auto" horizontalScrolling="false" contentWidth="22rem">
         <customHeader>
-            <Toolbar style="Clear" class="phToolbarNoPaddingBegin" width="25rem">
+            <Toolbar width="{= ${device>/system/phone} ? 'auto' : '22rem' }"
+                style="Clear" class="phToolbarNoPaddingBegin">
                 <!-- Device Phone -->
-                <Title visible="{device>/system/phone}" text="{= !!${Name} ? ${Name} : 'Untitled Appointment' }"
+                <Title visible="{device>/system/phone}" text="{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"
                     class="phNoMargin"/>
                 <!-- Device Desktop -->
-                <Title visible="{= !${device>/system/phone} }" text="{= !!${Name} ? ${Name} : 'Untitled Appointment' }"
+                <Title visible="{= !${device>/system/phone} }" text="{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"
                     class="sapUiSmallMarginBegin"/>                
                 <ToolbarSpacer/>
                 <Button tooltip="{i18n>btnClose}" press="onPressCloseAppointmentPopover"
@@ -16,38 +17,41 @@
         <VBox class="sapUiSmallMarginBeginEnd">
             <!-- Email -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Your Email:"/>
+                <Label text="{i18n>lYourEmail}:"/>
                 <Text text="{Email}" emptyIndicatorMode="On"/>
             </VBox>
             <!-- Date and Time -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Date &amp; Time:"/>
+                <Label text="{i18n>lDateAndTime}:"/>
                 <HBox>
-                    <Text text="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} } 
-                        &#160;–&#160; {path: 'EndDate', type: 'sap.ui.model.type.Time', formatOptions: {style: 'short'} }"/>
+                    <Text text="{path: 'StartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} } &#160;–&#160;
+                        {= ${StartDate}.getDate() === ${EndDate}.getDate() &amp;&amp;
+                            ${StartDate}.getMonth() === ${EndDate}.getMonth() &amp;&amp;
+                            ${StartDate}.getFullYear() === ${EndDate}.getFullYear()
+                            ? ${path: 'EndDate', type: 'sap.ui.model.type.Time', formatOptions: {style: 'short'} }
+                            : ${path: 'EndDate', type: 'sap.ui.model.type.Time', formatOptions: {style: 'short'} } + ', ' + ${path: 'EndDate', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium'} } }"/>
                     <!-- <Label text="–" class="sapUiTinyMarginBeginEnd"/>
                     <Text text="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/> -->
                 </HBox>
             </VBox>
             <!-- Conference -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Conference:"/>
+                <Label text="{i18n>lConference}:"/>
                 <Link visible="{= !!${Conference} }" text="{Conference}" href="{Conference}"
                     target="_blank" />
                 <Text visible="{= !${Conference} }" text="–"/>
             </VBox>
             <!-- Agenda -->
             <VBox class="sapUiSmallMarginTopBottom" width="100%">
-                <Label text="Agenda:"/>
+                <Label text="{i18n>lAgenda}:"/>
                 <ExpandableText text="{Description}" maxCharacters="256" emptyIndicatorMode="On"/>
             </VBox>
         </VBox>
         <beginButton>
-            <Button text="Edit"
-                press="onPressEditOpenAppointmentDialog" type="Emphasized"/>
+            <Button text="{i18n>btnEdit}" press="onPressEditOpenAppointmentDialog" type="Emphasized"/>
         </beginButton>
         <endButton>
-            <Button text="Delete" press="onPressDeleteAppointment"/>
+            <Button text="{i18n>btnDelete}" press="onPressRemoveAppointment"/>
         </endButton>
     </ResponsivePopover>
 </core:FragmentDefinition>

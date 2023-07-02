@@ -39,8 +39,8 @@
 					enableAppointmentsCreate="{= !${view>/busy} }"
 					class="phCalendar sapUiTinyMarginTop">
 					<actions>
-						<ToggleButton tooltip="{= ${view>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }" icon="sap-icon://create-entry-time" press="onPressToggleFullDay"
-							pressed="{view>/fullDay}"/>
+						<ToggleButton tooltip="{= ${view>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"
+							press="onPressToggleFullDay" icon="{i18n>iMoreTime}" pressed="{view>/fullDay}"/>
 						<Button text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}  ? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
 							press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
 							type="Emphasized" class="phResponsiveMarginEnd"/>

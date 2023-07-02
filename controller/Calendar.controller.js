@@ -82,7 +82,7 @@ sap.ui.define([
 
             try {
                 const oResponse = await gapi.client.calendar.events.list(oParams);
-                this.setAppoitments(oResponse.result.items);
+                this.setAppoitmentsLocal(oResponse.result.items);
             } catch (oError) {
                 console.error("Error fetching appointments:", oError);
             } finally {
@@ -91,35 +91,17 @@ sap.ui.define([
         },
 
         async createAppointmentGC(oAppoinment) {
-            const oAppointmentGC = formatter.appointmentGC(oAppoinment);
-
             try {
                 return await gapi.client.calendar.events.insert({
                     calendarId: "pavel@harelyshau.dev",
                     // guestsCanModify: true,
                     conferenceDataVersion: 1,
                     // sendUpdates: "all",
-                    resource: oAppointmentGC
+                    resource: this.getAppointmentGC(oAppoinment)
                 });
             } catch (oError) {
                 console.error("Error creating appointment:", oError);
             }
-        },
-
-        async addGoogleMeetToAppointmentGC(oAppoinment) {
-            const eventPatch = {
-                conferenceData: {
-                    createRequest: { requestId: "7qxalsvy0e" }
-                }
-            };
-            const oResponse = await gapi.client.calendar.events.patch({
-                calendarId: "pavel@harelyshau.dev",
-                eventId: "0kd649ud9qvbcv83ht8ssanp6s",
-                resource: eventPatch,
-                sendNotifications: true,
-                conferenceDataVersion: 1
-            });
-            console.log(oResponse)
         },
 
         async removeAppointmentGC(sAppointmentID) {
@@ -135,23 +117,88 @@ sap.ui.define([
         },
 
         async updateAppointmentGC(oAppoinment) {
-            const oAppointmentGC = formatter.appointmentGC(oAppoinment);
-
             try {
                 await gapi.client.calendar.events.update({
                     calendarId: "pavel@harelyshau.dev",
                     eventId: oAppoinment.ID,
-                    resource: oAppointmentGC
+                    resource: this.getAppointmentGC(oAppoinment)
                 });
             } catch (oError) {
                 console.error("Error updating appointment:", oError);
             }
         },
 
-        setAppoitments(aAppointments) {
-            const aFormattedAppointments = formatter.formattedAppointments(aAppointments);
+        setAppoitmentsLocal(aAppointmentsGC) { // Local = JSON Model
+            const aFormattedAppointments = aAppointmentsGC.map((oAppointmentGC) => this.getFormattedAppointment(oAppointmentGC));
             this.getModel().setProperty("/Appointments", aFormattedAppointments);
         },
+
+        // Apointment Formatting for JSON Model
+
+        getFormattedAppointment(oAppointmentGC) {
+            const [oStartDate, oEndDate] = this.getAppointmentDates(oAppointmentGC.start, oAppointmentGC.end);
+            const oAppoinment = {
+                ID: oAppointmentGC.id,
+                Name: this.i18n("tBusy"),
+                StartDate: oStartDate,
+                EndDate: oEndDate,
+                Type: "Type16",
+                Mode: "view"
+            };
+            const aAvailableAppointmentIDs = JSON.parse(localStorage.getItem("appointments")) ?? [];
+            if (aAvailableAppointmentIDs.includes(oAppoinment.ID)) {
+                this.setFieldsToAvailableAppointment(oAppoinment, oAppointmentGC);
+            }
+
+            return oAppoinment;
+        },
+
+        getAppointmentDates(oStartDateTime, oEndDateTime) {
+			const oStartDate = new Date(oStartDateTime.dateTime ?? oStartDateTime.date + "T00:00");
+			const oEndDate = new Date(oEndDateTime.dateTime ?? oEndDateTime.date + "T00:00");
+			if (!oEndDateTime.dateTime) { // set up all-day appointments for correct displaying
+				oEndDate.setDate(oEndDate.getDate() - 1);
+			}
+
+			return [oStartDate, oEndDate];
+		},
+
+		setFieldsToAvailableAppointment(oAppoinment, oAppointmentGC) {
+			const sEmail = oAppointmentGC.attendees ? oAppointmentGC.attendees[0].email : "";
+			oAppoinment.Name = oAppointmentGC.summary;
+			oAppoinment.Description = oAppointmentGC.description;
+			oAppoinment.Email = sEmail;
+			oAppoinment.Type = "Type01";
+			oAppoinment.Conference = oAppointmentGC.location;
+		},
+
+        getAppointmentGC(oAppointment) {
+            return {
+				summary: oAppointment.Name,
+				description: oAppointment.Description,
+				location: oAppointment.Conference,
+				start: {
+					dateTime: oAppointment.StartDate.toISOString()
+				},
+				end: {
+					dateTime: oAppointment.EndDate.toISOString()
+				},
+				attendees: [
+					// { email: "pavel@harelyshau.dev" },
+					// { email: "example2@example.com" }
+				],
+				conferenceData: {
+					// createRequest: {
+					// 	requestId: "sample123",
+					// 	conferenceSolutionKey: {
+					// 		type: "hangoutsMeet"
+					// 	}
+					// }
+				},
+			};
+        },
+
+        // Request Filtering
 
         updateDateRange() {
             const oViewModel = this.getModel("view");
@@ -440,7 +487,7 @@ sap.ui.define([
             this.getModel("view").setProperty("/initialAppointment", oInitialAppoinment);
         },
 
-        onPressDeleteAppointment(oEvent) {
+        onPressRemoveAppointment(oEvent) {
             this.oAppointmentPopover.close();
             const oAppoinment = oEvent.getSource().getBindingContext().getObject()
             this.removeAppointmentGC(oAppoinment.ID);

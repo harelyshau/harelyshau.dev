@@ -3,7 +3,7 @@
         afterClose="onAfterCloseAppointmentDialog">
         <customHeader>
             <Toolbar style="Clear">
-                <Title text="{= ${Mode} === 'create' ? 'Make Appointment' : 'Edit Appointment' }"
+                <Title text="{= ${Mode} === 'create' ? ${i18n>ttlMakeAppointment} : ${i18n>ttlEditAppointment} }"
                     class="phNoMargin"/>                
                 <ToolbarSpacer/>
                 <Button visible="{device>/system/phone}" tooltip="{i18n>btnClose}"
@@ -13,28 +13,29 @@
         <VBox class="sapUiSmallMarginBeginEnd">
             <!-- Title -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Title:" labelFor="inpTitle"/>
-                <Input value="{Name}" valueLiveUpdate="true" placeholder="Title for Appointment"/>
+                <Label text="{i18n>lTitle}:" labelFor="inpName"/>
+                <Input id="inpName" value="{Name}" valueLiveUpdate="true"
+                    placeholder="{i18n>phAppointmentTitle}"/>
             </VBox>
             <!-- Email -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Your Email:" required="{= ${Mode} !== 'view' }" labelFor="inpEmail"/>
-                <Input id="inpEmail" required="true" type="Email" placeholder="your@email.com"
+                <Label text="{i18n>lYourEmail}:" labelFor="inpEmail"/>
+                <Input id="inpEmail" required="true" type="Email" placeholder="{i18n>phEmail}"
                     value="{path: 'Email', type: 'sap.ui.model.type.String', constraints: {search: '^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$'} }"/>
                 <!-- <Input required="true" type="Email" placeholder="your@email.com"
                     value="{path: 'Email', type: '.types.email'}"/> -->
             </VBox>
             <!-- Date and Time -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Date &amp; Time:" required="{= ${Mode} !== 'view' }"/>
+                <Label text="{i18n>lDateAndTime}:"/>
                 <HBox justifyContent="SpaceBetween"
                     renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
-                    <Label width="0" text="Start Date" labelFor="dtpStartDate"/> <!-- invsible -->
+                    <Label width="0" text="{i18n>lStartDate}" labelFor="dtpStartDate"/> <!-- invsible -->
                     <DateTimePicker id="dtpStartDate" minutesStep="15" change="onChangePicker($event ,'StartDate')"
                         required="true" minDate="{= ${Mode} === 'create' ? ${view>/currentDate} : null }" showCurrentDateButton="true"
                         value="{path: 'StartDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                     <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
-                    <Label width="0" text="End Date" labelFor="dtpEndDate"/> <!-- invsible -->
+                    <Label width="0" text="{i18n>lEndDate}" labelFor="dtpEndDate"/> <!-- invsible -->
                     <DateTimePicker id="dtpEndDate" minutesStep="15" change="onChangePicker($event ,'EndDate')"
                         required="true" minDate="{StartDate}" showCurrentDateButton="true"
                         value="{path: 'EndDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
@@ -42,28 +43,29 @@
             </VBox>
             <!-- Conference -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="Conference:" labelFor="inpConference"/>
+                <Label text="{i18n>lConference}:" labelFor="inpConference"/>
                 <VBox>
-                    <Input value="{Conference}" type="Url"
+                    <Input id="inpConference" value="{Conference}" type="Url"
                         valueState="{path: 'Conference', formatter: '.formatter.conferenceState'}"
                         valueStateText="{path: 'Conference', formatter: '.formatter.conferenceStateText'}"
-                        placeholder="Add link to Conference or add Google Meet"/>
+                        placeholder="{i18n>phAppointmentConference}"/>
                     <!-- <Button text="Add Google Meet video conferencing" width="100%"
                         icon="/resource/image/GoogleMeetIcon.svg"/> -->
                 </VBox>
             </VBox>
             <!-- Agenda -->
             <VBox class="sapUiSmallMarginTopBottom">
-                <Label text="Agenda:"/>
-                <TextArea width="100%" value="{Description}" valueLiveUpdate="true"
-                    rows="4" placeholder="Some points to discuss and additional info"/>
+                <Label text="{i18n>lAgenda}:" labelFor="inpDescription"/>
+                <TextArea id="inpDescription" width="100%" value="{Description}" valueLiveUpdate="true"
+                    rows="4" placeholder="{i18n>phAgenda}"/>
             </VBox>
         </VBox>
         <beginButton>
-            <Button text="{= ${Mode} === 'create'? 'Create' : 'Save' }" type="Emphasized" press="onPressCreateEditAppointment"/>
+            <Button text="{= ${Mode} === 'create'? ${i18n>btnMake} : ${i18n>btnSave} }"
+                press="onPressCreateEditAppointment" type="Emphasized"/>
         </beginButton>
         <endButton>
-            <Button visible="{= !${device>/system/phone} }" text="Cancel"
+            <Button visible="{= !${device>/system/phone} }" text="{i18n>btnCancel}"
                 press="onPressCloseAppointmentDialog"/>
         </endButton>
     </Dialog>
