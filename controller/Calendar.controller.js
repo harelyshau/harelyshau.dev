@@ -51,7 +51,7 @@ sap.ui.define([
         },
 
         async initGoogleApiClient() {
-            const oResponse = await fetch("resource/data/GapiServiceAccountCreds.json");
+            const oResponse = await fetch("resource/data/ServiceAccountCreds.json");
             const oCredentials = await oResponse.json();
             try {
                 await gapi.client.init({
@@ -97,7 +97,7 @@ sap.ui.define([
                     // guestsCanModify: true,
                     conferenceDataVersion: 1,
                     // sendUpdates: "all",
-                    resource: this.getAppointmentGC(oAppoinment)
+                    resource: this.getFormattedAppointmentGC(oAppoinment)
                 });
             } catch (oError) {
                 console.error("Error creating appointment:", oError);
@@ -121,7 +121,7 @@ sap.ui.define([
                 await gapi.client.calendar.events.update({
                     calendarId: "pavel@harelyshau.dev",
                     eventId: oAppoinment.ID,
-                    resource: this.getAppointmentGC(oAppoinment)
+                    resource: this.getFormattedAppointmentGC(oAppoinment)
                 });
             } catch (oError) {
                 console.error("Error updating appointment:", oError);
@@ -145,57 +145,56 @@ sap.ui.define([
                 Type: "Type16",
                 Mode: "view"
             };
-            const aAvailableAppointmentIDs = JSON.parse(localStorage.getItem("appointments")) ?? [];
-            if (aAvailableAppointmentIDs.includes(oAppoinment.ID)) {
+            if (this.getAvailableAppointmentIDs().includes(oAppoinment.ID)) {
                 this.setFieldsToAvailableAppointment(oAppoinment, oAppointmentGC);
             }
 
             return oAppoinment;
         },
 
-        getAppointmentDates(oStartDateTime, oEndDateTime) {
-			const oStartDate = new Date(oStartDateTime.dateTime ?? oStartDateTime.date + "T00:00");
-			const oEndDate = new Date(oEndDateTime.dateTime ?? oEndDateTime.date + "T00:00");
-			if (!oEndDateTime.dateTime) { // set up all-day appointments for correct displaying
-				oEndDate.setDate(oEndDate.getDate() - 1);
-			}
+        getAppointmentDates(oStartDateGC, oEndDateGC) {
+            const oStartDate = new Date(oStartDateGC.dateTime ?? oStartDateGC.date + "T00:00");
+            const oEndDate = new Date(oEndDateGC.dateTime ?? oEndDateGC.date + "T00:00");
+            if (!oEndDateGC.dateTime) { // set up all-day appointments for correct displaying
+                oEndDate.setDate(oEndDate.getDate() - 1);
+            }
 
-			return [oStartDate, oEndDate];
-		},
+            return [oStartDate, oEndDate];
+        },
 
-		setFieldsToAvailableAppointment(oAppoinment, oAppointmentGC) {
-			const sEmail = oAppointmentGC.attendees ? oAppointmentGC.attendees[0].email : "";
-			oAppoinment.Name = oAppointmentGC.summary;
-			oAppoinment.Description = oAppointmentGC.description;
-			oAppoinment.Email = sEmail;
-			oAppoinment.Type = "Type01";
-			oAppoinment.Conference = oAppointmentGC.location;
-		},
+        setFieldsToAvailableAppointment(oAppoinment, oAppointmentGC) {
+            const sEmail = oAppointmentGC.attendees ? oAppointmentGC.attendees[0].email : "";
+            oAppoinment.Name = oAppointmentGC.summary;
+            oAppoinment.Description = oAppointmentGC.description;
+            oAppoinment.Email = sEmail;
+            oAppoinment.Type = "Type01";
+            oAppoinment.Conference = oAppointmentGC.location;
+        },
 
-        getAppointmentGC(oAppointment) {
+        getFormattedAppointmentGC(oAppointment) {
             return {
-				summary: oAppointment.Name,
-				description: oAppointment.Description,
-				location: oAppointment.Conference,
-				start: {
-					dateTime: oAppointment.StartDate.toISOString()
-				},
-				end: {
-					dateTime: oAppointment.EndDate.toISOString()
-				},
-				attendees: [
-					// { email: "pavel@harelyshau.dev" },
-					// { email: "example2@example.com" }
-				],
-				conferenceData: {
-					// createRequest: {
-					// 	requestId: "sample123",
-					// 	conferenceSolutionKey: {
-					// 		type: "hangoutsMeet"
-					// 	}
-					// }
-				},
-			};
+                summary: oAppointment.Name,
+                description: oAppointment.Description,
+                location: oAppointment.Conference,
+                start: {
+                    dateTime: oAppointment.StartDate.toISOString()
+                },
+                end: {
+                    dateTime: oAppointment.EndDate.toISOString()
+                },
+                attendees: [
+                    { email: oAppointment.Email }
+                    // { email: "example2@example.com" }
+                ],
+                conferenceData: {
+                    createRequest: {
+                        requestId: oAppointment.Email,
+                        conferenceSolutionKey: {
+                            type: "hangoutsMeet"
+                        }
+                    }
+                },
+            };
         },
 
         // Request Filtering

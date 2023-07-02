@@ -27,8 +27,8 @@ sap.ui.define([
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
 		},
 
-		i18n(sKey) {
-			return this.getResourceBundle().getText(sKey);
+		i18n(sKey, aParams) {
+			return this.getResourceBundle().getText(sKey, aParams);
 		},
 
 		getContentDensityClass() {
@@ -71,13 +71,13 @@ sap.ui.define([
 		},
 
 		async onPressShareLink() {
-			const sLink = window.location.href;
+			const sURL = window.location.href;
 			const oMessageToast = sap.m.MessageToast;
 			try {
-				await navigator.clipboard.writeText(sLink);
-				oMessageToast.show(`Website URL "${sLink}" has been copied to clipboard`);
+				await navigator.clipboard.writeText(sURL);
+				oMessageToast.show(this.i18n("msgSiteUrlCopied", [sURL]));
 			} catch {
-				oMessageToast.show("Could not copy website URL");
+				oMessageToast.show(this.i18n("msgSiteUrlNotCopied"));
 			}
 		},
 

@@ -27,7 +27,7 @@
 			<VBox class="phLimitedPageContent sapUiMediumMarginBottom">
                 <!-- WELCOME -->
                 <Panel>
-                    <IllustratedMessage illustrationType="tnt-Success"
+                    <IllustratedMessage illustrationType="tnt-Success" enableFormattedText="true"
                         title="{i18n>ttlWelcome}" description="{i18n>tWelcomeDescription}">
                         <additionalContent>
                             <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
@@ -37,7 +37,7 @@
                 </Panel>
                 <!-- OVERVIEW -->
                 <Panel class="sapUiSmallMarginTop">
-                    <IllustratedMessage illustrationType="tnt-Mission"
+                    <IllustratedMessage illustrationType="tnt-Mission" enableFormattedText="true"
                         title="{i18n>ttlOverview}" description="{i18n>tOverview}">
                         <additionalContent>
                             <Button icon="{i18n>iCode}" text="{i18n>btnSeeCode}"

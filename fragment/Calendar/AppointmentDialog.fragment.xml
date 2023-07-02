@@ -48,7 +48,7 @@
                     <Input id="inpConference" value="{Conference}" type="Url"
                         valueState="{path: 'Conference', formatter: '.formatter.conferenceState'}"
                         valueStateText="{path: 'Conference', formatter: '.formatter.conferenceStateText'}"
-                        placeholder="{i18n>phAppointmentConference}"/>
+                        placeholder="{i18n>phConference}"/>
                     <!-- <Button text="Add Google Meet video conferencing" width="100%"
                         icon="/resource/image/GoogleMeetIcon.svg"/> -->
                 </VBox>

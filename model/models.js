@@ -46,7 +46,6 @@ sap.ui.define([
         createAppViewModel() {
             const oData = {
                 theme: themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme()),
-                page: "home"
             };
             return new JSONModel(oData);
         },
