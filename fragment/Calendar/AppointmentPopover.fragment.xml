@@ -29,7 +29,8 @@
                             ${StartDate}.getMonth() === ${EndDate}.getMonth() &amp;&amp;
                             ${StartDate}.getFullYear() === ${EndDate}.getFullYear()
                             ? ${path: 'EndDate', type: 'sap.ui.model.type.Time', formatOptions: {style: 'short'} }
-                            : ${path: 'EndDate', type: 'sap.ui.model.type.Time', formatOptions: {style: 'short'} } + ', ' + ${path: 'EndDate', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium'} } }"/>
+                            : ${path: 'EndDate', type: 'sap.ui.model.type.Time', formatOptions: {style: 'short'} }
+                                + ', ' + ${path: 'EndDate', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium'} } }"/>
                     <!-- <Label text="–" class="sapUiTinyMarginBeginEnd"/>
                     <Text text="{path: 'EndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'} }"/> -->
                 </HBox>
@@ -37,9 +38,19 @@
             <!-- Conference -->
             <VBox class="sapUiSmallMarginTop">
                 <Label text="{i18n>lConference}:"/>
-                <Link visible="{= !!${Conference} }" text="{Conference}" href="{Conference}"
-                    target="_blank" />
-                <Text visible="{= !${Conference} }" text="–"/>
+                <VBox visible="{= !!${GoogleMeet} || !!${Conference} }">
+                    <HBox justifyContent="SpaceBetween">
+                        <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
+                            press="onPressJoinToConference"
+                            text="{= ${GoogleMeet} ? ${i18n>btnJoinWithGoogleMeet} : ${i18n>btnJoinToConference} }"
+                            icon="{= ${GoogleMeet} ? '/resource/image/GoogleMeetIcon.svg' : 'sap-icon://video' }"/>
+                        <Button icon="{i18n>iCopy}" type="Transparent"
+                            press="onPressCopyConferenceLink"/>
+                    </HBox>
+                    <Label text="{= !${GoogleMeet} ? ${Conference} : ${GoogleMeet} !== 'willBeCreated' 
+                        ? ${GoogleMeet} : ${i18n>lLinkWillBeAvailableSoon} }"/>
+                </VBox>
+                <Text visible="{= !${GoogleMeet} &amp;&amp; !${Conference} }" text="–"/>
             </VBox>
             <!-- Agenda -->
             <VBox class="sapUiSmallMarginTopBottom" width="100%">

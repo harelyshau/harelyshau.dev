@@ -41,16 +41,38 @@
                         value="{path: 'EndDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
                 </HBox>
             </VBox>
-            <!-- Conference -->
+            <!-- Conference & Google Meet -->
             <VBox class="sapUiSmallMarginTop">
                 <Label text="{i18n>lConference}:" labelFor="inpConference"/>
-                <VBox>
+                <!-- Conference -->
+                <VBox visible="{= !${GoogleMeet}}">
                     <Input id="inpConference" value="{Conference}" type="Url"
                         valueState="{path: 'Conference', formatter: '.formatter.conferenceState'}"
                         valueStateText="{path: 'Conference', formatter: '.formatter.conferenceStateText'}"
                         placeholder="{i18n>phConference}"/>
-                    <!-- <Button text="Add Google Meet video conferencing" width="100%"
-                        icon="/resource/image/GoogleMeetIcon.svg"/> -->
+                    <Button text="{i18n>btnAddGoogleMeet}" width="100%"
+                        icon="/resource/image/GoogleMeetIcon.svg" press="onPressAddGoogleMeet"/>
+                </VBox>
+                <!-- Google Meet -->
+                <VBox visible="{= !!${GoogleMeet} }">
+                    <HBox justifyContent="SpaceBetween">
+                        <!-- Not Exsists yet -->
+                        <HBox visible="{= ${GoogleMeet} === 'willBeCreated' }"
+                            alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
+                            <Avatar src="/resource/image/GoogleMeetIcon.svg" displaySize="Custom" customDisplaySize="1.5rem"
+                                class="sapUiTinyMarginEnd"/>
+                            <Text text="Google Meet conference will be generated" />
+                        </HBox>
+                        <!-- Already Exists -->
+                        <Button visible="{= ${GoogleMeet} !== 'willBeCreated' }"
+                            text="{i18n>btnJoinWithGoogleMeet}" press="onPressJoinToConference"
+                            icon="/resource/image/GoogleMeetIcon.svg"/>
+                        <!-- Remove Button -->
+                        <Button icon="{i18n>iClose}" tooltip="Remove Google Meet conferencing"
+                            press="onPressRemoveGoogleMeet" type="Transparent"/>
+                    </HBox>
+                    <!-- Link when exists -->
+                    <Label visible="{= ${GoogleMeet} !== 'willBeCreated' }" text="{GoogleMeet}"/>
                 </VBox>
             </VBox>
             <!-- Agenda -->

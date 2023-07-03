@@ -2,9 +2,10 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
+	"sap/m/MessageToast",
 	"../util/themeHelper",
 	"../util/languageHelper"
-], function (Controller, UIComponent, Device, themeHelper, languageHelper) {
+], function (Controller, UIComponent, Device, MessageToast, themeHelper, languageHelper) {
 	"use strict";
 
 	return Controller.extend("pharelyshau.controller.BaseController", {
@@ -71,13 +72,18 @@ sap.ui.define([
 		},
 
 		async onPressShareLink() {
-			const sURL = window.location.href;
-			const oMessageToast = sap.m.MessageToast;
+			const sWebsiteURL = window.location.href;
+			const sSuccessMessage = this.i18n("msgSiteUrlCopied", [sWebsiteURL]);
+			const sErrorMessage = this.i18n("msgSiteUrlNotCopied")
+			this.copyToClipboard(sWebsiteURL, sSuccessMessage, sErrorMessage);
+		},
+
+		async copyToClipboard(sValueToCopy, sSuccessMessage, sErrorMessage) {
 			try {
-				await navigator.clipboard.writeText(sURL);
-				oMessageToast.show(this.i18n("msgSiteUrlCopied", [sURL]));
+				await navigator.clipboard.writeText(sValueToCopy);
+				MessageToast.show(sSuccessMessage);
 			} catch {
-				oMessageToast.show(this.i18n("msgSiteUrlNotCopied"));
+				MessageToast.show(sErrorMessage);
 			}
 		},
 
