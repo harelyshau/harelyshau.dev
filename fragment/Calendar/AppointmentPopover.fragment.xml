@@ -44,8 +44,8 @@
                             press="onPressJoinToConference"
                             text="{= ${GoogleMeet} ? ${i18n>btnJoinWithGoogleMeet} : ${i18n>btnJoinToConference} }"
                             icon="{= ${GoogleMeet} ? '/resource/image/GoogleMeetIcon.svg' : 'sap-icon://video' }"/>
-                        <Button icon="{i18n>iCopy}" type="Transparent"
-                            press="onPressCopyConferenceLink"/>
+                        <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
+                            icon="{i18n>iCopy}" press="onPressCopyConferenceLink" type="Transparent"/>
                     </HBox>
                     <Label text="{= !${GoogleMeet} ? ${Conference} : ${GoogleMeet} !== 'willBeCreated' 
                         ? ${GoogleMeet} : ${i18n>lLinkWillBeAvailableSoon} }"/>

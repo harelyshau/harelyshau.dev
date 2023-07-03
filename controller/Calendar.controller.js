@@ -129,6 +129,20 @@ sap.ui.define([
             }
         },
 
+        async patchAppointmentGC(oPatchedAppointmentGC) {
+            try {
+                return await gapi.client.calendar.events.patch({
+                    calendarId: "pavel@harelyshau.dev",
+                    eventId: oPatchedAppointmentGC.id,
+                    conferenceDataVersion: 1,
+                    sendUpdates: "all",
+                    resource: oPatchedAppointmentGC
+                });
+            } catch (oError) {
+                console.error("Error patching appointment:", oError);
+            }
+        },
+
         setAppoitmentsLocal(aAppointmentsGC) { // Local = JSON Model
             const aAppointments = aAppointmentsGC.map((oAppointmentGC) => this.getFormattedAppointment(oAppointmentGC));
             this.getModel().setProperty("/Appointments", aAppointments);
@@ -254,6 +268,25 @@ sap.ui.define([
             }
         },
 
+        onAppointmentResizeDropPatchDates(oEvent) {
+            const oBindingContext = oEvent.getParameter("appointment").getBindingContext();
+            const oAppointment = oBindingContext.getObject();
+            if (!this.getAvailableAppointmentIDs().includes(oAppointment.ID)) {
+                return;
+            }
+
+            oAppointment.StartDate = oEvent.getParameter("startDate");
+            oAppointment.EndDate = oEvent.getParameter("endDate");
+            this.getModel().setProperty(oBindingContext.getPath(), oAppointment);
+
+            const oPatchedAppointmentGC = {
+                id: oAppointment.ID,
+                start: { dateTime: oAppointment.StartDate.toISOString() },
+                end: { dateTime: oAppointment.EndDate.toISOString() }
+            };
+            this.patchAppointmentGC(oPatchedAppointmentGC);
+        },
+
         addCalendarViews() {
             const oDeviceModel = this.getOwnerComponent().getModel("device");
             const oCalendar = this.byId("calendar");
@@ -335,19 +368,6 @@ sap.ui.define([
             aAppointments.push(oAppointment)
             this.getModel().setProperty("/Appointments", aAppointments);
             return oAppointment;
-        },
-
-        // Google Meet
-
-        onPressAddGoogleMeet(oEvent) {
-            const sPath = oEvent.getSource().getBindingContext().getPath();
-            const sGoogleMeet = this.getModel("view").getProperty("/initialAppointment/GoogleMeet");
-            this.getModel().setProperty(sPath + "/GoogleMeet", sGoogleMeet ?? "willBeCreated");
-        },
-
-        onPressRemoveGoogleMeet(oEvent) {
-            const sPath = oEvent.getSource().getBindingContext().getPath();
-            this.getModel().setProperty(sPath + "/GoogleMeet", null);
         },
 
         async onPressCreateEditAppointment(oEvent) {
@@ -438,12 +458,24 @@ sap.ui.define([
             this.getModel().setProperty("/Appoitments", aAppointments);
         },
 
+        // Google Meet
+
+        onPressAddGoogleMeet(oEvent) {
+            const sPath = oEvent.getSource().getBindingContext().getPath();
+            const sGoogleMeet = this.getModel("view").getProperty("/initialAppointment/GoogleMeet");
+            this.getModel().setProperty(sPath + "/GoogleMeet", sGoogleMeet ?? "willBeCreated");
+        },
+
+        onPressRemoveGoogleMeet(oEvent) {
+            const sPath = oEvent.getSource().getBindingContext().getPath();
+            this.getModel().setProperty(sPath + "/GoogleMeet", null);
+        },
+
         // Pickers
 
         onChangePicker(oEvent, sField) {
             const oPicker = oEvent.getSource();
             const oAppointment = oPicker.getBindingContext().getObject();
-
 
             const bValueValid = oEvent.getParameter("valid") && !!oEvent.getParameter("value");
             if (!bValueValid) { // if wrong input reset value

@@ -34,9 +34,13 @@
 					stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
 					appointmentCreate="onAppointmentCreateOpenDialog"
 					appointmentSelect="onAppointmentSelectOpenPopover"
+					appointmentResize="onAppointmentResizeDropPatchDates"
+					appointmentDrop="onAppointmentResizeDropPatchDates"
 					startDateChange="onStartDateChangeCalendar"
 					moreLinkPress="onMoreLinkPress"
 					enableAppointmentsCreate="{= !${view>/busy} }"
+					enableAppointmentsDragAndDrop="true"
+					enableAppointmentsResize="true"
 					class="phCalendar sapUiTinyMarginTop">
 					<actions>
 						<ToggleButton tooltip="{= ${view>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"
