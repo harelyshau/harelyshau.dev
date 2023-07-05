@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <HBox wrap="Wrap">
         <Label text="{/Position} /&#160;"/>
         <Label text="{i18n>lWilling}&#160;"/>

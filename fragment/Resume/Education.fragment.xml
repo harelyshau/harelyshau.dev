@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <VBox>
         <HBox alignItems="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Start' : 'Center'}">
             <Avatar src="{Logo}" displayShape="Square"

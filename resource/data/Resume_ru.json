@@ -1,222 +1,218 @@
 {
-    "FirstName": "Павел",
-    "LastName": "Горелышев",
-    "Position": "Frontend разработчик",
-    "Email": "pavel@harelyshau.dev",
-    "RelocationPreference": {
-        "Country": "Канаду",
-        "Description": "Я инженер-программист (NOC: 21231), и меня интересует возможность переехать в Канаду. Мне нужна канадская рабочая виза. Чтобы начать процесс подачи заявления на визу, мне нужно предложение о работе от работодателя с положительным сертификатом Labor Market Impact Assessment (LMIA).",
-        "Link": "https://www.canada.ca/en/employment-social-development/services/foreign-workers.html"
-    },
-    "Summary": "Креативный и увлеченный своим делом инженер-программист с 3,5-летним опытом разработки, обслуживания и поддержки веб-приложений с использованием современных технологий и методологии Agile. Опыт работы с продуктами SAP и работы с англоязычными командами и клиентами. Мне очень нравится создавать полезные и удобные приложения, которые оставляют приятный пользовательский опыт.",
-    "SkillsByTypes": [
-        {
-            "Type": "Навыки программирования",
-            "Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, TypeScript, SQL"
-        },
-        {
-            "Type": "Фреймворки и библиотеки",
-            "Skills": "SAPUI5, OpenUI5, jQuery, SAP Fiori Elements, Flexible Programming Model"
-        },
-        {
-            "Type": "SAP инструменты",
-            "Skills": "SAP Cloud Application Programming Model, SAP HANA Database, SAP S/4HANA, SAP Business Technology Platform, SAP Cloud Platform"
-        },
-        {
-            "Type": "Серверная часть",
-            "Skills": "XSJS, RESTful API, XSOdata, OData v4 & v2, CDS-models"
-        },
-        {
-            "Type": "Инструменты разработки",
-            "Skills": "Git, Visual Studio Code, SAP WebIDE, SAP Business Application Studio"
-        },
-        {
-            "Type": "Инструменты дизайна",
-            "Skills": "Photoshop, Figma"
-        },
-        {
-            "Type": "Другое",
-            "Skills": "UX/UI дизайн, Преподавание, Наставничество"
-        }
-    ],
-    "Experience": [
-        {
-            "Position": "Frontend разработчик",
-            "Company": {
-                "Name": "EPAM Systems Inc",
-                "Location": "Тбилиси, Грузия",
-                "Website": "https://www.epam.com/",
-                "Description": "EPAM Systems Inc is a technology company that provides software engineering services for software development and digital platforms. The company provides services in customer experience design, business consulting and technology innovation services.",
-                "Logo": "/resource/image/EPAMLogo.jpg"
-            },
-            "StartDate": "2022-07",
-            "EndDate": "Present",
-            "Description": "",
-            "Projects": [
-                "SAP BTP решение для управления заказами на покупку"
-            ],
-            "Responsobilities": [
-                "Development and maintenance of UI using SAPUI5 & SAP Fiori Elements",
-                "Development of reusable custom controls and fragments",
-                "Management interaction of the Client Side and Server Side code",
-                "Creation and refinement of SAP CAP Data Model"
-            ],
-            "Achievements": [
-                "Development and maintenance of UI using SAPUI5 & SAP Fiori Elements",
-                "Development of reusable custom controls and fragments"
-            ],
-            "Skills": "JavaScript, ES6, TypeScript, CSS, XML, JSON, SAPUI5, SAP Fiori Elements, Flexible Programming Model, CDS-models, OData v4, Git, Visual Studio Code, SAP Business Application Studio, SAP Cloud Application Programming Model, SAP Business Technology Platform"
-        },
-        {
-            "Position": "Frontend разработчик",
-            "Company": {
-                "Name": "JET BI LLC",
-                "Location": "",
-                "Website": "https://jetbi.com/",
-                "Description": "JET BI is a consulting and software development services company headquartered in Ireland, Dublin. Company helps small and medium-size businesses get the most of the latest enterprise-grade software solutions with 60+ consultants on-board.",
-                "Logo": "/resource/image/JETBILogo.jpg"
-            },
-            "StartDate": "2021-02",
-            "EndDate": "2022-06",
-            "Description": "",
-            "Projects": [
-                "SCP Module that helps users to effectively conduct meetings and resolve scheduled issues",
-                "SCP Module for creating and conducting surveys and tests",
-                "Course «Frontend Development based on SAPUI5 framework»"
-
-            ],
-            "Responsobilities": [
-                "Development and maintenance of UI using SAPUI5 & OpenUI5",
-                "Development of reusable custom controls and fragments",
-                "Management interaction of the Client Side and Server Side code",
-                "Creation and refinement of SAP HANA Data Model"
-            ],
-            "Achievements": [
-                "Implemented a module for sending invitations to a meeting by email on XSJS",
-                "Increased the speed of the application by passing data from the OData model to JSON",
-                "Participated in conducting a course on Frontend Development based on SAPUI5 framework, followed by mentoring for trainees",
-                "Advised the team on UX/UI design and CSS"
-            ],
-            "Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
-        },
-        {
-            "Position": "Full Stack разработчик",
-            "Company": {
-                "Name": "WeLoveNoCode Ltd",
-                "Location": "",
-                "Website": "https://www.welovenocode.com/",
-                "Description": "",
-                "Logo": "/resource/image/WLNCLogo.jpg"
-            },
-            "StartDate": "2020-08",
-            "EndDate": "2021-02",
-            "Description": "Full Stack разработка и улучшение веб-приложений на Bubble.io",
-            "Projects": [],
-            "Responsobilities": [
-                "UI/UX дизайн приложения",
-                "Разработка интерфейса и Backend части",
-                "Разработка модели данных",
-                "Интеграция в приложение API (Stripe, Google, data API, etc.)",
-                "Работа с плагинами (API Connector, Draggable Elements, JSON Machine, Tree Explorer, etc.)",
-                "Интеграция данных приложения в другие службы с помощью Bubble App Data API",
-                "Фикс багов и поддержка приложения",
-                "Сбор требований и согласование этапов разработки",
-                "Командная работа по Agile методологии"
-            ],
-            "Achievements": [],
-            "Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
-        },
-        {
-            "Position": "Frontend разработчик",
-            "Company": {
-                "Name": "Фриланс",
-                "Location": "",
-                "Website": "",
-                "Description": "",
-                "Logo": "sap-icon://laptop"
-            },
-            "StartDate": "2020-02",
-            "EndDate": "2020-08",
-            "Description": "Разработка коммерческих и корпоративных сайтов, сайтов-визиток на CMS WordPress",
-            "Projects": [],
-            "Responsobilities": [
-                "Сбор требований от заказчика",
-                "Дизайн и прототипирование вебсайта в Photoshop и Figma",
-                "Выбор WordPress темы и плагинов",
-                "Development using JS, HTML and CSS",
-                "Поддержка и улучшение готовых сайтов",
-                "Ускорение загрузки вебсайта, SEO оптимизация, добавление аналитических метрик"    
-            ],
-            "Achievements": [],
-            "Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
-        }
-    ],
-    "Education": [
-        {
-            "Name": "Минский радиотехнический колледж",
-            "Description": "Специальность «Программное обеспечение информационных технологий», факультет компьютерных технологий",
-            "Logo": "/resource/image/MRCLogo.jpg"
-        },
-        {
-            "Name": "Витебская Средняя школа №33",
-            "Description": "Занимал призовые места в олимпиадах по математике, обществоведению, географии",
-            "Logo": "/resource/image/School33Logo.jpg"
-        }
-    ],
-    "Courses": [
-        {
-            "Name": "Full Stack разработка на SAP CAP и SAP Fiori Elements",
-            "Year": 2023
-        },
-        {
-            "Name": "Backend разработка на SAP S/4HANA",
-            "Year": 2022
-        },
-        {
-            "Name": "Разработка приложений для iOS",
-            "Year": 2022
-        },
-        {
-            "Name": "Frontend разработка на SAPUI5 фреймворке",
-            "Year": 2021
-        },
-        {
-            "Name": "Веб разработка",
-            "Year": 2020
-        }
-    ],
-    "Achievements": [
-        {
-            "Name": "Чемпион Республики Беларусь по быстрым шахматам и мультикратный чемпион Витебской области по классическим шахматам среди ровестников",
-            "Link": "",
-            "Icon": "sap-icon://competitor"
-        },
-        {
-            "Name": "4 kyu на Codewars",
-            "Link": "https://www.codewars.com/users/harelyshau",
-            "Icon": "sap-icon://syntax"
-        },
-        {
-            "Name": "Сделал дизайн для сборника стихов",
-            "Link": "",
-            "Icon": "sap-icon://palette"
-        },
-        {
-            "Name": "Экс-депутат Молодежной палаты г. Витебска",
-            "Link": "",
-            "Icon": "sap-icon://suitcase"
-        }
-    ],
-    "Languages": [
-        {
-            "Name": "Английский",
-            "Icon": "🇬🇧",
-            "Level": "Выше среднего"
-        },
-        {
-            "Name": "Русский",
-            "Icon": "🇷🇺",
-            "Level": "Носитель"
-        }
-    ]
+	"FirstName": "Павел",
+	"LastName": "Горелышев",
+	"Position": "Frontend разработчик",
+	"Email": "pavel@harelyshau.dev",
+	"RelocationPreference": {
+		"Country": "Канаду",
+		"Description": "Я инженер-программист (NOC: 21231), и меня интересует возможность переехать в Канаду. Мне нужна канадская рабочая виза. Чтобы начать процесс подачи заявления на визу, мне нужно предложение о работе от работодателя с положительным сертификатом Labor Market Impact Assessment (LMIA).",
+		"Link": "https://www.canada.ca/en/employment-social-development/services/foreign-workers.html",
+		"LinkText": "официальный сайт правительства Канады"
+	},
+	"Summary": "Креативный и увлеченный своим делом инженер-программист с 3,5-летним опытом разработки, обслуживания и поддержки веб-приложений с использованием современных технологий и методологии Agile. Опыт работы с продуктами SAP и работы с англоязычными командами и клиентами. Мне очень нравится создавать полезные и удобные приложения, которые оставляют приятный пользовательский опыт.",
+	"SkillsByTypes": [
+		{
+			"Type": "Навыки программирования",
+			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, TypeScript, SQL"
+		},
+		{
+			"Type": "Фреймворки и библиотеки",
+			"Skills": "SAPUI5, OpenUI5, jQuery, SAP Fiori Elements, Flexible Programming Model"
+		},
+		{
+			"Type": "SAP инструменты",
+			"Skills": "SAP Cloud Application Programming Model, SAP HANA Database, SAP S/4HANA, SAP Business Technology Platform, SAP Cloud Platform"
+		},
+		{
+			"Type": "Серверная часть",
+			"Skills": "XSJS, RESTful API, XSOdata, OData v4 & v2, CDS-models"
+		},
+		{
+			"Type": "Инструменты разработки",
+			"Skills": "Git, Visual Studio Code, SAP WebIDE, SAP Business Application Studio"
+		},
+		{
+			"Type": "Инструменты дизайна",
+			"Skills": "Photoshop, Figma"
+		},
+		{
+			"Type": "Другое",
+			"Skills": "UX/UI дизайн, Преподавание, Наставничество"
+		}
+	],
+	"Experience": [
+		{
+			"Position": "Frontend разработчик",
+			"Company": {
+				"Name": "EPAM Systems Inc",
+				"Location": "Тбилиси, Грузия",
+				"Website": "https://www.epam.com/",
+				"Description": "EPAM Systems Inc is a technology company that provides software engineering services for software development and digital platforms. The company provides services in customer experience design, business consulting and technology innovation services.",
+				"Logo": "/resource/image/EPAMLogo.jpg"
+			},
+			"StartDate": "2022-07",
+			"EndDate": "Present",
+			"Description": "",
+			"Projects": ["SAP BTP решение для управления заказами на покупку"],
+			"Responsobilities": [
+				"Development and maintenance of UI using SAPUI5 & SAP Fiori Elements",
+				"Development of reusable custom controls and fragments",
+				"Management interaction of the Client Side and Server Side code",
+				"Creation and refinement of SAP CAP Data Model"
+			],
+			"Achievements": [
+				"Development and maintenance of UI using SAPUI5 & SAP Fiori Elements",
+				"Development of reusable custom controls and fragments"
+			],
+			"Skills": "JavaScript, ES6, TypeScript, CSS, XML, JSON, SAPUI5, SAP Fiori Elements, Flexible Programming Model, CDS-models, OData v4, Git, Visual Studio Code, SAP Business Application Studio, SAP Cloud Application Programming Model, SAP Business Technology Platform"
+		},
+		{
+			"Position": "Frontend разработчик",
+			"Company": {
+				"Name": "JET BI LLC",
+				"Location": "",
+				"Website": "https://jetbi.com/",
+				"Description": "JET BI is a consulting and software development services company headquartered in Ireland, Dublin. Company helps small and medium-size businesses get the most of the latest enterprise-grade software solutions with 60+ consultants on-board.",
+				"Logo": "/resource/image/JETBILogo.jpg"
+			},
+			"StartDate": "2021-02",
+			"EndDate": "2022-06",
+			"Description": "",
+			"Projects": [
+				"SCP Module that helps users to effectively conduct meetings and resolve scheduled issues",
+				"SCP Module for creating and conducting surveys and tests",
+				"Course «Frontend Development based on SAPUI5 framework»"
+			],
+			"Responsobilities": [
+				"Development and maintenance of UI using SAPUI5 & OpenUI5",
+				"Development of reusable custom controls and fragments",
+				"Management interaction of the Client Side and Server Side code",
+				"Creation and refinement of SAP HANA Data Model"
+			],
+			"Achievements": [
+				"Implemented a module for sending invitations to a meeting by email on XSJS",
+				"Increased the speed of the application by passing data from the OData model to JSON",
+				"Participated in conducting a course on Frontend Development based on SAPUI5 framework, followed by mentoring for trainees",
+				"Advised the team on UX/UI design and CSS"
+			],
+			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
+		},
+		{
+			"Position": "Full Stack разработчик",
+			"Company": {
+				"Name": "WeLoveNoCode Ltd",
+				"Location": "",
+				"Website": "https://www.welovenocode.com/",
+				"Description": "",
+				"Logo": "/resource/image/WLNCLogo.jpg"
+			},
+			"StartDate": "2020-08",
+			"EndDate": "2021-02",
+			"Description": "Full Stack разработка и улучшение веб-приложений на Bubble.io",
+			"Projects": [],
+			"Responsobilities": [
+				"UI/UX дизайн приложения",
+				"Разработка интерфейса и Backend части",
+				"Разработка модели данных",
+				"Интеграция в приложение API (Stripe, Google, data API, etc.)",
+				"Работа с плагинами (API Connector, Draggable Elements, JSON Machine, Tree Explorer, etc.)",
+				"Интеграция данных приложения в другие службы с помощью Bubble App Data API",
+				"Фикс багов и поддержка приложения",
+				"Сбор требований и согласование этапов разработки",
+				"Командная работа по Agile методологии"
+			],
+			"Achievements": [],
+			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
+		},
+		{
+			"Position": "Frontend разработчик",
+			"Company": {
+				"Name": "Фриланс",
+				"Location": "",
+				"Website": "",
+				"Description": "",
+				"Logo": "sap-icon://laptop"
+			},
+			"StartDate": "2020-02",
+			"EndDate": "2020-08",
+			"Description": "Разработка коммерческих и корпоративных сайтов, сайтов-визиток на CMS WordPress",
+			"Projects": [],
+			"Responsobilities": [
+				"Сбор требований от заказчика",
+				"Дизайн и прототипирование вебсайта в Photoshop и Figma",
+				"Выбор WordPress темы и плагинов",
+				"Development using JS, HTML and CSS",
+				"Поддержка и улучшение готовых сайтов",
+				"Ускорение загрузки вебсайта, SEO оптимизация, добавление аналитических метрик"
+			],
+			"Achievements": [],
+			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
+		}
+	],
+	"Education": [
+		{
+			"Name": "Минский радиотехнический колледж",
+			"Description": "Специальность «Программное обеспечение информационных технологий», факультет компьютерных технологий",
+			"Logo": "/resource/image/MRCLogo.jpg"
+		},
+		{
+			"Name": "Витебская Средняя школа №33",
+			"Description": "Занимал призовые места в олимпиадах по математике, обществоведению, географии",
+			"Logo": "/resource/image/School33Logo.jpg"
+		}
+	],
+	"Courses": [
+		{
+			"Name": "Full Stack разработка на SAP CAP и SAP Fiori Elements",
+			"Year": 2023
+		},
+		{
+			"Name": "Backend разработка на SAP S/4HANA",
+			"Year": 2022
+		},
+		{
+			"Name": "Разработка приложений для iOS",
+			"Year": 2022
+		},
+		{
+			"Name": "Frontend разработка на SAPUI5 фреймворке",
+			"Year": 2021
+		},
+		{
+			"Name": "Веб разработка",
+			"Year": 2020
+		}
+	],
+	"Achievements": [
+		{
+			"Name": "Чемпион Республики Беларусь по быстрым шахматам и мультикратный чемпион Витебской области по классическим шахматам среди ровестников",
+			"Icon": "sap-icon://competitor"
+		},
+		{
+			"Name": "4 kyu на Codewars",
+			"Link": "https://www.codewars.com/users/harelyshau",
+			"LinkText": "нажмите чтобы просмотреть профиль",
+			"Icon": "sap-icon://syntax"
+		},
+		{
+			"Name": "Сделал дизайн для сборника стихов",
+			"Icon": "sap-icon://palette"
+		},
+		{
+			"Name": "Экс-депутат Молодежной палаты г. Витебска",
+			"Icon": "sap-icon://suitcase"
+		}
+	],
+	"Languages": [
+		{
+			"Name": "Английский",
+			"Icon": "🇬🇧",
+			"Level": "Выше среднего"
+		},
+		{
+			"Name": "Русский",
+			"Icon": "🇷🇺",
+			"Level": "Носитель"
+		}
+	]
 }

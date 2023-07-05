@@ -1,49 +1,42 @@
-sap.ui.define([], function () {
-    
-    "use strict";
+sap.ui.define([], () => {
+	'use strict';
 
-    return {
+	return {
+		getTheme() {
+			return localStorage.getItem('theme');
+		},
 
-        getTheme() {
-            return localStorage.getItem("theme");
-        },
+		setTheme(sThemeKey) {
+			if (sThemeKey) {
+				localStorage.setItem('theme', sThemeKey);
+			} else {
+				localStorage.removeItem('theme');
+				const bLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+				sThemeKey = bLight ? 'light' : 'dark';
+			}
 
-        setTheme(sThemeKey) {
-            // set up received theme
-            let sThemeSAP = this.mapTheme(sThemeKey) ?? "auto";
-            if (sThemeSAP === "auto") {
-                const bLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-                sThemeSAP = bLight ? this.mapTheme("light") : this.mapTheme("dark");
-            }
+			sap.ui.getCore().applyTheme(this.mapTheme(sThemeKey));
+		},
 
-            // write and apply theme
-            if (sThemeKey) {
-                localStorage.setItem("theme", sThemeKey);
-            } else {
-                localStorage.removeItem("theme");
-            }
-            sap.ui.getCore().applyTheme(sThemeSAP);
-        },
+		mapTheme(sKey, sValue) {
+			const oThemes = {
+				light: 'sap_horizon',
+				dark: 'sap_horizon_dark',
+				contrastWhite: 'sap_horizon_hcw',
+				contrastBlack: 'sap_horizon_hcb'
+			};
+			if (sKey) {
+				// return value by key
+				return oThemes[sKey];
+			} else if (sValue) {
+				// return key by value
+				return Object.keys(oThemes).find((sThemeKey) => oThemes[sThemeKey] === sValue);
+			}
+		},
 
-        mapTheme(sKey, sValue) {
-            const oThemes = {
-                light: "sap_horizon",
-                dark: "sap_horizon_dark",
-                contrastWhite: "sap_horizon_hcw",
-                contrastBlack: "sap_horizon_hcb"
-            }
-            if (sKey) { // return value by key
-                return oThemes[sKey];
-            } else if (sValue) { // return key by value
-                return Object.keys(oThemes).find(sThemeKey => oThemes[sThemeKey] === sValue);
-            }
-            
-        },
-
-        initTheme() {
-            const sTheme = this.getTheme();
-            this.setTheme(sTheme);
-        }
-        
-    };
+		initTheme() {
+			const sTheme = this.getTheme();
+			this.setTheme(this.getTheme());
+		}
+	};
 });

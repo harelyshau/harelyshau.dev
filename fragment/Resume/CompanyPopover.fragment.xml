@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <Popover contentWidth="20rem" placement="Auto">
         <customHeader>
             <Toolbar style="Clear">

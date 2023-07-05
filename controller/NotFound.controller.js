@@ -1,14 +1,7 @@
-sap.ui.define([
-    "./BaseController"
- ], function (BaseController) {
+sap.ui.define(['./BaseController'], (BaseController) => {
+	'use strict';
 
-    "use strict";
-
-    return BaseController.extend("pharelyshau.controller.NotFound", {
-
-        onInit() {
-
-        }
-        
-    });
+	return BaseController.extend('pharelyshau.controller.NotFound', {
+		onInit() {}
+	});
 });

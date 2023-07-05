@@ -1,14 +1,14 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <ResponsivePopover placement="Auto" horizontalScrolling="false" contentWidth="22rem">
         <customHeader>
             <Toolbar width="{= ${device>/system/phone} ? 'auto' : '22rem' }"
                 style="Clear" class="phToolbarNoPaddingBegin">
                 <!-- Device Phone -->
-                <Title visible="{device>/system/phone}" text="{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"
-                    class="phNoMargin"/>
+                <Title visible="{device>/system/phone}" class="phNoMargin"
+                    text="{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"/>
                 <!-- Device Desktop -->
-                <Title visible="{= !${device>/system/phone} }" text="{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"
-                    class="sapUiSmallMarginBegin"/>                
+                <Title visible="{= !${device>/system/phone} }" class="sapUiSmallMarginBegin"
+                    text="{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"/>                
                 <ToolbarSpacer/>
                 <Button tooltip="{i18n>btnClose}" press="onPressCloseAppointmentPopover"
                     icon="{i18n>iClose}"/>

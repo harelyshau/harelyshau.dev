@@ -19,11 +19,11 @@
 				<f:actions>
 					<!-- Device Desktop -->
 					<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550}"
-						text="{i18n>btnSendEmail}" press="onPressSendEmail"
-						icon="{i18n>iEmail}"/>
+						text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
 					<!-- All Devices -->
 					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
-						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
+						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
+							? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
 				</f:actions>
 			</f:DynamicPageTitle>
 		</f:title>
@@ -43,10 +43,13 @@
 					enableAppointmentsResize="true"
 					class="phCalendar sapUiTinyMarginTop">
 					<actions>
-						<ToggleButton tooltip="{= ${view>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"
-							press="onPressToggleFullDay" icon="{i18n>iMoreTime}" pressed="{view>/fullDay}"/>
-						<Button text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}  ? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
-							press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
+						<ToggleButton press="onPressToggleFullDay" icon="{i18n>iMoreTime}"
+							pressed="{view>/fullDay}"
+							tooltip="{= ${view>/fullDay}
+								? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"/>
+						<Button press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
+							text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}
+								? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
 							type="Emphasized" class="phResponsiveMarginEnd"/>
 					</actions>
 					<appointments>

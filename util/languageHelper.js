@@ -1,40 +1,44 @@
-sap.ui.define([
-    "sap/ui/core/Configuration"
-], function (Configuration) {
-    
-    "use strict";
+sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
+	'use strict';
 
-    return {
+	return {
+		getLanguage() {
+			return localStorage.getItem('language');
+		},
 
-        getLanguage() {
-            return localStorage.getItem("language");
-        },
+		setLanguage(sLanguage) {
+			if (sLanguage) {
+				localStorage.setItem('language', sLanguage);
+			} else {
+				sLanguage = this.getCurrentLanguage();
+			}
 
-        setLanguage(sLanguage) {
-            // set up received language
-            let sLanguageSAP = sLanguage ?? "auto";
-            if (sLanguageSAP === "auto") {
-                sLanguageSAP = Configuration.getLanguage().slice(0, 2);
-            }
+			// check for supported languages
+			if (!this.getSupportedLanguages().includes(sLanguage)) {
+				sLanguage = this.getFallBackLanguage();
+			}
 
-            // check for supported languages
-            const oManifest = sap.ui.getCore().getComponent("container-pharelyshau").getManifest();
-            const aSupportedLanguages = oManifest["sap.app"].i18n.supportedLocales;
-            if (!aSupportedLanguages.includes(sLanguageSAP)) {
-                sLanguageSAP = "en";
-            }
+			//apply language
+			Configuration.setLanguage(sLanguage);
+		},
 
-            // write and apply language
-            if (sLanguage) {
-                localStorage.setItem("language", sLanguage);
-            }
-            Configuration.setLanguage(sLanguageSAP);
-        },
+		getCurrentLanguage() {
+			return Configuration.getLanguage().slice(0, 2);
+		},
 
-        initLanguage() {
-            const sLanguage = this.getLanguage();
-            this.setLanguage(sLanguage);
-        }
-        
-    };
+		getFallBackLanguage() {
+			const oManifest = sap.ui.getCore().getComponent('container-pharelyshau').getManifest();
+			return oManifest['sap.app'].i18n.fallbackLocale;
+		},
+
+		getSupportedLanguages() {
+			const oManifest = sap.ui.getCore().getComponent('container-pharelyshau').getManifest();
+			return oManifest['sap.app'].i18n.supportedLocales;
+		},
+
+		initLanguage() {
+			const sLanguage = this.getLanguage();
+			this.setLanguage(sLanguage);
+		}
+	};
 });

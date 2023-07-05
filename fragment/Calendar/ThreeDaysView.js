@@ -1,11 +1,7 @@
-sap.ui.define([
-	"sap/m/SinglePlanningCalendarView"
-], (SinglePlanningCalendarView) => {
+sap.ui.define(['sap/m/SinglePlanningCalendarView'], (SinglePlanningCalendarView) => {
+	'use strict';
 
-	"use strict";
-
-	return SinglePlanningCalendarView.extend("pharelyshau.fragment.calenar.ThreesDaysView", {
-
+	return SinglePlanningCalendarView.extend('pharelyshau.fragment.calenar.ThreesDaysView', {
 		getEntityCount() {
 			return 3;
 		},
@@ -17,6 +13,5 @@ sap.ui.define([
 		calculateStartDate(oStartDate) {
 			return oStartDate;
 		}
-		
 	});
 });

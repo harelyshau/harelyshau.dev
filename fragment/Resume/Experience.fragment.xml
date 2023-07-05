@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">    
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">    
     <VBox>
         <!-- Main Info -->
         <HBox alignItems="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Start' : 'Center' }">
@@ -21,7 +21,7 @@
                 <!-- Device Desktop -->
                 <VBox visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550 }"
                     alignItems="End" class="sapUiTinyMarginTop">
-                    <Label text="{path: 'StartDate',  formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'}"/>
+                    <Label text="{path: 'StartDate', formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'}"/>
                     <Label text="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'}"/>
                 </VBox>
                 <!-- Device Phone -->
@@ -34,15 +34,21 @@
         <!-- Projects -->
         <VBox visible="{= ${Projects}.length > 0}">
             <Label text="{= ${Projects}.length > 1 ? ${i18n>lProjects} : ${i18n>lProject} }:" />
-            <Text text="{= ${Projects}.length > 1 ? ${path: 'Projects', formatter: '.formatter.textList'} : ${Projects} }"/>
+            <VBox items="{path: 'Projects', templateShareable: false}">
+                <Text text="• &#160;{}"/>
+            </VBox>
         </VBox>
         <!-- Responsobilities -->
         <Label text="{i18n>lResponsobilities}:" class="sapUiTinyMarginTop"/>
-        <Text text="{path: 'Responsobilities', formatter: '.formatter.textList'}"/>
+        <VBox items="{path: 'Responsobilities', templateShareable: false}">
+            <Text text="• &#160;{}"/>
+        </VBox>
         <!-- Achievements -->
         <VBox visible="{= ${Achievements}.length > 0}">
             <Label text="{i18n>lAchievements}:" class="sapUiTinyMarginTop"/>
-            <Text text="{path: 'Achievements', formatter: '.formatter.textList'}"/>
+            <VBox items="{path: 'Achievements', templateShareable: false}">
+                <Text text="• &#160;{}"/>
+            </VBox>
         </VBox>
         <!-- Skills -->
         <Label text="{i18n>lSkills}:" class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>

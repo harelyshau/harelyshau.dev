@@ -19,7 +19,8 @@
                 </f:expandedContent>
 				<f:actions>
 					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
-						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
+						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
+                            ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
 				</f:actions>
 			</f:DynamicPageTitle>
 		</f:title>

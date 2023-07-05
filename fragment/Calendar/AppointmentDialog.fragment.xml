@@ -1,10 +1,10 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <Dialog stretch="{device>/system/phone}" resizable="true" draggable="true"
         afterClose="onAfterCloseAppointmentDialog">
         <customHeader>
             <Toolbar style="Clear">
-                <Title text="{= ${Mode} === 'create' ? ${i18n>ttlMakeAppointment} : ${i18n>ttlEditAppointment} }"
-                    class="phNoMargin"/>                
+                <Title class="phNoMargin" text="{= ${Mode} === 'create'
+                    ? ${i18n>ttlMakeAppointment} : ${i18n>ttlEditAppointment} }"/>                
                 <ToolbarSpacer/>
                 <Button visible="{device>/system/phone}" tooltip="{i18n>btnClose}"
                     press="onPressCloseAppointmentDialog" icon="{i18n>iClose}"/>
@@ -21,7 +21,8 @@
             <VBox class="sapUiSmallMarginTop">
                 <Label text="{i18n>lYourEmail}:" labelFor="inpEmail"/>
                 <Input id="inpEmail" required="true" type="Email" placeholder="{i18n>phEmail}"
-                    value="{path: 'Email', type: 'sap.ui.model.type.String', constraints: {search: '^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$'} }"/>
+                    value="{path: 'Email', type: 'sap.ui.model.type.String',
+                        constraints: {search: '^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$'} }"/>
                 <!-- <Input required="true" type="Email" placeholder="your@email.com"
                     value="{path: 'Email', type: '.types.email'}"/> -->
             </VBox>
@@ -31,14 +32,18 @@
                 <HBox justifyContent="SpaceBetween"
                     renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
                     <Label width="0" text="{i18n>lStartDate}" labelFor="dtpStartDate"/> <!-- invsible -->
-                    <DateTimePicker id="dtpStartDate" minutesStep="15" change="onChangePicker($event ,'StartDate')"
-                        required="true" minDate="{= ${Mode} === 'create' ? ${view>/currentDate} : null }" showCurrentDateButton="true"
-                        value="{path: 'StartDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
-                    <Label visible="{= !${device>/system/phone} }" text="—" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
+                    <DateTimePicker id="dtpStartDate" change="onChangePicker($event ,'StartDate')"
+                        required="true" minutesStep="15" showCurrentDateButton="true"
+                        minDate="{= ${Mode} === 'create' ? ${view>/currentDate} : null }"
+                        value="{path: 'StartDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime',
+                            formatOptions: {style: 'medium/short'}}"/>
+                    <Label visible="{= !${device>/system/phone} }" text="—"
+                        class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
                     <Label width="0" text="{i18n>lEndDate}" labelFor="dtpEndDate"/> <!-- invsible -->
-                    <DateTimePicker id="dtpEndDate" minutesStep="15" change="onChangePicker($event ,'EndDate')"
-                        required="true" minDate="{StartDate}" showCurrentDateButton="true"
-                        value="{path: 'EndDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime', formatOptions: {style: 'medium/short'}}"/>
+                    <DateTimePicker id="dtpEndDate" change="onChangePicker($event ,'EndDate')"
+                        required="true" minutesStep="15" minDate="{StartDate}" showCurrentDateButton="true"
+                        value="{path: 'EndDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime',
+                            formatOptions: {style: 'medium/short'}}"/>
                 </HBox>
             </VBox>
             <!-- Conference & Google Meet -->
@@ -59,8 +64,8 @@
                         <!-- Not Exsists yet -->
                         <HBox visible="{= ${GoogleMeet} === 'willBeCreated' }"
                             alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
-                            <Avatar src="/resource/image/GoogleMeetIcon.svg" displaySize="Custom" customDisplaySize="1.5rem"
-                                class="sapUiTinyMarginEnd"/>
+                            <Avatar src="/resource/image/GoogleMeetIcon.svg" displaySize="Custom"
+                                customDisplaySize="1.5rem" class="sapUiTinyMarginEnd"/>
                             <Text text="Google Meet conference will be generated" />
                         </HBox>
                         <!-- Already Exists -->

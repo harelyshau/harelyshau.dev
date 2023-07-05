@@ -1,96 +1,96 @@
 <mvc:View
-		controllerName="pharelyshau.controller.Resume"
-		xmlns:mvc="sap.ui.core.mvc"
-		xmlns="sap.m"
-		xmlns:f="sap.f"
-		xmlns:core="sap.ui.core">
-		<f:DynamicPage class="phResumePage">
-			<!-- HEADER -->
-			<f:title>
-				<f:DynamicPageTitle>
-					<f:heading>
-						<Title text="{/FirstName} {/LastName}" wrapping="true"/>
-					</f:heading>
-					<f:snappedContent>
-						<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
-					</f:snappedContent>
-					<f:expandedContent>
-						<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
-					</f:expandedContent>
-					<f:actions>
-						<!-- Device Desktop -->
-						<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550}"
-								text="{i18n>btnMakeAppointment}" press="onPressNavigateToPage('calendar')"
-								icon="{i18n>iAppointment}" type="Emphasized"/>
-						<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 750}"
-							text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
-						<!-- All Devices -->
-						<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
-							icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width} ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
-					</f:actions>
-				</f:DynamicPageTitle>
-			</f:title>
-			<f:content>
-                <VBox class="phLimitedPageContent sapUiMediumMarginBottom">
-                    <!-- SUMMARY -->
-                    <Panel>
-						<Title text="{i18n>ttlSummary}" wrapping="true"/>
-						<Text text="{/Summary}" class="sapUiTinyMarginTop"/>
-                    </Panel>
-                    <!-- SKILLS -->
-                    <Panel class="sapUiSmallMarginTop">
-                        <Title text="{i18n>ttlSkills}" wrapping="true"/>
-                        <VBox items="{/SkillsByTypes}">
-							<core:Fragment fragmentName="pharelyshau.fragment.Resume.SkillsByType"
-								type="XML" class="sapUiTinyMarginTop"/>
-						</VBox>
-                    </Panel>
-                    <!-- EXPERIENCE -->
-                    <Panel class="sapUiSmallMarginTop">
-                        <Title text="{i18n>ttlExperience}" wrapping="true"/>
-                        <VBox items="{/Experience}">
-							<core:Fragment fragmentName="pharelyshau.fragment.Resume.Experience"
-								type="XML" class="sapUiTinyMarginTop"/>
-						</VBox>
-                    </Panel>
-                    <!-- EDUCATION -->
-					<Panel class="sapUiSmallMarginTop">
-						<Title text="{i18n>ttlEducation}" wrapping="true"/>
-						<VBox items="{/Education}">
-							<core:Fragment fragmentName="pharelyshau.fragment.Resume.Education"
-								type="XML" class="sapUiTinyMarginTop"/>
-						</VBox>
-					</Panel>
-                    <!-- PROFESSIONAL DEVELOPMENT -->
-					<Panel class="sapUiSmallMarginTop">
-						<Title text="{i18n>ttlCourses}" wrapping="true"/>
-						<VBox items="{/Courses}">
-							<Text text="•&#160; {Name}, {Year}" class="sapUiTinyMarginTop"/>
-						</VBox>
-					</Panel>
-                    <!-- ACHIEVEMENTS -->
-					<Panel class="sapUiSmallMarginTop">
-						<Title text="{i18n>ttlAchievements}" wrapping="true"/>
-						<VBox items="{/Achievements}">
-							<HBox class="sapUiTinyMarginTop">
-								<core:Icon src="{Icon}" class="sapUiTinyMarginEnd"/>
-								<FormattedText htmlText="{Name} 
-									{= ${Link} ? '(' : ''}{
-										parts: ['Link', 'i18n>linkClickToSeeProfile'],
-										formatter: '.formatter.textLink'
-									}{= ${Link} ? ')' : ''} "/>
-							</HBox>
-						</VBox>
-					</Panel>
-					<!-- LANGUAGES -->
-					<Panel class="sapUiSmallMarginTop">
-						<Title text="{i18n>ttlLanguages}" wrapping="true"/>
-						<VBox items="{/Languages}">
-							<Text text="{Icon}&#160; {Name} – {Level}"
-								class="sapUiTinyMarginTop"/>
-						</VBox>
-					</Panel>
-                </VBox>
-			</f:content>
-		</f:DynamicPage>
+	controllerName="pharelyshau.controller.Resume"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	core:require="{ formatMessage: 'sap/base/strings/formatMessage' }">
+	<f:DynamicPage class="phResumePage">
+		<!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{/FirstName} {/LastName}" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+					<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
+				</f:snappedContent>
+				<f:expandedContent>
+					<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
+				</f:expandedContent>
+				<f:actions>
+					<!-- Device Desktop -->
+					<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550}"
+							text="{i18n>btnMakeAppointment}" press="onPressNavigateToPage('calendar')"
+							icon="{i18n>iAppointment}" type="Emphasized"/>
+					<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 850}"
+						text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
+					<!-- All Devices -->
+					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
+						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
+							? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox class="phLimitedPageContent sapUiMediumMarginBottom">
+				<!-- SUMMARY -->
+				<Panel>
+					<Title text="{i18n>ttlSummary}" wrapping="true"/>
+					<Text text="{/Summary}" class="sapUiTinyMarginTop"/>
+				</Panel>
+				<!-- SKILLS -->
+				<Panel class="sapUiSmallMarginTop">
+					<Title text="{i18n>ttlSkills}" wrapping="true"/>
+					<VBox items="{/SkillsByTypes}">
+						<core:Fragment fragmentName="pharelyshau.fragment.Resume.SkillsByType"
+							type="XML" class="sapUiTinyMarginTop"/>
+					</VBox>
+				</Panel>
+				<!-- EXPERIENCE -->
+				<Panel class="sapUiSmallMarginTop">
+					<Title text="{i18n>ttlExperience}" wrapping="true"/>
+					<VBox items="{/Experience}">
+						<core:Fragment fragmentName="pharelyshau.fragment.Resume.Experience"
+							type="XML" class="sapUiTinyMarginTop"/>
+					</VBox>
+				</Panel>
+				<!-- EDUCATION -->
+				<Panel class="sapUiSmallMarginTop">
+					<Title text="{i18n>ttlEducation}" wrapping="true"/>
+					<VBox items="{/Education}">
+						<core:Fragment fragmentName="pharelyshau.fragment.Resume.Education"
+							type="XML" class="sapUiTinyMarginTop"/>
+					</VBox>
+				</Panel>
+				<!-- PROFESSIONAL DEVELOPMENT -->
+				<Panel class="sapUiSmallMarginTop">
+					<Title text="{i18n>ttlCourses}" wrapping="true"/>
+					<VBox items="{/Courses}">
+						<Text text="•&#160; {Name}, {Year}" class="sapUiTinyMarginTop"/>
+					</VBox>
+				</Panel>
+				<!-- ACHIEVEMENTS -->
+				<Panel class="sapUiSmallMarginTop">
+					<Title text="{i18n>ttlAchievements}" wrapping="true"/>
+					<VBox items="{/Achievements}">
+						<HBox class="sapUiTinyMarginTop">
+							<core:Icon src="{Icon}" class="sapUiTinyMarginEnd"/>
+							<FormattedText htmlText="{= ${Name} + ' ' + (!${Link} 
+								? '' : '(' + ${parts: ['i18n>linkWithText', 'Link', 'LinkText'], formatter: 'formatMessage'} + ')')
+							}"/>
+						</HBox>
+					</VBox>
+				</Panel>
+				<!-- LANGUAGES -->
+				<Panel class="sapUiSmallMarginTop">
+					<Title text="{i18n>ttlLanguages}" wrapping="true"/>
+					<VBox items="{/Languages}">
+						<Text text="{Icon}&#160; {Name} – {Level}"
+							class="sapUiTinyMarginTop"/>
+					</VBox>
+				</Panel>
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
 </mvc:View>
