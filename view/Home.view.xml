@@ -29,7 +29,9 @@
                 <!-- WELCOME -->
                 <Panel>
                     <IllustratedMessage illustrationType="tnt-Success" enableFormattedText="true"
-                        title="{i18n>ttlWelcome}" description="{i18n>tWelcomeDescription}">
+                        title="{i18n>ttlWelcome}" description="{i18n>tWelcomeDescription}"
+                        illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
+                            ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
                                 press="onPressSendEmail"/>
@@ -39,7 +41,9 @@
                 <!-- OVERVIEW -->
                 <Panel class="sapUiSmallMarginTop">
                     <IllustratedMessage illustrationType="tnt-Mission" enableFormattedText="true"
-                        title="{i18n>ttlOverview}" description="{i18n>tOverview}">
+                        title="{i18n>ttlOverview}" description="{i18n>tOverview}"
+                        illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
+                            ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iCode}" text="{i18n>btnSeeCode}"
                                 press="onPressShowCode"/>
@@ -49,7 +53,9 @@
                 <!-- CALENDAR -->
                 <Panel class="sapUiSmallMarginTop">
                     <IllustratedMessage illustrationType="sapIllus-SimpleCalendar"
-                        title="{i18n>ttlCalendarPage}" description="{i18n>tCalendarOverview}">
+                        title="{i18n>ttlCalendarPage}" description="{i18n>tCalendarOverview}"
+                        illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
+                            ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iAppointment}" text="{i18n>btnMakeAppointment}"
                                 press="onPressNavigateToPage('calendar')"/>
@@ -58,10 +64,10 @@
                 </Panel>
                 <!-- RESUME -->
                 <Panel class="sapUiSmallMarginTop">
-                    <IllustratedMessage
-                        illustrationType="sapIllus-NoSavedItems"
-                        title="{i18n>ttlResumepPage}"
-                        description="{i18n>tResumeOverview}">
+                    <IllustratedMessage illustrationType="sapIllus-NoSavedItems"
+                        title="{i18n>ttlResumepPage}" description="{i18n>tResumeOverview}"
+                        illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
+                            ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iResume}" text="{i18n>btnSeeResume}"
                                 press="onPressNavigateToPage('resume')"/>
