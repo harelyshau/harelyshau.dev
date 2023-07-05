@@ -55,8 +55,9 @@
                         valueState="{path: 'Conference', formatter: '.formatter.conferenceState'}"
                         valueStateText="{path: 'Conference', formatter: '.formatter.conferenceStateText'}"
                         placeholder="{i18n>phConference}"/>
-                    <Button text="{i18n>btnAddGoogleMeet}" width="100%"
-                        icon="/resource/image/GoogleMeetIcon.svg" press="onPressAddGoogleMeet"/>
+                    <Button text="{i18n>btnAddGoogleMeet}" width="100%" iconDensityAware="false"
+                        icon="/resource/image/GoogleMeetIcon.svg" press="onPressAddGoogleMeet"
+                        class="phButton"/>
                 </VBox>
                 <!-- Google Meet -->
                 <VBox visible="{= !!${GoogleMeet} }">
@@ -71,7 +72,7 @@
                         <!-- Already Exists -->
                         <Button visible="{= ${GoogleMeet} !== 'willBeCreated' }"
                             text="{i18n>btnJoinWithGoogleMeet}" press="onPressJoinToConference"
-                            icon="/resource/image/GoogleMeetIcon.svg"/>
+                            icon="/resource/image/GoogleMeetIcon.svg" iconDensityAware="false"/>
                         <!-- Remove Button -->
                         <Button icon="{i18n>iClose}" tooltip="Remove Google Meet conferencing"
                             press="onPressRemoveGoogleMeet" type="Transparent"/>

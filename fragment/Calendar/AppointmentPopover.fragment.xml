@@ -41,7 +41,7 @@
                 <VBox visible="{= !!${GoogleMeet} || !!${Conference} }">
                     <HBox justifyContent="SpaceBetween">
                         <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
-                            press="onPressJoinToConference"
+                            press="onPressJoinToConference" iconDensityAware="false"
                             text="{= ${GoogleMeet} ? ${i18n>btnJoinWithGoogleMeet} : ${i18n>btnJoinToConference} }"
                             icon="{= ${GoogleMeet} ? '/resource/image/GoogleMeetIcon.svg' : 'sap-icon://video' }"/>
                         <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
