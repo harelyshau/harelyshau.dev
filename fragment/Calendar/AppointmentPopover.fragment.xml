@@ -39,9 +39,9 @@
             <VBox class="sapUiSmallMarginTop">
                 <Label text="{i18n>lConference}:"/>
                 <VBox visible="{= !!${GoogleMeet} || !!${Conference} }">
-                    <HBox justifyContent="SpaceBetween">
+                    <HBox justifyContent="SpaceBetween" renderType="Bare">
                         <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
-                            press="onPressJoinToConference" iconDensityAware="false"
+                            press="onPressJoinToConference" iconDensityAware="false" class="phButton phButtonJoinToConference"
                             text="{= ${GoogleMeet} ? ${i18n>btnJoinWithGoogleMeet} : ${i18n>btnJoinToConference} }"
                             icon="{= ${GoogleMeet} ? '/resource/image/GoogleMeetIcon.svg' : 'sap-icon://video' }"/>
                         <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"

@@ -61,7 +61,7 @@
                 </VBox>
                 <!-- Google Meet -->
                 <VBox visible="{= !!${GoogleMeet} }">
-                    <HBox justifyContent="SpaceBetween">
+                    <HBox justifyContent="SpaceBetween" renderType="Bare">
                         <!-- Not Exsists yet -->
                         <HBox visible="{= ${GoogleMeet} === 'willBeCreated' }"
                             alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
@@ -72,7 +72,8 @@
                         <!-- Already Exists -->
                         <Button visible="{= ${GoogleMeet} !== 'willBeCreated' }"
                             text="{i18n>btnJoinWithGoogleMeet}" press="onPressJoinToConference"
-                            icon="/resource/image/GoogleMeetIcon.svg" iconDensityAware="false"/>
+                            icon="/resource/image/GoogleMeetIcon.svg" iconDensityAware="false"
+                            class="phButton phButtonJoinToConference"/>
                         <!-- Remove Button -->
                         <Button icon="{i18n>iClose}" tooltip="Remove Google Meet conferencing"
                             press="onPressRemoveGoogleMeet" type="Transparent"/>

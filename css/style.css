@@ -60,3 +60,11 @@
 .phButton .sapMBtnIcon {
 	min-width: auto !important;
 }
+
+.phButton {
+	max-width: 100%;
+}
+
+.phButtonJoinToConference {
+	max-width: 80%;
+}

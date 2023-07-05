@@ -46,7 +46,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iCode}" text="{i18n>btnSeeCode}"
-                                press="onPressShowCode"/>
+                                press="onPressShowCode" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>
