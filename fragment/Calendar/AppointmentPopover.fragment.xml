@@ -5,10 +5,10 @@
                 style="Clear" class="phToolbarNoPaddingBegin">
                 <!-- Device Phone -->
                 <Title visible="{device>/system/phone}" class="phNoMargin"
-                    text="{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"/>
+                    text="{= !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"/>
                 <!-- Device Desktop -->
                 <Title visible="{= !${device>/system/phone} }" class="sapUiSmallMarginBegin"
-                    text="{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"/>                
+                    text="{= !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"/>                
                 <ToolbarSpacer/>
                 <Button tooltip="{i18n>btnClose}" press="onPressCloseAppointmentPopover"
                     icon="{i18n>iClose}"/>

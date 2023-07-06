@@ -107,7 +107,7 @@ sap.ui.define(
 						calendarId: 'pavel@harelyshau.dev',
 						conferenceDataVersion: 1,
 						sendUpdates: 'all',
-						resource: this.formatter.appointmentGC(oAppointment)
+						resource: this.formatter.appointmentGC.call(this, oAppointment)
 					});
 				} catch (oError) {
 					console.error('Error creating appointment:', oError);
@@ -133,7 +133,7 @@ sap.ui.define(
 						eventId: oAppointment.ID,
 						conferenceDataVersion: 1,
 						sendUpdates: 'all',
-						resource: this.formatter.appointmentGC(oAppointment)
+						resource: this.formatter.appointmentGC.call(this, oAppointment)
 					});
 				} catch (oError) {
 					console.error('Error updating appointment:', oError);
@@ -320,7 +320,6 @@ sap.ui.define(
 					Email: localStorage.getItem('email'),
 					StartDate: oStartDate,
 					EndDate: oEndDate,
-					Duration: oEndDate.getTime() - oStartDate.getTime(),
 					Mode: 'create',
 					Type: 'Type01',
 					Conference: ''
@@ -490,9 +489,7 @@ sap.ui.define(
 			onPressCopyConferenceLink(oEvent) {
 				const oAppointment = oEvent.getSource().getBindingContext().getObject();
 				const sConferenceLink = oAppointment.GoogleMeet ?? oAppointment.Conference;
-				const sSuccessMessage = this.i18n('msgConferenceCopied', [sConferenceLink]);
-				const sErrorMessage = this.i18n('msgConferenceNotCopied');
-				this.copyToClipboard(sConferenceLink, sSuccessMessage, sErrorMessage);
+				this.copyToClipboard(sConferenceLink);
 			},
 
 			onPressJoinToConference(oEvent) {

@@ -94,8 +94,14 @@ sap.ui.define(
 				};
 				const aDates = [oAppointmentGC.start, oAppointmentGC.end];
 				this.formatter.setDatesToAppointmentLocal(oAppointment, ...aDates);
-				if (this.getAvailableAppointmentIDs().includes(oAppointment.ID)) {
-					this.formatter.setFieldsToAvailableAppointmentLocal(oAppointment, oAppointmentGC);
+				const bAvailable = this.getAvailableAppointmentIDs().includes(oAppointment.ID);
+				const bTwoAttendees = oAppointmentGC.attendees?.length === 2;
+				if (bAvailable && bTwoAttendees) {
+					this.formatter.setFieldsToAvailableAppointmentLocal.call(
+						this,
+						oAppointment,
+						oAppointmentGC
+					);
 				}
 
 				return oAppointment;
@@ -112,7 +118,9 @@ sap.ui.define(
 			},
 
 			setFieldsToAvailableAppointmentLocal(oAppointment, oAppointmentGC) {
-				const sEmail = oAppointmentGC.attendees ? oAppointmentGC.attendees[0].email : '';
+				const sEmail = oAppointmentGC.attendees.find((oAttendee) => {
+					return oAttendee.email !== this.getModel().getProperty('/Email');
+				}).email;
 				oAppointment.Name = oAppointmentGC.summary;
 				oAppointment.Description = oAppointmentGC.description;
 				oAppointment.Email = sEmail;
@@ -127,12 +135,16 @@ sap.ui.define(
 					description: oAppointment.Description,
 					start: { dateTime: oAppointment.StartDate.toISOString() },
 					end: { dateTime: oAppointment.EndDate.toISOString() },
-					attendees: [{ email: oAppointment.Email }],
+					attendees: [
+						{ email: oAppointment.Email, responseStatus: 'accepted' },
+						{ email: this.getModel().getProperty('/Email') }
+					],
 					conferenceData: null,
-					location: null
+					location: null,
+					guestsCanModify: true
 				};
 				if (oAppointment.GoogleMeet) {
-					this.setGoogleMeetToAppointmentGC(oAppointmentGC, oAppointment.ID);
+					this.formatter.setGoogleMeetToAppointmentGC(oAppointmentGC, oAppointment.ID);
 				} else {
 					oAppointmentGC.location = oAppointment.Conference;
 				}

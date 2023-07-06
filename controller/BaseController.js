@@ -80,9 +80,9 @@ sap.ui.define(
 			async copyToClipboard(sValueToCopy, sSuccessMessage, sErrorMessage) {
 				try {
 					await navigator.clipboard.writeText(sValueToCopy);
-					MessageToast.show(sSuccessMessage);
+					MessageToast.show(sSuccessMessage ?? this.i18n('msgCopied'));
 				} catch {
-					MessageToast.show(sErrorMessage);
+					MessageToast.show(sErrorMessage ?? this.i18n('msgNotCopied'));
 				}
 			},
 

@@ -4,7 +4,7 @@
 	xmlns="sap.m"
 	xmlns:f="sap.f"
 	xmlns:unified="sap.ui.unified">
-	<f:DynamicPage class="phCalendarPage sapUiNoContentPadding">
+	<f:DynamicPage class="sapUiNoContentPadding">
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
@@ -53,20 +53,9 @@
 							type="Emphasized" class="phResponsiveMarginEnd"/>
 					</actions>
 					<appointments>
-						<unified:CalendarAppointment
-							title= "{= !!${Name} ? ${Name} : ${i18n>ttlNoAppointmentName} }"
-							text= "{Description}"
-							type= "{Type}"
-							startDate= "{StartDate}"
-							endDate= "{EndDate}">
-							<!-- Type06 -->
-							<!-- Type09 -->
-							<!-- Type10 -->
-							<!-- Type15 -->
-							<!-- Type16 -->
-							<!-- Type19 -->
-							<!-- Type20 -->
-						</unified:CalendarAppointment>
+						<unified:CalendarAppointment text= "{Description}" type= "{Type}"
+							title="{= !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"
+							startDate= "{StartDate}" endDate= "{EndDate}"/>
 					</appointments>
 				</SinglePlanningCalendar>
 			</VBox>

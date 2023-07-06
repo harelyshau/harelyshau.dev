@@ -67,7 +67,7 @@
                             alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
                             <Avatar src="/resource/image/GoogleMeetIcon.svg" displaySize="Custom"
                                 customDisplaySize="1.5rem" class="sapUiTinyMarginEnd"/>
-                            <Text text="Google Meet conference will be generated" />
+                            <Text text="{i18n>tGoogleMeetWillBeGenerated}" />
                         </HBox>
                         <!-- Already Exists -->
                         <Button visible="{= ${GoogleMeet} !== 'willBeCreated' }"
