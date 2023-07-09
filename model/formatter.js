@@ -9,17 +9,12 @@ sap.ui.define(
 			//////////////////////////////////
 
 			stringDate(sDate) {
-				if (!sDate || sDate === 'Present') {
-					return this.i18n('lPresent');
-				}
+				if (!sDate || sDate === 'Present') return this.i18n('lPresent');
 				return DateFormat.getDateInstance({ format: 'yMMM' }).format(new Date(sDate));
 			},
 
 			datesPeriod(sStartDate, sEndDate) {
-				if (!sStartDate || !sEndDate) {
-					return '';
-				}
-
+				if (!sStartDate || !sEndDate) return '';
 				const oStartDate = new Date(sStartDate);
 				const oEndDate = sEndDate === 'Present' ? new Date() : new Date(sEndDate);
 				// round up
@@ -40,24 +35,16 @@ sap.ui.define(
 			},
 
 			getPluralForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
-				if (!nQuantity || nQuantity <= 0) {
-					return '';
-				}
+				if (!nQuantity || nQuantity <= 0) return '';
 
-				if (nQuantity === 1) {
-					return nQuantity + '\u00A0' + sTextSingular;
-				}
+				if (nQuantity === 1) return nQuantity + '\u00A0' + sTextSingular;
 
 				// for Russian plural forms
 				if (Configuration.getLanguage() === 'ru') {
 					const sLastDigits = String(nQuantity).slice(-2);
 					const nLastDigits = sLastDigits > 20 ? +sLastDigits.slice(-1) : +sLastDigits;
-					if (nLastDigits === 1) {
-						return nQuantity + '\u00A0' + sTextSingular;
-					}
-					if (nLastDigits > 4) {
-						return nQuantity + '\u00A0' + sTextPlural2;
-					}
+					if (nLastDigits === 1) return nQuantity + '\u00A0' + sTextSingular;
+					if (nLastDigits > 4) return nQuantity + '\u00A0' + sTextPlural2;
 				}
 
 				return nQuantity + '\u00A0' + sTextPlural;
@@ -70,16 +57,14 @@ sap.ui.define(
 			// Input Validation
 
 			conferenceState(sConference) {
-				if (!sConference || /^(ftp|http|https):\/\/[^ "]+$/.test(sConference)) {
-					return 'None';
-				}
+				const rUrlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+				if (!sConference || rUrlPattern.test(sConference)) return 'None';
 				return 'Warning';
 			},
 
 			conferenceStateText(sConference) {
-				if (!sConference || /^(ftp|http|https):\/\/[^ "]+$/.test(sConference)) {
-					return '';
-				}
+				const rUrlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+				if (!sConference || rUrlPattern.test(sConference)) return '';
 				return 'The «Conference» field expects a URL';
 			},
 

@@ -25,13 +25,11 @@ sap.ui.define([], () => {
 				contrastWhite: 'sap_horizon_hcw',
 				contrastBlack: 'sap_horizon_hcb'
 			};
-			if (sKey) {
-				// return value by key
-				return oThemes[sKey];
-			} else if (sValue) {
-				// return key by value
-				return Object.keys(oThemes).find((sThemeKey) => oThemes[sThemeKey] === sValue);
-			}
+			// return value by key
+			if (sKey) return oThemes[sKey];
+			// return key by value
+			const aThemeKeys = Object.keys(oThemes);
+			if (sValue) return aThemeKeys.find((sThemeKey) => oThemes[sThemeKey] === sValue);
 		},
 
 		initTheme() {
