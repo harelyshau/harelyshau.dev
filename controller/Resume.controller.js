@@ -20,13 +20,7 @@ sap.ui.define(
 			async onPressOpenRelocationPopover(oEvent) {
 				const oControl = oEvent.getSource();
 				const sPath = '/RelocationPreference';
-
-				if (!this.oRelocationPopover) {
-					this.oRelocationPopover = await this.loadFragment({
-						name: 'pharelyshau.fragment.Resume.RelocationPopover'
-					});
-				}
-
+				await this.loadAndAssignFragment('Resume', 'RelocationPopover');
 				if (!this.isDialogOpen(this.oRelocationPopover, sPath)) {
 					this.oRelocationPopover.bindElement(sPath);
 					this.oRelocationPopover.openBy(oControl);
@@ -43,13 +37,7 @@ sap.ui.define(
 			async onPressOpenCompanyPopover(oEvent) {
 				const oControl = oEvent.getSource();
 				const sPath = oControl.getBindingContext().getPath() + '/Company';
-
-				if (!this.oCompanyPopover) {
-					this.oCompanyPopover = await this.loadFragment({
-						name: 'pharelyshau.fragment.Resume.CompanyPopover'
-					});
-				}
-
+				await this.loadAndAssignFragment('Resume', 'CompanyPopover');
 				if (!this.isDialogOpen(this.oCompanyPopover, sPath)) {
 					this.oCompanyPopover.bindElement(sPath);
 					this.oCompanyPopover.openBy(oControl);

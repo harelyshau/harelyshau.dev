@@ -28,6 +28,7 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
+			<!-- <l:VerticalLayout id="boxCalendar" enabled="false" width="100%"> -->
 			<VBox>
 				<SinglePlanningCalendar id="calendar" busy="{view>/busy}"
 					fullDay="{view>/fullDay}" startHour="{view>/startHour}" endHour="{view>/endHour}"
@@ -47,7 +48,8 @@
 							pressed="{view>/fullDay}"
 							tooltip="{= ${view>/fullDay}
 								? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"/>
-						<Button press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
+						<Button id="btnMakeAppointment" enabled="false"
+							press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
 							text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}
 								? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
 							type="Emphasized" class="phResponsiveMarginEnd"/>
@@ -59,6 +61,7 @@
 					</appointments>
 				</SinglePlanningCalendar>
 			</VBox>
+			<!-- </l:VerticalLayout> -->
 		</f:content>
 	</f:DynamicPage>
 </mvc:View>

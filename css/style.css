@@ -6,11 +6,11 @@
 	margin-right: auto;
 }
 
-.sapUiTheme-sap_horizon .phResumePage .phToolbarSeparator {
+.sapUiTheme-sap_horizon .phToolbarSeparator {
 	border-bottom-color: #dedede !important;
 }
 
-.sapUiTheme-sap_horizon_dark .phResumePage .phToolbarSeparator {
+.sapUiTheme-sap_horizon_dark .phToolbarSeparator {
 	border-bottom-color: #4a4a4a !important;
 }
 
@@ -53,18 +53,14 @@
 	margin: 0 !important;
 }
 
-.phToolbarNoPaddingBegin {
+.phNoPaddingBegin {
 	padding-left: 0;
 }
 
-.phButton .sapMBtnIcon {
+.phButton .sapMImg {
 	min-width: auto !important;
 }
 
 .phButton {
 	max-width: 100%;
-}
-
-.phButtonJoinToConference {
-	max-width: 80%;
 }

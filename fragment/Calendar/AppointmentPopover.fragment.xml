@@ -2,7 +2,7 @@
     <ResponsivePopover placement="Auto" horizontalScrolling="false" contentWidth="22rem">
         <customHeader>
             <Toolbar width="{= ${device>/system/phone} ? 'auto' : '22rem' }"
-                style="Clear" class="phToolbarNoPaddingBegin">
+                style="Clear" class="phNoPaddingBegin">
                 <!-- Device Phone -->
                 <Title visible="{device>/system/phone}" class="phNoMargin"
                     text="{= !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"/>
@@ -40,10 +40,12 @@
                 <Label text="{i18n>lConference}:"/>
                 <VBox visible="{= !!${GoogleMeet} || !!${Conference} }">
                     <HBox justifyContent="SpaceBetween" renderType="Bare">
-                        <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
-                            press="onPressJoinToConference" iconDensityAware="false" class="phButton phButtonJoinToConference"
-                            text="{= ${GoogleMeet} ? ${i18n>btnJoinWithGoogleMeet} : ${i18n>btnJoinToConference} }"
-                            icon="{= ${GoogleMeet} ? '/resource/image/GoogleMeetIcon.svg' : 'sap-icon://video' }"/>
+                        <VBox  width="80%" renderType="Bare">
+                            <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
+                                press="onPressJoinToConference" iconDensityAware="false" class="phButton"
+                                text="{= ${GoogleMeet} ? ${i18n>btnJoinWithGoogleMeet} : ${i18n>btnJoinToConference} }"
+                                icon="{= ${GoogleMeet} ? '/resource/image/GoogleMeetIcon.svg' : 'sap-icon://video' }"/>
+                        </VBox>
                         <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
                             icon="{i18n>iCopy}" press="onPressCopyConferenceLink" type="Transparent"/>
                     </HBox>

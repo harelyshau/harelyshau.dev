@@ -67,13 +67,14 @@
                             alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
                             <Avatar src="/resource/image/GoogleMeetIcon.svg" displaySize="Custom"
                                 customDisplaySize="1.5rem" class="sapUiTinyMarginEnd"/>
-                            <Text text="{i18n>tGoogleMeetWillBeGenerated}" />
+                            <Text text="{i18n>tGoogleMeetWillBeGenerated}"/>
                         </HBox>
                         <!-- Already Exists -->
-                        <Button visible="{= ${GoogleMeet} !== 'willBeCreated' }"
-                            text="{i18n>btnJoinWithGoogleMeet}" press="onPressJoinToConference"
-                            icon="/resource/image/GoogleMeetIcon.svg" iconDensityAware="false"
-                            class="phButton phButtonJoinToConference"/>
+                        <VBox visible="{= ${GoogleMeet} !== 'willBeCreated' }" width="80%" renderType="Bare">
+                            <Button text="{i18n>btnJoinWithGoogleMeet}" press="onPressJoinToConference"
+                                icon="/resource/image/GoogleMeetIcon.svg" iconDensityAware="false"
+                                class="phButton"/>
+                        </VBox>
                         <!-- Remove Button -->
                         <Button icon="{i18n>iClose}" tooltip="Remove Google Meet conferencing"
                             press="onPressRemoveGoogleMeet" type="Transparent"/>

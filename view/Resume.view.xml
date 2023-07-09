@@ -5,7 +5,7 @@
 	xmlns:f="sap.f"
 	xmlns:core="sap.ui.core"
 	core:require="{ formatMessage: 'sap/base/strings/formatMessage' }">
-	<f:DynamicPage class="phResumePage">
+	<f:DynamicPage>
 		<!-- HEADER -->
 		<f:title>
 			<f:DynamicPageTitle>

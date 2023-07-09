@@ -44,6 +44,9 @@ sap.ui.define(
 			},
 
 			onAfterRendering() {
+				// setTimeout(() => {
+				// 	this.byId('boxCalendar').setEnabled(true)
+				// }, 100);
 				// to see max count of appointments
 				this.getModel().setSizeLimit(250);
 			},
@@ -71,10 +74,10 @@ sap.ui.define(
 					gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
 					this.updateDateRange();
 					this.getAppointmentsGC();
+					this.byId('btnMakeAppointment').setEnabled(true);
 				} catch (oError) {
-					console.error('Error initializing Google Calendar API:', oError.error);
-				} finally {
 					this.getModel('view').setProperty('/busy', false);
+					console.error('Error initializing Google Calendar API:', oError.error);
 				}
 			},
 
@@ -186,12 +189,15 @@ sap.ui.define(
 			//////////// CALENDAR ////////////
 			//////////////////////////////////
 
-			onPressOpenAppointmentDialog() {
+			async onPressOpenAppointmentDialog(oEvent) {
 				// create by button
+				const oButton = oEvent.getSource();
 				const oAppointment = this.createAppointmentLocal();
-				this.byId('calendar').setStartDate(oAppointment.StartDate);
 				const sPath = this.getPathForAppointment(oAppointment);
-				this.openAppointmentDialog(sPath);
+				oButton.setEnabled(false);
+				this.byId('calendar').setStartDate(oAppointment.StartDate);
+				await this.openAppointmentDialog(sPath);
+				oButton.setEnabled(true);
 			},
 
 			onAppointmentCreateOpenDialog(oEvent) {
@@ -214,10 +220,8 @@ sap.ui.define(
 					return;
 				}
 				const oAppointment = oControl.getBindingContext().getObject();
-				const bAvailableAppointment = this.getAvailableAppointmentIDs().includes(
-					oAppointment.ID
-				);
-				if (!bAvailableAppointment && oAppointment.ID !== 'newAppointment') {
+				const bAvailable = this.getAvailableAppointmentIDs().includes(oAppointment.ID);
+				if (!bAvailable && oAppointment.ID !== 'newAppointment') {
 					// show popover only when this is user's appointment
 					MessageToast.show(this.i18n('msgBusyAtThisTime'));
 					return;
@@ -292,15 +296,8 @@ sap.ui.define(
 			//////////////////////////////////
 			///////////// DIALOG /////////////
 			//////////////////////////////////
-
 			async openAppointmentDialog(sPath) {
-				if (!this.oAppointmentDialog) {
-					this.oAppointmentDialog = await this.loadFragment({
-						name: 'pharelyshau.fragment.Calendar.AppointmentDialog'
-					});
-					this.oAppointmentDialog.addStyleClass(this.getContentDensityClass());
-				}
-
+				await this.loadAndAssignFragment('Calendar', 'AppointmentDialog');
 				this.oAppointmentDialog.bindElement(sPath);
 				this.oAppointmentDialog.open();
 			},
@@ -322,7 +319,7 @@ sap.ui.define(
 					EndDate: oEndDate,
 					Mode: 'create',
 					Type: 'Type01',
-					Conference: ''
+					GoogleMeet: 'willBeCreated'
 				};
 				const aAppointments = this.getModel().getProperty('/Appointments');
 				aAppointments.push(oAppointment);
@@ -474,14 +471,8 @@ sap.ui.define(
 			//////////////////////////////////
 			///////////// POPOVER ////////////
 			//////////////////////////////////
-
 			async openAppointmentPopover(sPath, oControl) {
-				if (!this.oAppointmentPopover) {
-					this.oAppointmentPopover = await this.loadFragment({
-						name: 'pharelyshau.fragment.Calendar.AppointmentPopover'
-					});
-				}
-
+				await this.loadAndAssignFragment('Calendar', 'AppointmentPopover');
 				this.oAppointmentPopover.bindElement(sPath);
 				this.oAppointmentPopover.openBy(oControl);
 			},

@@ -38,13 +38,7 @@ sap.ui.define(
 
 			async onPressOpenOverflowMenu(oEvent) {
 				const oButton = oEvent.getSource();
-
-				if (!this.oOverflowMenu) {
-					this.oOverflowMenu = await this.loadFragment({
-						name: 'pharelyshau.fragment.OverflowMenu'
-					});
-				}
-
+				await this.loadAndAssignFragment(null, 'OverflowMenu');
 				this.oOverflowMenu.openBy(oButton);
 			},
 
@@ -91,13 +85,20 @@ sap.ui.define(
 				sap.m.URLHelper.redirect(sWebsiteURL, true);
 			},
 
-			// DIALOGS
+			// FRAGMENTS
+
+			async loadAndAssignFragment(sView, sFragment) {
+				let sPath = 'pharelyshau.fragment.';
+				sPath += sView ? `${sView}.${sFragment}` : sFragment;
+				const pFragment = this['p' + sFragment] ?? this.loadFragment({ name: sPath });
+				this['p' + sFragment] = pFragment;
+				const oFragment = this['o' + sFragment] ?? (await pFragment);
+				this['o' + sFragment] = oFragment;
+				oFragment.addStyleClass(this.getContentDensityClass());
+			},
 
 			isDialogOpen(oDialog, sBinndingPath) {
-				if (!oDialog) {
-					return false;
-				}
-
+				if (!oDialog) return false;
 				const bSamePath = oDialog.getBindingContext()?.getPath() === sBinndingPath;
 				const bOpen = oDialog.isOpen();
 				return bOpen && bSamePath;
