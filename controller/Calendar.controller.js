@@ -29,15 +29,10 @@ sap.ui.define(
 			formatter,
 
 			onInit() {
-				// load google api
 				this.loadGoogleAPI();
-				// load node.js authorization function
 				this.loadFunctionForAccessToken();
-				// set the calendar model
 				this.setModel(models.createCalendarModel());
-				// create the calendar view model
 				this.setModel(models.createCalendarViewModel(), 'view');
-				// create and add views for calendar
 				this.addCalendarViews();
 			},
 
@@ -66,9 +61,9 @@ sap.ui.define(
 			},
 
 			async initGoogleApiClient() {
-				const oResponse = await fetch('resource/data/ServiceAccountCreds.json');
-				const oCredentials = await oResponse.json();
 				try {
+					const oResponse = await fetch('resource/data/ServiceAccountCreds.json');
+					const oCredentials = await oResponse.json();
 					const sLink = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
 					await gapi.client.init({ discoveryDocs: [sLink] });
 					gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
@@ -181,17 +176,21 @@ sap.ui.define(
 				// create by button
 				const oButton = oEvent.getSource();
 				const aAppointmentDates = this.getDatesForNewAppointment();
-				const oCalendar = this.byId('calendar');
-				const oCalendarDate = oCalendar.getStartDate();
-				if (!this.areDatesInSameDay(oCalendarDate, aAppointmentDates[0])) {
-					oCalendar.setStartDate(aAppointmentDates[0]);
-					await this.refreshCalendar();
-				}
+				await this.setCalendarStartDate(aAppointmentDates[0]);
 				const oAppointment = this.createAppointmentLocal(...aAppointmentDates);
 				oButton.setEnabled(false);
 				const sPath = this.getPathForAppointment(oAppointment);
 				await this.openAppointmentDialog(sPath);
 				oButton.setEnabled(true);
+			},
+
+			async setCalendarStartDate(oDate) {
+				const oCalendar = this.byId('calendar');
+				const oCalendarDate = oCalendar.getStartDate();
+				if (!this.areDatesInSameDay(oCalendarDate, oDate)) {
+					oCalendar.setStartDate(oDate);
+					await this.refreshCalendar();
+				}
 			},
 
 			areDatesInSameDay(oDate1, oDate2) {
@@ -222,7 +221,6 @@ sap.ui.define(
 				const oAppointment = oControl.getBindingContext().getObject();
 				const bAvailable = this.getAvailableAppointmentIDs().includes(oAppointment.ID);
 				if (!bAvailable && oAppointment.ID !== 'newAppointment') {
-					// show popover only when this is user's appointment
 					MessageToast.show(this.i18n('msgBusyAtThisTime'));
 					return;
 				}
@@ -231,7 +229,7 @@ sap.ui.define(
 				this.openAppointmentPopover(sPath, oControl);
 			},
 
-			async onAppointmentResizeDropPatchDates(oEvent) {
+			async onAppointmentResizeDrop(oEvent) {
 				const oBindingContext = oEvent.getParameter('appointment').getBindingContext();
 				const oAppointment = oBindingContext.getObject();
 				const bAvailable = this.getAvailableAppointmentIDs().includes(oAppointment.ID);
@@ -272,9 +270,8 @@ sap.ui.define(
 			},
 
 			onMoreLinkPress(oEvent) {
-				const oDate = oEvent.getParameter('date');
 				const oCalendar = oEvent.getSource();
-				oCalendar.setStartDate(oDate);
+				oCalendar.setStartDate(oEvent.getParameter('date'));
 				oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
 			},
 
