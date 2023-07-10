@@ -70,11 +70,11 @@
                             <Text text="{i18n>tGoogleMeetWillBeGenerated}"/>
                         </HBox>
                         <!-- Already Exists -->
-                        <VBox visible="{= ${GoogleMeet} !== 'willBeCreated' }" width="80%" renderType="Bare">
+                        <HBox visible="{= ${GoogleMeet} !== 'willBeCreated' }" width="80%" renderType="Bare">
                             <Button text="{i18n>btnJoinWithGoogleMeet}" press="onPressJoinToConference"
                                 icon="/resource/image/GoogleMeetIcon.svg" iconDensityAware="false"
                                 class="phButton"/>
-                        </VBox>
+                        </HBox>
                         <!-- Remove Button -->
                         <Button icon="{i18n>iClose}" tooltip="Remove Google Meet conferencing"
                             press="onPressRemoveGoogleMeet" type="Transparent"/>

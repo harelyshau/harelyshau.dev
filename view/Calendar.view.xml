@@ -28,40 +28,36 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<!-- <l:VerticalLayout id="boxCalendar" enabled="false" width="100%"> -->
-			<VBox>
-				<SinglePlanningCalendar id="calendar" busy="{view>/busy}"
-					fullDay="{view>/fullDay}" startHour="{view>/startHour}" endHour="{view>/endHour}"
-					stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
-					appointmentCreate="onAppointmentCreateOpenDialog"
-					appointmentSelect="onAppointmentSelectOpenPopover"
-					appointmentResize="onAppointmentResizeDropPatchDates"
-					appointmentDrop="onAppointmentResizeDropPatchDates"
-					startDateChange="onStartDateChangeCalendar"
-					moreLinkPress="onMoreLinkPress"
-					enableAppointmentsCreate="{= !${view>/busy} }"
-					enableAppointmentsDragAndDrop="true"
-					enableAppointmentsResize="true"
-					class="phCalendar sapUiTinyMarginTop">
-					<actions>
-						<ToggleButton press="onPressToggleFullDay" icon="{i18n>iMoreTime}"
-							pressed="{view>/fullDay}"
-							tooltip="{= ${view>/fullDay}
-								? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"/>
-						<Button id="btnMakeAppointment" enabled="false"
-							press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
-							text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}
-								? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
-							type="Emphasized" class="phResponsiveMarginEnd"/>
-					</actions>
-					<appointments>
-						<unified:CalendarAppointment text= "{Description}" type= "{Type}"
-							title="{= !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"
-							startDate= "{StartDate}" endDate= "{EndDate}"/>
-					</appointments>
-				</SinglePlanningCalendar>
-			</VBox>
-			<!-- </l:VerticalLayout> -->
+			<SinglePlanningCalendar id="calendar" busy="{view>/busy}"
+				fullDay="{view>/fullDay}" startHour="{view>/startHour}" endHour="{view>/endHour}"
+				stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
+				appointmentCreate="onAppointmentCreateOpenDialog"
+				appointmentSelect="onAppointmentSelectOpenPopover"
+				appointmentResize="onAppointmentResizeDropPatchDates"
+				appointmentDrop="onAppointmentResizeDropPatchDates"
+				startDateChange="onStartDateChangeCalendar"
+				moreLinkPress="onMoreLinkPress"
+				enableAppointmentsCreate="{= !${view>/busy} }"
+				enableAppointmentsDragAndDrop="true"
+				enableAppointmentsResize="true"
+				class="phCalendar sapUiTinyMarginTop">
+				<actions>
+					<ToggleButton press="onPressToggleFullDay" icon="{i18n>iMoreTime}"
+						pressed="{view>/fullDay}"
+						tooltip="{= ${view>/fullDay}
+							? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"/>
+					<Button id="btnMakeAppointment" enabled="false"
+						press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
+						text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}
+							? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
+						type="Emphasized" class="phResponsiveMarginEnd"/>
+				</actions>
+				<appointments>
+					<unified:CalendarAppointment text= "{Description}" type= "{Type}"
+						title="{= !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"
+						startDate= "{StartDate}" endDate= "{EndDate}"/>
+				</appointments>
+			</SinglePlanningCalendar>
 		</f:content>
 	</f:DynamicPage>
 </mvc:View>

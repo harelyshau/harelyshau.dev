@@ -88,13 +88,12 @@ sap.ui.define(
 			// FRAGMENTS
 
 			async loadAndAssignFragment(sView, sFragment) {
+				if (this['o' + sFragment]) return;
+				this['o' + sFragment] = {};
 				let sPath = 'pharelyshau.fragment.';
 				sPath += sView ? `${sView}.${sFragment}` : sFragment;
-				const pFragment = this['p' + sFragment] ?? this.loadFragment({ name: sPath });
-				this['p' + sFragment] = pFragment;
-				const oFragment = this['o' + sFragment] ?? (await pFragment);
-				this['o' + sFragment] = oFragment;
-				oFragment.addStyleClass(this.getContentDensityClass());
+				this['o' + sFragment] = await this.loadFragment({ name: sPath });
+				this['o' + sFragment].addStyleClass(this.getContentDensityClass());
 			},
 
 			isDialogOpen(oDialog, sBinndingPath) {

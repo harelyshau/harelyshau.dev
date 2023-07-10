@@ -96,7 +96,7 @@ sap.ui.define(
 				oViewModel.setProperty('/busy', true);
 				try {
 					const oResponse = await gapi.client.calendar.events.list(oParams);
-					this.setAppoitmentsLocal(oResponse.result.items);
+					this.setAppointmentsLocal(oResponse.result.items);
 				} catch (oError) {
 					console.error('Error fetching appointments:', oError);
 				} finally {
@@ -157,11 +157,11 @@ sap.ui.define(
 				}
 			},
 
-			setAppoitmentsLocal(aAppointmentsGC) {
+			setAppointmentsLocal(aAppointmentsGC) {
 				// Local = JSON Model
-				const aAppointments = aAppointmentsGC.map((oAppointmentGC) =>
-					this.formatter.appointmentLocal.call(this, oAppointmentGC)
-				);
+				const aAppointments = aAppointmentsGC.map((oAppointmentGC) => {
+					return this.formatter.appointmentLocal.call(this, oAppointmentGC);
+				});
 				this.getModel().setProperty('/Appointments', aAppointments);
 			},
 
@@ -296,6 +296,7 @@ sap.ui.define(
 			//////////////////////////////////
 			///////////// DIALOG /////////////
 			//////////////////////////////////
+
 			async openAppointmentDialog(sPath) {
 				await this.loadAndAssignFragment('Calendar', 'AppointmentDialog');
 				this.oAppointmentDialog.bindElement(sPath);
@@ -310,8 +311,9 @@ sap.ui.define(
 			// Appointment create
 
 			createAppointmentLocal(oStartDate, oEndDate) {
-				oStartDate = oStartDate ?? new Date(new Date().getTime() + 3600000); // plus one hour
-				oEndDate = oEndDate ?? new Date(new Date().getTime() + 7200000); // plus two hours
+				if (!oStartDate || !oEndDate) {
+					[oStartDate, oEndDate] = this.getDatesForNewAppointment();
+				}
 				const oAppointment = {
 					ID: 'newAppointment',
 					Email: localStorage.getItem('email'),
@@ -323,8 +325,27 @@ sap.ui.define(
 				};
 				const aAppointments = this.getModel().getProperty('/Appointments');
 				aAppointments.push(oAppointment);
-				this.getModel().setProperty('/Appointments', aAppointments);
+				this.getModel().refresh();
 				return oAppointment;
+			},
+
+			getDatesForNewAppointment() {
+				const oStartDate = this.roundUpDateTo15Min();
+				const oCalendar = this.byId('calendar');
+				const oCalendarStartDate = oCalendar.getStartDate();
+				if (oCalendarStartDate.getTime() > new Date().getTime()) {
+					oStartDate.setTime(this.roundUpDateTo15Min(oCalendarStartDate));
+				}
+
+				const nDuration = this.getModel('view').getProperty('/appointmentDuration');
+				const oEndDate = new Date(oStartDate.getTime() + nDuration);
+				return [oStartDate, oEndDate];
+			},
+
+			roundUpDateTo15Min(oDate) {
+				oDate = oDate ?? new Date(new Date().getTime() + 3600000);
+				const nRemainder = oDate.getMinutes() % 15;
+				return new Date(oDate.getTime() + (15 - nRemainder) * 60000);
 			},
 
 			async onPressCreateEditAppointment(oEvent) {
@@ -415,7 +436,7 @@ sap.ui.define(
 			removeAppointmentLocal(oAppointment) {
 				const aAppointments = this.getModel().getProperty('/Appointments');
 				aAppointments.splice(aAppointments.indexOf(oAppointment), 1); // remove by index
-				this.getModel().setProperty('/Appoitments', aAppointments);
+				this.getModel().refresh();
 			},
 
 			// Google Meet
@@ -471,6 +492,7 @@ sap.ui.define(
 			//////////////////////////////////
 			///////////// POPOVER ////////////
 			//////////////////////////////////
+
 			async openAppointmentPopover(sPath, oControl) {
 				await this.loadAndAssignFragment('Calendar', 'AppointmentPopover');
 				this.oAppointmentPopover.bindElement(sPath);

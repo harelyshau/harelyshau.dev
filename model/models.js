@@ -54,7 +54,8 @@ sap.ui.define(
 					fullDay: !!JSON.parse(localStorage.getItem('fullDay')),
 					startHour: 8,
 					endHour: 21,
-					currentDate: new Date()
+					currentDate: new Date(),
+					appointmentDuration: 1800000
 				};
 				return new JSONModel(oData);
 			}

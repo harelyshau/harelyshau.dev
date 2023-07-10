@@ -68,7 +68,7 @@ sap.ui.define(
 				return 'The «Conference» field expects a URL';
 			},
 
-			// Apointment Formatting for JSON Model (calling from controller)
+			// Appointment Formatting for JSON Model (calling from controller)
 
 			appointmentLocal(oAppointmentGC) {
 				const oAppointment = {

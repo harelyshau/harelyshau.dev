@@ -40,12 +40,12 @@
                 <Label text="{i18n>lConference}:"/>
                 <VBox visible="{= !!${GoogleMeet} || !!${Conference} }">
                     <HBox justifyContent="SpaceBetween" renderType="Bare">
-                        <VBox  width="80%" renderType="Bare">
+                        <HBox width="80%" renderType="Bare">
                             <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
                                 press="onPressJoinToConference" iconDensityAware="false" class="phButton"
                                 text="{= ${GoogleMeet} ? ${i18n>btnJoinWithGoogleMeet} : ${i18n>btnJoinToConference} }"
                                 icon="{= ${GoogleMeet} ? '/resource/image/GoogleMeetIcon.svg' : 'sap-icon://video' }"/>
-                        </VBox>
+                        </HBox>
                         <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
                             icon="{i18n>iCopy}" press="onPressCopyConferenceLink" type="Transparent"/>
                     </HBox>
