@@ -32,9 +32,7 @@ sap.ui.define(
 				// load google api
 				this.loadGoogleAPI();
 				// load node.js authorization function
-				const script = document.createElement('script');
-				script.src = 'util/getAccessTokenFromServiceAccount.js';
-				document.head.appendChild(script);
+				this.loadFunctionForAccessToken();
 				// set the calendar model
 				this.setModel(models.createCalendarModel());
 				// create the calendar view model
@@ -44,11 +42,14 @@ sap.ui.define(
 			},
 
 			onAfterRendering() {
-				// setTimeout(() => {
-				// 	this.byId('boxCalendar').setEnabled(true)
-				// }, 100);
 				// to see max count of appointments
 				this.getModel().setSizeLimit(250);
+			},
+
+			loadFunctionForAccessToken() {
+				const script = document.createElement('script');
+				script.src = 'util/getAccessTokenFromServiceAccount.js';
+				document.head.appendChild(script);
 			},
 
 			//////////////////////////////////
@@ -68,12 +69,10 @@ sap.ui.define(
 				const oResponse = await fetch('resource/data/ServiceAccountCreds.json');
 				const oCredentials = await oResponse.json();
 				try {
-					await gapi.client.init({
-						discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
-					});
+					const sLink = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+					await gapi.client.init({ discoveryDocs: [sLink] });
 					gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
-					this.updateDateRange();
-					this.getAppointmentsGC();
+					this.refreshCalendar();
 					this.byId('btnMakeAppointment').setEnabled(true);
 				} catch (oError) {
 					this.getModel('view').setProperty('/busy', false);
@@ -106,12 +105,9 @@ sap.ui.define(
 
 			createAppointmentGC(oAppointment) {
 				try {
-					return gapi.client.calendar.events.insert({
-						calendarId: 'pavel@harelyshau.dev',
-						conferenceDataVersion: 1,
-						sendUpdates: 'all',
-						resource: this.formatter.appointmentGC.call(this, oAppointment)
-					});
+					const oAppointmentGC = this.formatter.appointmentGC.call(this, oAppointment);
+					const oRequestParams = this.getRequestParamsGC(oAppointmentGC);
+					return gapi.client.calendar.events.insert(oRequestParams);
 				} catch (oError) {
 					console.error('Error creating appointment:', oError);
 				}
@@ -119,11 +115,8 @@ sap.ui.define(
 
 			removeAppointmentGC(sAppointmentID) {
 				try {
-					gapi.client.calendar.events.delete({
-						calendarId: this.getModel().getProperty('/Email'),
-						eventId: sAppointmentID,
-						sendUpdates: 'all'
-					});
+					const oRequestParams = this.getRequestParamsGC(null, sAppointmentID);
+					return gapi.client.calendar.events.delete(oRequestParams);
 				} catch (oError) {
 					console.error('Error deleting appointment:', oError);
 				}
@@ -131,30 +124,25 @@ sap.ui.define(
 
 			updateAppointmentGC(oAppointment) {
 				try {
-					return gapi.client.calendar.events.update({
-						calendarId: 'pavel@harelyshau.dev',
-						eventId: oAppointment.ID,
-						conferenceDataVersion: 1,
-						sendUpdates: 'all',
-						resource: this.formatter.appointmentGC.call(this, oAppointment)
-					});
+					const oAppointmentGC = this.formatter.appointmentGC.call(this, oAppointment);
+					const oRequestParams = this.getRequestParamsGC(oAppointmentGC, oAppointment.ID);
+					return gapi.client.calendar.events.update(oRequestParams);
 				} catch (oError) {
 					console.error('Error updating appointment:', oError);
 				}
 			},
 
-			patchAppointmentGC(oPatchedAppointmentGC) {
-				try {
-					return gapi.client.calendar.events.patch({
-						calendarId: 'pavel@harelyshau.dev',
-						eventId: oPatchedAppointmentGC.id,
-						conferenceDataVersion: 1,
-						sendUpdates: 'all',
-						resource: oPatchedAppointmentGC
-					});
-				} catch (oError) {
-					console.error('Error patching appointment:', oError);
+			getRequestParamsGC(oAppointmentGC, sAppointmentID) {
+				const oParams = {
+					calendarId: this.getModel().getProperty('/Email'),
+					sendUpdates: 'all'
+				};
+				if (sAppointmentID) oParams.eventId = sAppointmentID;
+				if (oAppointmentGC) {
+					oParams.resource = oAppointmentGC;
+					oParams.conferenceDataVersion = 1;
 				}
+				return oParams;
 			},
 
 			setAppointmentsLocal(aAppointmentsGC) {
@@ -192,12 +180,24 @@ sap.ui.define(
 			async onPressOpenAppointmentDialog(oEvent) {
 				// create by button
 				const oButton = oEvent.getSource();
-				const oAppointment = this.createAppointmentLocal();
-				const sPath = this.getPathForAppointment(oAppointment);
+				const aAppointmentDates = this.getDatesForNewAppointment();
+				const oCalendar = this.byId('calendar');
+				const oCalendarDate = oCalendar.getStartDate();
+				if (!this.areDatesInSameDay(oCalendarDate, aAppointmentDates[0])) {
+					oCalendar.setStartDate(aAppointmentDates[0]);
+					await this.refreshCalendar();
+				}
+				const oAppointment = this.createAppointmentLocal(...aAppointmentDates);
 				oButton.setEnabled(false);
-				this.byId('calendar').setStartDate(oAppointment.StartDate);
+				const sPath = this.getPathForAppointment(oAppointment);
 				await this.openAppointmentDialog(sPath);
 				oButton.setEnabled(true);
+			},
+
+			areDatesInSameDay(oDate1, oDate2) {
+				const nTime1 = new Date(oDate1.getTime()).setHours(0, 0, 0, 0);
+				const nTime2 = new Date(oDate2.getTime()).setHours(0, 0, 0, 0);
+				return nTime1 === nTime2;
 			},
 
 			onAppointmentCreateOpenDialog(oEvent) {
@@ -231,23 +231,15 @@ sap.ui.define(
 				this.openAppointmentPopover(sPath, oControl);
 			},
 
-			onAppointmentResizeDropPatchDates(oEvent) {
+			async onAppointmentResizeDropPatchDates(oEvent) {
 				const oBindingContext = oEvent.getParameter('appointment').getBindingContext();
 				const oAppointment = oBindingContext.getObject();
-				if (!this.getAvailableAppointmentIDs().includes(oAppointment.ID)) {
-					return;
-				}
-
+				const bAvailable = this.getAvailableAppointmentIDs().includes(oAppointment.ID);
+				if (!bAvailable) return;
 				oAppointment.StartDate = oEvent.getParameter('startDate');
 				oAppointment.EndDate = oEvent.getParameter('endDate');
-				this.getModel().setProperty(oBindingContext.getPath(), oAppointment);
-
-				const oPatchedAppointmentGC = {
-					id: oAppointment.ID,
-					start: { dateTime: oAppointment.StartDate.toISOString() },
-					end: { dateTime: oAppointment.EndDate.toISOString() }
-				};
-				this.patchAppointmentGC(oPatchedAppointmentGC);
+				this.getModel().refresh();
+				await this.updateAppointmentGC(oAppointment);
 			},
 
 			addCalendarViews() {
@@ -256,25 +248,27 @@ sap.ui.define(
 				const bDevicePhone = oDeviceModel.getProperty('/system/phone');
 				const bDeviceSmallWidth = oDeviceModel.getProperty('/resize/width') <= 800;
 
-				oCalendar.addView(new DayView({ key: 'day', title: this.i18n('ttlDay') }));
+				oCalendar.addView(new DayView({ key: '1', title: this.i18n('ttlDay') }));
 				// Add views for mobile and small size screens
 				if (bDevicePhone || bDeviceSmallWidth) {
-					oCalendar.addView(new TwoDaysView({ key: '2days', title: this.i18n('ttl2Days') }));
-					oCalendar.addView(new ThreeDaysView({ key: '3days', title: this.i18n('ttl3Days') }));
+					oCalendar.addView(new TwoDaysView({ key: '2', title: this.i18n('ttl2Days') }));
+					oCalendar.addView(new ThreeDaysView({ key: '3', title: this.i18n('ttl3Days') }));
 				}
-				oCalendar.addView(
-					new WorkWeekView({ key: 'workWeek', title: this.i18n('ttlWorkWeek') })
-				);
+				oCalendar.addView(new WorkWeekView({ key: '5', title: this.i18n('ttlWorkWeek') }));
 				// Add week view for desktop device
 				if (!bDevicePhone && !bDeviceSmallWidth) {
-					oCalendar.addView(new WeekView({ key: 'week', title: this.i18n('ttlWeek') }));
+					oCalendar.addView(new WeekView({ key: '7', title: this.i18n('ttlWeek') }));
 				}
 				oCalendar.addView(new MonthView({ key: 'month', title: this.i18n('ttlMonth') }));
 			},
 
 			onStartDateChangeCalendar() {
+				this.refreshCalendar();
+			},
+
+			async refreshCalendar() {
 				this.updateDateRange();
-				this.getAppointmentsGC();
+				await this.getAppointmentsGC();
 			},
 
 			onMoreLinkPress(oEvent) {
@@ -311,9 +305,6 @@ sap.ui.define(
 			// Appointment create
 
 			createAppointmentLocal(oStartDate, oEndDate) {
-				if (!oStartDate || !oEndDate) {
-					[oStartDate, oEndDate] = this.getDatesForNewAppointment();
-				}
 				const oAppointment = {
 					ID: 'newAppointment',
 					Email: localStorage.getItem('email'),
@@ -380,14 +371,13 @@ sap.ui.define(
 				const bEmailEmpty = !oEmailInput.getValue();
 				const bEmailWrong = oEmailInput.getValueState() !== 'None';
 				if (bEmailEmpty || bEmailWrong) {
+					let sMessage = this.i18n('msgInvalidEmail');
 					if (bEmailEmpty) {
 						// set and reset value to show error state
 						oEmailInput.setValue('s');
 						oEmailInput.setValue('');
+						sMessage = this.i18n('msgFillEmail');
 					}
-					const sMessage = bEmailEmpty
-						? this.i18n('msgFillEmail')
-						: this.i18n('msgInvalidEmail');
 					return [false, sMessage];
 				}
 				return [true];
@@ -483,10 +473,9 @@ sap.ui.define(
 
 			updateAppointmentEndDateByDuration(sPath, nDuration) {
 				const oStartDate = this.getModel().getProperty(sPath + '/StartDate');
-				this.getModel().setProperty(
-					sPath + '/EndDate',
-					new Date(oStartDate.getTime() + nDuration)
-				);
+				const oEndDate = this.getModel().getProperty(sPath + '/EndDate');
+				oEndDate.setTime(oStartDate.getTime() + nDuration);
+				this.getModel().refresh(true);
 			},
 
 			//////////////////////////////////
@@ -524,11 +513,11 @@ sap.ui.define(
 				this.getModel('view').setProperty('/initialAppointment', oInitialAppointment);
 			},
 
-			onPressRemoveAppointment(oEvent) {
+			async onPressRemoveAppointment(oEvent) {
 				this.oAppointmentPopover.close();
 				const oAppointment = oEvent.getSource().getBindingContext().getObject();
-				this.removeAppointmentGC(oAppointment.ID);
 				this.removeAppointmentLocal(oAppointment);
+				await this.removeAppointmentGC(oAppointment.ID);
 				this.removeAppointmentIdFromLocalStorage(oAppointment.ID);
 			},
 
