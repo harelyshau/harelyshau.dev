@@ -193,6 +193,10 @@ sap.ui.define(
 				}
 			},
 
+			isDateInFuture(oDate) {
+				return new Date().getTime() < oDate.getTime();
+			},
+
 			areDatesInSameDay(oDate1, oDate2) {
 				const nTime1 = new Date(oDate1.getTime()).setHours(0, 0, 0, 0);
 				const nTime2 = new Date(oDate2.getTime()).setHours(0, 0, 0, 0);
@@ -202,8 +206,7 @@ sap.ui.define(
 			onAppointmentCreateOpenDialog(oEvent) {
 				// create by drag and drop
 				const oStartDate = oEvent.getParameter('startDate');
-				const bStartDateInFutute = new Date().getTime() < oStartDate.getTime();
-				if (!bStartDateInFutute) {
+				if (!this.isDateInFuture(oStartDate)) {
 					MessageToast.show(this.i18n('msgStartDateMustBeInFuture'));
 					return;
 				}
@@ -219,8 +222,7 @@ sap.ui.define(
 					return;
 				}
 				const oAppointment = oControl.getBindingContext().getObject();
-				const bAvailable = this.getAvailableAppointmentIDs().includes(oAppointment.ID);
-				if (!bAvailable && oAppointment.ID !== 'newAppointment') {
+				if (!this.isAppointmentAvailable(oAppointment.ID)) {
 					MessageToast.show(this.i18n('msgBusyAtThisTime'));
 					return;
 				}
@@ -229,11 +231,18 @@ sap.ui.define(
 				this.openAppointmentPopover(sPath, oControl);
 			},
 
+			isAppointmentAvailable(sAppointmentID) {
+				const bNewAppointment = sAppointmentID === 'newAppointment';
+				const bUserAppointmnet = this.getAvailableAppointmentIDs().includes(sAppointmentID);
+				return bNewAppointment || bUserAppointmnet;
+			},
+
 			async onAppointmentResizeDrop(oEvent) {
 				const oBindingContext = oEvent.getParameter('appointment').getBindingContext();
 				const oAppointment = oBindingContext.getObject();
-				const bAvailable = this.getAvailableAppointmentIDs().includes(oAppointment.ID);
-				if (!bAvailable) return;
+				const bAvailable = this.isAppointmentAvailable(oAppointment.ID);
+				const bNew = oAppointment.ID === 'newAppointment';
+				if (!bAvailable || bNew) return;
 				oAppointment.StartDate = oEvent.getParameter('startDate');
 				oAppointment.EndDate = oEvent.getParameter('endDate');
 				this.getModel().refresh();
@@ -269,8 +278,16 @@ sap.ui.define(
 				await this.getAppointmentsGC();
 			},
 
-			onMoreLinkPress(oEvent) {
-				const oCalendar = oEvent.getSource();
+			onMoreLinkPress() {
+				this.setCalendarDayView();
+			},
+
+			onHeaderDateSelect() {
+				this.setCalendarDayView();
+			},
+
+			setCalendarDayView() {
+				const oCalendar = this.byId('calendar');
 				oCalendar.setStartDate(oEvent.getParameter('date'));
 				oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
 			},
@@ -321,7 +338,7 @@ sap.ui.define(
 				const oStartDate = this.roundUpDateTo15Min();
 				const oCalendar = this.byId('calendar');
 				const oCalendarStartDate = oCalendar.getStartDate();
-				if (oCalendarStartDate.getTime() > new Date().getTime()) {
+				if (this.isDateInFuture(oCalendarStartDate)) {
 					oStartDate.setTime(this.roundUpDateTo15Min(oCalendarStartDate));
 				}
 
@@ -365,19 +382,23 @@ sap.ui.define(
 
 			validateEmailInput() {
 				const oEmailInput = this.byId('inpEmail');
-				const bEmailEmpty = !oEmailInput.getValue();
-				const bEmailWrong = oEmailInput.getValueState() !== 'None';
-				if (bEmailEmpty || bEmailWrong) {
-					let sMessage = this.i18n('msgInvalidEmail');
-					if (bEmailEmpty) {
-						// set and reset value to show error state
-						oEmailInput.setValue('s');
-						oEmailInput.setValue('');
-						sMessage = this.i18n('msgFillEmail');
-					}
-					return [false, sMessage];
+				if (this.isInputFilledAndValid(oEmailInput)) return [true];
+				if (!oEmailInput.getValue()) {
+					this.resetInputValue(oEmailInput);
+					return [false, this.i18n('msgFillEmail')];
 				}
-				return [true];
+				return [false, this.i18n('msgInvalidEmail')];
+			},
+
+			isInputFilledAndValid(oInput) {
+				const bValid = oInput.getValueState() !== 'Error';
+				const bFilled = oInput.getValue();
+				return bValid && bFilled;
+			},
+
+			resetInputValue(oInput) {
+				oInput.setValue('s');
+				oInput.setValue('');
 			},
 
 			addAppointmentIdToLocalStorage(sAppointmentID) {
@@ -403,20 +424,20 @@ sap.ui.define(
 			},
 
 			onAfterCloseAppointmentDialog(oEvent) {
-				const oBindingContext = oEvent.getSource().getBindingContext();
-				const sMode = oBindingContext.getProperty('Mode');
-				if (sMode === 'create') {
-					this.removeAppointmentLocal(oBindingContext.getObject());
-				} else if (sMode === 'edit') {
-					this.resetAppointmentLocal(oBindingContext.getObject());
+				const oAppointment = oEvent.getSource().getBindingContext().getObject();
+				if (oAppointment.Mode === 'create') {
+					this.removeAppointmentLocal(oAppointment);
+				} else {
+					this.resetAppointmentLocal(oAppointment);
 				}
 			},
 
-			resetAppointmentLocal(oAppointment) {
+			async resetAppointmentLocal(oAppointment) {
 				const sPath = this.getPathForAppointment(oAppointment);
 				const oInitialAppointment = this.getModel('view').getProperty('/initialAppointment');
 				this.getModel().setProperty(sPath, oInitialAppointment);
-				this.byId('calendar').setStartDate(oInitialAppointment.StartDate);
+				await this.setCalendarStartDate(oInitialAppointment.StartDate);
+				// this.byId('calendar').setStartDate(oInitialAppointment.StartDate);
 				this.getModel('view').setProperty('/initialAppointment', null);
 			},
 
@@ -459,7 +480,7 @@ sap.ui.define(
 				this.getModel().setProperty(sPath + '/' + sField, oNewDate);
 				if (sField === 'StartDate') {
 					this.updateAppointmentEndDateByDuration(sPath, nDuration);
-					this.byId('calendar').setStartDate(oNewDate);
+					this.setCalendarStartDate(oNewDate);
 				}
 			},
 

@@ -32,6 +32,7 @@
 				fullDay="{view>/fullDay}" startHour="{view>/startHour}" endHour="{view>/endHour}"
 				stickyMode="NavBarAndColHeaders" appointments="{/Appointments}"
 				appointmentCreate="onAppointmentCreateOpenDialog"
+				headerDateSelect="onHeaderDateSelect"
 				appointmentSelect="onAppointmentSelectOpenPopover"
 				appointmentResize="onAppointmentResizeDrop"
 				appointmentDrop="onAppointmentResizeDrop"
@@ -40,7 +41,7 @@
 				enableAppointmentsCreate="{= !${view>/busy} }"
 				enableAppointmentsDragAndDrop="true"
 				enableAppointmentsResize="true"
-				class="phCalendar sapUiTinyMarginTop">
+				class="phCalendar">
 				<actions>
 					<ToggleButton press="onPressToggleFullDay" icon="{i18n>iMoreTime}"
 						pressed="{view>/fullDay}"

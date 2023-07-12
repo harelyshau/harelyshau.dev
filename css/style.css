@@ -17,11 +17,11 @@
 /* CALENDAR */
 
 .phCalendar .sapMPCHeadNavToolbar {
-	/* to remove borders on mobile device */
-	border-radius: 0 !important;
+	border-radius: 0;
 }
 
 .phCalendar .sapMPCHeadActionsToolbar {
+	border-radius: 0;
 	padding-right: 0;
 }
 

@@ -79,7 +79,7 @@ sap.ui.define(
 				};
 				const aDates = [oAppointmentGC.start, oAppointmentGC.end];
 				this.formatter.setDatesToAppointmentLocal(oAppointment, ...aDates);
-				const bAvailable = this.getAvailableAppointmentIDs().includes(oAppointment.ID);
+				const bAvailable = this.isAppointmentAvailable(oAppointment.ID);
 				const bTwoAttendees = oAppointmentGC.attendees?.length === 2;
 				if (bAvailable && bTwoAttendees) {
 					this.formatter.setFieldsToAvailableAppointmentLocal.call(
