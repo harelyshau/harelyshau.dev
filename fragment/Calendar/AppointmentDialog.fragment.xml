@@ -3,7 +3,7 @@
         afterClose="onAfterCloseAppointmentDialog">
         <customHeader>
             <Toolbar style="Clear">
-                <Title class="phNoMargin" text="{= ${Mode} === 'create'
+                <Title class="phNoMargin" text="{= ${ID} === 'new'
                     ? ${i18n>ttlMakeAppointment} : ${i18n>ttlEditAppointment} }"/>                
                 <ToolbarSpacer/>
                 <Button visible="{device>/system/phone}" tooltip="{i18n>btnClose}"
@@ -34,7 +34,7 @@
                     <Label width="0" text="{i18n>lStartDate}" labelFor="dtpStartDate"/> <!-- invsible -->
                     <DateTimePicker id="dtpStartDate" change="onChangePicker($event ,'StartDate')"
                         required="true" minutesStep="15" showCurrentDateButton="true"
-                        minDate="{= ${Mode} === 'create' ? ${view>/currentDate} : null }"
+                        minDate="{= ${ID} === 'new' ? ${view>/currentDate} : null }"
                         value="{path: 'StartDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime',
                             formatOptions: {style: 'medium/short'}}"/>
                     <Label visible="{= !${device>/system/phone} }" text="—"
@@ -48,7 +48,7 @@
             </VBox>
             <!-- Conference & Google Meet -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="{i18n>lConference}:" labelFor="inpConference"/>
+                <Label text="{i18n>lConference}:"/>
                 <!-- Conference -->
                 <VBox visible="{= !${GoogleMeet}}">
                     <Input id="inpConference" value="{Conference}" type="Url"
@@ -91,7 +91,7 @@
             </VBox>
         </VBox>
         <beginButton>
-            <Button text="{= ${Mode} === 'create'? ${i18n>btnMake} : ${i18n>btnSave} }"
+            <Button text="{= ${ID} === 'new' ? ${i18n>btnMake} : ${i18n>btnSave} }"
                 press="onPressCreateEditAppointment" type="Emphasized"/>
         </beginButton>
         <endButton>

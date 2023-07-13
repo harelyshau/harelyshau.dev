@@ -37,9 +37,8 @@ sap.ui.define(
 			// MENU
 
 			async onPressOpenOverflowMenu(oEvent) {
-				const oButton = oEvent.getSource();
 				await this.loadAndAssignFragment(null, 'OverflowMenu');
-				this.oOverflowMenu.openBy(oButton);
+				this.oOverflowMenu.openBy(oEvent.getSource());
 			},
 
 			onPressNavigateToPage(sPage) {
@@ -88,11 +87,10 @@ sap.ui.define(
 			// FRAGMENTS
 
 			async loadAndAssignFragment(sView, sFragment) {
-				if (this['o' + sFragment]) return;
-				this['o' + sFragment] = {};
 				let sPath = 'pharelyshau.fragment.';
 				sPath += sView ? `${sView}.${sFragment}` : sFragment;
-				this['o' + sFragment] = await this.loadFragment({ name: sPath });
+				this['o' + sFragment] = this['o' + sFragment] ?? this.loadFragment({ name: sPath });
+				this['o' + sFragment] = await this['o' + sFragment];
 				this['o' + sFragment].addStyleClass(this.getContentDensityClass());
 			},
 
@@ -101,6 +99,26 @@ sap.ui.define(
 				const bSamePath = oDialog.getBindingContext()?.getPath() === sBinndingPath;
 				const bOpen = oDialog.isOpen();
 				return bOpen && bSamePath;
+			},
+
+			// Get Object
+
+			getObjectByEvent(oEvent) {
+				return this.getObjectByControl(oEvent.getSource());
+			},
+
+			getObjectByControl(oControl) {
+				return oControl.getBindingContext().getObject();
+			},
+
+			// Get Path
+
+			getPathByEvent(oEvent) {
+				return this.getPathByControl(oEvent.getSource());
+			},
+
+			getPathByControl(oControl) {
+				return oControl.getBindingContext().getPath();
 			}
 		});
 	}

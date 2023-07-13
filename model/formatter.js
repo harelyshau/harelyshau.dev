@@ -74,8 +74,7 @@ sap.ui.define(
 				const oAppointment = {
 					ID: oAppointmentGC.id,
 					Name: this.i18n('tBusy'),
-					Type: 'Type16',
-					Mode: 'view'
+					Type: 'Type16'
 				};
 				const aDates = [oAppointmentGC.start, oAppointmentGC.end];
 				this.formatter.setDatesToAppointmentLocal(oAppointment, ...aDates);

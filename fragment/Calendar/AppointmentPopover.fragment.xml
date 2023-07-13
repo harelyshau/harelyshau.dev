@@ -61,10 +61,12 @@
             </VBox>
         </VBox>
         <beginButton>
-            <Button text="{i18n>btnEdit}" press="onPressEditOpenAppointmentDialog" type="Emphasized"/>
+            <Button text="{i18n>btnEdit}" press="onPressEditOpenAppointmentDialog" type="Emphasized"
+                enabled="{= ${ID} !== 'new'}"/>
         </beginButton>
         <endButton>
-            <Button text="{i18n>btnDelete}" press="onPressRemoveAppointment"/>
+            <Button text="{i18n>btnDelete}" press="onPressRemoveAppointment"
+                enabled="{= ${ID} !== 'new'}"/>
         </endButton>
     </ResponsivePopover>
 </core:FragmentDefinition>
