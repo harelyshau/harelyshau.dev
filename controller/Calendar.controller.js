@@ -59,40 +59,45 @@ sap.ui.define(
 			loadGoogleAPI() {
 				const sSrc = 'https://apis.google.com/js/api.js';
 				const fnOnload = () => {
-					gapi.load('client', this.initGoogleApiClient.bind(this));
+					gapi.load('client', this.onLoadGoogleCalendarClient.bind(this));
 				};
 				this.loadScript(sSrc, fnOnload);
 			},
 
+			async onLoadGoogleCalendarClient() {
+				await this.initGoogleApiClient();
+				await this.setGoogleApiAuthToken();
+				this.refreshCalendar();
+				this.byId('btnMakeAppointment').setEnabled(true);
+			},
+
 			async initGoogleApiClient() {
 				try {
-					const oResponse = await fetch('resource/data/ServiceAccountCreds.json');
-					const oCredentials = await oResponse.json();
 					const sLink = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
 					await gapi.client.init({ discoveryDocs: [sLink] });
-					gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
-					this.refreshCalendar();
-					this.byId('btnMakeAppointment').setEnabled(true);
 				} catch (oError) {
-					this.getModel('view').setProperty('/busy', false);
-					console.error('Error initializing Google Calendar API:', oError.error);
+					console.error('Error initializing Google Calendar Client:', oError.error);
 				}
+			},
+
+			async setGoogleApiAuthToken() {
+				const oCredentials = await this.getServiceAccountCredentials();
+				gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
+			},
+
+			async getServiceAccountCredentials() {
+				const oResponse = await fetch('resource/data/ServiceAccountCreds.json');
+				return oResponse.json();
 			},
 
 			// Requests (GC = Google Calendar)
 			async getAppointmentsGC() {
 				const oViewModel = this.getModel('view');
-				const oParams = {
-					calendarId: this.getModel().getProperty('/Email'),
-					timeMin: oViewModel.getProperty('/timeMin').toISOString(),
-					timeMax: oViewModel.getProperty('/timeMax').toISOString(),
-					singleEvents: true,
-					maxResults: 250 // max value is 250
-				};
 				oViewModel.setProperty('/busy', true);
 				try {
+					const oParams = this.getRequestParamsGC();
 					const oResponse = await gapi.client.calendar.events.list(oParams);
-					this.setAppointments(oResponse.result.items);
+					return oResponse.result.items;
 				} catch (oError) {
 					console.error('Error fetching appointments:', oError);
 				} finally {
@@ -130,16 +135,28 @@ sap.ui.define(
 			},
 
 			getRequestParamsGC(oAppointmentGC, sAppointmentID) {
-				const oParams = {
-					calendarId: this.getModel().getProperty('/Email'),
-					sendUpdates: 'all'
-				};
-				if (sAppointmentID) oParams.eventId = sAppointmentID;
-				if (oAppointmentGC) {
-					oParams.resource = oAppointmentGC;
-					oParams.conferenceDataVersion = 1;
+				const oParams = { calendarId: this.getModel().getProperty('/Email') };
+				switch (true) {
+					case !oAppointmentGC && !sAppointmentID: // read
+						this.setReadRequestParamsGC(oParams);
+						break;
+					case !!sAppointmentID: // update delete
+						oParams.eventId = sAppointmentID;
+					case !!oAppointmentGC: // create update
+						oParams.resource = oAppointmentGC;
+						oParams.conferenceDataVersion = 1;
+					default: // create update delete
+						oParams.sendUpdates = 'all';
 				}
 				return oParams;
+			},
+
+			setReadRequestParamsGC(oParams) {
+				const oViewModel = this.getModel('view');
+				oParams.timeMin = oViewModel.getProperty('/timeMin').toISOString();
+				oParams.timeMax = oViewModel.getProperty('/timeMax').toISOString();
+				oParams.singleEvents = true;
+				oParams.maxResults = 250; // max value is 250
 			},
 
 			// Request Filtering
@@ -208,7 +225,7 @@ sap.ui.define(
 			//////////////////////////////////
 
 			// Create by Button
-			onPressOpenAppointmentDialog(oEvent) {
+			onPressOpenAppointmentDialog() {
 				const aAppointmentDates = this.getDatesForNewAppointment();
 				this.setCalendarStartDate(aAppointmentDates[0]);
 				this.createAppointment(...aAppointmentDates);
@@ -285,9 +302,10 @@ sap.ui.define(
 				oCalendar.setSelectedView(oCalendar.getViews()[0]); // DayView
 			},
 
-			refreshCalendar() {
+			async refreshCalendar() {
 				this.updateDateRange();
-				this.getAppointmentsGC();
+				const aAppointmentsGC = await this.getAppointmentsGC();
+				this.setAppointments(aAppointmentsGC);
 			},
 
 			addCalendarViews() {
@@ -338,7 +356,6 @@ sap.ui.define(
 				} else {
 					oResponse = await this.updateAppointmentGC(oAppointment);
 				}
-				// refresh appointment in JSON Model
 				oAppointment = this.formatter.appointmentLocal.call(this, oResponse.result);
 				this.refreshAppointment(oAppointment);
 			},
