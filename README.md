@@ -1,10 +1,6 @@
 # [harelyshau.dev](https://harelyshau.dev/)
 
-harelyshau.dev is a frontend project based on [OpenUI5](https://openui5.org/) framework. The application consists of 3 main pages: [Home](https://harelyshau.dev), [Calendar](https://harelyshau.dev/#/calendar) and [Resume](https://harelyshau.dev/#/resume). It supports 3 languages: English, German and Russian. You can also choose the theme of the interface that is convenient for you.
-
-## Technical Overview
-
-The application has basic navigation between pages, supports multilanguage and changing themes. On Сalendar page you can see the integration with Google Сalendar and the creation of new appointments using the API. Resume page reads the file and renders content based on it. The project is hosted on GitHub Pages.
+harelyshau.dev is a frontend project based on [OpenUI5](https://openui5.org/) framework. The application consists of 3 main pages: [Home](https://harelyshau.dev), [Calendar](https://harelyshau.dev/#/calendar) and [Resume](https://harelyshau.dev/#/resume). It supports 3 languages: English, German and Russian. You can also choose the theme of the interface that is convenient for you. On Сalendar page you can see the integration with Google Сalendar and the creation of new appointments using the API. Resume page reads the file and renders content based on it. The project is hosted on GitHub Pages.
 
 ## Launch Local
 
