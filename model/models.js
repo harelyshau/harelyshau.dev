@@ -42,9 +42,8 @@ sap.ui.define(
 			// View Models
 
 			createAppViewModel() {
-				const oData = {
-					theme: themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme())
-				};
+				const sCurrentTheme = sap.ui.core.Configuration.getTheme();
+				const oData = { theme: themeHelper.mapTheme(null, sCurrentTheme) };
 				return new JSONModel(oData);
 			},
 
