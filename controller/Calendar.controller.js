@@ -8,6 +8,7 @@ sap.ui.define(
 		'sap/m/SinglePlanningCalendarMonthView',
 		'../fragment/Calendar/TwoDaysView',
 		'../fragment/Calendar/ThreeDaysView',
+		'../util/googleApiTokenFetcher',
 		'../model/models',
 		'../model/formatter'
 	],
@@ -20,6 +21,7 @@ sap.ui.define(
 		MonthView,
 		TwoDaysView,
 		ThreeDaysView,
+		googleApiTokenFetcher,
 		models,
 		formatter
 	) => {
@@ -30,7 +32,6 @@ sap.ui.define(
 
 			onInit() {
 				this.loadGoogleAPI();
-				this.loadFunctionForAccessToken();
 				this.setModel(models.createCalendarModel());
 				this.setModel(models.createCalendarViewModel(), 'view');
 				this.addCalendarViews();
@@ -41,27 +42,17 @@ sap.ui.define(
 				this.getModel().setSizeLimit(250);
 			},
 
-			loadScript(sSrc, fnOnload) {
-				const script = document.createElement('script');
-				script.src = sSrc;
-				if (fnOnload) script.onload = fnOnload;
-				document.head.appendChild(script);
-			},
-
-			loadFunctionForAccessToken() {
-				this.loadScript('util/getAccessTokenFromServiceAccount.js');
-			},
-
 			//////////////////////////////////
 			////// GOOGLE CALENDAR API ///////
 			//////////////////////////////////
 
 			loadGoogleAPI() {
-				const sSrc = 'https://apis.google.com/js/api.js';
-				const fnOnload = () => {
+				const script = document.createElement('script');
+				script.src = 'https://apis.google.com/js/api.js';
+				script.onload = () => {
 					gapi.load('client', this.onLoadGoogleCalendarClient.bind(this));
 				};
-				this.loadScript(sSrc, fnOnload);
+				document.head.appendChild(script);
 			},
 
 			async onLoadGoogleCalendarClient() {
@@ -82,7 +73,7 @@ sap.ui.define(
 
 			async setGoogleApiAuthToken() {
 				const oCredentials = await this.getServiceAccountCredentials();
-				gapi.auth.setToken(await getAccessTokenFromServiceAccount.do(oCredentials));
+				gapi.auth.setToken(await googleApiTokenFetcher.getToken(oCredentials));
 			},
 
 			async getServiceAccountCredentials() {

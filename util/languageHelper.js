@@ -18,7 +18,7 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 				sLanguage = this.getFallBackLanguage();
 			}
 
-			//apply language
+			// apply language
 			Configuration.setLanguage(sLanguage);
 		},
 
