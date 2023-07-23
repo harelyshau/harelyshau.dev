@@ -14,8 +14,8 @@ harelyshau.dev is a frontend project based on [OpenUI5](https://openui5.org/) fr
 
 Currently, the project is still being developed, so any feedbacks and suggestions are welcome.
 
-Email: [pavel@harelyshau.dev](mailto:pavel@harelyshau.dev) 
-Report an Issue: [https://github.com/harelyshau/harelyshau.dev/issues/new](https://github.com/harelyshau/harelyshau.dev/issues/new)
+-  Email: [pavel@harelyshau.dev](mailto:pavel@harelyshau.dev)
+-  Report an Issue: [https://github.com/harelyshau/harelyshau.dev/issues/new](https://github.com/harelyshau/harelyshau.dev/issues/new)
 
 ## Disclaimer
 
