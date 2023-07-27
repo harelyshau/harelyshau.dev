@@ -143,6 +143,14 @@ sap.ui.define(
 						conferenceSolutionKey: { type: 'hangoutsMeet' }
 					}
 				};
+			},
+
+			//////////////////////////////////
+			/////////// HANOI TOWER //////////
+			//////////////////////////////////
+
+			discSize(nSize) {
+				return nSize.toString().repeat(nSize * 5);
 			}
 		};
 	}

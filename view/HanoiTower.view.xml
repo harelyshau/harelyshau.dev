@@ -29,34 +29,21 @@
                 <Panel>
                     <headerToolbar>
                         <Toolbar height="3rem">
-                            <!-- <HBox alignItems="Center" renderType="Bare"> -->
-                                <Title text="Discs:"/>
-                                <Select items="{/Discs}" class="sapUiTinyMarginBegin">
-                                    <core:Item text="{/}"/>
-                                </Select>
-                                <ToolbarSpacer/>
-                                <Title text="Your movies: 23" class="sapUiTinyMarginEnd"/>
-                            <!-- </HBox> -->
+                            <Title text="Discs:"/>
+                            <Select items="{/Discs}" selectedKey="{/SelectedDiscs}"
+                                change="onChangeDiscs" class="sapUiTinyMarginBegin">
+                                <core:Item text="{}" key="{}"/>
+                            </Select>
+                            <ToolbarSpacer/>
+                            <Title text="Your moves: {/Moves}" class="sapUiTinyMarginEnd"/>
                         </Toolbar>
                     </headerToolbar>
-                    
-                    <HBox class="sapUiSmallMarginTopBottom" width="100%" justifyContent="Center">
-                        <VBox alignItems="Center" justifyContent="End" class="sapUiSmallMarginBeginEnd">
+                    <HBox items="{/Rods}" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
+                        <VBox items="{}" alignItems="Center" justifyContent="End"
+                            class="sapUiSmallMarginBeginEnd ">
                             <VBox renderType="Bare">
-                                <Button text="test1"/>
+                                <Button text="{path: '', formatter: '.formatter.discSize'}"/>
                             </VBox>
-                            <VBox renderType="Bare">
-                                <Button text="test111"/>
-                            </VBox>
-                            <VBox renderType="Bare">
-                                <Button text="test11111"/>
-                            </VBox>
-                        </VBox>
-                        <VBox alignItems="Center" justifyContent="End" class="sapUiSmallMarginBeginEnd">
-                            <Button text="test1"/>
-                        </VBox>
-                        <VBox alignItems="Center" justifyContent="End" class="sapUiSmallMarginBeginEnd">
-                            <Button text="test1"/>
                         </VBox>
                     </HBox>
                 </Panel>

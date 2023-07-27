@@ -42,7 +42,10 @@ sap.ui.define(
 			createHanoiTowerModel() {
 				const oData = {
 					Discs: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-					Movies: 0
+					Rods: [[], [], []],
+					Moves: 0,
+					SelectedDiscs: 6,
+
 				};
 				return new JSONModel(oData);
 			},
