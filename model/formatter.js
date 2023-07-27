@@ -149,8 +149,13 @@ sap.ui.define(
 			/////////// HANOI TOWER //////////
 			//////////////////////////////////
 
-			discSize(nSize) {
-				return nSize.toString().repeat(nSize * 5);
+			discSize(iSize) {
+				return '\u00A0'.repeat(iSize * 5);
+			},
+
+			discType(iSize) {
+				const aTypes = ['Success', 'Negative', 'Critical'];
+				return aTypes[iSize % aTypes.length];
 			}
 		};
 	}

@@ -25,8 +25,8 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare">
-                <Panel>
+			<VBox class="phLimitedPageContent" alignItems="Center" renderType="Bare" >
+                <Panel height="100%" class="sapUiMediumMarginBottom">
                     <headerToolbar>
                         <Toolbar height="3rem">
                             <Title text="Discs:"/>
@@ -40,9 +40,10 @@
                     </headerToolbar>
                     <HBox items="{/Rods}" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
                         <VBox items="{}" alignItems="Center" justifyContent="End"
-                            class="sapUiSmallMarginBeginEnd ">
+                            class="sapUiSmallMarginBeginEnd phBackgroundImageRod" width="30%">
                             <VBox renderType="Bare">
-                                <Button text="{path: '', formatter: '.formatter.discSize'}"/>
+                                <Button text="{path: '', formatter: '.formatter.discSize'}"
+                                    type="{path: '', formatter: '.formatter.discType'}" icon="false"/>
                             </VBox>
                         </VBox>
                     </HBox>

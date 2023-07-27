@@ -52,6 +52,8 @@
 /* HANOI TOWER */
 
 .phBackgroundImageRod {
+	background-image: url('../resource/image/Rod.svg');
+	background-size: 100%;
 }
 
 .phNoMargin {
