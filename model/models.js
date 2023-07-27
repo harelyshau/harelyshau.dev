@@ -39,6 +39,14 @@ sap.ui.define(
 				return new JSONModel(oData);
 			},
 
+			createHanoiTowerModel() {
+				const oData = {
+					Discs: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+					Movies: 0
+				};
+				return new JSONModel(oData);
+			},
+
 			// View Models
 
 			createAppViewModel() {

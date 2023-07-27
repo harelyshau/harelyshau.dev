@@ -1,0 +1,66 @@
+<mvc:View xmlns:core="sap.ui.core"
+    controllerName="pharelyshau.controller.HanoiTower"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:unified="sap.ui.unified">
+	<f:DynamicPage class="">
+        <!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Hanoi Tower" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+                    <Label text="Let's play Hanoi Tower" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="Let's play Hanoi Tower" wrapping="true"/>
+                </f:expandedContent>
+				<f:actions>
+					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
+						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
+                            ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare">
+                <Panel>
+                    <headerToolbar>
+                        <Toolbar height="3rem">
+                            <!-- <HBox alignItems="Center" renderType="Bare"> -->
+                                <Title text="Discs:"/>
+                                <Select items="{/Discs}" class="sapUiTinyMarginBegin">
+                                    <core:Item text="{/}"/>
+                                </Select>
+                                <ToolbarSpacer/>
+                                <Title text="Your movies: 23" class="sapUiTinyMarginEnd"/>
+                            <!-- </HBox> -->
+                        </Toolbar>
+                    </headerToolbar>
+                    
+                    <HBox class="sapUiSmallMarginTopBottom" width="100%" justifyContent="Center">
+                        <VBox alignItems="Center" justifyContent="End" class="sapUiSmallMarginBeginEnd">
+                            <VBox renderType="Bare">
+                                <Button text="test1"/>
+                            </VBox>
+                            <VBox renderType="Bare">
+                                <Button text="test111"/>
+                            </VBox>
+                            <VBox renderType="Bare">
+                                <Button text="test11111"/>
+                            </VBox>
+                        </VBox>
+                        <VBox alignItems="Center" justifyContent="End" class="sapUiSmallMarginBeginEnd">
+                            <Button text="test1"/>
+                        </VBox>
+                        <VBox alignItems="Center" justifyContent="End" class="sapUiSmallMarginBeginEnd">
+                            <Button text="test1"/>
+                        </VBox>
+                    </HBox>
+                </Panel>
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>
