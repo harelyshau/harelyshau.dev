@@ -157,6 +157,16 @@ sap.ui.define(
 			discType(iSize) {
 				const aTypes = ['Negative', 'Critical', 'Success'];
 				return aTypes[iSize % aTypes.length];
+			},
+
+			test(aReg, aCurrentReg) {
+				// console.log(aReg)
+				// console.log(aCurrentReg);
+				if (aReg !== aCurrentReg) {
+					// debugger
+				}
+				return aReg !== aCurrentReg
+
 			}
 		};
 	}

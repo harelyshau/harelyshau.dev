@@ -51,33 +51,33 @@
 
 /* HANOI TOWER */
 
-.phButtonDisc span .sapUiIcon {
+/* Disc Button */
+.phDiscButton span .sapUiIcon {
+	/* Remove icon from sap types buttons */
 	display: none;
 }
-
-.phButtonDisc span {
+.phDiscButton span {
 	min-width: 0 !important;
 }
 
-/* Rods */
-.phBackgroundRod::before,
-.phBackgroundRod::after {
+/* Pegs */
+.phPegBox::before,
+.phPegBox::after {
 	content: '';
 	position: absolute;
 	background-color: #4db1ff;
 	border-radius: 0.2rem;
 	bottom: 0;
 }
-
 /* Vertical Line */
-.phBackgroundRod::before {
+.phPegBox::before {
 	top: 0;
 	left: 50%;
 	width: 0.5rem;
 	transform: translateX(-50%);
 }
 /* Horizontal Line */
-.phBackgroundRod::after {
+.phPegBox::after {
 	left: 0;
 	right: 0;
 	height: 0.5rem;

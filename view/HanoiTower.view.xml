@@ -28,24 +28,46 @@
 			<VBox class="phLimitedPageContent" alignItems="Center" renderType="Bare" >
                 <Panel id="panel" height="100%" class="sapUiMediumMarginBottom">
                     <headerToolbar>
-                        <Toolbar height="3rem">
-                            <Title text="Discs:"/>
-                            <Select items="{/Discs}" selectedKey="{/SelectedDiscs}"
+                        <OverflowToolbar height="3rem">
+                            <!-- <HBox alignItems="Center" renderType="Bare"> -->
+                                <Label id="lblDiscs" text="Discs:">
+                                    <layoutData>
+                                        <OverflowToolbarLayoutData priority="Low"/>
+                                    </layoutData>
+                                </Label>
+                                <Select items="{/DiscCounts}" selectedKey="{/SelectedDiscCount}"
+                                    change="onChangeDiscs" class="sapUiTinyMarginBegin" ariaLabelledBy="lblDiscs">
+                                    <core:Item text="{}" key="{}"/>
+                                    <layoutData>
+                                        <OverflowToolbarLayoutData priority="Low"/>
+                                    </layoutData>
+                                </Select>
+                                
+                            <!-- </HBox> -->
+                            <!-- <Title text="Pegs:"/>
+                            <Select items="{/PegCounts}" selectedKey="{/SelectedPegCount}"
                                 change="onChangeDiscs" class="sapUiTinyMarginBegin">
                                 <core:Item text="{}" key="{}"/>
-                            </Select>
+                            </Select> -->
                             <ToolbarSpacer/>
-                            <Title text="Your moves: {/Moves}" class="sapUiTinyMarginEnd"/>
-                        </Toolbar>
+                                <core:Icon src="sap-icon://fob-watch"/>
+                                <Title text="Time: {/Time} sec"/>
+                                <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
+                                <Title text="Moves: {/Moves}"/>
+                            <ToolbarSpacer/>
+                            <Button text="Restart" press="onPressRestartGame" icon="sap-icon://restart"/>
+                            <Button text="Records" icon="sap-icon://competitor"/>
+                        </OverflowToolbar>
                     </headerToolbar>
                     <!-- Playground -->
-                    <HBox items="{/Rods}" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
-                        <!-- Rod -->
-                        <VBox items="{path: '', templateShareable: true}" alignItems="Center" justifyContent="End"
-                            class="sapUiTinyMarginBeginEnd phBackgroundRod" width="30%">
-                            <!-- Disc -->
+                    <HBox items="{/Pegs}" wrap="Wrap" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
+                        <!-- Peg -->
+                        <VBox width="{= ${device>/system/phone} || 500 >= ${device>/resize/width} ? 'auto' : '30%' }" 
+                            alignItems="Center" justifyContent="End" class="sapUiTinyMarginBeginEnd" fieldGroupIds="peg">
+                            <VBox items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" width="100%" height="100%" justifyContent="End">
+                                <!-- Disc -->
                                 <Button text="{path: '', formatter: '.formatter.discSize'}"
-                                    type="{path: '', formatter: '.formatter.discType'}" class="phButtonDisc">
+                                    type="{path: '', formatter: '.formatter.discType'}" class="phDiscButton">
                                     <dragDropConfig>
                                         <dnd:DragDropInfo
                                             targetElement="test"
@@ -53,19 +75,34 @@
                                             drop="onDropDisc"/>
                                     </dragDropConfig>
                                 </Button>
-                            <dragDropConfig>
-                                <dnd:DragDropInfo
-                                    sourceAggregation="items"
-                                    dropPosition="On"
-                                    drop="onDropDisc"/>
-                            </dragDropConfig>
+                                <dragDropConfig>
+                                    <dnd:DragDropInfo
+                                        sourceAggregation="items"
+                                        dropPosition="On"
+                                        drop="onDropDisc"/>
+                                </dragDropConfig>
+                            </VBox>
+                            <!-- Buttons -->
+                            <VBox items="{path: 'view>/pegs', templateShareable: true}" class="sapUiSmallMarginTop">
+                                <Button visible="{parts: ['view>', ''], formatter: '.formatter.test'}" press="onPressMoveDisc"
+                                    text="Move to {= ${view>/pegs}.indexOf(${view>}) + 1 }"/>
+                            </VBox>
                         </VBox>
                     </HBox>
-                    <VBox id="test">
-                        <Button text="test"></Button>
-                        <Button text="testdsdfsdfs"></Button>
-                        <Button text="tesdfsdfst"></Button>
-                    </VBox>
+                </Panel>
+                <Panel>
+                    <headerToolbar>
+                        <Toolbar height="3rem">
+                            <ToolbarSpacer/>
+                            <core:Icon src="sap-icon://activity-items"/>
+                            <Title text="Instructions"/>
+                            <ToolbarSpacer/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <Text text="The Tower of Hanoi (also called The problem of Benares Temple or Tower of Brahma or Lucas' Tower and sometimes pluralized as Towers, or simply pyramid puzzle) is a mathematical game or puzzle consisting of three rods and a number of disks of various diameters, which can slide onto any rod. The puzzle begins with the disks stacked on one rod in order of decreasing size, the smallest at the top, thus approximating a conical shape. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:"/>
+                    <Text text="1) Only one disk may be moved at a time.
+Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.
+No disk may be placed on top of a disk that is smaller than it."/>
                 </Panel>
 			</VBox>
 		</f:content>

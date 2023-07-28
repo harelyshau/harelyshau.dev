@@ -41,11 +41,13 @@ sap.ui.define(
 
 			createHanoiTowerModel() {
 				const oData = {
-					Discs: [3, 4, 5, 6, 7, 8, 9, 10],
-					Rods: [[], [], []],
+					DiscCounts: [3, 4, 5, 6, 7, 8, 9, 10],
+					PegCounts: [3, 4, 5, 6, 7],
+					SelectedDiscCount: 3,
+					SelectedPegCount: 3,
+					Pegs: [[], [], [], []],
 					Moves: 0,
-					SelectedDiscs: 6,
-
+					Time: 0
 				};
 				return new JSONModel(oData);
 			},
@@ -68,6 +70,11 @@ sap.ui.define(
 					appointmentDuration: 3600000
 				};
 				return new JSONModel(oData);
+			},
+
+			createHanoiTowerViewModel(aPegs) {
+
+				return new JSONModel({ pegs: [] });
 			}
 		};
 	}

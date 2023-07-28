@@ -103,22 +103,22 @@ sap.ui.define(
 
 			// Get Object
 
-			getObjectByEvent(oEvent) {
-				return this.getObjectByControl(oEvent.getSource());
+			getObjectByEvent(oEvent, sModel) {
+				return this.getObjectByControl(oEvent.getSource(), sModel);
 			},
 
-			getObjectByControl(oControl) {
-				return oControl.getBindingContext().getObject();
+			getObjectByControl(oControl, sModel) {
+				return oControl.getBindingContext(sModel).getObject();
 			},
 
 			// Get Path
 
-			getPathByEvent(oEvent) {
-				return this.getPathByControl(oEvent.getSource());
+			getPathByEvent(oEvent, sModel) {
+				return this.getPathByControl(oEvent.getSource(), sModel);
 			},
 
-			getPathByControl(oControl) {
-				return oControl.getBindingContext().getPath();
+			getPathByControl(oControl, sModel) {
+				return oControl.getBindingContext(sModel).getPath();
 			}
 		});
 	}
