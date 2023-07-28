@@ -41,7 +41,7 @@ sap.ui.define(
 
 			createHanoiTowerModel() {
 				const oData = {
-					Discs: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+					Discs: [3, 4, 5, 6, 7, 8, 9, 10],
 					Rods: [[], [], []],
 					Moves: 0,
 					SelectedDiscs: 6,

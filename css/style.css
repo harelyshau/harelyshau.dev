@@ -51,10 +51,40 @@
 
 /* HANOI TOWER */
 
-.phBackgroundImageRod {
-	background-image: url('../resource/image/Rod.svg');
-	background-size: 100%;
+.phButtonDisc span .sapUiIcon {
+	display: none;
 }
+
+.phButtonDisc span {
+	min-width: 0 !important;
+}
+
+/* Rods */
+.phBackgroundRod::before,
+.phBackgroundRod::after {
+	content: '';
+	position: absolute;
+	background-color: #4db1ff;
+	border-radius: 0.2rem;
+	bottom: 0;
+}
+
+/* Vertical Line */
+.phBackgroundRod::before {
+	top: 0;
+	left: 50%;
+	width: 0.5rem;
+	transform: translateX(-50%);
+}
+/* Horizontal Line */
+.phBackgroundRod::after {
+	left: 0;
+	right: 0;
+	height: 0.5rem;
+	transform: translateY(50%);
+}
+
+/* COMMON */
 
 .phNoMargin {
 	margin: 0 !important;

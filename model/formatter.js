@@ -150,11 +150,12 @@ sap.ui.define(
 			//////////////////////////////////
 
 			discSize(iSize) {
-				return '\u00A0'.repeat(iSize * 5);
+				const sSpacing = '\u00A0'.repeat(iSize - 1);
+				return sSpacing + iSize + sSpacing;
 			},
 
 			discType(iSize) {
-				const aTypes = ['Success', 'Negative', 'Critical'];
+				const aTypes = ['Negative', 'Critical', 'Success'];
 				return aTypes[iSize % aTypes.length];
 			}
 		};

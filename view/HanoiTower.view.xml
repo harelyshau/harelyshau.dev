@@ -3,7 +3,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
-	xmlns:unified="sap.ui.unified">
+    xmlns:dnd="sap.ui.core.dnd">
 	<f:DynamicPage class="">
         <!-- HEADER -->
 		<f:title>
@@ -26,7 +26,7 @@
 		</f:title>
 		<f:content>
 			<VBox class="phLimitedPageContent" alignItems="Center" renderType="Bare" >
-                <Panel height="100%" class="sapUiMediumMarginBottom">
+                <Panel id="panel" height="100%" class="sapUiMediumMarginBottom">
                     <headerToolbar>
                         <Toolbar height="3rem">
                             <Title text="Discs:"/>
@@ -38,15 +38,34 @@
                             <Title text="Your moves: {/Moves}" class="sapUiTinyMarginEnd"/>
                         </Toolbar>
                     </headerToolbar>
+                    <!-- Playground -->
                     <HBox items="{/Rods}" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
-                        <VBox items="{}" alignItems="Center" justifyContent="End"
-                            class="sapUiSmallMarginBeginEnd phBackgroundImageRod" width="30%">
-                            <VBox renderType="Bare">
+                        <!-- Rod -->
+                        <VBox items="{path: '', templateShareable: true}" alignItems="Center" justifyContent="End"
+                            class="sapUiTinyMarginBeginEnd phBackgroundRod" width="30%">
+                            <!-- Disc -->
                                 <Button text="{path: '', formatter: '.formatter.discSize'}"
-                                    type="{path: '', formatter: '.formatter.discType'}" icon="false"/>
-                            </VBox>
+                                    type="{path: '', formatter: '.formatter.discType'}" class="phButtonDisc">
+                                    <dragDropConfig>
+                                        <dnd:DragDropInfo
+                                            targetElement="test"
+                                            dropPosition="Between"
+                                            drop="onDropDisc"/>
+                                    </dragDropConfig>
+                                </Button>
+                            <dragDropConfig>
+                                <dnd:DragDropInfo
+                                    sourceAggregation="items"
+                                    dropPosition="On"
+                                    drop="onDropDisc"/>
+                            </dragDropConfig>
                         </VBox>
                     </HBox>
+                    <VBox id="test">
+                        <Button text="test"></Button>
+                        <Button text="testdsdfsdfs"></Button>
+                        <Button text="tesdfsdfst"></Button>
+                    </VBox>
                 </Panel>
 			</VBox>
 		</f:content>
