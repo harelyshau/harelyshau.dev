@@ -85,6 +85,18 @@ sap.ui.define(
 			},
 
 			// FRAGMENTS
+			async openDialog(sView, sFragment, oControl, sBinndingPath) {
+				const oDialog = await this.loadAndAssignFragment(sView, sFragment);
+				if (sBinndingPath) {
+					oDialog.bindElement(sBinndingPath);
+				}
+				if (oControl) {
+					// popovers
+					oDialog.openBy(oControl);
+				} else {
+					oDialog.open();
+				}
+			},
 
 			async loadAndAssignFragment(sView, sFragment) {
 				let sPath = 'pharelyshau.fragment.';
@@ -92,6 +104,7 @@ sap.ui.define(
 				this['o' + sFragment] = this['o' + sFragment] ?? this.loadFragment({ name: sPath });
 				this['o' + sFragment] = await this['o' + sFragment];
 				this['o' + sFragment].addStyleClass(this.getContentDensityClass());
+				return this['o' + sFragment];
 			},
 
 			isDialogOpen(oDialog, sBinndingPath) {

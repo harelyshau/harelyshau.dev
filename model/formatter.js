@@ -149,14 +149,14 @@ sap.ui.define(
 			/////////// HANOI TOWER //////////
 			//////////////////////////////////
 
-			discSize(iSize) {
-				const sSpacing = '\u00A0'.repeat(iSize - 1);
-				return sSpacing + iSize + sSpacing;
+			discWidth(iDisc, iDiscCount, iMaxWidth) {
+				const [iMin, iMax, sUnit] = iMaxWidth ? [28, iMaxWidth, 'px'] : [30, 100, '%'];
+				return (iMax - iMin) / (iDiscCount - 1) * (iDisc - 1) + iMin + sUnit;
 			},
 
-			discType(iSize) {
+			discType(iDisc) {
 				const aTypes = ['Negative', 'Critical', 'Success'];
-				return aTypes[iSize % aTypes.length];
+				return aTypes[iDisc % aTypes.length];
 			},
 
 			test(aReg, aCurrentReg) {

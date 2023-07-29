@@ -12,10 +12,17 @@ sap.ui.define([
         onInit() {
             this.setModel(models.createHanoiTowerModel());
             this.setModel(models.createHanoiTowerViewModel(), 'view');
+            this.setupGame();
         },
 
         onAfterRendering() {
-            this.setupGame();
+            setTimeout(() => this.setDiscButtonMaxWidth());
+        },
+
+        setDiscButtonMaxWidth() {
+            const oPegBox = [...document.querySelectorAll('.phPegBox')][0];
+            const iPegBoxSize = oPegBox.clientWidth;
+            this.getModel('view').setProperty('/discButtonMaxWidth', iPegBoxSize);
         },
 
         setPegBoxesSize() {
@@ -28,7 +35,9 @@ sap.ui.define([
             });
         },
 
-        onChangeDiscs() {
+        onChangeDiscsCount() {
+            const iDiscsCount = this.getModel().getProperty('/DiscCount')
+            localStorage.setItem('discs', iDiscsCount);
             this.setupGame();
         },
 
@@ -54,10 +63,9 @@ sap.ui.define([
         },
 
         setupGame() {
-            // this.setModel(models.createHanoiTowerModel());
             this.stopTimer();
-            const iDiscCount = this.getModel().getProperty('/SelectedDiscCount');
-            const iPegCount = this.getModel().getProperty('/SelectedPegCount');
+            const iDiscCount = this.getModel().getProperty('/DiscCount');
+            const iPegCount = this.getModel().getProperty('/PegCount');
             const aPegs = [[]];
             for (let i = 1; i <= iDiscCount; i++) {
                 aPegs[0].push(i);
@@ -86,7 +94,7 @@ sap.ui.define([
         },
 
         checkGameWin(aTargetPeg) {
-            const iDiscCount = this.getModel().getProperty('/SelectedDiscCount');
+            const iDiscCount = this.getModel().getProperty('/DiscCount');
             const aPegs = this.getModel().getProperty('/Pegs');
             const bEnoughDisks = iDiscCount === aTargetPeg.length;
             const bFirstPeg = aPegs.indexOf(aTargetPeg) === 0;
@@ -96,21 +104,40 @@ sap.ui.define([
 
         finishGame() {
             this.stopTimer();
-            MessageToast.show('You are winner');
-            console.log('win')
+            this.openWinDialog();
+            this.setNewRecord();
+        },
+
+        setNewRecord() {
+            const aRecords = this.getModel().getProperty('/Records');
+            const oResult = {
+                DiscCount: this.getModel().getProperty('/DiscCount'),
+                Time: this.getModel().getProperty('/Time'),
+                Moves: this.getModel().getProperty('/Moves')
+            };
+            const oRecord = aRecords.find(oRecord => oRecord.DiscCount === oResult.DiscCount);
+            if (!oRecord) aRecords.push(oResult);
+            if (oResult.Time < oRecord?.Time) oRecord.Time = oResult.Time;
+            if (oResult.Moves < oRecord?.Moves) oRecord.Moves = oResult.Moves;
+            this.getModel().refresh();
+            localStorage.setItem('records', JSON.stringify(aRecords));
+        },
+
+        async openWinDialog() {
+            await this.openDialog('HanoiTower', 'WinDialog');
         },
 
         startTimer() {
             let iTime = this.getModel().getProperty('/Time');
             if (iTime) return;
-
-            this.fnTimerInterval = setInterval(() => {
+            this.timerId = setInterval(() => {
                 this.getModel().setProperty('/Time', ++iTime);
             }, 1000);
         },
 
         stopTimer() {
-            clearInterval(this.fnTimerInterval);
+            clearInterval(this.timerId);
+            this.timerId = null;
         },
 
         increaseMoves() {
