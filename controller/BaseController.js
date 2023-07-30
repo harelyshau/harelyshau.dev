@@ -36,9 +36,8 @@ sap.ui.define(
 
 			// MENU
 
-			async onPressOpenOverflowMenu(oEvent) {
-				await this.loadAndAssignFragment(null, 'OverflowMenu');
-				this.oOverflowMenu.openBy(oEvent.getSource());
+			onPressOpenOverflowMenu(oEvent) {
+				this.openPopover(null, 'OverflowMenu', oEvent.getSource());
 			},
 
 			onPressNavigateToPage(sPage) {
@@ -46,8 +45,7 @@ sap.ui.define(
 			},
 
 			onPressSendEmail() {
-				const oModel = this.getModel();
-				const sEmail = oModel ? oModel.getProperty('/Email') : 'pavel@harelyshau.dev';
+				const sEmail = this.getModel()?.getProperty('/Email') ?? 'pavel@harelyshau.dev';
 				sap.m.URLHelper.triggerEmail(sEmail, 'Email from harelyshau.dev website');
 			},
 
@@ -84,18 +82,21 @@ sap.ui.define(
 				sap.m.URLHelper.redirect(sWebsiteURL, true);
 			},
 
-			// FRAGMENTS
-			async openDialog(sView, sFragment, oControl, sBinndingPath) {
+			// MODAL WINDOWS
+			async openDialog(sView, sFragment, sBinndingPath) {
 				const oDialog = await this.loadAndAssignFragment(sView, sFragment);
-				if (sBinndingPath) {
-					oDialog.bindElement(sBinndingPath);
+				if (sBinndingPath) oDialog.bindElement(sBinndingPath);
+				oDialog.open();
+			},
+
+			async openPopover(sView, sFragment, oControl, sBinndingPath) {
+				const oPopover = await this.loadAndAssignFragment(sView, sFragment);
+				if (this.isPopoverOpen(oPopover, sBinndingPath)) {
+					oPopover.close();
+					return;
 				}
-				if (oControl) {
-					// popovers
-					oDialog.openBy(oControl);
-				} else {
-					oDialog.open();
-				}
+				if (sBinndingPath) oPopover.bindElement(sBinndingPath);
+				oPopover.openBy(oControl);
 			},
 
 			async loadAndAssignFragment(sView, sFragment) {
@@ -107,10 +108,9 @@ sap.ui.define(
 				return this['o' + sFragment];
 			},
 
-			isDialogOpen(oDialog, sBinndingPath) {
-				if (!oDialog) return false;
-				const bSamePath = oDialog.getBindingContext()?.getPath() === sBinndingPath;
-				const bOpen = oDialog.isOpen();
+			isPopoverOpen(oPopover, sBinndingPath) {
+				const bSamePath = oPopover.getBindingContext()?.getPath() === sBinndingPath;
+				const bOpen = oPopover.isOpen ? oPopover.isOpen() : false;
 				return bOpen && bSamePath;
 			},
 

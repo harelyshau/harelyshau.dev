@@ -123,8 +123,8 @@ sap.ui.define([
             localStorage.setItem('records', JSON.stringify(aRecords));
         },
 
-        async openWinDialog() {
-            await this.openDialog('HanoiTower', 'WinDialog');
+        openWinDialog() {
+            this.openDialog('HanoiTower', 'WinDialog');
         },
 
         startTimer() {
