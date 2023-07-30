@@ -64,12 +64,13 @@ sap.ui.define([
         },
 
         onPressMoveDisc(oEvent) {
-            const aCurrentPeg = this.getObjectByEvent(oEvent);
-            const aTargetPeg = this.getObjectByEvent(oEvent, 'view');
+            const oParentControl = oEvent.getSource().getParent();
+            const aCurrentPeg = this.getObjectByControl(oParentControl);
+            const aTargetPeg = this.getObjectByEvent(oEvent);
             this.moveDisc(aCurrentPeg, aTargetPeg);
         },
 
-        // Wind Dialog
+        // Win Dialog
 
         openWinDialog() {
             this.openDialog('HanoiTower', 'WinDialog');
@@ -90,35 +91,33 @@ sap.ui.define([
             this.setupGame();
         },
 
-        setPegsInViewModel() {
-            const aPegs = this.getModel().getProperty('/Pegs');
-            const aViewPegs = this.getModel('view').getProperty('/pegs');
-            aViewPegs.length = 0;
-            aPegs.forEach(aDiscs => aViewPegs.push(aDiscs));
-            this.getModel('view').refresh(true);
-            this.getModel().refresh();
-            // console.log(this.getModel('view').getProperty('/pegs'))
-            // console.log(this.getModel().getProperty('/Pegs'))
-            // console.log(this.getModel().getProperty('/Pegs')[1] === this.getModel('view').getProperty('/pegs')[1])
-        },
-
         // Game Logic
 
         setupGame() {
             this.stopTimer();
-            const iDiscCount = this.getModel().getProperty('/DiscCount');
-            const iPegCount = 3;
-            const aPegs = [[]];
-            for (let i = 1; i <= iDiscCount; i++) {
-                aPegs[0].push(i);
-            }
-            for (let i = 1; i < iPegCount; i++) {
-                aPegs[i] = [];
-            }
-            this.getModel().setProperty('/Pegs', aPegs);
-            this.setPegsInViewModel();
-
+            this.resetTimeAndMoves();
+            this.setPegs();
             this.setPegBoxHeight();
+        },
+
+        resetTimeAndMoves() {
+            this.getModel().setProperty('/Time', 0);
+            this.getModel().setProperty('/Moves', 0);
+        },
+
+        setPegs() {
+            const aPegs = [this.getDiscs(), [], []];
+            this.getModel().setProperty('/Pegs', aPegs);
+            this.getModel().refresh(true);
+        },
+
+        getDiscs() {
+            const iDiscCount = this.getModel().getProperty('/DiscCount');
+            const aDiscs = [];
+            for (let i = 1; i <= iDiscCount; i++) {
+                aDiscs.push(i);
+            }
+            return aDiscs;
         },
 
         moveDisc(aCurrentPeg, aTargetPeg) {

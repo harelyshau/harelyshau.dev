@@ -162,16 +162,6 @@ sap.ui.define(
 			discCountIcon(iDiscCount, aRecords) {
 				const bCompleted = aRecords.some(oRecord => oRecord.DiscCount === iDiscCount);
 				return bCompleted ? 'sap-icon://accept' : '';
-			},
-
-			test(aReg, aCurrentReg) {
-				// console.log(aReg)
-				// console.log(aCurrentReg);
-				if (aReg !== aCurrentReg) {
-					// debugger
-				}
-				return aReg !== aCurrentReg
-
 			}
 		};
 	}

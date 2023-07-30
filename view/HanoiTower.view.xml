@@ -67,9 +67,10 @@
                                     text="{}" type="{path: '', formatter: '.formatter.discType'}" class="phButton phDiscButton"/>
                             </VBox>
                             <!-- Buttons -->
-                            <VBox items="{path: 'view>/pegs', templateShareable: true}" class="sapUiSmallMarginTop">
-                                <Button visible="{parts: ['view>', ''], formatter: '.formatter.test'}" press="onPressMoveDisc"
-                                    text="to {= ${view>/pegs}.indexOf(${view>}) + 1 }"/>
+                            <VBox items="{path: '/Pegs', templateShareable: true}" class="sapUiSmallMarginTop">
+                                <Button press="onPressMoveDisc" text="to {= ${/Pegs}.indexOf(${}) + 1 }"
+                                    core:require="{format: 'pharelyshau/model/formatMoveButtonVisible'}"
+                                    visible="{path: '', formatter: 'format'}"/>
                             </VBox>
                             
                         </VBox>
