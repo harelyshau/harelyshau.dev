@@ -40,8 +40,7 @@ sap.ui.define(
 
 			createHanoiTowerModel() {
 				const oData = {
-					DiscCounts: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-					PegCounts: [3, 4, 5, 6, 7],
+					DiscCounts: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 					DiscCount: +localStorage.getItem('discs') ?? 3,
 					PegCount: 3,
 					Pegs: [[], [], []],

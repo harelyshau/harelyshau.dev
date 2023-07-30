@@ -75,17 +75,16 @@
 .phPegBox::before {
 	top: 0;
 	left: 50%;
-	width: 0.5rem;
+	width: 0.6rem;
 	transform: translateX(-50%);
-	border-radius: 0.2rem;
+	border-radius: 0.25rem;
 }
 /* Horizontal Line */
 .phPegBox::after {
 	left: 0;
 	right: 0;
-	height: 0.5rem;
+	height: 0.6rem;
 	transform: translateY(50%);
-	border-radius: 0rem;
 }
 
 /* COMMON */

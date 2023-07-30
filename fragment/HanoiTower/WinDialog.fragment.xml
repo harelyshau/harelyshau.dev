@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-    <Dialog title="You dealt with Tower of {/DiscCount} Disks" state="Success">
+    <Dialog title="You dealt with Tower of {/DiscCount} Disks" state="Success" afterClose="onAfterCloseWinDialog">
         <VBox class="sapUiSmallMargin">
             <!-- Result -->
             <VBox>
@@ -22,10 +22,10 @@
             <Button text="Records" icon="sap-icon://competitor"/>
         </VBox>
         <beginButton>
-            <Button text="Level UP" icon="sap-icon://collapse-group" type="Emphasized"/>
+            <Button text="Level UP" press="onPressLevelUp" icon="sap-icon://collapse-group" type="Emphasized"/>
         </beginButton>
         <endButton>
-            <Button text="Restart" icon="sap-icon://restart"/>
+            <Button text="Restart" icon="sap-icon://restart" press="onPressCloseWinDialog"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

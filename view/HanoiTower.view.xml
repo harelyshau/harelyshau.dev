@@ -27,46 +27,44 @@
 		<f:content>
 			<VBox class="phLimitedPageContent" alignItems="Center" renderType="Bare" >
                 <Panel id="panel" height="100%" class="sapUiMediumMarginBottom">
+                    <!-- HEADER TOOLBAR -->
                     <headerToolbar>
                         <OverflowToolbar height="3rem">
+                            <!-- Disc Counts -->
                             <!-- <HBox alignItems="Center" renderType="Bare"> -->
                                 <Label id="lblDiscs" text="Discs:">
                                     <layoutData>
                                         <OverflowToolbarLayoutData priority="Low"/>
                                     </layoutData>
                                 </Label>
-                                <Select items="{/DiscCounts}" selectedKey="{/DiscCount}"
+                                <Select items="{/DiscCounts}" selectedKey="{path: '/DiscCount', type: 'sap.ui.model.type.Integer'}"
                                     change="onChangeDiscsCount" class="sapUiTinyMarginBegin" ariaLabelledBy="lblDiscs">
-                                    <core:ListItem text="{}" key="{}" icon="sap-icon://cart-2"/>
+                                    <core:ListItem text="{}" key="{}" icon="{parts: ['', '/Records'], formatter: '.formatter.discCountIcon'}"/>
                                     <layoutData>
                                         <OverflowToolbarLayoutData priority="Low"/>
                                     </layoutData>
                                 </Select>
-                                
-                            <!-- </HBox> -->
-                            <!-- <Title text="Pegs:"/>
-                            <Select items="{/PegCounts}" selectedKey="{/PegCount}"
-                                change="onChangeDiscsCount" class="sapUiTinyMarginBegin">
-                                <core:Item text="{}" key="{}"/>
-                            </Select> -->
                             <ToolbarSpacer/>
-                                <core:Icon src="sap-icon://fob-watch"/>
-                                <Title text="Time: {/Time} sec"/>
-                                <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
-                                <Title text="Moves: {/Moves}"/>
+                            <!-- Time and Moves -->
+                            <core:Icon src="sap-icon://fob-watch"/>
+                            <Title text="Time: {/Time} sec"/>
+                            <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
+                            <Title text="Moves: {/Moves}"/>
                             <ToolbarSpacer/>
+                            <!-- Buttons -->
                             <Button text="Restart" press="onPressRestartGame" icon="sap-icon://restart"/>
-                            <Button text="Records" icon="sap-icon://competitor"/>
+                            <Button text="Records" press="onPressOpenRecordsDialog" icon="sap-icon://competitor"/>
                         </OverflowToolbar>
                     </headerToolbar>
-                    <!-- Playground -->
+                    <!-- PLAYGROUND -->
                     <HBox items="{/Pegs}" wrap="Wrap" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
-                        <!-- Peg -->
-                        <VBox width="33.3%" alignItems="Center" justifyContent="End">
-                            <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" width="100%" height="100%" justifyContent="End">
+                        <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
+                            <!-- Peg -->
+                            <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
+                                width="100%" height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
                                 <!-- Disc -->
-                                <Button text="{}" width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: '.formatter.discWidth'}"
-                                    type="{path: '', formatter: '.formatter.discType'}" class="phButton phDiscButton"/>
+                                <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: '.formatter.discWidth'}"
+                                    text="{}" type="{path: '', formatter: '.formatter.discType'}" class="phButton phDiscButton"/>
                             </VBox>
                             <!-- Buttons -->
                             <VBox items="{path: 'view>/pegs', templateShareable: true}" class="sapUiSmallMarginTop">
@@ -75,7 +73,16 @@
                             </VBox>
                         </VBox>
                     </HBox>
+                    <Toolbar style="Clear">
+                        <HBox visible="false">
+                            <Label text="Show buttons" wrapping="true"/>
+                            <Switch state="true" customTextOn=" " customTextOff=" "/>
+                        </HBox>
+                        <ToolbarSpacer/>
+                        <Label wrapping="true" text="Min moves to win: {= Math.pow(2, ${/DiscCount}) - 1 }"/>
+                    </Toolbar>
                 </Panel>
+                <!-- INSTRUCTIONS -->
                 <Panel>
                     <headerToolbar>
                         <Toolbar height="3rem">
@@ -86,9 +93,7 @@
                         </Toolbar>
                     </headerToolbar>
                     <Text text="The Tower of Hanoi (also called The problem of Benares Temple or Tower of Brahma or Lucas' Tower and sometimes pluralized as Towers, or simply pyramid puzzle) is a mathematical game or puzzle consisting of three rods and a number of disks of various diameters, which can slide onto any rod. The puzzle begins with the disks stacked on one rod in order of decreasing size, the smallest at the top, thus approximating a conical shape. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:"/>
-                    <Text text="1) Only one disk may be moved at a time.
-Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.
-No disk may be placed on top of a disk that is smaller than it."/>
+                    <Text text="1) Only one disk may be moved at a time. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod. No disk may be placed on top of a disk that is smaller than it."/>
                 </Panel>
 			</VBox>
 		</f:content>
