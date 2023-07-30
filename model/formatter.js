@@ -151,7 +151,7 @@ sap.ui.define(
 
 			discWidth(iDisc, iDiscCount, iMaxWidth) {
 				const [iMin, iMax, sUnit] = iMaxWidth ? [28, iMaxWidth, 'px'] : [30, 100, '%'];
-				return (iMax - iMin) / (iDiscCount - 1) * (iDisc - 1) + iMin + sUnit;
+				return ((iMax - iMin) / (iDiscCount - 1)) * (iDisc - 1) + iMin + sUnit;
 			},
 
 			discType(iDisc) {
@@ -160,7 +160,7 @@ sap.ui.define(
 			},
 
 			discCountIcon(iDiscCount, aRecords) {
-				const bCompleted = aRecords.some(oRecord => oRecord.DiscCount === iDiscCount);
+				const bCompleted = aRecords.some((oRecord) => oRecord.DiscCount === iDiscCount);
 				return bCompleted ? 'sap-icon://accept' : '';
 			}
 		};

@@ -1,10 +1,5 @@
 sap.ui.define(
-	[
-		'sap/ui/model/json/JSONModel',
-		'sap/ui/Device',
-		'../util/themeHelper',
-		'../util/languageHelper'
-	],
+	['sap/ui/model/json/JSONModel', 'sap/ui/Device', '../util/themeHelper', '../util/languageHelper'],
 	(JSONModel, Device, themeHelper, languageHelper) => {
 		'use strict';
 
