@@ -57,13 +57,18 @@ sap.ui.define(
 			onPressOpenRecordsDialog() { },
 
 			onPressMoveDiscByBox(oEvent) {
-				let aPeg = this.getObjectByEvent(oEvent);
+				let aTargetPeg = this.getObjectByEvent(oEvent);
 				const aSelectedPeg = this.getModel('view').getProperty('/selectedPeg');
-				if (aPeg === aSelectedPeg) {
-					aPeg = null;
+				if (aSelectedPeg && aSelectedPeg !== aTargetPeg) {
+					this.tryMovingDisc(aSelectedPeg, aTargetPeg);
 				}
-				this.getModel('view').setProperty('/selectedPeg', aPeg);
+				if (aSelectedPeg) aTargetPeg = null;
+				this.getModel('view').setProperty('/selectedPeg', aTargetPeg);
+				this.removeFocus(oEvent.getSource());
+			},
 
+			removeFocus(oControl) {
+				oControl.getDomRef().blur();
 			},
 
 			onPressMoveDiscByButton(oEvent) {
@@ -76,8 +81,8 @@ sap.ui.define(
 			onPressFirePegPress(oEvent) {
 				const oDiscButton = oEvent.getSource();
 				const oPegListItem = oDiscButton.getParent().getParent();
-				this.getView().focus();
 				oPegListItem.firePress();
+				this.removeFocus(oDiscButton);
 			},
 
 			// Win Dialog

@@ -61,8 +61,8 @@
                     <HBox items="{/Pegs}" wrap="Wrap" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
                         <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
                             <!-- Peg -->
-                            <CustomListItem type="{= !${}.length ? 'Inactive' : 'Active'}" press="onPressMoveDiscByBox"
-                                selected="{= ${} === ${view>/selectedPeg} }">
+                            <CustomListItem type="{= !${}.length &amp;&amp; !${view>/selectedPeg} ? 'Inactive' : 'Active'}"
+                                press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoOutput">
                                 <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
                                     width="100%" height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
                                     <!-- Disc -->
