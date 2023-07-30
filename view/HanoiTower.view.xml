@@ -3,6 +3,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
+    core:require="{formatter: 'pharelyshau/model/formatter'}"
     xmlns:dnd="sap.ui.core.dnd">
 	<f:DynamicPage class="">
         <!-- HEADER -->
@@ -39,7 +40,7 @@
                                 </Label>
                                 <Select items="{/DiscCounts}" selectedKey="{path: '/DiscCount', type: 'sap.ui.model.type.Integer'}"
                                     change="onChangeDiscsCount" class="sapUiTinyMarginBegin" ariaLabelledBy="lblDiscs">
-                                    <core:ListItem text="{}" key="{}" icon="{parts: ['', '/Records'], formatter: '.formatter.discCountIcon'}"/>
+                                    <core:ListItem text="{}" key="{}" icon="{parts: ['', '/Records'], formatter: 'formatter.discCountIcon'}"/>
                                     <layoutData>
                                         <OverflowToolbarLayoutData priority="Low"/>
                                     </layoutData>
@@ -63,14 +64,14 @@
                             <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
                                 width="100%" height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
                                 <!-- Disc -->
-                                <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: '.formatter.discWidth'}"
-                                    text="{}" type="{path: '', formatter: '.formatter.discType'}" class="phButton phDiscButton"/>
+                                <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: 'formatter.discWidth'}"
+                                    text="{}" type="{path: '', formatter: 'formatter.discType'}" class="phButton phDiscButton"/>
                             </VBox>
                             <!-- Buttons -->
                             <VBox items="{path: '/Pegs', templateShareable: true}" class="sapUiSmallMarginTop">
                                 <Button press="onPressMoveDisc" text="to {= ${/Pegs}.indexOf(${}) + 1 }"
-                                    core:require="{format: 'pharelyshau/model/formatMoveButtonVisible'}"
-                                    visible="{path: '', formatter: 'format'}"/>
+                                    core:require="{moveButtonVisible: 'pharelyshau/model/formatMoveButtonVisible'}"
+                                    visible="{path: '', formatter: 'moveButtonVisible'}"/>
                             </VBox>
                             
                         </VBox>

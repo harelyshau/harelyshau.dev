@@ -1,13 +1,11 @@
 sap.ui.define([
     './BaseController',
     'sap/m/MessageToast',
-    '../model/models',
-    '../model/formatter'
-], (BaseController, MessageToast, models, formatter) => {
+    '../model/models'
+], (BaseController, MessageToast, models) => {
     'use strict';
 
     return BaseController.extend('pharelyshau.controller.HanotoiTower', {
-        formatter,
 
         onInit() {
             this.setModel(models.createHanoiTowerModel());
