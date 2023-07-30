@@ -13,12 +13,10 @@ sap.ui.define([
             this.setModel(models.createHanoiTowerModel());
             this.setModel(models.createHanoiTowerViewModel(), 'view');
             this.setupGame();
-            setTimeout(() => this.setDiscButtonMaxWidth());
+            this.setDiscButtonMaxWidth();
         },
 
-        onAfterRendering() {
-            // setTimeout(() => this.setDiscButtonMaxWidth());
-        },
+        // Responsive Sizes
 
         setPegBoxHeight() {
             this.getModel('view').setProperty('/pegBoxHeight', null);
@@ -30,28 +28,22 @@ sap.ui.define([
             });
         },
 
+        setDiscButtonMaxWidth() {
+            setTimeout(() => {
+                const oPegBox = this.getHtmlPegBox();
+                if (!oPegBox) return;
+                const iPegBoxWidth = oPegBox.clientWidth;
+                this.getModel('view').setProperty('/discButtonMaxWidth', iPegBoxWidth);
+            });
+        },
+
         getHtmlPegBox() {
             const aPegControls = this.getView().getControlsByFieldGroupId('pegs');
             const aPegBoxes = aPegControls.filter(oControl => oControl.hasStyleClass('phPegBox'));
             return aPegBoxes[0]?.getDomRef();
         },
 
-        setDiscButtonMaxWidth() {
-            const oPegBox = this.getHtmlPegBox();
-            if (!oPegBox) return;
-            const iPegBoxWidth = oPegBox.clientWidth;
-            this.getModel('view').setProperty('/discButtonMaxWidth', iPegBoxWidth);
-        },
-
-        setPegBoxesSize() {
-            const aPegBoxes = [...document.querySelectorAll('.phPegBox')];
-            const iMaxHeight = Math.max(...aPegBoxes.map(oBox => oBox.clientHeight));
-            const iMaxWidth = Math.max(...aPegBoxes.map(oBox => oBox.clientWidth));
-            aPegBoxes.forEach(oBox => {
-                oBox.style.height = `${iMaxHeight}px`;
-                oBox.style.width = `${iMaxWidth}px`;
-            });
-        },
+        // Playground Events
 
         onChangeDiscsCount() {
             this.setDiscCountToLocalStorage();
@@ -77,6 +69,12 @@ sap.ui.define([
             this.moveDisc(aCurrentPeg, aTargetPeg);
         },
 
+        // Wind Dialog
+
+        openWinDialog() {
+            this.openDialog('HanoiTower', 'WinDialog');
+        },
+
         onPressLevelUp() {
             let iDiscCount = this.getModel().getProperty('/DiscCount');
             this.getModel().setProperty('/DiscCount', ++iDiscCount);
@@ -98,15 +96,18 @@ sap.ui.define([
             aViewPegs.length = 0;
             aPegs.forEach(aDiscs => aViewPegs.push(aDiscs));
             this.getModel('view').refresh(true);
+            this.getModel().refresh();
             // console.log(this.getModel('view').getProperty('/pegs'))
             // console.log(this.getModel().getProperty('/Pegs'))
             // console.log(this.getModel().getProperty('/Pegs')[1] === this.getModel('view').getProperty('/pegs')[1])
         },
 
+        // Game Logic
+
         setupGame() {
             this.stopTimer();
             const iDiscCount = this.getModel().getProperty('/DiscCount');
-            const iPegCount = this.getModel().getProperty('/PegCount');
+            const iPegCount = 3;
             const aPegs = [[]];
             for (let i = 1; i <= iDiscCount; i++) {
                 aPegs[0].push(i);
@@ -162,10 +163,6 @@ sap.ui.define([
             if (oResult.Moves < oRecord?.Moves) oRecord.Moves = oResult.Moves;
             this.getModel().refresh();
             localStorage.setItem('records', JSON.stringify(aRecords));
-        },
-
-        openWinDialog() {
-            this.openDialog('HanoiTower', 'WinDialog');
         },
 
         startTimer() {

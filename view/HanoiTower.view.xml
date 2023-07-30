@@ -71,6 +71,7 @@
                                 <Button visible="{parts: ['view>', ''], formatter: '.formatter.test'}" press="onPressMoveDisc"
                                     text="to {= ${view>/pegs}.indexOf(${view>}) + 1 }"/>
                             </VBox>
+                            
                         </VBox>
                     </HBox>
                     <Toolbar style="Clear">
