@@ -61,15 +61,22 @@
                     <HBox items="{/Pegs}" wrap="Wrap" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
                         <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
                             <!-- Peg -->
-                            <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
-                                width="100%" height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
-                                <!-- Disc -->
-                                <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: 'formatter.discWidth'}"
-                                    text="{}" type="{path: '', formatter: 'formatter.discType'}" class="phButton phDiscButton"/>
-                            </VBox>
+                            <CustomListItem type="{= !${}.length ? 'Inactive' : 'Active'}" press="onPressMoveDiscByBox"
+                                selected="{= ${} === ${view>/selectedPeg} }">
+                                <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
+                                    width="100%" height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
+                                    <!-- Disc -->
+                                    <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: 'formatter.discWidth'}"
+                                        text="{}" type="{path: '', formatter: 'formatter.discType'}"
+                                        press="onPressFirePegPress" class="phButton phDiscButton"/>
+                                </VBox>
+                                <layoutData>
+                                    <FlexItemData minWidth="100%" />
+                                </layoutData>
+                            </CustomListItem>
                             <!-- Buttons -->
                             <VBox items="{path: '/Pegs', templateShareable: true}" class="sapUiSmallMarginTop">
-                                <Button press="onPressMoveDisc" text="to {= ${/Pegs}.indexOf(${}) + 1 }"
+                                <Button press="onPressMoveDiscByButton" text="to {= ${/Pegs}.indexOf(${}) + 1 }"
                                     core:require="{moveButtonVisible: 'pharelyshau/model/formatMoveButtonVisible'}"
                                     visible="{path: '', formatter: 'moveButtonVisible'}"/>
                             </VBox>

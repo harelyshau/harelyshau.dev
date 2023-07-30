@@ -54,13 +54,30 @@ sap.ui.define(
 				this.setupGame();
 			},
 
-			onPressOpenRecordsDialog() {},
+			onPressOpenRecordsDialog() { },
 
-			onPressMoveDisc(oEvent) {
+			onPressMoveDiscByBox(oEvent) {
+				let aPeg = this.getObjectByEvent(oEvent);
+				const aSelectedPeg = this.getModel('view').getProperty('/selectedPeg');
+				if (aPeg === aSelectedPeg) {
+					aPeg = null;
+				}
+				this.getModel('view').setProperty('/selectedPeg', aPeg);
+
+			},
+
+			onPressMoveDiscByButton(oEvent) {
 				const oParentControl = oEvent.getSource().getParent();
 				const aCurrentPeg = this.getObjectByControl(oParentControl);
 				const aTargetPeg = this.getObjectByEvent(oEvent);
-				this.moveDisc(aCurrentPeg, aTargetPeg);
+				this.tryMovingDisc(aCurrentPeg, aTargetPeg);
+			},
+
+			onPressFirePegPress(oEvent) {
+				const oDiscButton = oEvent.getSource();
+				const oPegListItem = oDiscButton.getParent().getParent();
+				this.getView().focus();
+				oPegListItem.firePress();
 			},
 
 			// Win Dialog
@@ -113,18 +130,22 @@ sap.ui.define(
 				return aDiscs;
 			},
 
-			moveDisc(aCurrentPeg, aTargetPeg) {
+			tryMovingDisc(aCurrentPeg, aTargetPeg) {
 				const oDisc = aCurrentPeg[0];
 				if (oDisc > aTargetPeg[0] || !aCurrentPeg.length) {
 					MessageToast.show('test');
 					return;
 				}
 				this.startTimer();
-				aCurrentPeg.shift();
-				aTargetPeg.unshift(oDisc);
+				this.moveDisc(aCurrentPeg, aTargetPeg);
 				this.increaseMoves();
-				this.getModel().refresh();
 				this.checkGameWin(aTargetPeg);
+			},
+
+			moveDisc(aCurrentPeg, aTargetPeg) {
+				aTargetPeg.unshift(aCurrentPeg[0]);
+				aCurrentPeg.shift();
+				this.getModel().refresh(true);
 			},
 
 			checkGameWin(aTargetPeg) {
@@ -159,7 +180,7 @@ sap.ui.define(
 
 			startTimer() {
 				let iTime = this.getModel().getProperty('/Time');
-				if (iTime) return;
+				if (this.timerId) return;
 				this.timerId = setInterval(() => {
 					this.getModel().setProperty('/Time', ++iTime);
 				}, 1000);
