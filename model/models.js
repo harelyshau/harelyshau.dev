@@ -65,7 +65,10 @@ sap.ui.define(
 			},
 
 			createHanoiTowerViewModel(aPegs) {
-				return new JSONModel({ pegs: [] });
+				const oData = {
+					showMoveButtons: JSON.parse(localStorage.getItem('moveButtons')) ?? false
+				};
+				return new JSONModel(oData);
 			}
 		};
 	}

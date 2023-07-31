@@ -75,19 +75,18 @@
                                 </layoutData>
                             </CustomListItem>
                             <!-- Buttons -->
-                            <VBox items="{path: '/Pegs', templateShareable: true}" class="sapUiSmallMarginTop">
+                            <VBox visible="{view>/showMoveButtons}" items="{path: '/Pegs', templateShareable: true}"
+                                class="sapUiSmallMarginTop">
                                 <Button press="onPressMoveDiscByButton" text="to {= ${/Pegs}.indexOf(${}) + 1 }"
                                     core:require="{moveButtonVisible: 'pharelyshau/model/formatMoveButtonVisible'}"
                                     visible="{path: '', formatter: 'moveButtonVisible'}"/>
                             </VBox>
-                            
                         </VBox>
                     </HBox>
                     <Toolbar style="Clear">
-                        <HBox visible="false">
-                            <Label text="Show buttons" wrapping="true"/>
-                            <Switch state="true" customTextOn=" " customTextOff=" "/>
-                        </HBox>
+                        <Label text="Show Buttons" wrapping="true"/>
+                        <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "
+                            change="onChangeMoveButtonsSwith"/>
                         <ToolbarSpacer/>
                         <Label wrapping="true" text="Min moves to win: {= Math.pow(2, ${/DiscCount}) - 1 }"/>
                     </Toolbar>

@@ -56,6 +56,10 @@ sap.ui.define(
 
 			onPressOpenRecordsDialog() { },
 
+			onChangeMoveButtonsSwith(oEvent) {
+				localStorage.setItem('moveButtons', oEvent.getParameter('state'));
+			},
+
 			onPressMoveDiscByBox(oEvent) {
 				let aTargetPeg = this.getObjectByEvent(oEvent);
 				const aSelectedPeg = this.getModel('view').getProperty('/selectedPeg');
