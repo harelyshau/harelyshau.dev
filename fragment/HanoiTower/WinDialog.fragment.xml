@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog title="You dealt with Tower of {/DiscCount} Disks" state="Success" afterClose="onAfterCloseWinDialog">
+        <VBox class="sapUiSmallMargin">
+            <!-- Result -->
+            <VBox>
+                <Label text="Your Result:"/>
+                <HBox>
+                    <!-- Time -->
+                    <HBox>
+                        <core:Icon src="sap-icon://fob-watch"/>
+                        <Text text="Time: {/Time} sec" class="sapUiTinyMarginBegin"/>
+                    </HBox>
+                    <!-- Moves -->
+                    <HBox class="sapUiSmallMarginBegin">
+                        <core:Icon src="sap-icon://step"/>
+                        <Text text="Moves: {/Moves}" class="sapUiTinyMarginBegin"/>
+                    </HBox>
+                </HBox>
+            </VBox>
+            <Label text="New Record:" class="sapUiSmallMarginTop"/>
+            <Text text="Congrats! You set a New Record for Time and Moves."/>
+            <Button text="See Your Records" icon="sap-icon://competitor" press="onPressOpenRecordsDialog"/>
+        </VBox>
+        <beginButton>
+            <Button text="Level UP" press="onPressLevelUp" icon="sap-icon://collapse-group" type="Emphasized"/>
+        </beginButton>
+        <endButton>
+            <Button text="Restart" icon="sap-icon://restart" press="onPressCloseWinDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

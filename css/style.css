@@ -49,6 +49,50 @@
 	}
 }
 
+/* HANOI TOWER */
+
+/* Disc Button */
+.phDiscButton span .sapUiIcon {
+	/* Remove icon from sap types buttons */
+	display: none;
+}
+.phDiscButton {
+	min-width: 0 !important;
+}
+.phDiscButton span {
+	min-width: 0 !important;
+}
+
+/* Pegs */
+.phPegBox::before,
+.phPegBox::after {
+	content: '';
+	position: absolute;
+	background-color: #4db1ff;
+	bottom: 0;
+}
+/* Vertical Line */
+.phPegBox::before {
+	top: 0;
+	left: 50%;
+	width: 0.6rem;
+	transform: translateX(-50%);
+	border-radius: 0.25rem;
+}
+/* Horizontal Line */
+.phPegBox::after {
+	left: 0;
+	right: 0;
+	height: 0.6rem;
+	transform: translateY(50%);
+}
+
+/* COMMON */
+
+.phNoFocus:focus {
+	outline: none;
+}
+
 .phNoMargin {
 	margin: 0 !important;
 }

@@ -1,0 +1,147 @@
+<mvc:View xmlns:core="sap.ui.core"
+    controllerName="pharelyshau.controller.HanoiTower"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+    core:require="{formatter: 'pharelyshau/model/formatter'}"
+    xmlns:dnd="sap.ui.core.dnd">
+	<f:DynamicPage class="">
+        <!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Hanoi Tower" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+                    <Label text="Try yourself in this Pyramid Puzzle" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="Try yourself in this Pyramid Puzzle" wrapping="true"/>
+                </f:expandedContent>
+				<f:actions>
+					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
+						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
+                            ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
+                <Panel id="panel" height="100%" class="sapUiMediumMarginBottom">
+                    <!-- HEADER TOOLBAR -->
+                    <headerToolbar>
+                        <OverflowToolbar height="3rem">
+                            <!-- Disc Count -->
+                            <Label id="lblDiscCount" text="Discs:">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
+                                </layoutData>
+                            </Label>
+                            <Select items="{/DiscCounts}" selectedKey="{path: '/DiscCount', type: 'sap.ui.model.type.Integer'}"
+                                change="onChangeDiscsCount" ariaLabelledBy="lblDiscCount">
+                                <core:ListItem text="{}" key="{}" icon="{parts: ['', '/Records'], formatter: 'formatter.discCountIcon'}"/>
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
+                                </layoutData>
+                            </Select>
+                            <ToolbarSpacer/>
+                            <!-- Time -->
+                            <core:Icon src="sap-icon://fob-watch"/>
+                            <Title text="{= !${device>/system/phone} ? 'Time' : '' }: {/Time} sec" wrapping="true"/>
+                            <!-- Moves -->
+                            <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
+                            <Title text="{= !${device>/system/phone} ? 'Moves' : '' }: {/Moves}" />
+                            <ToolbarSpacer/>
+                            <!-- Buttons -->
+                            <Button text="Restart" press="onPressRestartGame" icon="sap-icon://restart"/>
+                            <Button text="Records" press="onPressOpenRecordsDialog" icon="sap-icon://competitor"/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <!-- PLAYGROUND -->
+                    <HBox items="{/Pegs}" wrap="Wrap" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
+                        <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
+                            <!-- Peg -->
+                            <Title visible="{view>/showMoveButtons}" titleStyle="H6"
+                                text="Peg {= ${/Pegs}.indexOf(${}) + 1 }" class="sapUiSmallMarginBottom"/>
+                            <CustomListItem type="{= !${}.length &amp;&amp; !${view>/selectedPeg} ? 'Inactive' : 'Active'}"
+                                press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus">
+                                <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
+                                    width="100%" height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
+                                    <!-- Disc -->
+                                    <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: 'formatter.discWidth'}"
+                                        text="{}" type="{path: '', formatter: 'formatter.discType'}"
+                                        press="onPressFirePegPress" class="phButton phDiscButton"/>
+                                </VBox>
+                                <layoutData>
+                                    <FlexItemData minWidth="100%" maxWidth="100%"/>
+                                </layoutData>
+                            </CustomListItem>
+                            <!-- Buttons -->
+                            <VBox visible="{view>/showMoveButtons}" items="{path: '/Pegs', templateShareable: true}"
+                                class="sapUiSmallMarginTop">
+                                <Button press="onPressMoveDiscByButton" text="to {= ${/Pegs}.indexOf(${}) + 1 }"
+                                    core:require="{moveButtonVisible: 'pharelyshau/model/formatMoveButtonVisible'}"
+                                    visible="{path: '', formatter: 'moveButtonVisible'}"/>
+                            </VBox>
+                        </VBox>
+                    </HBox>
+                    <!-- Footer Toolbar -->
+                    <HBox alignItems="Center" justifyContent="SpaceBetween" wrap="Wrap" class="sapUiTinyMarginBeginEnd">
+                        <HBox alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
+                            <Label text="Show Buttons:" wrapping="true" width="auto"/>
+                            <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "
+                                change="onChangeMoveButtonsSwith"/>
+                        </HBox>
+                        <Label wrapping="true" text="Min moves to win: {= Math.pow(2, ${/DiscCount}) - 1 }"/>
+                    </HBox>
+                </Panel>
+                <!-- INSTRUCTIONS -->
+                <Panel>
+                    <headerToolbar>
+                        <Toolbar height="3rem">
+                            <ToolbarSpacer/>
+                            <core:Icon src="sap-icon://activity-items"/>
+                            <Title text="Instructions"/>
+                            <ToolbarSpacer/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <VBox class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+                        <!-- Description -->
+                        <VBox>
+                            <HBox>
+                                <core:Icon src="sap-icon://puzzle" class="sapUiTinyMarginEnd"/>
+                                <Title titleStyle="H6" text="Game Description:" wrapping="true"/>
+                            </HBox>
+                            <Text text="The Tower of Hanoi (also called The problem of Benares Temple or Tower of Brahma or Lucas' Tower and sometimes pluralized as Towers, or simply pyramid puzzle) is a mathematical game or puzzle consisting of three pegs and a number of disks of various diameters, which can slide onto any rod. The puzzle begins with the disks stacked on one rod in order of decreasing size, the smallest at the top, thus approximating a conical shape."/>
+                        </VBox>
+                        <!-- Objective -->
+                        <VBox class="sapUiSmallMarginTop">
+                            <HBox>
+                                <core:Icon src="sap-icon://target-group" class="sapUiTinyMarginEnd"/>
+                                <Title titleStyle="H6" text="Objective:" wrapping="true"/>
+                            </HBox>
+                            <Text text="The objective of the puzzle is to move the entire stack to the last rod."/>
+                        </VBox>
+                        <!-- Rules -->
+                        <VBox class="sapUiSmallMarginTop">
+                            <HBox>
+                                <core:Icon src="sap-icon://activities" class="sapUiTinyMarginEnd"/>
+                                <Title titleStyle="H6" text="Rules:" wrapping="true"/>
+                            </HBox>
+                            <Text text="1) Only one disk may be moved at a time."/>
+                            <Text text="2) No disk may be placed on top of a disk that is smaller than it."/>
+                        </VBox>
+                        <!-- Example -->
+                        <VBox class="sapUiSmallMarginTop">
+                            <HBox>
+                                <core:Icon src="sap-icon://example"/>
+                                <Title titleStyle="H6" text="Example:" class="sapUiTinyMarginBegin"/>
+                            </HBox>
+                            <Image width="100%" src="https://media.geeksforgeeks.org/wp-content/uploads/tower-of-hanoi.png"/>
+                        </VBox>
+                    </VBox>
+                </Panel>
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

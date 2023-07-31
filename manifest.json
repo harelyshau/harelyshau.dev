@@ -80,6 +80,11 @@
 					"pattern": "calendar",
 					"name": "calendar",
 					"target": "calendar"
+				},
+				{
+					"pattern": "hanoitower",
+					"name": "hanoitower",
+					"target": "hanoitower"
 				}
 			],
 			"targets": {
@@ -94,6 +99,10 @@
 				"calendar": {
 					"id": "calendar",
 					"name": "Calendar"
+				},
+				"hanoitower": {
+					"id": "hanoitower",
+					"name": "HanoiTower"
 				},
 				"notFound": {
 					"id": "notFound",

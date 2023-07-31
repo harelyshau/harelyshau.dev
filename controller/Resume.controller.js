@@ -17,15 +17,10 @@ sap.ui.define(
 				sap.m.URLHelper.redirect(sFileURL, true);
 			},
 
-			async onPressOpenRelocationPopover(oEvent) {
-				await this.loadAndAssignFragment('Resume', 'RelocationPopover');
+			onPressOpenRelocationPopover(oEvent) {
+				const oControl = oEvent.getSource();
 				const sPath = '/RelocationPreference';
-				if (!this.isDialogOpen(this.oRelocationPopover, sPath)) {
-					this.oRelocationPopover.bindElement(sPath);
-					this.oRelocationPopover.openBy(oEvent.getSource());
-				} else {
-					this.oRelocationPopover.close();
-				}
+				this.openPopover('Resume', 'RelocationPopover', oControl, sPath);
 			},
 
 			onPressCloseRelocationPopover() {
@@ -33,15 +28,10 @@ sap.ui.define(
 			},
 
 			// Page Content
-			async onPressOpenCompanyPopover(oEvent) {
-				await this.loadAndAssignFragment('Resume', 'CompanyPopover');
+			onPressOpenCompanyPopover(oEvent) {
+				const oControl = oEvent.getSource();
 				const sPath = this.getPathByEvent(oEvent) + '/Company';
-				if (!this.isDialogOpen(this.oCompanyPopover, sPath)) {
-					this.oCompanyPopover.bindElement(sPath);
-					this.oCompanyPopover.openBy(oEvent.getSource());
-				} else {
-					this.oCompanyPopover.close();
-				}
+				this.openPopover('Resume', 'CompanyPopover', oControl, sPath);
 			},
 
 			onPressCloseCompanyPopover(oEvent) {

@@ -143,6 +143,25 @@ sap.ui.define(
 						conferenceSolutionKey: { type: 'hangoutsMeet' }
 					}
 				};
+			},
+
+			//////////////////////////////////
+			/////////// HANOI TOWER //////////
+			//////////////////////////////////
+
+			discWidth(iDisc, iDiscCount, iMaxWidth) {
+				const [iMin, iMax, sUnit] = iMaxWidth ? [28, iMaxWidth, 'px'] : [30, 100, '%'];
+				return ((iMax - iMin) / (iDiscCount - 1)) * (iDisc - 1) + iMin + sUnit;
+			},
+
+			discType(iDisc) {
+				const aTypes = ['Negative', 'Critical', 'Success'];
+				return aTypes[iDisc % aTypes.length];
+			},
+
+			discCountIcon(iDiscCount, aRecords) {
+				const bCompleted = aRecords.some((oRecord) => oRecord.DiscCount === iDiscCount);
+				return bCompleted ? 'sap-icon://accept' : '';
 			}
 		};
 	}
