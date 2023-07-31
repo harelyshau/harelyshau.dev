@@ -88,7 +88,7 @@
                         </VBox>
                     </HBox>
                     <!-- Footer Toolbar -->
-                    <HBox alignItems="Center" justifyContent="SpaceBetween" wrap="Wrap" class="sapUiTinyMarginBeginEnd">
+                    <HBox renderType="Bare" alignItems="Center" justifyContent="SpaceBetween" wrap="Wrap" class="sapUiTinyMarginBeginEnd">
                         <HBox alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
                             <Label text="Show Buttons:" wrapping="true" width="auto"/>
                             <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "
