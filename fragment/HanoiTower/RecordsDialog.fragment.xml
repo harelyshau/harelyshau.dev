@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog title="Your Records" icon="sap-icon://competitor" afterClose="onAfterCloseRecordsDialog">
+        <List items="{/Records}">
+            <CustomListItem class="phNoFocus">
+                <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
+                    <VBox class="sapUiSmallMarginEnd">
+                        <Title text="Tower with {DiscCount} Discs" titleStyle="H6"/>
+                        <HBox>
+                            <core:Icon src="sap-icon://fob-watch"/>
+                            <Text text="Time: {Time}" class="sapUiTinyMarginBegin"/>
+                            <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
+                            <Text text="Moves: {Moves}" class="sapUiTinyMarginBegin"/>
+                        </HBox>
+                    </VBox>
+                    <Button icon="sap-icon://activate" tooltip="Try to Improve" press="onPressImrpoveResult"/>
+                </HBox>
+            </CustomListItem>
+        </List>
+        <endButton>
+            <Button text="Close" press="onPressCloseRecordsDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -19,7 +19,7 @@
             </VBox>
             <Label text="New Record:" class="sapUiSmallMarginTop"/>
             <Text text="Congrats! You set a New Record for Time and Moves."/>
-            <Button text="See Your Records" icon="sap-icon://competitor"/>
+            <Button text="See Your Records" icon="sap-icon://competitor" press="onPressOpenRecordsDialog"/>
         </VBox>
         <beginButton>
             <Button text="Level UP" press="onPressLevelUp" icon="sap-icon://collapse-group" type="Emphasized"/>

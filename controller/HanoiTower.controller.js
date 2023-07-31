@@ -1,6 +1,6 @@
 sap.ui.define(
-	['./BaseController', 'sap/m/MessageToast', '../model/models'],
-	(BaseController, MessageToast, models) => {
+	['./BaseController', 'sap/m/MessageToast', 'sap/m/InstanceManager', '../model/models'],
+	(BaseController, MessageToast, InstanceManager, models) => {
 		'use strict';
 
 		return BaseController.extend('pharelyshau.controller.HanotoiTower', {
@@ -54,7 +54,10 @@ sap.ui.define(
 				this.setupGame();
 			},
 
-			onPressOpenRecordsDialog() { },
+			onPressOpenRecordsDialog() {
+				this.stopTimer();
+				this.openRecordsDialog();
+			},
 
 			onChangeMoveButtonsSwith(oEvent) {
 				localStorage.setItem('moveButtons', oEvent.getParameter('state'));
@@ -89,6 +92,27 @@ sap.ui.define(
 				this.removeFocus(oDiscButton);
 			},
 
+			// Records Dialog
+
+			openRecordsDialog() {
+				this.openDialog('HanoiTower', 'RecordsDialog');
+			},
+
+			onPressImrpoveResult(oEvent) {
+				const iDiscCount = this.getObjectByEvent(oEvent).DiscCount;
+				this.getModel().setProperty('/DiscCount', iDiscCount);
+				this.setupGame();
+				InstanceManager.closeAllDialogs();
+			},
+
+			onPressCloseRecordsDialog() {
+				this.oRecordsDialog.close();
+			},
+
+			onAfterCloseRecordsDialog() {
+				if (!this.isGameFinished()) this.startTimer();
+			},
+
 			// Win Dialog
 
 			openWinDialog() {
@@ -111,6 +135,12 @@ sap.ui.define(
 			},
 
 			// Game Logic
+
+			isGameFinished() {
+				const bFinished = this.oWinDialog?.isOpen() ?? false;
+				const bStarted = this.getModel().getProperty('/Moves') > 0;
+				return bFinished || !bStarted;
+			},
 
 			setupGame() {
 				this.stopTimer();

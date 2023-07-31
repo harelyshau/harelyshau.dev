@@ -62,7 +62,7 @@
                         <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
                             <!-- Peg -->
                             <CustomListItem type="{= !${}.length &amp;&amp; !${view>/selectedPeg} ? 'Inactive' : 'Active'}"
-                                press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoOutput">
+                                press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus">
                                 <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
                                     width="100%" height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
                                     <!-- Disc -->
@@ -71,7 +71,7 @@
                                         press="onPressFirePegPress" class="phButton phDiscButton"/>
                                 </VBox>
                                 <layoutData>
-                                    <FlexItemData minWidth="100%" />
+                                    <FlexItemData minWidth="100%" maxWidth="100%"/>
                                 </layoutData>
                             </CustomListItem>
                             <!-- Buttons -->
@@ -84,7 +84,7 @@
                         </VBox>
                     </HBox>
                     <Toolbar style="Clear">
-                        <Label text="Show Buttons" wrapping="true"/>
+                        <Label text="Show Buttons" wrapping="true" width="auto"/>
                         <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "
                             change="onChangeMoveButtonsSwith"/>
                         <ToolbarSpacer/>

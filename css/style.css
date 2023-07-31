@@ -89,6 +89,10 @@
 
 /* COMMON */
 
+.phNoFocus:focus {
+	outline: none;
+}
+
 .phNoMargin {
 	margin: 0 !important;
 }
