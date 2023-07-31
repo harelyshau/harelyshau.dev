@@ -47,7 +47,9 @@
                             <ToolbarSpacer/>
                             <!-- Time -->
                             <core:Icon src="sap-icon://fob-watch"/>
-                            <Title text="{= !${device>/system/phone} ? 'Time' : '' }: {/Time} sec" wrapping="true"/>
+                            <VBox renderType="Bare">
+                                <Title text="{= !${device>/system/phone} ? 'Time' : '' }: {/Time} sec"/>
+                            </VBox>
                             <!-- Moves -->
                             <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
                             <Title text="{= !${device>/system/phone} ? 'Moves' : '' }: {/Moves}" />
