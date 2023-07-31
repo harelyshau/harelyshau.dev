@@ -48,11 +48,12 @@
                             <!-- Time -->
                             <core:Icon src="sap-icon://fob-watch"/>
                             <VBox renderType="Bare">
-                                <Title text="{= !${device>/system/phone} ? 'Time' : '' }: {/Time} sec"/>
+                                <Title text="{= !${device>/system/phone} ? 'Time:' : '' }
+                                    {path: '/Time', formatter: 'formatter.timeMinSec'}"/>
                             </VBox>
                             <!-- Moves -->
                             <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
-                            <Title text="{= !${device>/system/phone} ? 'Moves' : '' }: {/Moves}" />
+                            <Title text="{= !${device>/system/phone} ? 'Moves:' : '' } {/Moves}" />
                             <ToolbarSpacer/>
                             <!-- Buttons -->
                             <Button text="Restart" press="onPressRestartGame" icon="sap-icon://restart"/>
@@ -64,7 +65,7 @@
                         <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
                             <!-- Peg -->
                             <Title visible="{view>/showMoveButtons}" titleStyle="H6"
-                                text="Peg {= ${/Pegs}.indexOf(${}) + 1 }" class="sapUiSmallMarginBottom"/>
+                                text="Peg {= String.fromCharCode(${/Pegs}.indexOf(${}) + 65) }" class="sapUiSmallMarginBottom"/>
                             <CustomListItem type="{= !${}.length &amp;&amp; !${view>/selectedPeg} ? 'Inactive' : 'Active'}"
                                 press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus">
                                 <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
@@ -81,9 +82,9 @@
                             <!-- Buttons -->
                             <VBox visible="{view>/showMoveButtons}" items="{path: '/Pegs', templateShareable: true}"
                                 class="sapUiSmallMarginTop">
-                                <Button press="onPressMoveDiscByButton" text="to {= ${/Pegs}.indexOf(${}) + 1 }"
+                                <Button text="to {= String.fromCharCode(${/Pegs}.indexOf(${}) + 65) }"
                                     core:require="{moveButtonVisible: 'pharelyshau/model/formatMoveButtonVisible'}"
-                                    visible="{path: '', formatter: 'moveButtonVisible'}"/>
+                                    press="onPressMoveDiscByButton" visible="{path: '', formatter: 'moveButtonVisible'}"/>
                             </VBox>
                         </VBox>
                     </HBox>

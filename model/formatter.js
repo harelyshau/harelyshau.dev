@@ -149,6 +149,14 @@ sap.ui.define(
 			/////////// HANOI TOWER //////////
 			//////////////////////////////////
 
+			timeMinSec(iSeconds) {
+				const iMinutes = Math.floor(iSeconds / 60);
+				iSeconds = iSeconds % 60;
+				const sMinutes = iMinutes ? iMinutes + 'm ' : '';
+				const sSeconds = iMinutes ? iSeconds + 's' : iSeconds + ' sec';
+				return sMinutes + sSeconds;
+			},
+
 			discWidth(iDisc, iDiscCount, iMaxWidth) {
 				const [iMin, iMax, sUnit] = iMaxWidth ? [28, iMaxWidth, 'px'] : [30, 100, '%'];
 				return ((iMax - iMin) / (iDiscCount - 1)) * (iDisc - 1) + iMin + sUnit;

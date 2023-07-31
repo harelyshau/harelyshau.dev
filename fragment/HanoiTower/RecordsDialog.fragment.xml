@@ -1,13 +1,16 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    core:require="{formatter: 'pharelyshau/model/formatter'}">
     <Dialog title="Your Records" icon="sap-icon://competitor" afterClose="onAfterCloseRecordsDialog">
         <List items="{/Records}">
             <CustomListItem class="phNoFocus">
                 <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
                     <VBox class="sapUiSmallMarginEnd">
                         <Title text="Tower with {DiscCount} Discs" titleStyle="H6"/>
-                        <HBox>
+                        <HBox renderType="Bare" alignItems="Center">
                             <core:Icon src="sap-icon://fob-watch"/>
-                            <Text text="Time: {Time}" class="sapUiTinyMarginBegin"/>
+                            <Text text="Time: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
                             <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
                             <Text text="Moves: {Moves}" class="sapUiTinyMarginBegin"/>
                         </HBox>
