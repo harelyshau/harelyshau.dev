@@ -31,26 +31,26 @@
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>
                         <OverflowToolbar height="3rem">
-                            <!-- Disc Counts -->
-                            <!-- <HBox alignItems="Center" renderType="Bare"> -->
-                                <Label id="lblDiscs" text="Discs:">
-                                    <layoutData>
-                                        <OverflowToolbarLayoutData priority="Low"/>
-                                    </layoutData>
-                                </Label>
-                                <Select items="{/DiscCounts}" selectedKey="{path: '/DiscCount', type: 'sap.ui.model.type.Integer'}"
-                                    change="onChangeDiscsCount" class="sapUiTinyMarginBegin" ariaLabelledBy="lblDiscs">
-                                    <core:ListItem text="{}" key="{}" icon="{parts: ['', '/Records'], formatter: 'formatter.discCountIcon'}"/>
-                                    <layoutData>
-                                        <OverflowToolbarLayoutData priority="Low"/>
-                                    </layoutData>
-                                </Select>
+                            <!-- Disc Count -->
+                            <Label id="lblDiscCount" text="Discs:">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
+                                </layoutData>
+                            </Label>
+                            <Select items="{/DiscCounts}" selectedKey="{path: '/DiscCount', type: 'sap.ui.model.type.Integer'}"
+                                change="onChangeDiscsCount" ariaLabelledBy="lblDiscCount">
+                                <core:ListItem text="{}" key="{}" icon="{parts: ['', '/Records'], formatter: 'formatter.discCountIcon'}"/>
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
+                                </layoutData>
+                            </Select>
                             <ToolbarSpacer/>
-                            <!-- Time and Moves -->
+                            <!-- Time -->
                             <core:Icon src="sap-icon://fob-watch"/>
-                            <Title text="Time: {/Time} sec"/>
+                            <Title text="{= !${device>/system/phone} ? 'Time' : '' }: {/Time} sec" wrapping="true"/>
+                            <!-- Moves -->
                             <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
-                            <Title text="Moves: {/Moves}"/>
+                            <Title text="{= !${device>/system/phone} ? 'Moves' : '' }: {/Moves}" />
                             <ToolbarSpacer/>
                             <!-- Buttons -->
                             <Button text="Restart" press="onPressRestartGame" icon="sap-icon://restart"/>
@@ -85,13 +85,15 @@
                             </VBox>
                         </VBox>
                     </HBox>
-                    <Toolbar style="Clear">
-                        <Label text="Show Buttons" wrapping="true" width="auto"/>
-                        <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "
-                            change="onChangeMoveButtonsSwith"/>
-                        <ToolbarSpacer/>
+                    <!-- Footer Toolbar -->
+                    <HBox alignItems="Center" justifyContent="SpaceBetween" wrap="Wrap" class="sapUiTinyMarginBeginEnd">
+                        <HBox alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
+                            <Label text="Show Buttons:" wrapping="true" width="auto"/>
+                            <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "
+                                change="onChangeMoveButtonsSwith"/>
+                        </HBox>
                         <Label wrapping="true" text="Min moves to win: {= Math.pow(2, ${/DiscCount}) - 1 }"/>
-                    </Toolbar>
+                    </HBox>
                 </Panel>
                 <!-- INSTRUCTIONS -->
                 <Panel>
@@ -107,24 +109,24 @@
                         <!-- Description -->
                         <VBox>
                             <HBox>
-                                <core:Icon src="sap-icon://puzzle"/>
-                                <Title titleStyle="H6" text="Game Description:" class="sapUiTinyMarginBegin"/>
+                                <core:Icon src="sap-icon://puzzle" class="sapUiTinyMarginEnd"/>
+                                <Title titleStyle="H6" text="Game Description:" wrapping="true"/>
                             </HBox>
                             <Text text="The Tower of Hanoi (also called The problem of Benares Temple or Tower of Brahma or Lucas' Tower and sometimes pluralized as Towers, or simply pyramid puzzle) is a mathematical game or puzzle consisting of three pegs and a number of disks of various diameters, which can slide onto any rod. The puzzle begins with the disks stacked on one rod in order of decreasing size, the smallest at the top, thus approximating a conical shape."/>
                         </VBox>
                         <!-- Objective -->
                         <VBox class="sapUiSmallMarginTop">
                             <HBox>
-                                <core:Icon src="sap-icon://target-group"/>
-                                <Title titleStyle="H6" text="Objective:" class="sapUiTinyMarginBegin"/>
+                                <core:Icon src="sap-icon://target-group" class="sapUiTinyMarginEnd"/>
+                                <Title titleStyle="H6" text="Objective:" wrapping="true"/>
                             </HBox>
                             <Text text="The objective of the puzzle is to move the entire stack to the last rod."/>
                         </VBox>
                         <!-- Rules -->
                         <VBox class="sapUiSmallMarginTop">
                             <HBox>
-                                <core:Icon src="sap-icon://activities"/>
-                                <Title titleStyle="H6" text="Rules:" class="sapUiTinyMarginBegin"/>
+                                <core:Icon src="sap-icon://activities" class="sapUiTinyMarginEnd"/>
+                                <Title titleStyle="H6" text="Rules:" wrapping="true"/>
                             </HBox>
                             <Text text="1) Only one disk may be moved at a time."/>
                             <Text text="2) No disk may be placed on top of a disk that is smaller than it."/>

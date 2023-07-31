@@ -26,9 +26,13 @@
 					<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 850}"
 						text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
 					<!-- All Devices -->
-					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
+					<OverflowToolbarButton text="{i18n>ttlMenu}" press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
 						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
-							? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
+							? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }">
+						<layoutData>
+                            <OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+                        </layoutData>
+					</OverflowToolbarButton>
 				</f:actions>
 			</f:DynamicPageTitle>
 		</f:title>
