@@ -13,10 +13,10 @@
 					<Title text="Hanoi Tower" wrapping="true"/>
 				</f:heading>
 				<f:snappedContent>
-                    <Label text="Let's play Hanoi Tower" wrapping="true"/>
+                    <Label text="Try yourself in this Pyramid Puzzle" wrapping="true"/>
                 </f:snappedContent>
                 <f:expandedContent>
-                    <Label text="Let's play Hanoi Tower" wrapping="true"/>
+                    <Label text="Try yourself in this Pyramid Puzzle" wrapping="true"/>
                 </f:expandedContent>
 				<f:actions>
 					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
@@ -26,7 +26,7 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<VBox class="phLimitedPageContent" alignItems="Center" renderType="Bare" >
+			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
                 <Panel id="panel" height="100%" class="sapUiMediumMarginBottom">
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>
@@ -61,6 +61,8 @@
                     <HBox items="{/Pegs}" wrap="Wrap" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
                         <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
                             <!-- Peg -->
+                            <Title visible="{view>/showMoveButtons}" titleStyle="H6"
+                                text="Peg {= ${/Pegs}.indexOf(${}) + 1 }" class="sapUiSmallMarginBottom"/>
                             <CustomListItem type="{= !${}.length &amp;&amp; !${view>/selectedPeg} ? 'Inactive' : 'Active'}"
                                 press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus">
                                 <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
@@ -101,8 +103,41 @@
                             <ToolbarSpacer/>
                         </Toolbar>
                     </headerToolbar>
-                    <Text text="The Tower of Hanoi (also called The problem of Benares Temple or Tower of Brahma or Lucas' Tower and sometimes pluralized as Towers, or simply pyramid puzzle) is a mathematical game or puzzle consisting of three rods and a number of disks of various diameters, which can slide onto any rod. The puzzle begins with the disks stacked on one rod in order of decreasing size, the smallest at the top, thus approximating a conical shape. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:"/>
-                    <Text text="1) Only one disk may be moved at a time. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod. No disk may be placed on top of a disk that is smaller than it."/>
+                    <VBox class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+                        <!-- Description -->
+                        <VBox>
+                            <HBox>
+                                <core:Icon src="sap-icon://puzzle"/>
+                                <Title titleStyle="H6" text="Game Description:" class="sapUiTinyMarginBegin"/>
+                            </HBox>
+                            <Text text="The Tower of Hanoi (also called The problem of Benares Temple or Tower of Brahma or Lucas' Tower and sometimes pluralized as Towers, or simply pyramid puzzle) is a mathematical game or puzzle consisting of three pegs and a number of disks of various diameters, which can slide onto any rod. The puzzle begins with the disks stacked on one rod in order of decreasing size, the smallest at the top, thus approximating a conical shape."/>
+                        </VBox>
+                        <!-- Objective -->
+                        <VBox class="sapUiSmallMarginTop">
+                            <HBox>
+                                <core:Icon src="sap-icon://target-group"/>
+                                <Title titleStyle="H6" text="Objective:" class="sapUiTinyMarginBegin"/>
+                            </HBox>
+                            <Text text="The objective of the puzzle is to move the entire stack to the last rod."/>
+                        </VBox>
+                        <!-- Rules -->
+                        <VBox class="sapUiSmallMarginTop">
+                            <HBox>
+                                <core:Icon src="sap-icon://activities"/>
+                                <Title titleStyle="H6" text="Rules:" class="sapUiTinyMarginBegin"/>
+                            </HBox>
+                            <Text text="1) Only one disk may be moved at a time."/>
+                            <Text text="2) No disk may be placed on top of a disk that is smaller than it."/>
+                        </VBox>
+                        <!-- Example -->
+                        <VBox class="sapUiSmallMarginTop">
+                            <HBox>
+                                <core:Icon src="sap-icon://example"/>
+                                <Title titleStyle="H6" text="Example:" class="sapUiTinyMarginBegin"/>
+                            </HBox>
+                            <Image width="100%" src="https://media.geeksforgeeks.org/wp-content/uploads/tower-of-hanoi.png"/>
+                        </VBox>
+                    </VBox>
                 </Panel>
 			</VBox>
 		</f:content>

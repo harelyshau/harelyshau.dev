@@ -170,9 +170,8 @@ sap.ui.define(
 			},
 
 			tryMovingDisc(aCurrentPeg, aTargetPeg) {
-				const oDisc = aCurrentPeg[0];
-				if (oDisc > aTargetPeg[0] || !aCurrentPeg.length) {
-					MessageToast.show('test');
+				if (aCurrentPeg[0] > aTargetPeg[0] || !aCurrentPeg.length) {
+					MessageToast.show('This move is not possible');
 					return;
 				}
 				this.startTimer();
@@ -191,8 +190,8 @@ sap.ui.define(
 				const iDiscCount = this.getModel().getProperty('/DiscCount');
 				const aPegs = this.getModel().getProperty('/Pegs');
 				const bEnoughDisks = iDiscCount === aTargetPeg.length;
-				const bFirstPeg = aPegs.indexOf(aTargetPeg) === 0;
-				if (!bEnoughDisks || bFirstPeg) return;
+				const bLastPeg = aPegs.indexOf(aTargetPeg) === aPegs.length - 1;
+				if (!bEnoughDisks || !bLastPeg) return;
 				this.finishGame();
 			},
 
@@ -204,17 +203,25 @@ sap.ui.define(
 
 			setNewRecord() {
 				const aRecords = this.getModel().getProperty('/Records');
-				const oResult = {
+				const oResult = this.getCurrentResult();
+				const oRecord = aRecords.find((oRecord) => oRecord.DiscCount === oResult.DiscCount);
+				if (!oRecord) aRecords.push(oResult);
+				this.updateExistingRecord(oRecord, oResult);
+				localStorage.setItem('records', JSON.stringify(aRecords));
+			},
+
+			updateExistingRecord(oRecord, oResult) {
+				if (oResult.Time < oRecord?.Time) oRecord.Time = oResult.Time;
+				if (oResult.Moves < oRecord?.Moves) oRecord.Moves = oResult.Moves;
+				this.getModel().refresh();
+			},
+
+			getCurrentResult() {
+				return {
 					DiscCount: this.getModel().getProperty('/DiscCount'),
 					Time: this.getModel().getProperty('/Time'),
 					Moves: this.getModel().getProperty('/Moves')
 				};
-				const oRecord = aRecords.find((oRecord) => oRecord.DiscCount === oResult.DiscCount);
-				if (!oRecord) aRecords.push(oResult);
-				if (oResult.Time < oRecord?.Time) oRecord.Time = oResult.Time;
-				if (oResult.Moves < oRecord?.Moves) oRecord.Moves = oResult.Moves;
-				this.getModel().refresh();
-				localStorage.setItem('records', JSON.stringify(aRecords));
 			},
 
 			startTimer() {
