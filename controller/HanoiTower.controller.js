@@ -19,7 +19,7 @@ sap.ui.define(
 				this.getModel('view').setProperty('/pegBoxHeight', null);
 				setTimeout(() => {
 					const oHtmlPegBox = this.getHtmlPegBox();
-					if (!oHtmlPegBox) return;
+					if (!oHtmlPegBox) setTimeout(this.setPegBoxHeight.bind(this), 500);
 					const iPegBoxHeight = oHtmlPegBox.clientHeight + 15;
 					this.getModel('view').setProperty('/pegBoxHeight', iPegBoxHeight);
 				});
@@ -50,7 +50,7 @@ sap.ui.define(
 			},
 
 			setDiscCountToLocalStorage() {
-				iDiscCount = this.getModel().getProperty('/DiscCount');
+				const iDiscCount = this.getModel().getProperty('/DiscCount');
 				localStorage.setItem('discs', iDiscCount);
 			},
 
