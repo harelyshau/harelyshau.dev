@@ -27,7 +27,7 @@
 		</f:title>
 		<f:content>
 			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
-                <Panel id="panel" height="100%" class="sapUiMediumMarginBottom">
+                <Panel id="panel" height="100%">
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>
                         <OverflowToolbar height="3rem">
@@ -103,51 +103,8 @@
                     </HBox>
                 </Panel>
                 <!-- INSTRUCTIONS -->
-                <Panel>
-                    <headerToolbar>
-                        <Toolbar height="3rem">
-                            <ToolbarSpacer/>
-                            <core:Icon src="sap-icon://activity-items"/>
-                            <Title text="Instructions"/>
-                            <ToolbarSpacer/>
-                        </Toolbar>
-                    </headerToolbar>
-                    <VBox class="sapUiTinyMarginTop sapUiTinyMarginBottom">
-                        <!-- Description -->
-                        <VBox>
-                            <HBox>
-                                <core:Icon src="sap-icon://puzzle" class="sapUiTinyMarginEnd"/>
-                                <Title titleStyle="H6" text="Game Description:" wrapping="true"/>
-                            </HBox>
-                            <Text text="The Tower of Hanoi (also called The problem of Benares Temple or Tower of Brahma or Lucas' Tower and sometimes pluralized as Towers, or simply pyramid puzzle) is a mathematical game or puzzle consisting of three pegs and a number of disks of various diameters, which can slide onto any rod. The puzzle begins with the disks stacked on one rod in order of decreasing size, the smallest at the top, thus approximating a conical shape."/>
-                        </VBox>
-                        <!-- Objective -->
-                        <VBox class="sapUiSmallMarginTop">
-                            <HBox>
-                                <core:Icon src="sap-icon://target-group" class="sapUiTinyMarginEnd"/>
-                                <Title titleStyle="H6" text="Objective:" wrapping="true"/>
-                            </HBox>
-                            <Text text="The objective of the puzzle is to move the entire stack to the last rod."/>
-                        </VBox>
-                        <!-- Rules -->
-                        <VBox class="sapUiSmallMarginTop">
-                            <HBox>
-                                <core:Icon src="sap-icon://activities" class="sapUiTinyMarginEnd"/>
-                                <Title titleStyle="H6" text="Rules:" wrapping="true"/>
-                            </HBox>
-                            <Text text="1) Only one disk may be moved at a time."/>
-                            <Text text="2) No disk may be placed on top of a disk that is smaller than it."/>
-                        </VBox>
-                        <!-- Example -->
-                        <VBox class="sapUiSmallMarginTop">
-                            <HBox>
-                                <core:Icon src="sap-icon://example"/>
-                                <Title titleStyle="H6" text="Example:" class="sapUiTinyMarginBegin"/>
-                            </HBox>
-                            <Image width="100%" src="https://media.geeksforgeeks.org/wp-content/uploads/tower-of-hanoi.png"/>
-                        </VBox>
-                    </VBox>
-                </Panel>
+                <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Instructions"
+					type="XML" class="sapUiTinyMarginTop"/>
 			</VBox>
 		</f:content>
 	</f:DynamicPage>

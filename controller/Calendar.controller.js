@@ -324,7 +324,7 @@ sap.ui.define(
 			//////////////////////////////////
 
 			openAppointmentDialog() {
-				this.openDialog('Calendar', 'AppointmentDialog', '/EditableAppointment');
+				this.openDialog('AppointmentDialog', '/EditableAppointment');
 			},
 
 			// Save Button
@@ -399,7 +399,7 @@ sap.ui.define(
 			//////////////////////////////////
 
 			async openAppointmentPopover(sPath, oControl) {
-				this.openPopover('Calendar', 'AppointmentPopover', oControl, sPath);
+				this.openPopover('AppointmentPopover', oControl, sPath);
 			},
 
 			// Edit Button

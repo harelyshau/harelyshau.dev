@@ -20,7 +20,7 @@ sap.ui.define(
 			onPressOpenRelocationPopover(oEvent) {
 				const oControl = oEvent.getSource();
 				const sPath = '/RelocationPreference';
-				this.openPopover('Resume', 'RelocationPopover', oControl, sPath);
+				this.openPopover('RelocationPopover', oControl, sPath);
 			},
 
 			onPressCloseRelocationPopover() {
@@ -31,7 +31,7 @@ sap.ui.define(
 			onPressOpenCompanyPopover(oEvent) {
 				const oControl = oEvent.getSource();
 				const sPath = this.getPathByEvent(oEvent) + '/Company';
-				this.openPopover('Resume', 'CompanyPopover', oControl, sPath);
+				this.openPopover('CompanyPopover', oControl, sPath);
 			},
 
 			onPressCloseCompanyPopover(oEvent) {

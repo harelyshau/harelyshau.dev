@@ -69,7 +69,7 @@
 
 /* Pegs */
 .phPegBox {
-	margin-bottom: 0.3rem;
+	margin-bottom: 0.295rem;
 }
 .phPegBox::before,
 .phPegBox::after {
@@ -92,6 +92,10 @@
 	right: 0;
 	height: 0.6rem;
 	transform: translateY(50%);
+}
+
+.phRecordsDialog {
+	max-height: 20rem !important;
 }
 
 /* COMMON */

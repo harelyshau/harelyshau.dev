@@ -95,7 +95,7 @@ sap.ui.define(
 			// Records Dialog
 
 			openRecordsDialog() {
-				this.openDialog('HanoiTower', 'RecordsDialog');
+				this.openDialog('RecordsDialog');
 			},
 
 			onPressImrpoveResult(oEvent) {
@@ -116,7 +116,7 @@ sap.ui.define(
 			// Win Dialog
 
 			openWinDialog() {
-				this.openDialog('HanoiTower', 'WinDialog');
+				this.openDialog('WinDialog');
 			},
 
 			onPressLevelUp() {

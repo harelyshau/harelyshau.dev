@@ -37,7 +37,7 @@ sap.ui.define(
 			// MENU
 
 			onPressOpenOverflowMenu(oEvent) {
-				this.openPopover(null, 'OverflowMenu', oEvent.getSource());
+				this.openPopover('OverflowMenu', oEvent.getSource(), null, true);
 			},
 
 			onPressNavigateToPage(sPage) {
@@ -52,7 +52,7 @@ sap.ui.define(
 			onPressSetTheme(sKey) {
 				themeHelper.setTheme(sKey);
 				const sThemeKey = themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme());
-				this.getModel('appView').setProperty('/theme', sThemeKey);
+				this.getModel('app').setProperty('/theme', sThemeKey);
 			},
 
 			onPressSetLanguage(sKey) {
@@ -83,14 +83,14 @@ sap.ui.define(
 			},
 
 			// MODAL WINDOWS
-			async openDialog(sView, sFragment, sBinndingPath) {
-				const oDialog = await this.loadAndAssignFragment(sView, sFragment);
+			async openDialog(sFragmentName, sBinndingPath, bCommon) {
+				const oDialog = await this.loadAndAssignFragment(sFragmentName, bCommon);
 				if (sBinndingPath) oDialog.bindElement(sBinndingPath);
 				oDialog.open();
 			},
 
-			async openPopover(sView, sFragment, oControl, sBinndingPath) {
-				const oPopover = await this.loadAndAssignFragment(sView, sFragment);
+			async openPopover(sFragmentName, oControl, sBinndingPath, bCommon) {
+				const oPopover = await this.loadAndAssignFragment(sFragmentName, bCommon);
 				if (this.isPopoverOpen(oPopover, sBinndingPath)) {
 					oPopover.close();
 					return;
@@ -99,9 +99,10 @@ sap.ui.define(
 				oPopover.openBy(oControl);
 			},
 
-			async loadAndAssignFragment(sView, sFragment) {
+			async loadAndAssignFragment(sFragment, bCommon) {
 				let sPath = 'pharelyshau.fragment.';
-				sPath += sView ? `${sView}.${sFragment}` : sFragment;
+				const sCurrentPage = this.getModel('app').getProperty('/page')
+				sPath += !bCommon ? `${sCurrentPage}.${sFragment}` : sFragment;
 				this['o' + sFragment] = this['o' + sFragment] ?? this.loadFragment({ name: sPath });
 				this['o' + sFragment] = await this['o' + sFragment];
 				this['o' + sFragment].addStyleClass(this.getContentDensityClass());

@@ -2,8 +2,9 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
     core:require="{formatter: 'pharelyshau/model/formatter'}">
-    <Dialog title="Your Records" icon="sap-icon://competitor" afterClose="onAfterCloseRecordsDialog">
-        <List items="{/Records}">
+    <Dialog title="Your Records" icon="sap-icon://competitor" afterClose="onAfterCloseRecordsDialog"
+        class="phRecordsDialog">
+        <List items="{/Records}" visible="{= ${/Records}.length > 0}">
             <CustomListItem class="phNoFocus">
                 <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
                     <VBox class="sapUiSmallMarginEnd">
@@ -18,7 +19,13 @@
                     <Button icon="sap-icon://activate" tooltip="Try to Improve" press="onPressImrpoveResult"/>
                 </HBox>
             </CustomListItem>
+            <layoutData>
+                <FlexItemData maxHeight="25rem"/>
+            </layoutData>
         </List>
+        <IllustratedMessage visible="{= ${/Records}.length === 0}" illustrationSize="Spot"
+            title="You have not any Records yet" illustrationType="sapIllus-SuccessBalloon"
+            description="Complete at least on Tower to see Record"/>
         <endButton>
             <Button text="Close" press="onPressCloseRecordsDialog"/>
         </endButton>
