@@ -1,18 +1,18 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <Menu title="{i18n>ttlMenu}">
-        <MenuItem visible="{= ${app>/page} !== 'home' }"
-            text="{i18n>btnGoHome}" press="onPressNavigateToPage('home')" icon="{i18n>iHome}"/>
+        <MenuItem visible="{= ${app>/page} !== 'Home' }"
+            text="{i18n>btnGoHome}" press="onPressNavigateToPage('Home')" icon="{i18n>iHome}"/>
         <!-- Device Phone || Home Page -->
-        <MenuItem visible="{= (${device>/system/phone} || 550 >= ${device>/resize/width}) &amp;&amp; ${app>/page} !== 'calendar'
-            || ${app>/page} === 'home' }"
-            text="{i18n>btnMakeAppointment}" press="onPressNavigateToPage('calendar')" icon="{i18n>iAppointment}"/>
-        <MenuItem visible="{= ${app>/page} !== 'resume' }"
-            text="{i18n>btnSeeResume}" press="onPressNavigateToPage('resume')" icon="{i18n>iResume}"/>
+        <MenuItem visible="{= (${device>/system/phone} || 550 >= ${device>/resize/width}) &amp;&amp; ${app>/page} !== 'Calendar'
+            || ${app>/page} === 'Home' }"
+            text="{i18n>btnMakeAppointment}" press="onPressNavigateToPage('Calendar')" icon="{i18n>iAppointment}"/>
+        <MenuItem visible="{= ${app>/page} !== 'Resume' }"
+            text="{i18n>btnSeeResume}" press="onPressNavigateToPage('Resume')" icon="{i18n>iResume}"/>
         <MenuItem visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
-            || (850 >= ${device>/resize/width} &amp;&amp; ${app>/page} === 'resume')
-            || ${app>/page} === 'home' }"
+            || (850 >= ${device>/resize/width} &amp;&amp; ${app>/page} === 'Resume')
+            || ${app>/page} === 'Home' }"
             text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
-        <MenuItem visible="{= ${app>/page} === 'resume' }" text="{i18n>btnDownloadResume}" 
+        <MenuItem visible="{= ${app>/page} === 'Resume' }" text="{i18n>btnDownloadResume}" 
             press="onPressDownloadResume" icon="{i18n>iDownload}"/>
         <!-- All Devices -->
         <MenuItem text="{i18n>btnApperance}" icon="{i18n>iApperance}" 

@@ -58,7 +58,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iAppointment}" text="{i18n>btnMakeAppointment}"
-                                press="onPressNavigateToPage('calendar')"/>
+                                press="onPressNavigateToPage('Calendar')"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>
@@ -70,7 +70,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iResume}" text="{i18n>btnSeeResume}"
-                                press="onPressNavigateToPage('resume')"/>
+                                press="onPressNavigateToPage('Resume')"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>

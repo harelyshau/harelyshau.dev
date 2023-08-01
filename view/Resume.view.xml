@@ -21,7 +21,7 @@
 				<f:actions>
 					<!-- Device Desktop -->
 					<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550}"
-							text="{i18n>btnMakeAppointment}" press="onPressNavigateToPage('calendar')"
+							text="{i18n>btnMakeAppointment}" press="onPressNavigateToPage('Calendar')"
 							icon="{i18n>iAppointment}" type="Emphasized"/>
 					<Button visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 850}"
 						text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>

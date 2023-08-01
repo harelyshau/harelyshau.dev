@@ -7,7 +7,7 @@
         description="Please check the link or Go to Home Page"
         enableVerticalResponsiveness="true">
         <additionalContent>
-            <Button icon="{i18n>iHome}" text="{i18n>btnGoHome}" press="onPressNavigateToPage('home')"/>
+            <Button icon="{i18n>iHome}" text="{i18n>btnGoHome}" press="onPressNavigateToPage('Home')"/>
         </additionalContent>
     </IllustratedMessage>
 </mvc:View>
