@@ -69,22 +69,22 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "home",
+					"name": "Home",
 					"target": "home"
 				},
 				{
 					"pattern": "resume",
-					"name": "resume",
+					"name": "Resume",
 					"target": "resume"
 				},
 				{
 					"pattern": "calendar",
-					"name": "calendar",
+					"name": "Calendar",
 					"target": "calendar"
 				},
 				{
 					"pattern": "hanoitower",
-					"name": "hanoitower",
+					"name": "HanoiTower",
 					"target": "hanoitower"
 				}
 			],

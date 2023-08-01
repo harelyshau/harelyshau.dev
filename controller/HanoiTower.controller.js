@@ -11,7 +11,9 @@ sap.ui.define(
 				this.setDiscButtonMaxWidth();
 			},
 
-			// Responsive Sizes
+			//////////////////////////////////
+			/////////// RESPONSIVE ///////////
+			//////////////////////////////////
 
 			setPegBoxHeight() {
 				this.getModel('view').setProperty('/pegBoxHeight', null);
@@ -38,15 +40,17 @@ sap.ui.define(
 				return aPegBoxes[0]?.getDomRef();
 			},
 
-			// Playground Events
+			//////////////////////////////////
+			/////////// PLAYGROUND ///////////
+			//////////////////////////////////
 
 			onChangeDiscsCount() {
 				this.setDiscCountToLocalStorage();
 				this.setupGame();
 			},
 
-			setDiscCountToLocalStorage(iDiscCount) {
-				iDiscCount = iDiscCount ?? this.getModel().getProperty('/DiscCount');
+			setDiscCountToLocalStorage() {
+				iDiscCount = this.getModel().getProperty('/DiscCount');
 				localStorage.setItem('discs', iDiscCount);
 			},
 
@@ -74,10 +78,6 @@ sap.ui.define(
 				this.removeFocus(oEvent.getSource());
 			},
 
-			removeFocus(oControl) {
-				oControl.getDomRef().blur();
-			},
-
 			onPressMoveDiscByButton(oEvent) {
 				const oParentControl = oEvent.getSource().getParent();
 				const aCurrentPeg = this.getObjectByControl(oParentControl);
@@ -92,7 +92,9 @@ sap.ui.define(
 				this.removeFocus(oDiscButton);
 			},
 
-			// Records Dialog
+			//////////////////////////////////
+			///////// RECORDS DIALOG /////////
+			//////////////////////////////////
 
 			openRecordsDialog() {
 				this.openDialog('RecordsDialog');
@@ -113,7 +115,9 @@ sap.ui.define(
 				if (!this.isGameFinished()) this.startTimer();
 			},
 
-			// Win Dialog
+			//////////////////////////////////
+			/////////// WIN DIALOG ///////////
+			//////////////////////////////////
 
 			openWinDialog() {
 				this.openDialog('WinDialog');
@@ -122,7 +126,7 @@ sap.ui.define(
 			onPressLevelUp() {
 				let iDiscCount = this.getModel().getProperty('/DiscCount');
 				this.getModel().setProperty('/DiscCount', ++iDiscCount);
-				this.setDiscCountToLocalStorage(iDiscCount);
+				this.setDiscCountToLocalStorage();
 				this.oWinDialog.close();
 			},
 
@@ -134,13 +138,9 @@ sap.ui.define(
 				this.setupGame();
 			},
 
-			// Game Logic
-
-			isGameFinished() {
-				const bFinished = this.oWinDialog?.isOpen() ?? false;
-				const bStarted = this.getModel().getProperty('/Moves') > 0;
-				return bFinished || !bStarted;
-			},
+			//////////////////////////////////
+			/////////// GAME LOGIC ///////////
+			//////////////////////////////////
 
 			setupGame() {
 				this.getModel('view').setProperty('/selectedPeg', null);
@@ -225,6 +225,15 @@ sap.ui.define(
 				};
 			},
 
+			increaseMoves() {
+				let iMoves = this.getModel().getProperty('/Moves');
+				this.getModel().setProperty('/Moves', ++iMoves);
+			},
+
+			//////////////////////////////////
+			///////////// COMMON /////////////
+			//////////////////////////////////
+
 			startTimer() {
 				if (this.timerId) return;
 				let iTime = this.getModel().getProperty('/Time');
@@ -238,14 +247,16 @@ sap.ui.define(
 				this.timerId = null;
 			},
 
-			increaseMoves() {
-				let iMoves = this.getModel().getProperty('/Moves');
-				this.getModel().setProperty('/Moves', ++iMoves);
+			isGameFinished() {
+				const bFinished = this.oWinDialog?.isOpen() ?? false;
+				const bStarted = this.getModel().getProperty('/Moves') > 0;
+				return bFinished || !bStarted;
 			},
 
-			onDropDisc(oEvent) {
-				console.log(1111);
+			removeFocus(oControl) {
+				oControl.getDomRef().blur();
 			}
+
 		});
 	}
 );
