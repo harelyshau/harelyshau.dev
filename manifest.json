@@ -21,7 +21,8 @@
 			"desktop": true,
 			"tablet": true,
 			"phone": true
-		}
+		},
+		"supportedThemes": ["sap_horizon", "sap_horizon_dark", "sap_horizon_hcw", "sap_horizon_hcb"]
 	},
 	"sap.ui5": {
 		"dependencies": {

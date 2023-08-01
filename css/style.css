@@ -52,18 +52,25 @@
 /* HANOI TOWER */
 
 /* Disc Button */
-.phDiscButton span .sapUiIcon {
-	/* Remove icon from sap types buttons */
-	display: none;
-}
 .phDiscButton {
-	min-width: 0 !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	height: auto !important;
+	pointer-events: none;
 }
 .phDiscButton span {
 	min-width: 0 !important;
 }
 
+.phDiscButton span .sapUiIcon {
+	/* Remove icon from sap types buttons */
+	display: none;
+}
+
 /* Pegs */
+.phPegBox {
+	margin-bottom: 0.3rem;
+}
 .phPegBox::before,
 .phPegBox::after {
 	content: '';

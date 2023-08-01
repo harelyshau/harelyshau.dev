@@ -18,16 +18,16 @@ sap.ui.define(
 				setTimeout(() => {
 					const oHtmlPegBox = this.getHtmlPegBox();
 					if (!oHtmlPegBox) return;
-					const iPegBoxHeight = oHtmlPegBox.clientHeight;
+					const iPegBoxHeight = oHtmlPegBox.clientHeight + 15;
 					this.getModel('view').setProperty('/pegBoxHeight', iPegBoxHeight);
 				});
 			},
 
 			setDiscButtonMaxWidth() {
 				setTimeout(() => {
-					const oPegBox = this.getHtmlPegBox();
-					if (!oPegBox) return;
-					const iPegBoxWidth = oPegBox.clientWidth;
+					const oHtmlPegBox = this.getHtmlPegBox();
+					if (!oHtmlPegBox) return;
+					const iPegBoxWidth = oHtmlPegBox.clientWidth;
 					this.getModel('view').setProperty('/discButtonMaxWidth', iPegBoxWidth);
 				});
 			},
@@ -214,7 +214,7 @@ sap.ui.define(
 			updateExistingRecord(oRecord, oResult) {
 				if (oResult.Time < oRecord?.Time) oRecord.Time = oResult.Time;
 				if (oResult.Moves < oRecord?.Moves) oRecord.Moves = oResult.Moves;
-				this.getModel().refresh();
+				this.getModel().refresh(true);
 			},
 
 			getCurrentResult() {
@@ -226,8 +226,8 @@ sap.ui.define(
 			},
 
 			startTimer() {
-				let iTime = this.getModel().getProperty('/Time');
 				if (this.timerId) return;
+				let iTime = this.getModel().getProperty('/Time');
 				this.timerId = setInterval(() => {
 					this.getModel().setProperty('/Time', ++iTime);
 				}, 1000);

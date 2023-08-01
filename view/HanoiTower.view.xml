@@ -73,7 +73,11 @@
                                     <!-- Disc -->
                                     <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: 'formatter.discWidth'}"
                                         text="{}" type="{path: '', formatter: 'formatter.discType'}"
-                                        press="onPressFirePegPress" class="phButton phDiscButton"/>
+                                        press="onPressFirePegPress" class="phDiscButton">
+                                        <layoutData>
+                                            <FlexItemData minWidth="28px" maxWidth="100%"/>
+                                        </layoutData>
+                                    </Button>
                                 </VBox>
                                 <layoutData>
                                     <FlexItemData minWidth="100%" maxWidth="100%"/>
