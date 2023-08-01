@@ -60,7 +60,7 @@
                             <Button text="Records" press="onPressOpenRecordsDialog" icon="sap-icon://competitor"/>
                         </OverflowToolbar>
                     </headerToolbar>
-                    <!-- PLAYGROUND -->
+                    <!-- GAME -->
                     <HBox items="{/Pegs}" wrap="Wrap" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
                         <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
                             <!-- Peg -->
@@ -88,8 +88,8 @@
                             </VBox>
                         </VBox>
                     </HBox>
-                    <!-- Footer Toolbar -->
-                    <HBox renderType="Bare" alignItems="Center" justifyContent="SpaceBetween" wrap="Wrap" class="sapUiTinyMarginBeginEnd">
+                    <!-- FOOTER TOOLBAR -->
+                    <HBox renderType="Bare" alignItems="Center" justifyContent="SpaceBetween" wrap="Wrap">
                         <HBox alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
                             <Label text="Show Buttons:" wrapping="true" width="auto"/>
                             <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "

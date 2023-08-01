@@ -143,6 +143,7 @@ sap.ui.define(
 			},
 
 			setupGame() {
+				this.getModel('view').setProperty('/selectedPeg', null);
 				this.stopTimer();
 				this.resetTimeAndMoves();
 				this.setPegs();
