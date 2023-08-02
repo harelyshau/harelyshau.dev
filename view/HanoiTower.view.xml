@@ -104,7 +104,7 @@
                 </Panel>
                 <!-- INSTRUCTIONS -->
                 <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Instructions"
-					type="XML" class="sapUiTinyMarginTop"/>
+					type="XML" class="sapUiSmallMarginTop"/>
 			</VBox>
 		</f:content>
 	</f:DynamicPage>

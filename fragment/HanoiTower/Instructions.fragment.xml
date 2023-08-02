@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-    <Panel class="sapUiSmallMarginTop">
+    <Panel>
         <headerToolbar>
             <Toolbar height="3rem">
                 <ToolbarSpacer/>

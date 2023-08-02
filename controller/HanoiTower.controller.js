@@ -75,7 +75,6 @@ sap.ui.define(
 				}
 				if (aSelectedPeg) aTargetPeg = null;
 				this.getModel('view').setProperty('/selectedPeg', aTargetPeg);
-				this.removeFocus(oEvent.getSource());
 			},
 
 			onPressMoveDiscByButton(oEvent) {
@@ -89,7 +88,6 @@ sap.ui.define(
 				const oDiscButton = oEvent.getSource();
 				const oPegListItem = oDiscButton.getParent().getParent();
 				oPegListItem.firePress();
-				this.removeFocus(oDiscButton);
 			},
 
 			//////////////////////////////////
@@ -136,6 +134,7 @@ sap.ui.define(
 
 			onAfterCloseWinDialog() {
 				this.setupGame();
+				this.getModel('view').setProperty('/previousRecord', null);
 			},
 
 			//////////////////////////////////
@@ -206,14 +205,24 @@ sap.ui.define(
 				const aRecords = this.getModel().getProperty('/Records');
 				const oResult = this.getCurrentResult();
 				const oRecord = aRecords.find((oRecord) => oRecord.DiscCount === oResult.DiscCount);
-				if (!oRecord) aRecords.push(oResult);
-				this.updateExistingRecord(oRecord, oResult);
+				this.setPreviousRecord(oRecord);
+				if (!oRecord) {
+					aRecords.push(oResult);
+				} else {
+					this.updateExistingRecord(oRecord, oResult);
+				}
 				localStorage.setItem('records', JSON.stringify(aRecords));
 			},
 
+			// save to view model to show it WinDialog
+			setPreviousRecord(oRecord) {
+				this.getModel('view').setProperty('/previousRecord', null);
+				this.getModel('view').setProperty('/previousRecord', oRecord);
+			},
+
 			updateExistingRecord(oRecord, oResult) {
-				if (oResult.Time < oRecord?.Time) oRecord.Time = oResult.Time;
-				if (oResult.Moves < oRecord?.Moves) oRecord.Moves = oResult.Moves;
+				oRecord.Time = Math.min(oRecord.Time, oResult.Time);
+				oRecord.Moves = Math.min(oRecord.Moves, oResult.Moves);
 				this.getModel().refresh(true);
 			},
 
@@ -251,10 +260,6 @@ sap.ui.define(
 				const bFinished = this.oWinDialog?.isOpen() ?? false;
 				const bStarted = this.getModel().getProperty('/Moves') > 0;
 				return bFinished || !bStarted;
-			},
-
-			removeFocus(oControl) {
-				oControl.getDomRef().blur();
 			}
 
 		});

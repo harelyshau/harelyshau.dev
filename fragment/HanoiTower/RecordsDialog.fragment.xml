@@ -7,13 +7,18 @@
         <List items="{/Records}" visible="{= ${/Records}.length > 0}">
             <CustomListItem class="phNoFocus">
                 <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
-                    <VBox class="sapUiSmallMarginEnd">
-                        <Title text="Tower with {DiscCount} Discs" titleStyle="H6"/>
-                        <HBox renderType="Bare" alignItems="Center">
+                    <VBox class="sapUiSmallMarginEnd" renderType="Bare">
+                        <Title text="Tower of {DiscCount} Discs" titleStyle="H6"/>
+                        <HBox renderType="Bare" alignItems="Center" class="sapUiTinyMarginTop">
                             <core:Icon src="sap-icon://fob-watch"/>
                             <Text text="Time: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
-                            <core:Icon src="sap-icon://step" class="sapUiSmallMarginBegin"/>
-                            <Text text="Moves: {Moves}" class="sapUiTinyMarginBegin"/>
+                            <!-- Moves -->
+                            <HBox alignItems="Center" renderType="Bare" class="sapUiSmallMarginBegin"
+                                tooltip="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
+                                <core:Icon src="sap-icon://step"
+                                    color="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'Positive' : '' }"/>
+                                <Text text="Moves: {Moves}" class="sapUiTinyMarginBegin"/>
+                            </HBox>
                         </HBox>
                     </VBox>
                     <Button icon="sap-icon://activate" tooltip="Try to Improve" press="onPressImrpoveResult"/>
