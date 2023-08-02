@@ -211,10 +211,11 @@ sap.ui.define(
 				} else {
 					this.updateExistingRecord(oRecord, oResult);
 				}
+				this.getModel().refresh(true);
 				localStorage.setItem('records', JSON.stringify(aRecords));
 			},
 
-			// save to view model to show it WinDialog
+			// save to view model to show it in WinDialog
 			setPreviousRecord(oRecord) {
 				this.getModel('view').setProperty('/previousRecord', null);
 				this.getModel('view').setProperty('/previousRecord', oRecord);
@@ -223,7 +224,6 @@ sap.ui.define(
 			updateExistingRecord(oRecord, oResult) {
 				oRecord.Time = Math.min(oRecord.Time, oResult.Time);
 				oRecord.Moves = Math.min(oRecord.Moves, oResult.Moves);
-				this.getModel().refresh(true);
 			},
 
 			getCurrentResult() {
