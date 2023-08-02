@@ -10,8 +10,11 @@
                     <VBox class="sapUiSmallMarginEnd" renderType="Bare">
                         <Title text="Tower of {DiscCount} Discs" titleStyle="H6"/>
                         <HBox renderType="Bare" alignItems="Center" class="sapUiTinyMarginTop">
-                            <core:Icon src="sap-icon://fob-watch"/>
-                            <Text text="Time: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
+                            <!-- Time -->
+                            <HBox renderType="Bare" alignItems="Center">
+                                <core:Icon src="sap-icon://fob-watch"/>
+                                <Text text="Time: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
+                            </HBox>
                             <!-- Moves -->
                             <HBox alignItems="Center" renderType="Bare" class="sapUiSmallMarginBegin"
                                 tooltip="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
@@ -24,9 +27,6 @@
                     <Button icon="sap-icon://activate" tooltip="Try to Improve" press="onPressImrpoveResult"/>
                 </HBox>
             </CustomListItem>
-            <layoutData>
-                <FlexItemData maxHeight="25rem"/>
-            </layoutData>
         </List>
         <IllustratedMessage visible="{= ${/Records}.length === 0}" illustrationSize="Spot"
             title="You have not any Records yet" illustrationType="sapIllus-SuccessBalloon"

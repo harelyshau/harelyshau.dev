@@ -9,13 +9,15 @@
                 <Title text="Your Result:" titleStyle="H6"/>
                 <HBox class="sapUiTinyMarginTop">
                     <!-- Time -->
-                    <HBox>
+                    <HBox renderType="Bare" alignItems="Center">
                         <core:Icon src="sap-icon://fob-watch"/>
                         <Text text="Time: {path: '/Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
                     </HBox>
                     <!-- Moves -->
-                    <HBox class="sapUiSmallMarginBegin">
-                        <core:Icon src="sap-icon://step"/>
+                    <HBox renderType="Bare" alignItems="Center" class="sapUiSmallMarginBegin"
+                        tooltip="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
+                        <core:Icon src="sap-icon://step"
+                            color="{= ${/Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'Positive' : '' }"/>
                         <Text text="Moves: {/Moves}" class="sapUiTinyMarginBegin"/>
                     </HBox>
                 </HBox>
