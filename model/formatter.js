@@ -170,6 +170,22 @@ sap.ui.define(
 			discCountIcon(iDiscCount, aRecords) {
 				const bCompleted = aRecords.some((oRecord) => oRecord.DiscCount === iDiscCount);
 				return bCompleted ? 'sap-icon://accept' : '';
+			},
+
+			newRecordWithImprovements(iTime, iMoves, oPreviousRecord) {
+				if (!oPreviousRecord) return;
+				let sText = '';
+				const bBetterTime = iTime < oPreviousRecord.Time;
+				const bBetterMoves = iMoves < oPreviousRecord.Moves;
+				if (bBetterTime) sText += 'Time ';
+				if (bBetterTime && bBetterMoves) sText += 'and ';
+				if (bBetterMoves) sText += 'Moves ';
+				sText += ': ';
+				if (bBetterTime) sText += `finished ${oPreviousRecord.Time - iTime} seconds faster`;
+				if (bBetterTime && bBetterMoves) sText += ' and ';
+				if (bBetterMoves)
+					sText += `completed ${oPreviousRecord.Moves - iMoves} fewer moves than last time`;
+				return sText + '.';
 			}
 		};
 	}

@@ -101,7 +101,7 @@ sap.ui.define(
 
 			async loadAndAssignFragment(sFragment, bCommon) {
 				let sPath = 'pharelyshau.fragment.';
-				const sCurrentPage = this.getModel('app').getProperty('/page')
+				const sCurrentPage = this.getModel('app').getProperty('/page');
 				sPath += !bCommon ? `${sCurrentPage}.${sFragment}` : sFragment;
 				this['o' + sFragment] = this['o' + sFragment] ?? this.loadFragment({ name: sPath });
 				this['o' + sFragment] = await this['o' + sFragment];

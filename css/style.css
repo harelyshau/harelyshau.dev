@@ -92,6 +92,8 @@
 	right: 0;
 	height: 0.6rem;
 	transform: translateY(50%);
+	margin-left: -0.3px;
+	margin-right: -0.3px;
 }
 
 .phRecordsDialog {

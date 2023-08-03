@@ -61,7 +61,7 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
-                    <HBox items="{/Pegs}" wrap="Wrap" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
+                    <HBox items="{/Pegs}" width="100%" justifyContent="Center" class="sapUiSmallMarginTopBottom">
                         <VBox width="{= 100 / ${/Pegs}.length }%" alignItems="Center" justifyContent="End">
                             <!-- Peg -->
                             <Title visible="{view>/showMoveButtons}" titleStyle="H6"

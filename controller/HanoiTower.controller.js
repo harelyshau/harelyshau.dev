@@ -1,6 +1,12 @@
 sap.ui.define(
-	['./BaseController', 'sap/m/MessageToast', 'sap/m/InstanceManager', '../model/models'],
-	(BaseController, MessageToast, InstanceManager, models) => {
+	[
+		'./BaseController',
+		'sap/m/MessageToast',
+		'sap/m/InstanceManager',
+		'sap/ui/core/ResizeHandler',
+		'../model/models'
+	],
+	(BaseController, MessageToast, InstanceManager, ResizeHandler, models) => {
 		'use strict';
 
 		return BaseController.extend('pharelyshau.controller.HanotoiTower', {
@@ -9,6 +15,7 @@ sap.ui.define(
 				this.setModel(models.createHanoiTowerViewModel(), 'view');
 				this.setupGame();
 				this.setDiscButtonMaxWidth();
+				ResizeHandler.register(this.getView(), this.setDiscButtonMaxWidth.bind(this));
 			},
 
 			//////////////////////////////////
@@ -19,7 +26,10 @@ sap.ui.define(
 				this.getModel('view').setProperty('/pegBoxHeight', null);
 				setTimeout(() => {
 					const oHtmlPegBox = this.getHtmlPegBox();
-					if (!oHtmlPegBox) setTimeout(this.setPegBoxHeight.bind(this), 500);
+					if (!oHtmlPegBox) {
+						setTimeout(this.setPegBoxHeight.bind(this), 500);
+						return;
+					}
 					const iPegBoxHeight = oHtmlPegBox.clientHeight + 15;
 					this.getModel('view').setProperty('/pegBoxHeight', iPegBoxHeight);
 				});
@@ -261,7 +271,6 @@ sap.ui.define(
 				const bStarted = this.getModel().getProperty('/Moves') > 0;
 				return bFinished || !bStarted;
 			}
-
 		});
 	}
 );

@@ -15,18 +15,18 @@
                     </HBox>
                     <!-- Moves -->
                     <HBox renderType="Bare" alignItems="Center" class="sapUiSmallMarginBegin"
-                        tooltip="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
+                        tooltip="{= ${/Moves} === Math.pow(2, ${/DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
                         <core:Icon src="sap-icon://step"
-                            color="{= ${/Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'Positive' : '' }"/>
+                            color="{= ${/Moves} === Math.pow(2, ${/DiscCount}) - 1 ? 'Positive' : '' }"/>
                         <Text text="Moves: {/Moves}" class="sapUiTinyMarginBegin"/>
                     </HBox>
                 </HBox>
             </VBox>
             <!-- New Record -->
-            <VBox visible="{= !${view>/previousRecord} || ${view>/previousRecord/Moves} > ${/Moves} || ${view>/previousRecord/Time} > ${/Time} }"
+            <VBox visible="{= !!${view>/previousRecord} }"
                 class="sapUiSmallMarginTop" renderType="Bare">
                 <Title text="New Record:" titleStyle="H6" class="sapUiTinyMarginBottom"/>
-                <Text text="Congrats! You set a New Record for Time and Moves. Finished 10 seconds faster and completed 5 fewer moves than last time.">
+                <Text text="Congrats! You set a New Record for {parts: ['/Time', '/Moves', 'view>/previousRecord'], formatter: 'formatter.newRecordWithImprovements'}">
                     <layoutData>
                         <FlexItemData maxWidth="17rem"/>
                     </layoutData>
