@@ -172,11 +172,7 @@ sap.ui.define(
 
 			getDiscs() {
 				const iDiscCount = this.getModel().getProperty('/DiscCount');
-				const aDiscs = [];
-				for (let i = 1; i <= iDiscCount; i++) {
-					aDiscs.push(i);
-				}
-				return aDiscs;
+				return [...Array(iDiscCount)].map((_, i) => i + 1);
 			},
 
 			tryMovingDisc(aCurrentPeg, aTargetPeg) {
