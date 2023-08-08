@@ -3,7 +3,7 @@
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
 	<IllustratedMessage illustrationType="sapIllus-PageNotFound"
-        title="This page was Not Found"
+        title="{i18n>ttlPageNotFound}"
         description="Please check the link or Go to Home Page"
         enableVerticalResponsiveness="true">
         <additionalContent>

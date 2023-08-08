@@ -3,17 +3,18 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 
 	return BaseController.extend('pharelyshau.controller.App', {
 		onInit() {
-			// apply content density mode to root view
 			this.getView().addStyleClass(this.getContentDensityClass());
-			// set view model
 			this.setModel(models.createAppModel(), 'app');
-			// attach routing matching
 			this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
+			this.getRouter().attachTitleChanged(this.onTitleChanged.bind(this));
 		},
 
 		onRouteMatched(oEvent) {
-			// set current page
 			this.getModel('app').setProperty('/page', oEvent.getParameter('name'));
+		},
+
+		onTitleChanged(oEvent) {
+			document.title = oEvent.getParameter("title");
 		}
 	});
 });

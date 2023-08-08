@@ -91,23 +91,28 @@
 			"targets": {
 				"home": {
 					"id": "home",
-					"name": "Home"
+					"name": "Home",
+					"title": "harelyshau.dev"
 				},
 				"resume": {
 					"id": "resume",
-					"name": "Resume"
+					"name": "Resume",
+					"title": "{/FirstName} {/LastName}"
 				},
 				"calendar": {
 					"id": "calendar",
-					"name": "Calendar"
+					"name": "Calendar",
+					"title": "{i18n>ttlPavelsCalendar}"
 				},
 				"hanoitower": {
 					"id": "hanoitower",
-					"name": "HanoiTower"
+					"name": "HanoiTower",
+					"title": "{i18n>ttlHanoiTower}"
 				},
 				"notFound": {
 					"id": "notFound",
-					"name": "NotFound"
+					"name": "NotFound",
+					"title": "{i18n>ttlPageNotFound}"
 				}
 			}
 		},
