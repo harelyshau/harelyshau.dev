@@ -3,8 +3,8 @@
         <MenuItem visible="{= ${app>/page} !== 'Home' }"
             text="{i18n>btnGoHome}" press="onPressNavigateToPage('Home')" icon="{i18n>iHome}"/>
         <!-- Device Phone || Home Page -->
-        <MenuItem visible="{= (${device>/system/phone} || 550 >= ${device>/resize/width}) &amp;&amp; ${app>/page} !== 'Calendar'
-            || ${app>/page} === 'Home' }"
+        <MenuItem visible="{= ${app>/page} !== 'Calendar'
+            &amp;&amp; !(${app>/page} === 'Resume' &amp;&amp; (!${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550) )  }"
             text="{i18n>btnMakeAppointment}" press="onPressNavigateToPage('Calendar')" icon="{i18n>iAppointment}"/>
         <MenuItem visible="{= ${app>/page} !== 'Resume' }"
             text="{i18n>btnSeeResume}" press="onPressNavigateToPage('Resume')" icon="{i18n>iResume}"/>
