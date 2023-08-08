@@ -23,14 +23,23 @@
                 </HBox>
             </VBox>
             <!-- New Record -->
-            <VBox visible="{= !!${view>/previousRecord} }"
-                class="sapUiSmallMarginTop" renderType="Bare">
-                <Title text="New Record:" titleStyle="H6" class="sapUiTinyMarginBottom"/>
-                <Text text="Congrats! You set a New Record for {parts: ['/Time', '/Moves', 'view>/previousRecord'], formatter: 'formatter.newRecordWithImprovements'}">
-                    <layoutData>
-                        <FlexItemData maxWidth="17rem"/>
-                    </layoutData>
-                </Text>
+            <VBox class="sapUiSmallMarginTop" renderType="Bare" visible="{= !!${view>/previousRecord}
+                &amp;&amp; (${view>/previousRecord/Time} > ${/Time} || ${view>/previousRecord/Time} > ${/Moves}) }">
+                <Title text="New Record:" titleStyle="H6"/>
+                <HBox class="sapUiTinyMarginTop">
+                    <!-- Time -->
+                    <HBox visible="{= ${view>/previousRecord/Time} > ${/Time} }"
+                        renderType="Bare" alignItems="Center" class="sapUiSmallMarginEnd">
+                        <core:Icon src="sap-icon://fob-watch" class="sapUiTinyMarginEnd"/>
+                        <Text text="{= ${view>/previousRecord/Time} - ${/Time} } sec faster"/>
+                    </HBox>
+                    <!-- Moves -->
+                    <HBox visible="{= ${view>/previousRecord/Time} > ${/Moves} }"
+                        renderType="Bare" alignItems="Center">
+                        <core:Icon src="sap-icon://step" class="sapUiTinyMarginEnd"/>
+                        <Text text="{= ${view>/previousRecord/Time} - ${/Moves} } moves fewer"/>
+                    </HBox>
+                </HBox>
                 <Button text="See Your Records" icon="sap-icon://competitor"
                     press="onPressOpenRecordsDialog" class="sapUiTinyMarginTop"/>
             </VBox>

@@ -211,7 +211,7 @@ sap.ui.define(
 				const aRecords = this.getModel().getProperty('/Records');
 				const oResult = this.getCurrentResult();
 				const oRecord = aRecords.find((oRecord) => oRecord.DiscCount === oResult.DiscCount);
-				this.setPreviousRecord(oRecord);
+				this.setPreviousRecord({ ...oRecord });
 				if (!oRecord) {
 					aRecords.push(oResult);
 				} else {
