@@ -8,7 +8,7 @@
                 <ToolbarSpacer/>
             </Toolbar>
         </headerToolbar>
-        <VBox class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+        <VBox class="sapUiTinyMarginTopBottom">
             <!-- Description -->
             <VBox>
                 <HBox>
@@ -40,7 +40,7 @@
                     <core:Icon src="sap-icon://example"/>
                     <Title titleStyle="H6" text="Example:" class="sapUiTinyMarginBegin"/>
                 </HBox>
-                <Image width="100%" src="https://media.geeksforgeeks.org/wp-content/uploads/tower-of-hanoi.png"/>
+                <Image width="100%" src="{= ${view>/exampleImage}[${app>/theme}] }" class="sapUiTinyMarginTop"/>
             </VBox>
         </VBox>
     </Panel>

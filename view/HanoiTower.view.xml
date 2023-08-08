@@ -5,7 +5,7 @@
 	xmlns:f="sap.f"
     core:require="{formatter: 'pharelyshau/model/formatter'}"
     xmlns:dnd="sap.ui.core.dnd">
-	<f:DynamicPage class="">
+	<f:DynamicPage>
         <!-- HEADER -->
 		<f:title>
 			<f:DynamicPageTitle>

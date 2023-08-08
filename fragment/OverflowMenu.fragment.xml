@@ -21,10 +21,10 @@
                 press="onPressSetTheme('light')"/>
             <MenuItem text="{i18n>btnDarkMode}" icon="{i18n>iDarkMode}"
                 press="onPressSetTheme('dark')"/>
-            <MenuItem text="{i18n>btnHighContrastWhiteMode}" press="onPressSetTheme('contrastWhite')"
-                icon="{= ${app>/theme} === 'light' || ${app>/theme} === 'contrastWhite'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
-            <MenuItem text="{i18n>btnHighContrastBlackMode}" press="onPressSetTheme('contrastBlack')"
-                icon="{= ${app>/theme} !== 'light' &amp;&amp; ${app>/theme} !== 'contrastWhite'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
+            <MenuItem text="{i18n>btnHighContrastWhiteMode}" press="onPressSetTheme('hcw')"
+                icon="{= ${app>/theme} === 'light' || ${app>/theme} === 'hcw'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
+            <MenuItem text="{i18n>btnHighContrastBlackMode}" press="onPressSetTheme('hcb')"
+                icon="{= ${app>/theme} !== 'light' &amp;&amp; ${app>/theme} !== 'hcw'  ? ${i18n>iHighContrastMode1} : ${i18n>iHighContrastMode2} }"/>
             <MenuItem text="{i18n>btnAutoMode}" press="onPressSetTheme(null)"
                 icon="{i18n>iSystemSettings}"/>
         </MenuItem>

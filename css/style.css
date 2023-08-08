@@ -78,6 +78,19 @@
 	background-color: #4db1ff;
 	bottom: 0;
 }
+/* Peg Color depending on theme */
+.sapUiTheme-sap_horizon .phPegBox::before,
+.sapUiTheme-sap_horizon .phPegBox::after {
+	background-color: #0064d9;
+}
+.sapUiTheme-sap_horizon_hcw .phPegBox::before,
+.sapUiTheme-sap_horizon_hcw .phPegBox::after {
+	background-color: #000;
+}
+.sapUiTheme-sap_horizon_hcb .phPegBox::before,
+.sapUiTheme-sap_horizon_hcb .phPegBox::after {
+	background-color: #fff;
+}
 /* Vertical Line */
 .phPegBox::before {
 	top: 0;

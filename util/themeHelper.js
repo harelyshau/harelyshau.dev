@@ -22,8 +22,8 @@ sap.ui.define([], () => {
 			const oThemes = {
 				light: 'sap_horizon',
 				dark: 'sap_horizon_dark',
-				contrastWhite: 'sap_horizon_hcw',
-				contrastBlack: 'sap_horizon_hcb'
+				hcw: 'sap_horizon_hcw',
+				hcb: 'sap_horizon_hcb'
 			};
 			// return value by key
 			if (sKey) return oThemes[sKey];
