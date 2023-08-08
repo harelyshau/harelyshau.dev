@@ -53,7 +53,7 @@
                 <!-- CALENDAR -->
                 <Panel class="sapUiSmallMarginTop">
                     <IllustratedMessage illustrationType="sapIllus-SimpleCalendar"
-                        title="{i18n>ttlCalendarPage}" description="{i18n>tCalendarOverview}"
+                        title="{i18n>ttlCalendar}" description="{i18n>tCalendarOverview}"
                         illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
@@ -65,12 +65,24 @@
                 <!-- RESUME -->
                 <Panel class="sapUiSmallMarginTop">
                     <IllustratedMessage illustrationType="sapIllus-NoSavedItems"
-                        title="{i18n>ttlResumepPage}" description="{i18n>tResumeOverview}"
+                        title="{i18n>ttlResume}" description="{i18n>tResumeOverview}"
                         illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iResume}" text="{i18n>btnSeeResume}"
                                 press="onPressNavigateToPage('Resume')"/>
+                        </additionalContent>
+                    </IllustratedMessage>
+                </Panel>
+                <!-- HANOI TOWER -->
+                <Panel class="sapUiSmallMarginTop">
+                    <IllustratedMessage illustrationType="tnt-Company"
+                        title="{i18n>ttlHanoiTower}" description="{i18n>tHanoiTowerOverview}"
+                        illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
+                            ? 'Spot' : 'Auto' }">
+                        <additionalContent>
+                            <Button icon="{i18n>iPuzzle}" text="{i18n>btnPlayHanoiTower}"
+                                press="onPressNavigateToPage('HanoiTower')"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>

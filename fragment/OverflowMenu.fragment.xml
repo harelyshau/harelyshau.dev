@@ -14,6 +14,8 @@
             text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
         <MenuItem visible="{= ${app>/page} === 'Resume' }" text="{i18n>btnDownloadResume}" 
             press="onPressDownloadResume" icon="{i18n>iDownload}"/>
+        <MenuItem visible="{= ${app>/page} !== 'HanoiTower' }" text="{i18n>btnPlayHanoiTower}" 
+            press="onPressNavigateToPage('HanoiTower')" icon="{i18n>iPuzzle}"/>
         <!-- All Devices -->
         <MenuItem text="{i18n>btnApperance}" icon="{i18n>iApperance}" 
             startsSection="{device>/system/phone}">
