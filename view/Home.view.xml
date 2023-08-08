@@ -82,7 +82,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iPuzzle}" text="{i18n>btnPlayHanoiTower}"
-                                press="onPressNavigateToPage('HanoiTower')"/>
+                                press="onPressNavigateToPage('HanoiTower')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>
