@@ -66,13 +66,7 @@ sap.ui.define(
 
 			createHanoiTowerViewModel(aPegs) {
 				const oData = {
-					showMoveButtons: JSON.parse(localStorage.getItem('moveButtons')) ?? false,
-					exampleImage: {
-						light: './resource/image/HanoiTowerEx_light.jpg',
-						dark: './resource/image/HanoiTowerEx_dark.jpg',
-						hcw: './resource/image/HanoiTowerEx_hcw.jpg',
-						hcb: './resource/image/HanoiTowerEx_hcb.jpg'
-					}
+					showMoveButtons: JSON.parse(localStorage.getItem('moveButtons')) ?? false
 				};
 				return new JSONModel(oData);
 			}

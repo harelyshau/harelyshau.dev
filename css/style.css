@@ -1,11 +1,5 @@
 /* RESUME */
 
-.phLimitedPageContent {
-	max-width: 750px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
 .sapUiTheme-sap_horizon .phToolbarSeparator {
 	border-bottom-color: #dedede !important;
 }
@@ -114,6 +108,12 @@
 }
 
 /* COMMON */
+
+.phLimitedPageContent {
+	max-width: 750px;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 .phNoFocus:focus {
 	outline: none;

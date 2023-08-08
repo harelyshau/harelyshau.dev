@@ -27,7 +27,7 @@
 		</f:title>
 		<f:content>
 			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
-                <Panel id="panel" height="100%">
+                <Panel>
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>
                         <OverflowToolbar height="3rem">

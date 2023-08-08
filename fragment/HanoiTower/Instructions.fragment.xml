@@ -40,7 +40,7 @@
                     <core:Icon src="sap-icon://example"/>
                     <Title titleStyle="H6" text="Example:" class="sapUiTinyMarginBegin"/>
                 </HBox>
-                <Image width="100%" src="{= ${view>/exampleImage}[${app>/theme}] }" class="sapUiTinyMarginTop"/>
+                <Image width="100%" src="./resource/image/HanoiTowerEx_{app>/theme}.jpg" class="sapUiTinyMarginTop"/>
             </VBox>
         </VBox>
     </Panel>
