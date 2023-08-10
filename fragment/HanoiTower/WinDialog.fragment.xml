@@ -34,10 +34,10 @@
                         <Text text="{= ${view>/previousRecord/Time} - ${/Time} } sec faster"/>
                     </HBox>
                     <!-- Moves -->
-                    <HBox visible="{= ${view>/previousRecord/Time} > ${/Moves} }"
+                    <HBox visible="{= ${view>/previousRecord/Moves} > ${/Moves} }"
                         renderType="Bare" alignItems="Center">
                         <core:Icon src="sap-icon://step" class="sapUiTinyMarginEnd"/>
-                        <Text text="{= ${view>/previousRecord/Time} - ${/Moves} } moves fewer"/>
+                        <Text text="{= ${view>/previousRecord/Moves} - ${/Moves} } moves fewer"/>
                     </HBox>
                 </HBox>
                 <Button text="See Your Records" icon="sap-icon://competitor"
