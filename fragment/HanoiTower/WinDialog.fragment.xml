@@ -24,7 +24,7 @@
             </VBox>
             <!-- New Record -->
             <VBox class="sapUiSmallMarginTop" renderType="Bare" visible="{= !!${view>/previousRecord}
-                &amp;&amp; (${view>/previousRecord/Time} > ${/Time} || ${view>/previousRecord/Time} > ${/Moves}) }">
+                &amp;&amp; (${view>/previousRecord/Time} > ${/Time} || ${view>/previousRecord/Moves} > ${/Moves}) }">
                 <Title text="New Record:" titleStyle="H6"/>
                 <HBox class="sapUiTinyMarginTop">
                     <!-- Time -->
