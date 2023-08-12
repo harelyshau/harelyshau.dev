@@ -39,9 +39,10 @@ sap.ui.define([], () => {
 		},
 
 		setAppleStatusBarStyle(sThemeKey) {
-			const bDark = sThemeKey === 'dark' || sThemeKey === 'hcb'
+			const bDark = sThemeKey === 'dark' || sThemeKey === 'hcb';
+
 			const meta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-			meta.content = bDark ? 'black-translucent' : 'default';
+			meta.content = false ? 'black-translucent' : 'default';
 		}
 	};
 });
