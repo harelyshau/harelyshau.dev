@@ -10,5 +10,8 @@
 			"type": "image/png",
 			"sizes": "512x512"
 		}
-	]
+	],
+	"name": "harelyshau.dev",
+	"start_url": "index.html",
+	"display": "standalone"
 }
