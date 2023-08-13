@@ -18,35 +18,12 @@ const preloadResources = [
 	'/resource/data/Resume_ru.json'
 ];
 
-const openui5Link = 'https://openui5.hana.ondemand.com/resources/';
-const openui5Resources = [
-	`${openui5Link}sap-ui-core.js`,
-	`${openui5Link}sap/ui/core/library-preload.js`,
-	`${openui5Link}sap/ui/core/themes/sap_belize_plus/library.css`,
-	`${openui5Link}sap/ui/core/themes/sap_horizon/fonts/SAP-icons.woff2`,
-	`${openui5Link}sap/m/library-preload.js`,
-	// illustrations
-	`${openui5Link}sap/m/themes/base/illustrations/sapIllus-Patterns.svg`,
-	`${openui5Link}sap/m/themes/base/illustrations/sapIllus-Spot-SimpleCalendar.svg`,
-	`${openui5Link}sap/m/themes/base/illustrations/sapIllus-Spot-NoSavedItems.svg`,
-	`${openui5Link}sap/tnt/themes/base/illustrations/tnt-Spot-Company.svg`,
-	`${openui5Link}sap/tnt/themes/base/illustrations/tnt-Spot-Success.svg`,
-	`${openui5Link}sap/tnt/themes/base/illustrations/tnt-Spot-Mission.svg`,
-	// themes
-	`${openui5Link}sap/m/themes/sap_horizon/library.css`,
-	`${openui5Link}sap/m/themes/sap_horizon_dark/library.css`,
-	`${openui5Link}sap/m/themes/sap_horizon_hcw/library.css`,
-	`${openui5Link}sap/m/themes/sap_horizon_hcb/library.css`
-];
-
-preloadResources.push(...openui5Resources);
-
-self.addEventListener('install', async (event) => {
+self.addEventListener('install', async () => {
 	const cache = await caches.open(staticCacheKey);
 	await cache.addAll(preloadResources);
 });
 
-self.addEventListener('activate', async (event) => {
+self.addEventListener('activate', async () => {
 	const cacheKeys = await caches.keys();
 	await Promise.all(
 		cacheKeys
@@ -67,14 +44,18 @@ self.addEventListener('fetch', (event) => {
 
 async function cacheFirst(request) {
 	const cached = await caches.match(request);
-	return cached ?? (await fetch(request));
+	return cached ?? await fetch(request);
 }
 
 async function networkFirst(request) {
 	const cache = await caches.open(dynamicCacheKey);
 	try {
 		const response = await fetch(request);
-		if (request.method !== 'POST') await cache.put(request, response.clone());
+		try {
+			if (request.method !== 'POST') cache.put(request, response.clone());
+		} catch (error) {
+			console.error('Can not put request to cache', error);
+		}
 		return response;
 	} catch (error) {
 		const cached = await cache.match(request);
