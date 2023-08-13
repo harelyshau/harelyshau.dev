@@ -74,7 +74,7 @@ async function networkFirst(request) {
 	const cache = await caches.open(dynamicCacheKey);
 	try {
 		const response = await fetch(request);
-		await cache.put(request, response.clone());
+		if (request.method !== 'POST') await cache.put(request, response.clone());
 		return response;
 	} catch (error) {
 		const cached = await cache.match(request);
