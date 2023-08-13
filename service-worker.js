@@ -3,19 +3,19 @@ const dynamicCacheKey = 'dynamic-ph-v0.0.0';
 
 const preloadResources = [
 	// core
-	'../index.html',
-	'../Component-preload.js',
-	'../css/style.css',
+	'index.html',
+	'Component-preload.js',
+	'/css/style.css',
 	// images
-	'../resource/image/EPAMLogo.jpg',
-	'../resource/image/JETBILogo.jpg',
-	'../resource/image/WLNCLogo.jpg',
-	'../resource/image/MRCLogo.jpg',
-	'../resource/image/School33Logo.jpg',
+	'/resource/image/EPAMLogo.jpg',
+	'/resource/image/JETBILogo.jpg',
+	'/resource/image/WLNCLogo.jpg',
+	'/resource/image/MRCLogo.jpg',
+	'/resource/image/School33Logo.jpg',
 	// data
-	'../resource/data/Resume_en.json',
-	'../resource/data/Resume_de.json',
-	'../resource/data/Resume_ru.json'
+	'/resource/data/Resume_en.json',
+	'/resource/data/Resume_de.json',
+	'/resource/data/Resume_ru.json'
 ];
 
 const openui5Link = 'https://openui5.hana.ondemand.com/resources/';

@@ -11,9 +11,15 @@
 			"src": "resource/image/favicon/icon-512.png",
 			"type": "image/png",
 			"sizes": "512x512"
+		},
+		{
+			"src": "resource/image/favicon/apple-touch-icon.png",
+			"type": "image/png",
+			"sizes": "180x180",
+			"purpose": "any maskable"
 		}
 	],
-	"start_url": ".",
+	"start_url": "/",
 	"display": "standalone",
 	"theme_color": "#9281FF",
 	"background_color": "#191414"
