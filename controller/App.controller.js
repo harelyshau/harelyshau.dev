@@ -14,7 +14,7 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 		},
 
 		onTitleChanged(oEvent) {
-			document.title = oEvent.getParameter("title");
+			document.title = oEvent.getParameter('title');
 		}
 	});
 });

@@ -16,11 +16,18 @@ sap.ui.define(
 				this.setModel(models.createDeviceModel(), 'device');
 				languageHelper.initLanguage();
 				themeHelper.initTheme();
+				this.registerServiceWorker();
 			},
 
 			destroy() {
 				// call the base component's destroy function
 				UIComponent.prototype.destroy.apply(this, arguments);
+			},
+
+			async registerServiceWorker() {
+				if (navigator.serviceWorker) {
+					navigator.serviceWorker.register('/util/serviceWorker.js');
+				}
 			}
 		});
 	}

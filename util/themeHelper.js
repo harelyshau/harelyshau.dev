@@ -16,7 +16,6 @@ sap.ui.define([], () => {
 			}
 
 			sap.ui.getCore().applyTheme(this.mapTheme(sThemeKey));
-			this.setAppleStatusBarStyle(sThemeKey);
 		},
 
 		mapTheme(sKey, sValue) {
@@ -36,13 +35,6 @@ sap.ui.define([], () => {
 		initTheme() {
 			const sTheme = this.getTheme();
 			this.setTheme(this.getTheme());
-		},
-
-		setAppleStatusBarStyle(sThemeKey) {
-			const bDark = sThemeKey === 'dark' || sThemeKey === 'hcb';
-
-			const meta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-			// meta.content = false ? 'black-translucent' : 'default';
 		}
 	};
 });

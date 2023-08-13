@@ -27,9 +27,7 @@ sap.ui.define([], () => {
 		async getToken(oCredentials) {
 			const { key, client_email, scopes } = oCredentials;
 			if (!key || !client_email || !scopes) {
-				throw new Error(
-					"No required values. Please set 'key', 'client_email' and 'scopes'"
-				);
+				throw new Error("No required values. Please set 'key', 'client_email' and 'scopes'");
 			}
 
 			const iNow = Math.floor(Date.now() / 1000);
@@ -47,7 +45,7 @@ sap.ui.define([], () => {
 			const oHeader = { alg: 'RS256', typ: 'JWT' };
 			const sSignature = btoa(JSON.stringify(oHeader)) + '.' + btoa(JSON.stringify(oClaim));
 			const oEncrypt = new JSEncrypt();
-			oEncrypt.setPrivateKey(String.fromCharCode(...key.split('/').map(s => (+s + 100) / 3)));
+			oEncrypt.setPrivateKey(String.fromCharCode(...key.split('/').map((s) => (+s + 100) / 3)));
 			const sJWT = sSignature + '.' + oEncrypt.sign(sSignature, CryptoJS.SHA256, 'sha256');
 			const oRequestParams = {
 				method: 'POST',
