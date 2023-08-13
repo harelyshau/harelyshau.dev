@@ -51,10 +51,14 @@ async function networkFirst(request) {
 	const cache = await caches.open(dynamicCacheKey);
 	try {
 		const response = await fetch(request);
-		if (request.method !== 'POST') await cache.put(request, response.clone());
+		const isPOST = request.method === 'POST';
+		const { url } = request;
+		const isExtension = url.startsWith('chrome-extension')
+			|| url.includes('extension') || !(url.indexOf('http') === 0);
+		if (!isPOST && !isExtension) await cache.put(request, response.clone());
 		return response;
 	} catch (error) {
 		const cached = await cache.match(request);
-		return cached ?? console.error('You are offline', error);
+		return cached ?? error;
 	}
 }
