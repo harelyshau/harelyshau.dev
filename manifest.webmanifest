@@ -1,4 +1,6 @@
 {
+	"name": "harelyshau.dev",
+	"short_name": "Harelyshau",
 	"icons": [
 		{
 			"src": "resource/image/favicon/icon-192.png",
@@ -11,7 +13,8 @@
 			"sizes": "512x512"
 		}
 	],
-	"name": "harelyshau.dev",
-	"start_url": "index.html",
-	"display": "standalone"
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#9281FF",
+	"background_color": "#191414"
 }
