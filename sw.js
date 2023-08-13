@@ -37,7 +37,7 @@ self.addEventListener('fetch', (event) => {
 	const url = new URL(request.url);
 	if (url.origin === location.origin) {
 		event.respondWith(cacheFirst(request));
-	} else {
+	} else if (url.startsWith('http')) {
 		event.respondWith(networkFirst(request));
 	}
 });
@@ -51,11 +51,7 @@ async function networkFirst(request) {
 	const cache = await caches.open(dynamicCacheKey);
 	try {
 		const response = await fetch(request);
-		const isPOST = request.method === 'POST';
-		const { url } = request;
-		const isExtension = url.startsWith('chrome-extension')
-			|| url.includes('extension') || !(url.indexOf('http') === 0);
-		if (!isPOST && !isExtension) cache.put(request, response.clone());
+		if (request.method !== 'POST') cache.put(request, response.clone());
 		return response;
 	} catch (error) {
 		const cached = await cache.match(request);
