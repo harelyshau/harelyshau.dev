@@ -55,7 +55,7 @@ async function networkFirst(request) {
 		const { url } = request;
 		const isExtension = url.startsWith('chrome-extension')
 			|| url.includes('extension') || !(url.indexOf('http') === 0);
-		if (!isPOST && !isExtension) await cache.put(request, response.clone());
+		if (!isPOST && !isExtension) cache.put(request, response.clone());
 		return response;
 	} catch (error) {
 		const cached = await cache.match(request);
