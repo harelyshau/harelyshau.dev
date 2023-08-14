@@ -1,5 +1,6 @@
 {
 	"name": "harelyshau.dev",
+	"short_name": "Harelyshau",
 	"icons": [
 		{
 			"src": "resource/image/favicon/icon-192.png",

@@ -1,5 +1,4 @@
 {
-	"short_name": "{{appTitleShort}}",
 	"_version": "1.54.0",
 	"sap.app": {
 		"id": "pharelyshau",
