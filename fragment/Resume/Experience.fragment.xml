@@ -53,7 +53,7 @@
         <!-- Skills -->
         <Label text="{i18n>lSkills}:" class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>
         <Text text="{Skills}"/>
-        <Toolbar visible="{= ${/Experience}.indexOf(${}) !== ${/Experience}.length - 1 }"
+        <Toolbar visible="{= ${} !== ${/Experience}.at(-1) }"
             height="0.8rem" class="phToolbarSeparator sapUiTinyMarginBottom"/>
     </VBox>
 </core:FragmentDefinition>

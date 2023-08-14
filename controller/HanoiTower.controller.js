@@ -196,7 +196,7 @@ sap.ui.define(
 				const iDiscCount = this.getModel().getProperty('/DiscCount');
 				const aPegs = this.getModel().getProperty('/Pegs');
 				const bEnoughDisks = iDiscCount === aTargetPeg.length;
-				const bLastPeg = aPegs.indexOf(aTargetPeg) === aPegs.length - 1;
+				const bLastPeg = aTargetPeg === aPegs.at(-1);
 				if (!bEnoughDisks || !bLastPeg) return;
 				this.finishGame();
 			},
