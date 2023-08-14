@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
     core:require="{formatter: 'pharelyshau/model/formatter'}">
-    <Dialog title="Your Records" icon="sap-icon://competitor" afterClose="onAfterCloseRecordsDialog"
+    <Dialog title="{i18n>ttlYourRecords}" icon="{i18n>iAchievement}" afterClose="onAfterCloseRecordsDialog"
         class="phRecordsDialog">
         <List items="{/Records}" visible="{= ${/Records}.length > 0}">
             <CustomListItem class="phNoFocus">
@@ -12,27 +12,27 @@
                         <HBox renderType="Bare" alignItems="Center" class="sapUiTinyMarginTop">
                             <!-- Time -->
                             <HBox renderType="Bare" alignItems="Center">
-                                <core:Icon src="sap-icon://fob-watch"/>
-                                <Text text="Time: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
+                                <core:Icon src="{i18n>iTime}"/>
+                                <Text text="{i18n>ttlTime}: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
                             </HBox>
                             <!-- Moves -->
                             <HBox alignItems="Center" renderType="Bare" class="sapUiSmallMarginBegin"
                                 tooltip="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
-                                <core:Icon src="sap-icon://step"
+                                <core:Icon src="{i18n>iStep}"
                                     color="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'Positive' : '' }"/>
-                                <Text text="Moves: {Moves}" class="sapUiTinyMarginBegin"/>
+                                <Text text="{i18n>ttlMoves}: {Moves}" class="sapUiTinyMarginBegin"/>
                             </HBox>
                         </HBox>
                     </VBox>
-                    <Button icon="sap-icon://activate" tooltip="Try to Improve" press="onPressImrpoveResult"/>
+                    <Button icon="{i18n>iImprove}" tooltip="{i18n>btnTryToImprove}" press="onPressImrpoveResult"/>
                 </HBox>
             </CustomListItem>
         </List>
         <IllustratedMessage visible="{= ${/Records}.length === 0}" illustrationSize="Spot"
-            title="You have not any Records yet" illustrationType="sapIllus-SuccessBalloon"
-            description="Complete at least on Tower to see Record"/>
+            title="{i18n>ttlNoRecords}" illustrationType="sapIllus-SuccessBalloon"
+            description="{i18n>tCompleteToSeeRecord}"/>
         <endButton>
-            <Button text="Close" press="onPressCloseRecordsDialog"/>
+            <Button text="{i18n>btnClose}" press="onPressCloseRecordsDialog"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

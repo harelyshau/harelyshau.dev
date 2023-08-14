@@ -6,19 +6,19 @@
         <VBox class="sapUiSmallMargin">
             <!-- Result -->
             <VBox renderType="Bare">
-                <Title text="Your Result:" titleStyle="H6"/>
+                <Title text="{i18n>ttlYourResult}:" titleStyle="H6"/>
                 <HBox class="sapUiTinyMarginTop">
                     <!-- Time -->
                     <HBox renderType="Bare" alignItems="Center">
-                        <core:Icon src="sap-icon://fob-watch"/>
-                        <Text text="Time: {path: '/Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
+                        <core:Icon src="{i18n>iTime}"/>
+                        <Text text="{i18n>ttlTime}: {path: '/Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
                     </HBox>
                     <!-- Moves -->
                     <HBox renderType="Bare" alignItems="Center" class="sapUiSmallMarginBegin"
                         tooltip="{= ${/Moves} === Math.pow(2, ${/DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
-                        <core:Icon src="sap-icon://step"
+                        <core:Icon src="{i18n>iStep}"
                             color="{= ${/Moves} === Math.pow(2, ${/DiscCount}) - 1 ? 'Positive' : '' }"/>
-                        <Text text="Moves: {/Moves}" class="sapUiTinyMarginBegin"/>
+                        <Text text="{i18n>ttlMoves}: {/Moves}" class="sapUiTinyMarginBegin"/>
                     </HBox>
                 </HBox>
             </VBox>
@@ -30,25 +30,25 @@
                     <!-- Time -->
                     <HBox visible="{= ${view>/previousRecord/Time} > ${/Time} }"
                         renderType="Bare" alignItems="Center" class="sapUiSmallMarginEnd">
-                        <core:Icon src="sap-icon://fob-watch" class="sapUiTinyMarginEnd"/>
+                        <core:Icon src="{i18n>iTime}" class="sapUiTinyMarginEnd"/>
                         <Text text="{= ${view>/previousRecord/Time} - ${/Time} } sec faster"/>
                     </HBox>
                     <!-- Moves -->
                     <HBox visible="{= ${view>/previousRecord/Moves} > ${/Moves} }"
                         renderType="Bare" alignItems="Center">
-                        <core:Icon src="sap-icon://step" class="sapUiTinyMarginEnd"/>
+                        <core:Icon src="{i18n>iStep}" class="sapUiTinyMarginEnd"/>
                         <Text text="{= ${view>/previousRecord/Moves} - ${/Moves} } moves fewer"/>
                     </HBox>
                 </HBox>
-                <Button text="See Your Records" icon="sap-icon://competitor"
+                <Button text="{i18n>btnSeeRecords}" icon="{i18n>iAchievement}"
                     press="onPressOpenRecordsDialog" class="sapUiTinyMarginTop"/>
             </VBox>
         </VBox>
         <beginButton>
-            <Button text="Level UP" press="onPressLevelUp" icon="sap-icon://collapse-group" type="Emphasized"/>
+            <Button text="{i18n>btnLevelUp}" press="onPressLevelUp" icon="{i18n>iLevelUp}" type="Emphasized"/>
         </beginButton>
         <endButton>
-            <Button text="Restart" icon="sap-icon://restart" press="onPressCloseWinDialog"/>
+            <Button text="{i18n>btnRestart}" icon="{i18n>iRestart}" press="onPressCloseWinDialog"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

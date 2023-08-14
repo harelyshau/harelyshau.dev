@@ -16,11 +16,6 @@ sap.ui.define(
 				this.setModel(models.createDeviceModel(), 'device');
 				languageHelper.initLanguage();
 				themeHelper.initTheme();
-			},
-
-			destroy() {
-				// call the base component's destroy function
-				UIComponent.prototype.destroy.apply(this, arguments);
 			}
 		});
 	}
