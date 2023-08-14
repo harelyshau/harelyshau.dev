@@ -16,6 +16,17 @@ sap.ui.define([], () => {
 			}
 
 			sap.ui.getCore().applyTheme(this.mapTheme(sThemeKey));
+			this.setThemeColor(sThemeKey);
+		},
+
+		setThemeColor(sThemeKey) {
+			const oColors = {
+				'light': '#fff',
+				'dark': '#1d232a',
+				'hcw': '#fff',
+				'hcb': '#000'
+			}
+			document.querySelector('meta[name="theme-color"]').content = oColors[sThemeKey];
 		},
 
 		mapTheme(sKey, sValue) {
@@ -33,7 +44,6 @@ sap.ui.define([], () => {
 		},
 
 		initTheme() {
-			const sTheme = this.getTheme();
 			this.setTheme(this.getTheme());
 		}
 	};
