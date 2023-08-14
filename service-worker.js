@@ -37,7 +37,7 @@ self.addEventListener('fetch', (event) => {
 	const url = new URL(request.url);
 	if (url.origin === location.origin) {
 		event.respondWith(cacheFirst(request));
-	} else if (url.startsWith('http')) {
+	} else if (request.url.startsWith('http')) {
 		event.respondWith(networkFirst(request));
 	}
 });
@@ -55,6 +55,6 @@ async function networkFirst(request) {
 		return response;
 	} catch (error) {
 		const cached = await cache.match(request);
-		return cached ?? error;
+		return cached ?? console.error('request failed', error);
 	}
 }

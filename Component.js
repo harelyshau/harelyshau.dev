@@ -16,7 +16,6 @@ sap.ui.define(
 				this.setModel(models.createDeviceModel(), 'device');
 				languageHelper.initLanguage();
 				themeHelper.initTheme();
-				navigator.serviceWorker?.register('/sw.js');
 			},
 
 			destroy() {
