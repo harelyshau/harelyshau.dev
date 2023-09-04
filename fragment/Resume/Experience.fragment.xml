@@ -30,14 +30,17 @@
             </FlexBox>
         </HBox>
         <!-- Description -->
-        <Text visible="{= !!${Description} }" text="{Description}"/>
+        <Text visible="{= !!${Description} }" text="{Description}" class="sapUiTinyMarginTop"/>
         <!-- Projects -->
-        <VBox visible="{= ${Projects}.length > 0}">
-            <Label text="{= ${Projects}.length > 1 ? ${i18n>lProjects} : ${i18n>lProject} }:" />
-            <VBox items="{path: 'Projects', templateShareable: false}">
+        <FlexBox direction="{= ${Projects}.length > 1 || ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Column' : 'Row' }"
+            renderType="{= ${Projects}.length > 1 || ${device>/system/phone} || 550 >= ${device>/resize/width} ? 'Div' : 'Bare' }"
+            visible="{= !!${Projects} &amp;&amp; ${Projects}.length > 0}" wrap="Wrap"  class="sapUiTinyMarginTop">
+            <Label text="{= ${Projects}.length > 1 ? ${i18n>lProjects} : ${i18n>lProject} }:" class="sapUiTinyMarginEnd"/>
+            <VBox visible="{= ${Projects}.length > 1 }" items="{path: 'Projects', templateShareable: false}">
                 <Text text="• &#160;{}"/>
             </VBox>
-        </VBox>
+            <Text visible="{= ${Projects}.length === 1 }" text="{Projects/0}"/>
+        </FlexBox>
         <!-- Responsobilities -->
         <Label text="{i18n>lResponsobilities}:" class="sapUiTinyMarginTop"/>
         <VBox items="{path: 'Responsobilities', templateShareable: false}">

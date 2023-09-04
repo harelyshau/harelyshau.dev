@@ -1,95 +1,99 @@
 {
 	"FirstName": "Pavel",
 	"LastName": "Harelyshau",
-	"Position": "Frontend Developer",
+	"Position": "Frontend-Entwickler",
 	"Email": "pavel@harelyshau.dev",
 	"RelocationPreference": {
-		"Country": "Canada",
-		"Description": ""
+		"Country": "Kanada",
+		"Description": "Ich bin Softwareentwickler (NOC: 21231) und interessiere mich für die Möglichkeit, nach Kanada umzuziehen. Ich benötige ein kanadisches Arbeitsvisum. Um mit dem Visumantragsverfahren beginnen zu können, benötige ich ein Stellenangebot eines Arbeitgebers mit einem positiven LMIA-Zertifikat (Labour Market Impact Assessment).",
+		"Link": "https://www.canada.ca/en/employment-social-development/services/foreign-workers.html",
+		"LinkText": "the official website of the Government of Canada"
 	},
-	"Summary": "Kreativer und leidenschaftlicher Software-Ingenieur mit 3,5 Jahren Erfahrung in der Frontend-Entwicklung, Wartung und Unterstützung von Webanwendungen unter Verwendung moderner Technologien und agiler Methoden. Erfahrung mit SAP-Produkten und der Arbeit mit englischsprachigen Teams und Kunden. Es macht mir wirklich Spaß, nützliche und benutzerfreundliche Anwendungen zu erstellen, die ein angenehmes Benutzererlebnis hinterlassen.",
+	"Summary": "Begeisterter Software-Ingenieur mit über 3,5 Jahren Erfahrung in der kommerziellen Frontend-Entwicklung, der sich mit der Nutzung moderner Technologien und agiler Methoden auskennt. Beherrscht SAP-Produkte, ist geübt in der Zusammenarbeit mit verschiedenen internationalen Teams und hat Erfahrung in der Betreuung von Praktikanten. Erfahrener Problemlöser, der sich für die Erstellung benutzerfreundlicher Anwendungen einsetzt.",
 	"SkillsByTypes": [
 		{
-			"Type": "Programming Skills",
-			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, TypeScript, SQL"
+			"Type": "Programmierkenntnisse",
+			"Skills": "JavaScript, ES6, CSS, HTML5, XML, JSON, TypeScript, SQL"
 		},
 		{
-			"Type": "Frameworks & Libraries",
-			"Skills": "SAPUI5, OpenUI5, jQuery, SAP Fiori Elements, Flexible Programming Model"
+			"Type": "Frontend-Frameworks",
+			"Skills": "SAPUI5, OpenUI5, SAP Fiori Elements, Flexible Programming Model"
 		},
 		{
-			"Type": "SAP Tools",
+			"Type": "Backend-Technologien",
+			"Skills": "RESTful APIs, XSOdata, OData v4 & v2, NodeJS, CDS, XSJS"
+		},
+		{
+			"Type": "SAP-Ökosystem",
 			"Skills": "SAP Cloud Application Programming Model, SAP HANA Database, SAP S/4HANA, SAP Business Technology Platform, SAP Cloud Platform"
 		},
 		{
-			"Type": "Backend Side",
-			"Skills": "XSJS, RESTful API, XSOdata, OData v4 & v2, CDS-models"
+			"Type": "Entwicklungswerkzeuge",
+			"Skills": "Git, Visual Studio Code, SAP WebIDE, SAP Business Application Studio, Jenkins, Jira"
 		},
 		{
-			"Type": "Development Tools",
-			"Skills": "Git, Visual Studio Code, SAP WebIDE, SAP Business Application Studio"
-		},
-		{
-			"Type": "Design Tools",
+			"Type": "Design-Tools",
 			"Skills": "Photoshop, Figma"
 		},
 		{
-			"Type": "Other",
-			"Skills": "UX/UI Design, Teaching, Mentoring"
+			"Type": "Zusätzliche Expertise",
+			"Skills": "UX/UI-Design, Responsive Design, Progressive Web Apps (PWAs), Lehre, Mentoring, Testen"
 		}
 	],
 	"Experience": [
 		{
-			"Position": "Frontend Developer",
+			"Position": "Frontend-Entwickler",
 			"Company": {
 				"Name": "EPAM Systems Inc",
 				"Location": "Tbilisi, Georgia",
-				"Description": "",
+				"Website": "https://www.epam.com/",
+				"Description": "EPAM Systems Inc is a technology company that provides software engineering services for software development and digital platforms. The company provides services in customer experience design, business consulting and technology innovation services.",
 				"Logo": "/resource/image/EPAMLogo.jpg"
 			},
-			"StartDate": "2023-07-01",
+			"StartDate": "2022-07",
 			"EndDate": "Present",
-			"Description": "",
+			"Description": "Spearheading frontend development using SAPUI5 & Fiori Elements frameworks",
 			"Projects": ["SAP BTP solution for managing purchase orders"],
 			"Responsobilities": [
-				"Development and maintenance of UI using SAPUI5 & SAP Fiori Elements",
+				"Development and maintenance of UI",
 				"Development of reusable custom controls and fragments",
 				"Management interaction of the Client Side and Server Side code",
 				"Creation and refinement of SAP CAP Data Model"
 			],
 			"Achievements": [
-				"Development and maintenance of UI using SAPUI5 & SAP Fiori Elements",
-				"Development of reusable custom controls and fragments"
+				"Assisted new developers in project assimilation",
+				"Significantly optimized the code maintenance by reducing the code base by over 2 times through strategic code refactoring, while retaining full functionality",
+				"Played a key role in the implementation of dynamic rendering of diverse interface elements based on server metadata"
 			],
-			"Skills": "JavaScript, ES6, TypeScript, CSS, XML, JSON, SAPUI5, SAP Fiori Elements, Flexible Programming Model, CDS-models, OData v4, Git, Visual Studio Code, SAP Business Application Studio, SAP Cloud Application Programming Model, SAP Business Technology Platform"
+			"Skills": "JavaScript, ES6, TypeScript, CSS, XML, JSON, SAPUI5, SAP Fiori Elements, Flexible Programming Model, CDS-models, OData v4 & v2, Git, Visual Studio Code, SAP Business Application Studio, SAP Cloud Application Programming Model, SAP Business Technology Platform, NodeJS"
 		},
 		{
 			"Position": "Frontend Developer",
 			"Company": {
 				"Name": "JET BI LLC",
-				"Location": "",
-				"Description": "",
+				"Website": "https://jetbi.com/",
+				"Description": "JET BI is a consulting and software development services company headquartered in Ireland, Dublin. Company helps small and medium-size businesses get the most of the latest enterprise-grade software solutions with 60+ consultants on-board.",
 				"Logo": "/resource/image/JETBILogo.jpg"
 			},
-			"StartDate": "2023-07-01",
-			"EndDate": "Present",
-			"Description": "",
+			"StartDate": "2021-02",
+			"EndDate": "2022-06",
+			"Description": "Spearheaded frontend development initiatives using SAPUI5 & OpenUI5 frameworks",
 			"Projects": [
 				"SCP Module that helps users to effectively conduct meetings and resolve scheduled issues",
 				"SCP Module for creating and conducting surveys and tests",
-				"Course «Frontend Development based on SAPUI5 framework»"
+				"Course \"Frontend Development based on SAPUI5 framework\""
 			],
 			"Responsobilities": [
-				"Development and maintenance of UI using SAPUI5 & OpenUI5",
+				"Development and maintenance of UI",
 				"Development of reusable custom controls and fragments",
 				"Management interaction of the Client Side and Server Side code",
 				"Creation and refinement of SAP HANA Data Model"
 			],
 			"Achievements": [
 				"Implemented a module for sending invitations to a meeting by email on XSJS",
-				"Increased the speed of the application by passing data from the OData model to JSON",
-				"Participated in conducting a course on Frontend Development based on SAPUI5 framework, followed by mentoring for trainees",
-				"Advised the team on UX/UI design and CSS"
+				"Optimized application speed by implementing real-time data updates through converting data from the OData model to JSON",
+				"Acted as a mentor for trainees and played a crucial role in conducting the frontend development course on SAPUI5",
+				"Created custom controls utilized across all company projects, contributing to consistent and efficient development processes"
 			],
 			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
 		},
@@ -97,14 +101,13 @@
 			"Position": "Full Stack Developer",
 			"Company": {
 				"Name": "WeLoveNoCode Ltd",
-				"Location": "",
-				"Description": "",
+				"Website": "https://www.welovenocode.com/",
+				"Description": "WeLoveNoCode is the largest no-code marketplace that connects 5,000 companies and 36,000 no-code developers. The company is headquartered in San Francisco and has already raised $3M in funding.",
 				"Logo": "/resource/image/WLNCLogo.jpg"
 			},
-			"StartDate": "2020-08-01",
-			"EndDate": "2020-02-01",
-			"Description": "Full stack development and improvement of web applications using Bubble.io",
-			"Projects": [],
+			"StartDate": "2020-08",
+			"EndDate": "2021-02",
+			"Description": "Spearheaded full stack development efforts using Bubble.io, successfully delivering",
 			"Responsobilities": [
 				"UI/UX design of web application",
 				"Development of the UI and Backend logic",
@@ -116,37 +119,43 @@
 				"Collection of requirements and coordination of development stages",
 				"Teamwork with Agile Methodology"
 			],
-			"Achievements": [],
-			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
+			"Achievements": [
+				"Successfully delivered Minimum Viable Products (MVP) for 4 projects within a tight timeframe",
+				"Took charge of task assignment to the entire development team, providing daily progress reports to clients, facilitating efficient communication and project management"
+			],
+			"Skills": "JavaScript, CSS, HTML, JSON, XSJS, RESTful API, Agile Methodology, Scrum, UX/UI Design, Figma, Photoshop"
 		},
 		{
 			"Position": "Frontend Developer",
 			"Company": {
 				"Name": "Freelance",
 				"Location": "",
+				"Website": "",
 				"Description": "",
 				"Logo": "sap-icon://laptop"
 			},
-			"StartDate": "2020-08-01",
-			"EndDate": "2020-02-01",
-			"Description": "Development of commercial, business card and corporate websites using CMS WordPress",
-			"Projects": [],
+			"StartDate": "2020-02",
+			"EndDate": "2020-08",
+			"Description": "Development of commercial, business card and corporate websites using CMS",
 			"Responsobilities": [
 				"Collecting requirements from the client",
 				"Design and prototype of website using Photoshop and Figma",
-				"Choosing a WordPress Theme and Plugins",
-				"Development using JS, HTML and CSS",
+				"Custom development using JS, HTML and CSS",
 				"Support and improvement of ready-made sites",
 				"Speed up website loading, SEO optimization, adding analytical metrics"
 			],
-			"Achievements": [],
-			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
+			"Achievements": [
+				"Independently developed 7 websites from scratch",
+				"Significantly improved UX by optimizing website loading speed, achieving a 2x speed increase on average",
+				"Successfully optimized websites for search results, resulting in their appearance on the first pages of relevant search queries"
+			],
+			"Skills": "HTML, CSS, JavaScript, UX/UI Design, Photoshop, Figma, SEO optimization, Team work"
 		}
 	],
 	"Education": [
 		{
 			"Name": "Minsk Radio Engineering College",
-			"Description": "Specialization «Software of Information Technologies», faculty of Computer Technologies",
+			"Description": "Specialization \"Software of Information Technologies\", faculty of Computer Technologies",
 			"Logo": "/resource/image/MRCLogo.jpg"
 		},
 		{
@@ -180,22 +189,20 @@
 	"Achievements": [
 		{
 			"Name": "Champion of Republic of Belarus in Rapid Chess and multiple Champion of Vitebsk region in Classical Chess among peers",
-			"Link": "",
 			"Icon": "sap-icon://competitor"
 		},
 		{
 			"Name": "4 kyu on Codewars",
 			"Link": "https://www.codewars.com/users/harelyshau",
+			"LinkText": "click to see profile",
 			"Icon": "sap-icon://syntax"
 		},
 		{
 			"Name": "Made a design for a collection of poems",
-			"Link": "",
 			"Icon": "sap-icon://palette"
 		},
 		{
 			"Name": "Ex-Deputy of the Youth Chamber of Vitebsk",
-			"Link": "",
 			"Icon": "sap-icon://suitcase"
 		}
 	],

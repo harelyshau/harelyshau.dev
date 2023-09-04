@@ -56,9 +56,8 @@ sap.ui.define(
 			},
 
 			onPressSetLanguage(sKey) {
-				sap.ui.core.Configuration.setLanguage(sKey);
 				languageHelper.setLanguage(sKey);
-				location.reload(); // need to refresh to change controls language
+				window.location.reload(); // need to refresh to change controls language
 			},
 
 			async onPressShareLink() {

@@ -9,11 +9,11 @@
             </Toolbar>
         </customHeader>
         <VBox class="sapUiTinyMargin">
-            <HBox visible="{= !!${Website} }" wrap="Wrap">
+            <HBox visible="{= !!${Website} }" wrap="Wrap" renderType="Bare">
                 <Label text="{i18n>lWebsite}:" class="sapUiTinyMarginEnd"/>
                 <Link text="{Website}" href="{Website}" target="_blank"/>
             </HBox>
-            <Text visible="{= !!${Description} }" text="{Description}"/>
+            <Text visible="{= !!${Description} }" text="{Description}" class="sapUiTinyMarginTop"/>
         </VBox>
 	</Popover>
 </core:FragmentDefinition>

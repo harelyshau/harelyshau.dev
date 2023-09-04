@@ -1,7 +1,7 @@
 {
 	"FirstName": "Павел",
 	"LastName": "Горелышев",
-	"Position": "Frontend разработчик",
+	"Position": "Фронтенд разработчик",
 	"Email": "pavel@harelyshau.dev",
 	"RelocationPreference": {
 		"Country": "Канаду",
@@ -9,27 +9,27 @@
 		"Link": "https://www.canada.ca/en/employment-social-development/services/foreign-workers.html",
 		"LinkText": "официальный сайт правительства Канады"
 	},
-	"Summary": "Креативный и увлеченный своим делом инженер-программист с 3,5-летним опытом разработки, обслуживания и поддержки веб-приложений с использованием современных технологий и методологии Agile. Опыт работы с продуктами SAP и работы с англоязычными командами и клиентами. Мне очень нравится создавать полезные и удобные приложения, которые оставляют приятный пользовательский опыт.",
+	"Summary": "Креативный и увлеченный своим делом инженер-программист с 3,5-летним опытом коммерческой разработки, обслуживания и поддержки веб-приложений с использованием современных технологий и методологии Agile. Опыт работы с продуктами SAP и работы с англоязычными командами и клиентами. Имею опыт наставничества стажеров и проведения лекций. Мне интересно решать сложные задачи и создавать приложения, которые максимально удобны для пользователей.",
 	"SkillsByTypes": [
 		{
 			"Type": "Навыки программирования",
-			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, TypeScript, SQL"
+			"Skills": "JavaScript, ES6, CSS, HTML5, XML, JSON, TypeScript, SQL"
 		},
 		{
-			"Type": "Фреймворки и библиотеки",
-			"Skills": "SAPUI5, OpenUI5, jQuery, SAP Fiori Elements, Flexible Programming Model"
+			"Type": "Фронтенд фреймворки",
+			"Skills": "SAPUI5, OpenUI5, SAP Fiori Elements, Flexible Programming Model"
 		},
 		{
-			"Type": "SAP инструменты",
+			"Type": "Серверная технологии",
+			"Skills": "RESTful APIs, XSOdata, OData v4 & v2, NodeJS, CDS, XSJS"
+		},
+		{
+			"Type": "SAP экосистема",
 			"Skills": "SAP Cloud Application Programming Model, SAP HANA Database, SAP S/4HANA, SAP Business Technology Platform, SAP Cloud Platform"
 		},
 		{
-			"Type": "Серверная часть",
-			"Skills": "XSJS, RESTful API, XSOdata, OData v4 & v2, CDS-models"
-		},
-		{
 			"Type": "Инструменты разработки",
-			"Skills": "Git, Visual Studio Code, SAP WebIDE, SAP Business Application Studio"
+			"Skills": "Git, Visual Studio Code, SAP WebIDE, SAP Business Application Studio, Jenkins, Jira"
 		},
 		{
 			"Type": "Инструменты дизайна",
@@ -42,90 +42,91 @@
 	],
 	"Experience": [
 		{
-			"Position": "Frontend разработчик",
+			"Position": "Фронтенд разработчик",
 			"Company": {
 				"Name": "EPAM Systems Inc",
 				"Location": "Тбилиси, Грузия",
 				"Website": "https://www.epam.com/",
-				"Description": "EPAM Systems Inc is a technology company that provides software engineering services for software development and digital platforms. The company provides services in customer experience design, business consulting and technology innovation services.",
+				"Description": "EPAM Systems Inc — технологическая компания, предоставляющая услуги по разработке программного обеспечения и цифровых платформ. Компания предоставляет услуги по проектированию клиентского опыта, бизнес-консалтингу и технологическим инновациям.",
 				"Logo": "/resource/image/EPAMLogo.jpg"
 			},
 			"StartDate": "2022-07",
 			"EndDate": "Present",
-			"Description": "",
+			"Description": "Разработка пользовательского интерфейса с использованием фреймворков SAPUI5 и Fiori Elements",
 			"Projects": ["SAP BTP решение для управления заказами на покупку"],
 			"Responsobilities": [
-				"Development and maintenance of UI using SAPUI5 & SAP Fiori Elements",
-				"Development of reusable custom controls and fragments",
-				"Management interaction of the Client Side and Server Side code",
-				"Creation and refinement of SAP CAP Data Model"
+				"Разработка и поддержка пользовательского интерфейса",
+				"Разработка переиспользуемых контролов и фрагментов",
+				"Управление взаимодействием между клиентским и серверным кодом",
+				"Создание и доработка модели данных SAP CAP"
 			],
 			"Achievements": [
-				"Development and maintenance of UI using SAPUI5 & SAP Fiori Elements",
-				"Development of reusable custom controls and fragments"
+				"Помог новым разработчикам освоиться на проекте",
+				"Оптимизировал поддержку кода за счет сокращения кодовой базы более чем в 2 раза за счет рефакторинга кода с сохранением полной функциональности",
+				"Сыграл ключевую роль в реализации динамического рендеринга элементов интерфейса на основе метаданных с сервера"
 			],
-			"Skills": "JavaScript, ES6, TypeScript, CSS, XML, JSON, SAPUI5, SAP Fiori Elements, Flexible Programming Model, CDS-models, OData v4, Git, Visual Studio Code, SAP Business Application Studio, SAP Cloud Application Programming Model, SAP Business Technology Platform"
+			"Skills": "JavaScript, ES6, TypeScript, CSS, XML, JSON, SAPUI5, SAP Fiori Elements, Flexible Programming Model, CDS-models, OData v4 & v2, Git, Visual Studio Code, SAP Business Application Studio, SAP Cloud Application Programming Model, SAP Business Technology Platform, NodeJS"
 		},
 		{
-			"Position": "Frontend разработчик",
+			"Position": "Фронтенд разработчик",
 			"Company": {
 				"Name": "JET BI LLC",
-				"Location": "",
 				"Website": "https://jetbi.com/",
-				"Description": "JET BI is a consulting and software development services company headquartered in Ireland, Dublin. Company helps small and medium-size businesses get the most of the latest enterprise-grade software solutions with 60+ consultants on-board.",
+				"Description": "JET BI — компания, предоставляющая консалтинговые услуги и разработку программного обеспечения, штаб-квартира которой находится в Ирландии, Дублин. Компания помогает малому и среднему бизнесу получить максимальную отдачу от новейших программных решений корпоративного уровня, привлекая более 60 консультантов.",
 				"Logo": "/resource/image/JETBILogo.jpg"
 			},
 			"StartDate": "2021-02",
 			"EndDate": "2022-06",
-			"Description": "",
+			"Description": "Разработка пользовательского интерфейса с использованием фреймворков SAPUI5 и OpenUI5",
 			"Projects": [
-				"SCP Module that helps users to effectively conduct meetings and resolve scheduled issues",
-				"SCP Module for creating and conducting surveys and tests",
-				"Course «Frontend Development based on SAPUI5 framework»"
+				"SCP Модуль, который помогает пользователям эффективно проводить собрания и решать запланированные вопросы",
+				"SCP Модуль для создания и проведения опросов и тестов",
+				"Курс «Фронтенд разработка с помощью SAPUI5 фреймворка»"
 			],
 			"Responsobilities": [
-				"Development and maintenance of UI using SAPUI5 & OpenUI5",
-				"Development of reusable custom controls and fragments",
-				"Management interaction of the Client Side and Server Side code",
-				"Creation and refinement of SAP HANA Data Model"
+				"Разработка и поддержка пользовательского интерфейса",
+				"Разработка переиспользуемых контролов и фрагментов",
+				"Управление взаимодействием между клиентским и серверным кодом",
+				"Создание и доработка модели данных SAP HANA"
 			],
 			"Achievements": [
-				"Implemented a module for sending invitations to a meeting by email on XSJS",
-				"Increased the speed of the application by passing data from the OData model to JSON",
-				"Participated in conducting a course on Frontend Development based on SAPUI5 framework, followed by mentoring for trainees",
-				"Advised the team on UX/UI design and CSS"
+				"Реализовал модуль отправки приглашений на встречу по электронной почте на XSJS",
+				"Оптимизировал скорость приложения за счет обновления данных в реальном времени путем преобразования данных из модели OData в JSON",
+				"Был наставником для стажеров и сыграл важную роль в проведении курса фронтенд разработки на SAPUI5",
+				"Создал кастомные контролы, которые используются во всех проектах компании, что способствует эффективному процессу разработки"
 			],
-			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
+			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI дизайн, Преподавание, Наставничество"
 		},
 		{
-			"Position": "Full Stack разработчик",
+			"Position": "Фулстек разработчик",
 			"Company": {
 				"Name": "WeLoveNoCode Ltd",
-				"Location": "",
 				"Website": "https://www.welovenocode.com/",
-				"Description": "",
+				"Description": "WeLoveNoCode — это крупнейшая no-code площадка, которая объединяет 5000 компаний и 36 000 no-code разработчиков. Компания со штаб-квартирой в Сан-Франциско уже привлекла финансирование в размере 3 миллионов долларов.",
 				"Logo": "/resource/image/WLNCLogo.jpg"
 			},
 			"StartDate": "2020-08",
 			"EndDate": "2021-02",
-			"Description": "Full Stack разработка и улучшение веб-приложений на Bubble.io",
-			"Projects": [],
+			"Description": "Spearheaded full stack development efforts using Bubble.io, successfully delivering",
 			"Responsobilities": [
-				"UI/UX дизайн приложения",
-				"Разработка интерфейса и Backend части",
+				"UI/UX дизайн веб приложений",
+				"Разработка UI и Backend-логики",
 				"Разработка модели данных",
-				"Интеграция в приложение API (Stripe, Google, data API, etc.)",
-				"Работа с плагинами (API Connector, Draggable Elements, JSON Machine, Tree Explorer, etc.)",
-				"Интеграция данных приложения в другие службы с помощью Bubble App Data API",
-				"Фикс багов и поддержка приложения",
+				"Инетграция в приложения различных API (Stripe, Google, data API и т.д.)",
+				"Работа с плагинами (API Connector, Draggable Elements, JSON Machine, Tree Explorer и т. д.)",
+				"Интеграция данных приложения в другие сервисы на основе API данных приложения Bubble",
+				"Фикс багов и поддержка приложений",
 				"Сбор требований и согласование этапов разработки",
-				"Командная работа по Agile методологии"
+				"Командная работа по Agile Methodology"
 			],
-			"Achievements": [],
-			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
+			"Achievements": [
+				"Успешно реализовал MVP для 4 проектов в сжатые сроки",
+				"Распределял задачи между всей командой разработчиков, предоставляя клиентам ежедневные отчеты о ходе работы, способствуя эффективному общению и управлению проектами"
+			],
+			"Skills": "JavaScript, CSS, HTML, JSON, XSJS, RESTful API, Agile Methodology, Scrum, UX/UI дизайн, Figma, Photoshop"
 		},
 		{
-			"Position": "Frontend разработчик",
+			"Position": "Фронтенд разработчик",
 			"Company": {
 				"Name": "Фриланс",
 				"Location": "",
@@ -135,39 +136,41 @@
 			},
 			"StartDate": "2020-02",
 			"EndDate": "2020-08",
-			"Description": "Разработка коммерческих и корпоративных сайтов, сайтов-визиток на CMS WordPress",
-			"Projects": [],
+			"Description": "Разработка коммперческих, бизнес и корпоративных сайтов с помощью CMS",
 			"Responsobilities": [
 				"Сбор требований от заказчика",
-				"Дизайн и прототипирование вебсайта в Photoshop и Figma",
-				"Выбор WordPress темы и плагинов",
-				"Development using JS, HTML and CSS",
-				"Поддержка и улучшение готовых сайтов",
-				"Ускорение загрузки вебсайта, SEO оптимизация, добавление аналитических метрик"
+				"Дизайн и прототипирование сайтов с помощью Photoshop и Figma",
+				"Custom development using JS, HTML and CSS",
+				"Поддержка и улучшение готовых веб сайтов",
+				"Ускорение загрузки сайт, SEO оптимизация, добавление аналитических метрик"
 			],
-			"Achievements": [],
-			"Skills": "JavaScript, ES6, CSS, HTML, XML, JSON, SQL, SAPUI5, OpenUI5, jQuery, XSJS, RESTful API, OData v2, CDS-models, SAP HANA Database, SAP S/4HANA, SAP Cloud Platform, Git, SAP WebIDE, Figma, UX/UI Design, Teaching, Mentoring"
+			"Achievements": [
+				"Самостоятельно разработал 7 сайтов с нуля",
+				"Значительно улучшен UX за счет оптимизации скорости загрузки веб-сайта, в среднем скорость увеличилась в 2 раза",
+				"Успешная оптимизировал веб-сайты под результаты поиска, в результате чего они появляются на первых страницах релевантных поисковых запросов"
+			],
+			"Skills": "HTML, CSS, JavaScript, UX/UI дизайн, Photoshop, Figma, SEO оптимизация, Командная работа"
 		}
 	],
 	"Education": [
 		{
 			"Name": "Минский радиотехнический колледж",
-			"Description": "Специальность «Программное обеспечение информационных технологий», факультет компьютерных технологий",
+			"Description": "Специальность «Программное обеспечение информационных технологий», факультет компьютерный технологий",
 			"Logo": "/resource/image/MRCLogo.jpg"
 		},
 		{
-			"Name": "Витебская Средняя школа №33",
-			"Description": "Занимал призовые места в олимпиадах по математике, обществоведению, географии",
+			"Name": "Средняя школы №33 г. Витебска",
+			"Description": "Занимал призовые места в олимпиадах по математике, обществоведнию, географии",
 			"Logo": "/resource/image/School33Logo.jpg"
 		}
 	],
 	"Courses": [
 		{
-			"Name": "Full Stack разработка на SAP CAP и SAP Fiori Elements",
+			"Name": "Фулстек разработка на SAP CAP и SAP Fiori Elements",
 			"Year": 2023
 		},
 		{
-			"Name": "Backend разработка на SAP S/4HANA",
+			"Name": "Бекенд разарботка на SAP S/4HANA",
 			"Year": 2022
 		},
 		{
@@ -175,11 +178,11 @@
 			"Year": 2022
 		},
 		{
-			"Name": "Frontend разработка на SAPUI5 фреймворке",
+			"Name": "Фронтенд разработка с помощью SAPUI5 фреймворка",
 			"Year": 2021
 		},
 		{
-			"Name": "Веб разработка",
+			"Name": "Веб разарботка",
 			"Year": 2020
 		}
 	],
@@ -191,7 +194,7 @@
 		{
 			"Name": "4 kyu на Codewars",
 			"Link": "https://www.codewars.com/users/harelyshau",
-			"LinkText": "нажмите чтобы просмотреть профиль",
+			"LinkText": "нажмите чтобы посмотреть профиль",
 			"Icon": "sap-icon://syntax"
 		},
 		{
@@ -199,7 +202,7 @@
 			"Icon": "sap-icon://palette"
 		},
 		{
-			"Name": "Экс-депутат Молодежной палаты г. Витебска",
+			"Name": "Экс-депутат Молодежной палаты Витебска",
 			"Icon": "sap-icon://suitcase"
 		}
 	],
