@@ -4,7 +4,7 @@ Instance of Control, since the formatting depends on the binding of the parent e
 sap.ui.define(() => {
 	'use strict';
 
-	return function (aDiscs) {
+	return function(aDiscs) {
 		const aParentDiscs = this.getParent().getBindingContext().getObject();
 		return aParentDiscs !== aDiscs;
 	};

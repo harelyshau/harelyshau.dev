@@ -271,12 +271,8 @@ sap.ui.define(
 			},
 
 			onPressToggleFullDay(oEvent) {
-				const bPressed = oEvent.getSource().getProperty('pressed');
-				if (bPressed) {
-					localStorage.setItem('fullDay', true);
-				} else {
-					localStorage.removeItem('fullDay');
-				}
+				const bPressed = oEvent.getSource().getProperty('pressed')
+				localStorage.setItem('fullDay', bPressed);
 			},
 
 			setCalendarStartDate(oDate) {
@@ -342,9 +338,7 @@ sap.ui.define(
 					this.getModel().getProperty('/ExistingAppointments').push(oAppointment);
 					oResponse = await this.createAppointmentGC(oAppointment);
 					this.addAppointmentIdToLocalStorage(oResponse.result.id);
-				} else {
-					oResponse = await this.updateAppointmentGC(oAppointment);
-				}
+				} else oResponse = await this.updateAppointmentGC(oAppointment);
 				oAppointment = this.formatter.appointmentLocal.call(this, oResponse.result);
 				this.refreshAppointment(oAppointment);
 			},

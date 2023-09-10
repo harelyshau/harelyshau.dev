@@ -45,25 +45,25 @@
 			"Position": "Frontend-Entwickler",
 			"Company": {
 				"Name": "EPAM Systems Inc",
-				"Location": "Tbilisi, Georgia",
+				"Location": "Tiflis, Georgien",
 				"Website": "https://www.epam.com/",
-				"Description": "EPAM Systems Inc is a technology company that provides software engineering services for software development and digital platforms. The company provides services in customer experience design, business consulting and technology innovation services.",
+				"Description": "EPAM Systems Inc. ist ein Technologieunternehmen, das Software-Engineering-Dienstleistungen für Softwareentwicklung und digitale Plattformen anbietet. Das Unternehmen bietet Dienstleistungen in den Bereichen Customer Experience Design, Unternehmensberatung und Technologieinnovation an.",
 				"Logo": "/resource/image/EPAMLogo.jpg"
 			},
 			"StartDate": "2022-07",
 			"EndDate": "Present",
-			"Description": "Spearheading frontend development using SAPUI5 & Fiori Elements frameworks",
-			"Projects": ["SAP BTP solution for managing purchase orders"],
+			"Description": "Führende Frontend-Entwicklung mit SAPUI5- und Fiori-Elements-Frameworks",
+			"Projects": ["SAP BTP-Lösung zur Verwaltung von Bestellungen"],
 			"Responsobilities": [
-				"Development and maintenance of UI",
-				"Development of reusable custom controls and fragments",
-				"Management interaction of the Client Side and Server Side code",
-				"Creation and refinement of SAP CAP Data Model"
+				"Entwicklung und Wartung der Benutzeroberfläche",
+				"Entwicklung wiederverwendbarer benutzerdefinierter Steuerelemente und Fragmente",
+				"Verwaltungs Interaktion des clientseitigen und serverseitigen Codes",
+				"Erstellung und Verfeinerung des SAP CAP-Datenmodells"
 			],
 			"Achievements": [
-				"Assisted new developers in project assimilation",
-				"Significantly optimized the code maintenance by reducing the code base by over 2 times through strategic code refactoring, while retaining full functionality",
-				"Played a key role in the implementation of dynamic rendering of diverse interface elements based on server metadata"
+				"Unterstützung neuer Entwickler bei der Produktintegration",
+				"Habe die Codepflege deutlich optimiert, indem ich die Codebasis durch strategisches Code-Refactoring um mehr als das Zweifache reduziert habe, während die volle Funktionalität erhalten blieb",
+				"Spielte eine Schlüsselrolle bei der Implementierung des dynamischen Renderings verschiedener Schnittstellenelemente basierend auf Servermetadaten"
 			],
 			"Skills": "JavaScript, ES6, TypeScript, CSS, XML, JSON, SAPUI5, SAP Fiori Elements, Flexible Programming Model, CDS-models, OData v4 & v2, Git, Visual Studio Code, SAP Business Application Studio, SAP Cloud Application Programming Model, SAP Business Technology Platform, NodeJS"
 		},

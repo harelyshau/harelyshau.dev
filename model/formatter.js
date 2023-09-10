@@ -127,11 +127,9 @@ sap.ui.define(
 					location: null,
 					guestsCanModify: true
 				};
-				if (oAppointment.GoogleMeet) {
-					this.formatter.setGoogleMeetToAppointmentGC(oAppointmentGC, oAppointment.ID);
-				} else {
-					oAppointmentGC.location = oAppointment.Conference;
-				}
+				oAppointment.GoogleMeet
+					? this.formatter.setGoogleMeetToAppointmentGC(oAppointmentGC, oAppointment.ID)
+					: oAppointmentGC.location = oAppointment.Conference;
 
 				return oAppointmentGC;
 			},

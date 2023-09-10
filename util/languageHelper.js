@@ -7,11 +7,9 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 		},
 
 		setLanguage(sLanguage) {
-			if (sLanguage) {
-				localStorage.setItem('language', sLanguage);
-			} else {
-				sLanguage = this.getCurrentLanguage();
-			}
+			sLanguage
+				? localStorage.setItem('language', sLanguage)
+				: sLanguage = this.getCurrentLanguage();
 
 			// check for supported languages
 			if (!this.getSupportedLanguages().includes(sLanguage)) {

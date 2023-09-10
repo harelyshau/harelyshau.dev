@@ -15,9 +15,9 @@
                     </HBox>
                     <!-- Moves -->
                     <HBox renderType="Bare" alignItems="Center" class="sapUiSmallMarginBegin"
-                        tooltip="{= ${/Moves} === Math.pow(2, ${/DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
+                        tooltip="{= ${/Moves} === 2 ** ${/DiscCount} - 1 ? 'You did it in the minimum number of moves' : '' }">
                         <core:Icon src="{i18n>iStep}"
-                            color="{= ${/Moves} === Math.pow(2, ${/DiscCount}) - 1 ? 'Positive' : '' }"/>
+                            color="{= ${/Moves} === 2 ** ${/DiscCount} - 1 ? 'Positive' : '' }"/>
                         <Text text="{i18n>ttlMoves}: {/Moves}" class="sapUiTinyMarginBegin"/>
                     </HBox>
                 </HBox>

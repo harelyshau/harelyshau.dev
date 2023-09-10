@@ -18,7 +18,7 @@ sap.ui.define(
 			},
 
 			getModel(sName) {
-				return this.getView().getModel(sName);
+				return this.getOwnerComponent().getModel(sName);
 			},
 
 			setModel(oModel, sName) {
@@ -26,7 +26,7 @@ sap.ui.define(
 			},
 
 			i18n(sKey, aParams) {
-				const oResourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
+				const oResourceBundle = this.getModel('i18n').getResourceBundle();
 				return oResourceBundle.getText(sKey, aParams);
 			},
 
@@ -102,7 +102,7 @@ sap.ui.define(
 				let sPath = 'pharelyshau.fragment.';
 				const sCurrentPage = this.getModel('app').getProperty('/page');
 				sPath += !bCommon ? `${sCurrentPage}.${sFragment}` : sFragment;
-				this['o' + sFragment] = this['o' + sFragment] ?? this.loadFragment({ name: sPath });
+				this['o' + sFragment] ??= this.loadFragment({ name: sPath });
 				this['o' + sFragment] = await this['o' + sFragment];
 				this['o' + sFragment].addStyleClass(this.getContentDensityClass());
 				return this['o' + sFragment];

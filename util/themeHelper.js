@@ -7,9 +7,8 @@ sap.ui.define([], () => {
 		},
 
 		setTheme(sThemeKey) {
-			if (sThemeKey) {
-				localStorage.setItem('theme', sThemeKey);
-			} else {
+			if (sThemeKey) localStorage.setItem('theme', sThemeKey);
+			else {
 				localStorage.removeItem('theme');
 				const bLight = window.matchMedia('(prefers-color-scheme: light)').matches;
 				sThemeKey = bLight ? 'light' : 'dark';
