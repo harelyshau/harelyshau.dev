@@ -34,7 +34,7 @@ sap.ui.define(
 				return Device.support.touch ? 'sapUiSizeCozy' : 'sapUiSizeCompact';
 			},
 
-			// MENU
+			// Common Buttons
 
 			onPressNavigateToPage(sPage) {
 				this.getRouter().navTo(sPage);
@@ -59,11 +59,6 @@ sap.ui.define(
 				} catch {
 					MessageToast.show(sErrorMessage ?? this.i18n('msgNotCopied'));
 				}
-			},
-
-			onPressShowCode() {
-				const sWebsiteURL = 'https://github.com/harelyshau/harelyshau.dev';
-				sap.m.URLHelper.redirect(sWebsiteURL, true);
 			},
 
 			// MODAL WINDOWS

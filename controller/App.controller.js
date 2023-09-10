@@ -1,5 +1,5 @@
-sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper'],
-(BaseController, models, themeHelper) => {
+sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper', '../util/languageHelper'],
+(BaseController, models, themeHelper, languageHelper) => {
 	'use strict';
 
 	return BaseController.extend('pharelyshau.controller.App', {
@@ -19,7 +19,7 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper'],
 		},
 
 		onSelectPage(oEvent) {
-			this.getRouter().navTo(oEvent.getParameter('key'));
+			this.getRouter().navTo(oEvent.getParameter('item').getKey());
 		},
 
 		onPressToggleTheme() {
@@ -30,13 +30,14 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper'],
 			this.getModel('app').setProperty('/theme', sTheme);
 		},
 
+		onSelectLanguage(oEvent) {
+			languageHelper.setLanguage(oEvent.getParameter('item').getKey());
+			window.location.reload(); // need to refresh to change controls language
+		},
+
 		onPressShowCode() {
 			const sWebsiteURL = 'https://github.com/harelyshau/harelyshau.dev';
 			sap.m.URLHelper.redirect(sWebsiteURL, true);
-		},
-
-		onPressGoHome() {
-			this.getRouter().navTo('Home');
 		},
 
 		onPressOpenMobileMenu(oEvent) {
