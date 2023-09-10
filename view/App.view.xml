@@ -2,7 +2,65 @@
     controllerName="pharelyshau.controller.App"
     xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt"
 	displayBlock="true">
-	<App id="app"/>
+	<tnt:ToolPage>
+		<tnt:header>
+			<tnt:ToolHeader>
+				<Button visible="{device>/system/phone}" icon="{i18n>iMobileMenu}" press="onPressOpenMobileMenu"/>
+				<Image src="resource/image/favicon/icon-192.png" press="onPressGoHome"/>
+				<IconTabHeader visible="{= !${device>/system/phone} }" mode="Inline" selectedKey="{app>/page}" select="onSelectPage">
+					<items>
+						<IconTabFilter key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
+						<IconTabFilter key="Algorithms" text="Algorithms" icon="sap-icon://org-chart"/>
+						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
+						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}" />
+						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
+					</items>
+				</IconTabHeader>
+				<!-- <tnt:ToolHeaderUtilitySeparator /> -->
+				<ToolbarSpacer />
+				<Button icon="{i18n>iCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
+				<Button icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
+					tooltip="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
+					press="onPressToggleTheme"/>
+				<MenuButton tooltip="{i18n>btnLanguage}" icon="{i18n>iLanguage}">
+					<Menu title="{i18n>btnLanguage}">
+						<MenuItem text="{i18n>btnEnglish}" press="onPressSetLanguage('en')"/>
+						<MenuItem text="{i18n>btnRussian}" press="onPressSetLanguage('ru')"/>
+						<MenuItem text="{i18n>btnGerman}" press="onPressSetLanguage('de')"/>
+					</Menu>
+				</MenuButton>
+			</tnt:ToolHeader>
+		</tnt:header>
+		<!-- <tnt:sideContent>
+			<tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
+                        <tnt:NavigationList>
+                            <tnt:NavigationListItem text="Item 1" icon="sap-icon://employee">
+                                <tnt:NavigationListItem text="Sub Item 1" />
+                                <tnt:NavigationListItem text="Sub Item 2" />
+                                <tnt:NavigationListItem text="Sub Item 3" id="subItem3" key="subItem3" />
+                                <tnt:NavigationListItem text="Sub Item 4" />
+                            </tnt:NavigationListItem>
+                            <tnt:NavigationListItem text="Item 2" icon="sap-icon://building">
+                                <tnt:NavigationListItem text="Sub Item 1" />
+                                <tnt:NavigationListItem text="Sub Item 2" />
+                                <tnt:NavigationListItem text="Sub Item 3" />
+                                <tnt:NavigationListItem text="Sub Item 4" />
+                            </tnt:NavigationListItem>
+                        </tnt:NavigationList>
+                        <tnt:fixedItem>
+                            <tnt:NavigationList>
+                                <tnt:NavigationListItem text="Item 1" icon="sap-icon://employee" />
+                                <tnt:NavigationListItem text="Item 2" icon="sap-icon://building" />
+                                <tnt:NavigationListItem text="Item 3" icon="sap-icon://card" />
+                            </tnt:NavigationList>
+                        </tnt:fixedItem>
+                    </tnt:SideNavigation>
+		</tnt:sideContent> -->
+		<tnt:mainContents>
+			<NavContainer id="app" />
+		</tnt:mainContents>
+	</tnt:ToolPage>
 </mvc:View>
 

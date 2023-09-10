@@ -1,0 +1,25 @@
+<mvc:View
+    controllerName="pharelyshau.controller.Home"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:tnt="sap.tnt">
+	<f:DynamicPage class="">
+        <!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Algorithms" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+                    <Label text="{i18n>lHomePage}" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="{i18n>lHomePage}" wrapping="true"/>
+                </f:expandedContent>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

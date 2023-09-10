@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Menu title="{i18n>ttlMenu}" itemSelected="onSelectPage">
+        <MenuItem key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
+        <MenuItem key="Algorithms" text="Algorithms" icon="sap-icon://org-chart"/>
+        <MenuItem key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
+        <MenuItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
+        <MenuItem key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
+    </Menu>
+</core:FragmentDefinition>

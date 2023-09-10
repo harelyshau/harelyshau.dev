@@ -18,7 +18,7 @@ sap.ui.define(
 			},
 
 			getModel(sName) {
-				return this.getOwnerComponent().getModel(sName);
+				return this.getView().getModel(sName);
 			},
 
 			setModel(oModel, sName) {
@@ -26,7 +26,7 @@ sap.ui.define(
 			},
 
 			i18n(sKey, aParams) {
-				const oResourceBundle = this.getModel('i18n').getResourceBundle();
+				const oResourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
 				return oResourceBundle.getText(sKey, aParams);
 			},
 
@@ -36,10 +36,6 @@ sap.ui.define(
 
 			// MENU
 
-			onPressOpenOverflowMenu(oEvent) {
-				this.openPopover('OverflowMenu', oEvent.getSource(), null, true);
-			},
-
 			onPressNavigateToPage(sPage) {
 				this.getRouter().navTo(sPage);
 			},
@@ -47,17 +43,6 @@ sap.ui.define(
 			onPressSendEmail() {
 				const sEmail = this.getModel()?.getProperty('/Email') ?? 'pavel@harelyshau.dev';
 				sap.m.URLHelper.triggerEmail(sEmail, 'Email from harelyshau.dev website');
-			},
-
-			onPressSetTheme(sKey) {
-				themeHelper.setTheme(sKey);
-				const sThemeKey = themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme());
-				this.getModel('app').setProperty('/theme', sThemeKey);
-			},
-
-			onPressSetLanguage(sKey) {
-				languageHelper.setLanguage(sKey);
-				window.location.reload(); // need to refresh to change controls language
 			},
 
 			async onPressShareLink() {
