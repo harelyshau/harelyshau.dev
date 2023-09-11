@@ -1,0 +1,39 @@
+<mvc:View
+    controllerName="pharelyshau.controller.Algorithms"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:tnt="sap.tnt">
+	<tnt:ToolPage id="page" class="phAlgorithmsPage">
+		<tnt:sideContent>
+			<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.SideNavigation" type="XML"/>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<f:DynamicPage>
+				<!-- HEADER -->
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:heading>
+							<Title text="Algorithms" wrapping="true" />
+						</f:heading>
+						<f:snappedContent>
+							<Label text="{i18n>lHomePage}" wrapping="true"/>
+						</f:snappedContent>
+						<f:expandedContent>
+							<Label text="{i18n>lHomePage}" wrapping="true"/>
+						</f:expandedContent>
+						<f:actions>
+							<Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
+						</f:actions>
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:content>
+				</f:content>
+			</f:DynamicPage>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+
+
+	
+</mvc:View>

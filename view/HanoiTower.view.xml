@@ -18,11 +18,6 @@
                 <f:expandedContent>
                     <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
                 </f:expandedContent>
-				<f:actions>
-					<Button press="onPressOpenOverflowMenu" ariaHasPopup="Menu"
-						icon="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
-                            ? ${i18n>iMobileMenu} : ${i18n>iOverflowMenu} }"/>
-				</f:actions>
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>

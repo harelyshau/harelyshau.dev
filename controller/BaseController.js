@@ -18,7 +18,7 @@ sap.ui.define(
 			},
 
 			getModel(sName) {
-				return this.getOwnerComponent().getModel(sName);
+				return this.getView().getModel(sName);
 			},
 
 			setModel(oModel, sName) {
@@ -26,7 +26,7 @@ sap.ui.define(
 			},
 
 			i18n(sKey, aParams) {
-				const oResourceBundle = this.getModel('i18n').getResourceBundle();
+				const oResourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
 				return oResourceBundle.getText(sKey, aParams);
 			},
 
@@ -34,11 +34,7 @@ sap.ui.define(
 				return Device.support.touch ? 'sapUiSizeCozy' : 'sapUiSizeCompact';
 			},
 
-			// MENU
-
-			onPressOpenOverflowMenu(oEvent) {
-				this.openPopover('OverflowMenu', oEvent.getSource(), null, true);
-			},
+			// Common Buttons
 
 			onPressNavigateToPage(sPage) {
 				this.getRouter().navTo(sPage);
@@ -47,17 +43,6 @@ sap.ui.define(
 			onPressSendEmail() {
 				const sEmail = this.getModel()?.getProperty('/Email') ?? 'pavel@harelyshau.dev';
 				sap.m.URLHelper.triggerEmail(sEmail, 'Email from harelyshau.dev website');
-			},
-
-			onPressSetTheme(sKey) {
-				themeHelper.setTheme(sKey);
-				const sThemeKey = themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme());
-				this.getModel('app').setProperty('/theme', sThemeKey);
-			},
-
-			onPressSetLanguage(sKey) {
-				languageHelper.setLanguage(sKey);
-				window.location.reload(); // need to refresh to change controls language
 			},
 
 			async onPressShareLink() {
@@ -74,11 +59,6 @@ sap.ui.define(
 				} catch {
 					MessageToast.show(sErrorMessage ?? this.i18n('msgNotCopied'));
 				}
-			},
-
-			onPressShowCode() {
-				const sWebsiteURL = 'https://github.com/harelyshau/harelyshau.dev';
-				sap.m.URLHelper.redirect(sWebsiteURL, true);
 			},
 
 			// MODAL WINDOWS
@@ -112,6 +92,18 @@ sap.ui.define(
 				const bSamePath = oPopover.getBindingContext()?.getPath() === sBinndingPath;
 				const bOpen = oPopover.isOpen ? oPopover.isOpen() : false;
 				return bOpen && bSamePath;
+			},
+
+			toggleSideNavigation(oPage, oSideNavigation) {
+				let bExpanded = oPage.getSideExpanded();
+				const bNotSame = oSideNavigation && oPage.getSideContent().getId() !== oSideNavigation.getId();
+				if (bNotSame) {
+					oPage.setSideContent(oSideNavigation)
+					bExpanded = false;
+				};
+				
+				setTimeout(() => oPage.setSideExpanded(!bExpanded));
+				return !bExpanded;
 			},
 
 			// Get Object

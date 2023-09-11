@@ -2,7 +2,51 @@
     controllerName="pharelyshau.controller.App"
     xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt"
 	displayBlock="true">
-	<App id="app"/>
+	<tnt:ToolPage id="page">
+		<tnt:header>
+			<tnt:ToolHeader>
+				<Button visible="{device>/system/phone}" icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
+				<Image src="resource/image/favicon/icon-192.png" press="onPressNavigateToPage('Home')"/>
+				<IconTabHeader visible="{= !${device>/system/phone} }" mode="Inline"
+					selectedKey="{app>/page}" select="onSelectPage">
+					<items>
+						<IconTabFilter key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
+						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
+						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
+						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}" />
+						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
+					</items>
+				</IconTabHeader>
+				<ToolbarSpacer />
+				<Button icon="{i18n>iCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
+				<Button icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
+					tooltip="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
+					press="onPressToggleTheme"/>
+				<MenuButton tooltip="{i18n>btnLanguage}" icon="{i18n>iLanguage}">
+					<Menu title="{i18n>btnLanguage}" itemSelected="onSelectLanguage">
+						<MenuItem key="en" text="{i18n>btnEnglish}" press="onPressSetLanguage('en')"/>
+						<MenuItem key="ru" text="{i18n>btnRussian}" press="onPressSetLanguage('ru')"/>
+						<MenuItem key="de" text="{i18n>btnGerman}" press="onPressSetLanguage('de')"/>
+					</Menu>
+				</MenuButton>
+			</tnt:ToolHeader>
+		</tnt:header>
+		<tnt:sideContent>
+			<tnt:SideNavigation id="sideNavigation" visible="{device>/system/phone}"
+				selectedKey="{app>/page}" itemSelect="onSelectPage">
+				<tnt:NavigationList>
+					<tnt:NavigationListItem key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
+					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
+					<tnt:NavigationListItem key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
+					<tnt:NavigationListItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
+					<tnt:NavigationListItem key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
+				</tnt:NavigationList>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<App id="app" />
+		</tnt:mainContents>
+	</tnt:ToolPage>
 </mvc:View>
-
