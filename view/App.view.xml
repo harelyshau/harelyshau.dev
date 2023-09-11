@@ -4,16 +4,16 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt"
 	displayBlock="true">
-	<tnt:ToolPage>
+	<tnt:ToolPage id="page">
 		<tnt:header>
 			<tnt:ToolHeader>
-				<Button visible="{device>/system/phone}" icon="{i18n>iMobileMenu}" press="onPressOpenMobileMenu"/>
+				<Button visible="{device>/system/phone}" icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
 				<Image src="resource/image/favicon/icon-192.png" press="onPressNavigateToPage('Home')"/>
 				<IconTabHeader visible="{= !${device>/system/phone} }" mode="Inline"
 					selectedKey="{app>/page}" select="onSelectPage">
 					<items>
 						<IconTabFilter key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
-						<IconTabFilter key="Algorithms" text="Algorithms" icon="sap-icon://org-chart"/>
+						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
 						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
 						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}" />
 						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
@@ -33,34 +33,19 @@
 				</MenuButton>
 			</tnt:ToolHeader>
 		</tnt:header>
-		<!-- <tnt:sideContent>
-			<tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
-                        <tnt:NavigationList>
-                            <tnt:NavigationListItem text="Item 1" icon="sap-icon://employee">
-                                <tnt:NavigationListItem text="Sub Item 1" />
-                                <tnt:NavigationListItem text="Sub Item 2" />
-                                <tnt:NavigationListItem text="Sub Item 3" id="subItem3" key="subItem3" />
-                                <tnt:NavigationListItem text="Sub Item 4" />
-                            </tnt:NavigationListItem>
-                            <tnt:NavigationListItem text="Item 2" icon="sap-icon://building">
-                                <tnt:NavigationListItem text="Sub Item 1" />
-                                <tnt:NavigationListItem text="Sub Item 2" />
-                                <tnt:NavigationListItem text="Sub Item 3" />
-                                <tnt:NavigationListItem text="Sub Item 4" />
-                            </tnt:NavigationListItem>
-                        </tnt:NavigationList>
-                        <tnt:fixedItem>
-                            <tnt:NavigationList>
-                                <tnt:NavigationListItem text="Item 1" icon="sap-icon://employee" />
-                                <tnt:NavigationListItem text="Item 2" icon="sap-icon://building" />
-                                <tnt:NavigationListItem text="Item 3" icon="sap-icon://card" />
-                            </tnt:NavigationList>
-                        </tnt:fixedItem>
-                    </tnt:SideNavigation>
-		</tnt:sideContent> -->
+		<tnt:sideContent>
+			<tnt:SideNavigation visible="{device>/system/phone}" selectedKey="{app>/page}" itemSelect="onSelectPage">
+				<tnt:NavigationList>
+					<tnt:NavigationListItem key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
+					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
+					<tnt:NavigationListItem key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
+					<tnt:NavigationListItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
+					<tnt:NavigationListItem key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
+				</tnt:NavigationList>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
 		<tnt:mainContents>
-			<NavContainer id="app" />
+			<App id="app" />
 		</tnt:mainContents>
 	</tnt:ToolPage>
 </mvc:View>
-

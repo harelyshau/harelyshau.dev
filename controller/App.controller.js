@@ -20,6 +20,7 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper', '..
 
 		onSelectPage(oEvent) {
 			this.getRouter().navTo(oEvent.getParameter('item').getKey());
+			this.byId('page').setSideExpanded(false);
 		},
 
 		onPressToggleTheme() {
@@ -40,8 +41,9 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper', '..
 			sap.m.URLHelper.redirect(sWebsiteURL, true);
 		},
 
-		onPressOpenMobileMenu(oEvent) {
-			this.openPopover('MobileMenu', oEvent.getSource(), null, true);
-		}
+		onPressToggleSideNavigation() {
+			const oPage = this.byId("page");
+            oPage.setSideExpanded(!oPage.getSideExpanded());
+        },
 	});
 });

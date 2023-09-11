@@ -69,6 +69,13 @@ sap.ui.define(
 					showMoveButtons: !!JSON.parse(localStorage.getItem('moveButtons'))
 				};
 				return new JSONModel(oData);
+			},
+
+			createAlgorithmsViewModel() {
+				const oData = {
+					sideExpanded: true
+				};
+				return new JSONModel(oData);
 			}
 		};
 	}
