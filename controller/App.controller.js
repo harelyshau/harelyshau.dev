@@ -11,8 +11,18 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper', '..
 		},
 
 		onRouteMatched(oEvent) {
-			this.getModel('app').setProperty('/page', oEvent.getParameter('name'));
+			const sPage = oEvent.getParameter('name');
+			this.getModel('app').setProperty('/page', sPage);
+			this.byId('page').setSideExpanded(false);
+			// this.setSideNavigation(sPage);
 		},
+
+		// async setSideNavigation(sPage) {
+		// 	const oSideNavigation = sPage === 'Algorithms'
+		// 		? await await this.loadAndAssignFragment('SideNavigation')
+		// 		: this.byId('sideNavigation');
+		// 	this.byId('page').setSideContent(oSideNavigation);
+		// },
 
 		onTitleChanged(oEvent) {
 			document.title = oEvent.getParameter('title');
@@ -20,7 +30,6 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper', '..
 
 		onSelectPage(oEvent) {
 			this.getRouter().navTo(oEvent.getParameter('item').getKey());
-			this.byId('page').setSideExpanded(false);
 		},
 
 		onPressToggleTheme() {
@@ -43,7 +52,7 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper', '..
 
 		onPressToggleSideNavigation() {
 			const oPage = this.byId("page");
-            oPage.setSideExpanded(!oPage.getSideExpanded());
+			this.toggleSideNavigation(oPage, this.byId('sideNavigation'));
         },
 	});
 });

@@ -7,26 +7,21 @@ sap.ui.define(['./BaseController', '../model/models'],
             this.setModel(models.createAlgorithmsViewModel(), 'view');
 		},
 
-        onAfterRendering() {
-            // this.insertSideNavigation();
+        onSelectToggleSideNavigation() {
+            const bExpanded = this.toggleSideNavigation(this.byId("page"));
+            this.getModel('view').setProperty('/sideExpanded', bExpanded);
         },
 
-        onSelectToggleSideNavifation() {
-            const oToolPage = this.byId("page");
-			const bSideExpanded = oToolPage.getSideExpanded();
-            oToolPage.setSideExpanded(!bSideExpanded);
-            this.getModel('view').setProperty('/sideExpanded', !bSideExpanded);
-        },
+        async onPressToggleSideNavigation() {
+            if (!this.getModel('device').getProperty('/system/phone')) {
+                this.onSelectToggleSideNavigation();
+                return;
+            }
 
-        // async onPressToggleSideNavigation(oEvent) {
-        //     const oPopover = new sap.m.Popover({
-        //         placement: 'Bottom',
-        //         showHeader: false,
-        //         showArrow: false,
-        //         contentHeight: '100%',
-        //         content: [await this.loadAndAssignFragment('SideNavigation')]
-        //     });
-        //     oPopover.openBy(oEvent.getSource());
-        // }
+            const oPage = this.getView().getParent().getParent();
+            const oSideNavigation = await this.loadAndAssignFragment('SideNavigation');
+            this.toggleSideNavigation(oPage, oSideNavigation)
+        }
+
 	});
 });

@@ -94,6 +94,18 @@ sap.ui.define(
 				return bOpen && bSamePath;
 			},
 
+			toggleSideNavigation(oPage, oSideNavigation) {
+				let bExpanded = oPage.getSideExpanded();
+				const bNotSame = oSideNavigation && oPage.getSideContent().getId() !== oSideNavigation.getId();
+				if (bNotSame) {
+					oPage.setSideContent(oSideNavigation)
+					bExpanded = false;
+				};
+				
+				setTimeout(() => oPage.setSideExpanded(!bExpanded));
+				return !bExpanded;
+			},
+
 			// Get Object
 
 			getObjectByEvent(oEvent, sModel) {

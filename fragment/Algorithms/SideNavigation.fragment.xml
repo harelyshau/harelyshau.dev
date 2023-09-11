@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:tnt="sap.tnt">
-    <tnt:SideNavigation visible="{= ${app>/page} === 'Algorithms' }" expanded="false" selectedKey="subItem3">
+    <tnt:SideNavigation selectedKey="subItem3">
 				<tnt:NavigationList>
 					<tnt:NavigationListItem text="Search Algorithms" icon="sap-icon://browse-folder">
 						<tnt:NavigationListItem text="Binary Search" />
@@ -16,9 +16,13 @@
 				</tnt:NavigationList>
 				<tnt:fixedItem>
 					<tnt:NavigationList>
-						<tnt:NavigationListItem select="onSelectToggleSideNavifation"
-							text="{= ${view>/sideExpanded} ? 'Collapse' : 'Expand' }"
+						<!-- Desktop -->
+						<tnt:NavigationListItem select="onSelectToggleSideNavigation"
+							visible="{= !${device>/system/phone} }" text="{= ${view>/sideExpanded} ? 'Collapse' : 'Expand' }"
 							icon="{= ${view>/sideExpanded} ? 'sap-icon://close-command-field' : 'sap-icon://open-command-field' }"/>
+						<!-- Mobile -->
+						<tnt:NavigationListItem select="onPressToggleSideNavigation"
+							visible="{device>/system/phone}" text="Close" icon="{i18n>iClose}"/>	
 					</tnt:NavigationList>
 				</tnt:fixedItem>
 			</tnt:SideNavigation>

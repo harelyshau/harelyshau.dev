@@ -34,7 +34,8 @@
 			</tnt:ToolHeader>
 		</tnt:header>
 		<tnt:sideContent>
-			<tnt:SideNavigation visible="{device>/system/phone}" selectedKey="{app>/page}" itemSelect="onSelectPage">
+			<tnt:SideNavigation id="sideNavigation" visible="{device>/system/phone}"
+				selectedKey="{app>/page}" itemSelect="onSelectPage">
 				<tnt:NavigationList>
 					<tnt:NavigationListItem key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
 					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>

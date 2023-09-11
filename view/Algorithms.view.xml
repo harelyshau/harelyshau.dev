@@ -24,7 +24,7 @@
 							<Label text="{i18n>lHomePage}" wrapping="true"/>
 						</f:expandedContent>
 						<f:actions>
-							<Button icon="{i18n>iMenu}" press="onSelectToggleSideNavifation"/>
+							<Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
 						</f:actions>
 					</f:DynamicPageTitle>
 				</f:title>
