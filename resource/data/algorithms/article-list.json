@@ -5,21 +5,21 @@
             "Icon": "sap-icon://browse-folder",
             "Articles": [
                 {
-                    "ID": "BinarySearch",
+                    "ID": "binary-search",
                     "Title": "Binary Search"
                 },
                 {
-                    "ID": "BreadthFirstSearch",
+                    "ID": "breadth-first-search",
                     "Title": "Breadth-First Search, BFS"
                 },
                 {
-                    "ID": "DepthFirstSearch",
+                    "ID": "depth-first-search",
                     "Title": "Depth-First Search, DFS"
                 }
             ]
         },
         {
-            "ID": "Recursion",
+            "ID": "recursion",
             "Title": "Recursion",
             "Icon": "sap-icon://synchronize"
         }

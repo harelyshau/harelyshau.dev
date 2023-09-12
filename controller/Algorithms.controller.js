@@ -11,9 +11,8 @@ sap.ui.define(['./BaseController', '../model/models'],
         
         onPressToggleSideNavigation() {
             const bPhone = this.getModel('device').getProperty('/system/phone');
-            const oSideNavigation = bPhone ? this.byId('sideNavigation') : null;
             const oPage = bPhone ? this.getView().getParent().getParent() : this.byId("page");
-            const bExpanded = this.toggleSideNavigation(oPage, oSideNavigation);
+            const bExpanded = this.toggleSideNavigation(oPage, this.byId('sideNavigation'));
             this.getModel('view').setProperty('/sideExpanded', bExpanded);
         },
 
@@ -32,6 +31,13 @@ sap.ui.define(['./BaseController', '../model/models'],
             } catch (e) {
                 this.getModel().setProperty('/Article', 'NotFound');
             }
+        },
+
+        onSelectNavigateToArticle(oEvent) {
+            const oItem = oEvent.getParameter('item');
+            let articleId = this.getObjectByControl(oItem).ID;
+            articleId ??= this.getObjectByControl(oItem.getItems()[0]).ID;
+            this.getRouter().navTo('Algorithm', {articleId})
         }
 
 	});
