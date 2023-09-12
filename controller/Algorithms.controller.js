@@ -12,14 +12,15 @@ sap.ui.define(['./BaseController', '../model/models'],
             this.getModel('view').setProperty('/sideExpanded', bExpanded);
         },
 
-        async onPressToggleSideNavigation() {
+        onPressToggleSideNavigation() {
             if (!this.getModel('device').getProperty('/system/phone')) {
                 this.onSelectToggleSideNavigation();
                 return;
             }
 
+            // For mobile only
             const oPage = this.getView().getParent().getParent();
-            const oSideNavigation = await this.loadAndAssignFragment('SideNavigation');
+            const oSideNavigation = this.byId('sideNavigation');
             this.toggleSideNavigation(oPage, oSideNavigation)
         }
 

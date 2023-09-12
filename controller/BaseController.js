@@ -96,8 +96,8 @@ sap.ui.define(
 
 			toggleSideNavigation(oPage, oSideNavigation) {
 				let bExpanded = oPage.getSideExpanded();
-				const bNotSame = oSideNavigation && oPage.getSideContent().getId() !== oSideNavigation.getId();
-				if (bNotSame) {
+				const bNotSame = oPage.getSideContent() !== oSideNavigation;
+				if (oSideNavigation && bNotSame) {
 					oPage.setSideContent(oSideNavigation)
 					bExpanded = false;
 				};
