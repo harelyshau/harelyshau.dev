@@ -1,29 +1,18 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:tnt="sap.tnt">
-    <tnt:SideNavigation selectedKey="subItem3" id="sideNavigation">
-				<tnt:NavigationList>
-					<tnt:NavigationListItem text="Search Algorithms" icon="sap-icon://browse-folder">
-						<tnt:NavigationListItem text="Binary Search" />
-						<tnt:NavigationListItem text="Breadth-First Search, BFS" />
-						<tnt:NavigationListItem text="Depth-First Search, DFS" key="subItem3" />
-						<tnt:NavigationListItem text="Sub Item 4" />
-					</tnt:NavigationListItem>
-					<tnt:NavigationListItem text="Sorting Algorithms" icon="sap-icon://sort-ascending">
-						<tnt:NavigationListItem text="Sub Item 1" />
-						<tnt:NavigationListItem text="Sub Item 2" />
-						<tnt:NavigationListItem text="{view>/sideExpanded}" />
-					</tnt:NavigationListItem>
-					<tnt:NavigationListItem text="Recursion" icon="sap-icon://synchronize"/>
-				</tnt:NavigationList>
-				<tnt:fixedItem>
-					<tnt:NavigationList>
-						<!-- Desktop -->
-						<tnt:NavigationListItem select="onSelectToggleSideNavigation"
-							visible="{= !${device>/system/phone} }" text="{= ${view>/sideExpanded} ? 'Collapse' : 'Expand' }"
-							icon="{= ${view>/sideExpanded} ? 'sap-icon://close-command-field' : 'sap-icon://open-command-field' }"/>
-						<!-- Mobile -->
-						<tnt:NavigationListItem select="onPressToggleSideNavigation"
-							visible="{device>/system/phone}" text="Close" icon="{i18n>iClose}"/>	
-					</tnt:NavigationList>
-				</tnt:fixedItem>
-			</tnt:SideNavigation>
+    <tnt:SideNavigation selectedKey="BinarySearch" id="sideNavigation">
+		<tnt:NavigationList items="{/Articles}">
+			<tnt:NavigationListItem text="{Title}" icon="{Icon}" key="{ID}"
+				items="{path: 'Articles', templateShareable: false}">
+				<tnt:NavigationListItem text="{Title}" key="{ID}"/>
+			</tnt:NavigationListItem>
+		</tnt:NavigationList>
+		<tnt:fixedItem>
+			<tnt:NavigationList>
+				<!-- Expand/Collapse/Close Button -->
+				<tnt:NavigationListItem select="onPressToggleSideNavigation"
+					text="{= ${device>/system/phone} ? ${i18n>btnClose} : ${view>/sideExpanded} ? 'Collapse' : 'Expand' }"
+					icon="{= ${device>/system/phone} ? ${i18n>iClose} : ${view>/sideExpanded} ? 'sap-icon://close-command-field' : 'sap-icon://open-command-field' }"/>
+			</tnt:NavigationList>
+		</tnt:fixedItem>
+	</tnt:SideNavigation>
 </core:FragmentDefinition>

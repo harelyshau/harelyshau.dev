@@ -1,0 +1,27 @@
+{
+    "Articles": [
+        {
+            "Title": "Search Algorithms",
+            "Icon": "sap-icon://browse-folder",
+            "Articles": [
+                {
+                    "ID": "BinarySearch",
+                    "Title": "Binary Search"
+                },
+                {
+                    "ID": "BreadthFirstSearch",
+                    "Title": "Breadth-First Search, BFS"
+                },
+                {
+                    "ID": "DepthFirstSearch",
+                    "Title": "Depth-First Search, DFS"
+                }
+            ]
+        },
+        {
+            "ID": "Recursion",
+            "Title": "Recursion",
+            "Icon": "sap-icon://synchronize"
+        }
+    ]
+}

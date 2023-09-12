@@ -14,15 +14,7 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper', '..
 			const sPage = oEvent.getParameter('name');
 			this.getModel('app').setProperty('/page', sPage);
 			this.byId('page').setSideExpanded(false);
-			// this.setSideNavigation(sPage);
 		},
-
-		// async setSideNavigation(sPage) {
-		// 	const oSideNavigation = sPage === 'Algorithms'
-		// 		? await await this.loadAndAssignFragment('SideNavigation')
-		// 		: this.byId('sideNavigation');
-		// 	this.byId('page').setSideContent(oSideNavigation);
-		// },
 
 		onTitleChanged(oEvent) {
 			document.title = oEvent.getParameter('title');

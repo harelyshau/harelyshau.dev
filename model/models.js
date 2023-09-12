@@ -44,6 +44,12 @@ sap.ui.define(
 				return new JSONModel(oData);
 			},
 
+			createAlgorithmsModel() {
+				const sFilePath = 'pharelyshau/resource/data/Algorithms/ArticleList.json';
+				const oModel = new JSONModel(sap.ui.require.toUrl(sFilePath));
+				return oModel;
+			},
+
 			// View Models
 
 			createAppModel() {
