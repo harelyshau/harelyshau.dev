@@ -19,9 +19,9 @@ sap.ui.define(
 					sLanguage = languageHelper.getFallBackLanguage();
 				}
 
-				const sFilePath = `pharelyshau/resource/data/Resume_${sLanguage}.json`;
-				const oModel = new JSONModel(sap.ui.require.toUrl(sFilePath));
-				oModel.setDefaultBindingMode('OneWay');
+				const sFilePath = `resource/data/Resume_${sLanguage}.json`;
+				const oModel = new JSONModel();
+				oModel.setDefaultBindingMode('OneWay').loadData(sFilePath);
 				return oModel;
 			},
 
@@ -45,8 +45,9 @@ sap.ui.define(
 			},
 
 			createAlgorithmsModel() {
-				const sFilePath = 'pharelyshau/resource/data/Algorithms/ArticleList.json';
-				const oModel = new JSONModel(sap.ui.require.toUrl(sFilePath));
+				const sFilePath = 'resource/data/algorithms/article-list.json';
+				const oModel = new JSONModel();
+				oModel.loadData(sFilePath)
 				return oModel;
 			},
 

@@ -91,6 +91,11 @@
 					"pattern": "algorithms",
 					"name": "Algorithms",
 					"target": "algorithms"
+				},
+				{
+					"pattern": "algorithms/{articleId}",
+					"name": "Algorithm",
+					"target": "algorithms"
 				}
 			],
 			"targets": {

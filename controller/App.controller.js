@@ -11,7 +11,8 @@ sap.ui.define(['./BaseController', '../model/models', '../util/themeHelper', '..
 		},
 
 		onRouteMatched(oEvent) {
-			const sPage = oEvent.getParameter('name');
+			let sPage = oEvent.getParameter('name');
+			if (sPage === 'Algorithm') sPage += 's';
 			this.getModel('app').setProperty('/page', sPage);
 			this.byId('page').setSideExpanded(false);
 		},
