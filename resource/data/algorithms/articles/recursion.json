@@ -13,7 +13,7 @@
         },
         {
             "Type": "Code",
-            "Code": "console.log('test')"
+            "Code": "console.log('test');\nconsole.log('test');\nconsole.log('test');"
         },
         {
             "Type": "Title",

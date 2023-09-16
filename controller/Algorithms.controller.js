@@ -67,6 +67,22 @@ sap.ui.define(['./BaseController', '../model/models'],
                 const sKey = this.getModel('view').getProperty('/ArticleID');
                 this.byId('sideNavigation').setSelectedKey(sKey);
             });
+        },
+
+        // Code Block
+
+        onPressCopyCode(oEvent) {
+            const sCode = this.getObjectByEvent(oEvent).Code;
+            this.copyToClipboard(sCode);
+        },
+
+        onPressRunCode(oEvent) {
+            const sCode = this.getObjectByEvent(oEvent).Code;
+            eval(sCode);
+        },
+
+        onPressEditCode(oEvent) {
+            
         }
 
 	});

@@ -8,7 +8,7 @@
 		<tnt:header>
 			<tnt:ToolHeader>
 				<Button visible="{device>/system/phone}" icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
-				<Image src="resource/image/favicon/icon-192.png" press="onPressNavigateToPage('Home')"/>
+				<Image src="resource/image/favicon/favicon.svg" press="onPressNavigateToPage('Home')"/>
 				<IconTabHeader visible="{= !${device>/system/phone} }" mode="Inline"
 					selectedKey="{app>/page}" select="onSelectPage">
 					<items>

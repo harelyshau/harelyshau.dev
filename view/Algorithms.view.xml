@@ -31,7 +31,9 @@
 				</f:title>
 				<f:content>
 					<VBox renderType="Bare" height="100%" class="phLimitedPageContent">
-						<VBox visible="{= !${/Article/NotFound} }" items="{ path: '/Article/Contents', factory:'.factoryBlocks' }">
+						<VBox visible="{= !${/Article/NotFound} }"
+							items="{ path: '/Article/Contents', factory:'.factoryBlocks' }"
+							class="sapUiMediumMarginBottom">
 							<dependents>
 								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.TitleBlock" type="XML"/>
 								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.TextBlock" type="XML"/>
