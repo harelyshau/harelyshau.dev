@@ -10,7 +10,7 @@
 			<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.SideNavigation" type="XML"/>
 		</tnt:sideContent>
 		<tnt:mainContents>
-			<f:DynamicPage>
+			<f:DynamicPage busy="{view>/busy}">
 				<!-- HEADER -->
 				<f:title>
 					<f:DynamicPageTitle>
