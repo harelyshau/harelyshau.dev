@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:tnt="sap.tnt">
-    <tnt:SideNavigation selectedKey="{/Article/ID}" id="sideNavigation">
+    <tnt:SideNavigation selectedKey="{path: '/Article/ID', mode: 'OneWay'}" id="sideNavigation">
 		<tnt:NavigationList items="{/Articles}" itemSelect="onSelectNavigateToArticle">
 			<tnt:NavigationListItem text="{Title}" icon="{Icon}" key="{ID}"
 				items="{path: 'Articles', templateShareable: false}">

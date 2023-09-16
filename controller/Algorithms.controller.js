@@ -17,19 +17,22 @@ sap.ui.define(['./BaseController', '../model/models'],
         },
 
         onRouteMatched(oEvent) {
-            const sArticleId = oEvent.getParameter('arguments').articleId ?? 'about';
+            const sArticleId = oEvent.getParameter('arguments').articleId;
             this.setCurrentArticle(sArticleId);
+            if (!sArticleId) this.byId('sideNavigation').setSelectedItem(null);
         },
 
         async setCurrentArticle(sArticleId) {
-            const sPath = `resource/data/algorithms/${sArticleId}.json`;
+            const sRootPath = 'resource/data/algorithms/';
+            const sAdditionalPath = sArticleId ? `articles/${sArticleId}` : 'about';
+            const sPath = `${sRootPath}${sAdditionalPath}.json`;
             try {
                 const oResponse = await fetch(sPath);
                 const oArticle = await oResponse.json();
                 this.getModel().setProperty('/Article', oArticle);
                 document.title = oArticle.Title;
             } catch (e) {
-                this.getModel().setProperty('/Article', 'NotFound');
+                this.getModel().setProperty('/Article', { ID: sArticleId, NotFound: true });
             }
         },
 
@@ -37,7 +40,13 @@ sap.ui.define(['./BaseController', '../model/models'],
             const oItem = oEvent.getParameter('item');
             let articleId = this.getObjectByControl(oItem).ID;
             articleId ??= this.getObjectByControl(oItem.getItems()[0]).ID;
-            this.getRouter().navTo('Algorithm', {articleId})
+            this.getRouter().navTo('Algorithm', {articleId});
+        },
+
+        factoryBlocks(sId, oContext) {
+            const sType = oContext.getProperty('Type');
+            const oBlock = this.byId(`block${sType}`).clone(sId);
+            return oBlock;
         }
 
 	});

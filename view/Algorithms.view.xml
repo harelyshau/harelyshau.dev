@@ -16,13 +16,13 @@
 					<f:DynamicPageTitle>
 						<f:heading>
 							<Title wrapping="true"
-								text="{= ${/Article} !== 'NotFound' ? ${/Article/Title} : ${i18n>ttlAlgorithms} }"/>
+								text="{= !${/Article/NotFound} ? ${/Article/Title} : ${i18n>ttlAlgorithms} }"/>
 						</f:heading>
 						<f:snappedContent>
-							<Label visible="{= ${/Article} !== 'NotFound' }" text="{/Article/Description}" wrapping="true"/>
+							<Label visible="{= !${/Article/NotFound} }" text="{/Article/Description}" wrapping="true"/>
 						</f:snappedContent>
 						<f:expandedContent>
-							<Label visible="{= ${/Article} !== 'NotFound' }" text="{/Article/Description}" wrapping="true"/>
+							<Label visible="{= !${/Article/NotFound} }" text="{/Article/Description}" wrapping="true"/>
 						</f:expandedContent>
 						<f:actions>
 							<Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
@@ -30,15 +30,24 @@
 					</f:DynamicPageTitle>
 				</f:title>
 				<f:content>
-					<!-- Not Found -->
-					<IllustratedMessage visible="{= ${/Article} === 'NotFound' }"
-						illustrationType="sapIllus-PageNotFound"
-						title="Sorry, we can't find this article"
-						enableVerticalResponsiveness="true">
-						<additionalContent>
-							<Button icon="{i18n>iAlgorithms}" text="Go to Algorithms" press="onPressNavigateToPage('Algorithms')"/>
-						</additionalContent>
-					</IllustratedMessage>
+					<VBox renderType="Bare" height="100%" class="phLimitedPageContent">
+						<VBox visible="{= !${/Article/NotFound} }" items="{ path: '/Article/Contents', factory:'.factoryBlocks' }">
+							<dependents>
+								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.TitleBlock" type="XML"/>
+								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.TextBlock" type="XML"/>
+								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.CodeBlock" type="XML"/>
+							</dependents>
+						</VBox>
+						<!-- Not Found -->
+						<IllustratedMessage visible="{= !!${/Article/NotFound} }"
+							illustrationType="sapIllus-PageNotFound"
+							title="Sorry, we can't find this article"
+							enableVerticalResponsiveness="true">
+							<additionalContent>
+								<Button icon="{i18n>iAlgorithms}" text="Go to Algorithms" press="onPressNavigateToPage('Algorithms')"/>
+							</additionalContent>
+						</IllustratedMessage>
+					</VBox> 
 				</f:content>
 			</f:DynamicPage>
 		</tnt:mainContents>

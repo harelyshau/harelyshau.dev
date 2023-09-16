@@ -1,0 +1,4 @@
+<core:FragmentDefinition xmlns="sap.ui.codeeditor" xmlns:core="sap.ui.core">
+    <CodeEditor id="blockCode"
+		value="{Code}" height="300px" class="sapUiTinyMarginTopBottom"/>
+</core:FragmentDefinition>
