@@ -428,7 +428,7 @@ sap.ui.define(
 
 			// Join to Conference
 			onPressJoinToConference(oEvent) {
-				const oAppointment = this.getObjectByControl(oEvent);
+				const oAppointment = this.getObjectByEvent(oEvent);
 				const sConferenceLink = oAppointment.GoogleMeet ?? oAppointment.Conference;
 				sap.m.URLHelper.redirect(sConferenceLink, true);
 			},

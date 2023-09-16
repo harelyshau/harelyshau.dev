@@ -19,12 +19,12 @@ sap.ui.define(['./BaseController', '../model/models'],
         onRouteMatched(oEvent) {
             const sArticleId = oEvent.getParameter('arguments').articleId;
             this.setCurrentArticle(sArticleId);
-            this.getModel('view').setProperty('/ArticleID', sArticleId);
             if (!sArticleId) this.byId('sideNavigation').setSelectedItem(null);
         },
 
         async setCurrentArticle(sArticleId) {
             this.getModel('view').setProperty('/busy', true);
+            this.getModel('view').setProperty('/ArticleID', sArticleId);
             try {
                 const oArticle = await this.getArticle(this.getArticlePath(sArticleId));
                 this.getModel().setProperty('/Article', oArticle);
@@ -41,7 +41,7 @@ sap.ui.define(['./BaseController', '../model/models'],
             if (this.oAbortContorller) this.oAbortContorller.abort();
             this.oAbortContorller = new AbortController();
             const oResponse = await fetch(sArticlePath, { signal: this.oAbortContorller.signal });
-            return await oResponse.json();
+            return oResponse.json();
         },
 
         getArticlePath(sArticleId) {
