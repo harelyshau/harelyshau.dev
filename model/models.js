@@ -47,7 +47,8 @@ sap.ui.define(
 			createAlgorithmsModel() {
 				const sFilePath = 'resource/data/algorithms/article-list.json';
 				const oModel = new JSONModel();
-				oModel.loadData(sFilePath)
+				oModel.loadData(sFilePath);
+				oModel.setDefaultBindingMode('OneWay');
 				return oModel;
 			},
 

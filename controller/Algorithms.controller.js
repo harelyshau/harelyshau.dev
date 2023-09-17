@@ -29,7 +29,6 @@ sap.ui.define(['./BaseController', '../model/models'],
                 const oArticle = await this.getArticle(this.getArticlePath(sArticleId));
                 this.getModel().setProperty('/Article', oArticle);
                 this.getModel('view').setProperty('/busy', false);
-                document.title = oArticle.Title;
             } catch (oError) {
                 if (oError.name === 'AbortError') return;
                 this.getModel().setProperty('/Article', { NotFound: true });
@@ -71,18 +70,25 @@ sap.ui.define(['./BaseController', '../model/models'],
 
         // Code Block
 
+        getCodeEditorByButtonClick(oEvent) {
+            return oEvent.getSource().getParent().getParent().getItems()[1];
+        },
+
         onPressCopyCode(oEvent) {
-            const sCode = this.getObjectByEvent(oEvent).Code;
+            const sCode = this.getCodeEditorByButtonClick(oEvent).getValue();
             this.copyToClipboard(sCode);
         },
 
         onPressRunCode(oEvent) {
-            const sCode = this.getObjectByEvent(oEvent).Code;
-            eval(sCode);
+            const sCode = this.getCodeEditorByButtonClick(oEvent).getValue();
+            window.eval(`"use strict";${sCode}`);
         },
 
-        onPressEditCode(oEvent) {
-            
+        onPressEditResetCode(oEvent) {
+            const sPath = this.getPathByEvent(oEvent);
+            const oBlock = this.getObjectByEvent(oEvent);
+            if (oBlock.Editable) this.getCodeEditorByButtonClick(oEvent).setValue(oBlock.Code);
+            this.getModel().setProperty(`${sPath}/Editable`, !oBlock.Editable);
         }
 
 	});

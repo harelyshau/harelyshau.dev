@@ -16,7 +16,7 @@
 					<f:DynamicPageTitle>
 						<f:heading>
 							<Title wrapping="true"
-								text="{= !${/Article/NotFound} ? ${/Article/Title} : ${i18n>ttlAlgorithms} }"/>
+								text="{= ${/Article/Title} || ${i18n>ttlAlgorithms} }"/>
 						</f:heading>
 						<f:snappedContent>
 							<Label visible="{= !${/Article/NotFound} }" text="{/Article/Description}" wrapping="true"/>
