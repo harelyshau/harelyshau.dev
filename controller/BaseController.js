@@ -99,10 +99,10 @@ sap.ui.define(
 				let bExpanded = oPage.getSideExpanded();
 				const bSame = oPage.getSideContent() === oSideNavigation;
 				if (oSideNavigation && !bSame) {
-					oPage.setSideContent(oSideNavigation)
+					oPage.setSideContent(oSideNavigation);
 					bExpanded = false;
-				};
-				
+				}
+
 				setTimeout(() => oPage.setSideExpanded(!bExpanded));
 				return !bExpanded;
 			},

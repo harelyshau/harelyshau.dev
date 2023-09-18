@@ -22,7 +22,7 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 
 		getManifest() {
 			const oComponent = sap.ui.getCore().getComponent('container-pharelyshau');
-			return oComponent.getManifest()
+			return oComponent.getManifest();
 		},
 
 		getSupportedLanguages() {

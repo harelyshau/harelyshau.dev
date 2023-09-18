@@ -271,7 +271,7 @@ sap.ui.define(
 			},
 
 			onPressToggleFullDay(oEvent) {
-				const bPressed = oEvent.getSource().getProperty('pressed')
+				const bPressed = oEvent.getSource().getProperty('pressed');
 				localStorage.setItem('fullDay', bPressed);
 			},
 

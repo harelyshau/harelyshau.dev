@@ -1,5 +1,4 @@
-sap.ui.define(['./BaseController', 'sap/m/IllustrationPool'],
-(BaseController, IllustrationPool) => {
+sap.ui.define(['./BaseController', 'sap/m/IllustrationPool'], (BaseController, IllustrationPool) => {
 	'use strict';
 
 	return BaseController.extend('pharelyshau.controller.Home', {

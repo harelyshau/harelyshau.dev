@@ -8,20 +8,19 @@ https://developers.google.com/identity/protocols/oauth2/service-account */
 sap.ui.define([], () => {
 	'use strict';
 
-	function loadJSEncrypt() {
-		const scriptJSEncrypt = document.createElement('script');
-		scriptJSEncrypt.src = 'https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js';
-		document.head.appendChild(scriptJSEncrypt);
-	}
+	(() => {
+		const aScriptURLs = [
+			'https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js'
+		];
+		aScriptURLs.forEach((sScriptURL) => loadScript(sScriptURL));
+	})();
 
-	function loadCryptoJS() {
-		const scriptCryptoJS = document.createElement('script');
-		scriptCryptoJS.src = 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js';
-		document.head.appendChild(scriptCryptoJS);
+	function loadScript(sScriptURL) {
+		const script = document.createElement('script');
+		script.src = sScriptURL;
+		document.head.appendChild(script);
 	}
-
-	loadCryptoJS();
-	loadJSEncrypt();
 
 	return {
 		async getToken(oCredentials) {
