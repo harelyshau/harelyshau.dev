@@ -78,13 +78,12 @@ sap.ui.define(
 			},
 
 			onPressMoveDiscByBox(oEvent) {
-				let aTargetPeg = this.getObjectByEvent(oEvent);
+				const aTargetPeg = this.getObjectByEvent(oEvent);
 				const aSelectedPeg = this.getModel('view').getProperty('/selectedPeg');
 				if (aSelectedPeg && aSelectedPeg !== aTargetPeg) {
 					this.tryMovingDisc(aSelectedPeg, aTargetPeg);
 				}
-				if (aSelectedPeg) aTargetPeg = null;
-				this.getModel('view').setProperty('/selectedPeg', aTargetPeg);
+				this.getModel('view').setProperty('/selectedPeg', !aSelectedPeg ? aTargetPeg : null);
 			},
 
 			onPressMoveDiscByButton(oEvent) {
@@ -132,8 +131,8 @@ sap.ui.define(
 			},
 
 			onPressLevelUp() {
-				let iDiscCount = this.getModel().getProperty('/DiscCount');
-				this.getModel().setProperty('/DiscCount', ++iDiscCount);
+				const iDiscCount = this.getModel().getProperty('/DiscCount');
+				this.getModel().setProperty('/DiscCount', iDiscCount + 1);
 				this.setDiscCountToLocalStorage();
 				this.oWinDialog.close();
 			},
@@ -237,8 +236,8 @@ sap.ui.define(
 			},
 
 			increaseMoves() {
-				let iMoves = this.getModel().getProperty('/Moves');
-				this.getModel().setProperty('/Moves', ++iMoves);
+				const iMoves = this.getModel().getProperty('/Moves');
+				this.getModel().setProperty('/Moves', iMoves + 1);
 			},
 
 			//////////////////////////////////
@@ -247,9 +246,9 @@ sap.ui.define(
 
 			startTimer() {
 				if (this.timerId) return;
-				let iTime = this.getModel().getProperty('/Time');
+				const iTime = this.getModel().getProperty('/Time');
 				this.timerId = setInterval(() => {
-					this.getModel().setProperty('/Time', ++iTime);
+					this.getModel().setProperty('/Time', iTime + 1);
 				}, 1000);
 			},
 

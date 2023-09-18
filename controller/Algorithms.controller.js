@@ -51,8 +51,8 @@ sap.ui.define(['./BaseController', '../model/models'],
 
         onSelectNavigateToArticle(oEvent) {
             const oItem = oEvent.getParameter('item');
-            let articleId = this.getObjectByControl(oItem).ID;
-            articleId ??= this.getObjectByControl(oItem.getItems()[0]).ID;
+            const sItemId = this.getObjectByControl(oItem).ID;
+            const articleId = sItemId ?? this.getObjectByControl(oItem.getItems()[0]).ID;
             this.getRouter().navTo('Algorithm', { articleId });
         },
 

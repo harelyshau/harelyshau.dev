@@ -79,13 +79,14 @@ sap.ui.define(
 			},
 
 			async loadAndAssignFragment(sFragment, bCommon) {
+				const sPrefixFragment = `o${sFragment}`;
 				let sPath = 'pharelyshau.fragment.';
 				const sCurrentPage = this.getModel('app').getProperty('/page');
 				sPath += !bCommon ? `${sCurrentPage}.${sFragment}` : sFragment;
-				this['o' + sFragment] ??= this.loadFragment({ name: sPath });
-				this['o' + sFragment] = await this['o' + sFragment];
-				this['o' + sFragment].addStyleClass(this.getContentDensityClass());
-				return this['o' + sFragment];
+				this[sPrefixFragment] ??= this.loadFragment({ name: sPath });
+				this[sPrefixFragment] = await this[sPrefixFragment];
+				this[sPrefixFragment].addStyleClass(this.getContentDensityClass());
+				return this[sPrefixFragment];
 			},
 
 			isPopoverOpen(oPopover, sBinndingPath) {
