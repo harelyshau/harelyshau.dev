@@ -51,12 +51,16 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 		onSelectNavigateToArticle(oEvent) {
 			const oItem = oEvent.getParameter('item');
 			const sItemId = this.getObjectByControl(oItem).ID;
-			const articleId = sItemId ?? this.getObjectByControl(oItem.getItems()[0]).ID;
+			const sArticleId = sItemId ?? this.getObjectByControl(oItem.getItems()[0]).ID;
+			this.navigateToArticle(sArticleId);
+		},
+
+		navigateToArticle(articleId) {
 			this.getRouter().navTo('Algorithm', { articleId });
 		},
 
 		factoryBlocks(sId, oContext) {
-			const sType = oContext.getProperty('Type');
+			const sType = oContext.getProperty('Type') || 'Text';
 			return this.byId(`block${sType}`).clone(sId);
 		},
 

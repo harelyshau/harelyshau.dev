@@ -27,6 +27,20 @@
 		{
 			"Type": "Code",
 			"Code": "console.log('test')"
+		},
+		{
+			"Type": "Title",
+			"Text": "What is an Algorithm"
+		},
+		{
+			"Text": "An algorithm is a sequence of steps that leads to the desired result. It is important to select suitable algorithms that will produce results as quickly as possible for your case. However, it is worth remembering that it is quite rare that you can come up with an ideal solution in all respects, and you will often have to use an algorithm that will work quickly in some cases and slower in others. The goal of a good algorithm is to work well enough for all cases"
+		},
+		{
+			"Type": "Title",
+			"Text": "Goal of this doing"
+		},
+		{
+			"Text": "Here I want to describe how basic algorithms work and how they can help you achieve your goals. I will try to describe this in simple language that will be understandable for beginners, but if you find any inaccuracies or improvements, do not hesitate to write to me by email: pavel@harelyshau.dev."
 		}
 	]
 }

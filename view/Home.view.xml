@@ -32,7 +32,7 @@
                 </Panel>
                 <!-- CALENDAR -->
                 <Panel class="sapUiSmallMarginTop">
-                    <IllustratedMessage illustrationType="sapIllus-SimpleCalendar"
+                    <IllustratedMessage illustrationType="sapIllus-EmptyCalendar"
                         title="{i18n>ttlCalendar}" description="{i18n>tCalendarOverview}"
                         illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
                             ? 'Spot' : 'Auto' }">
@@ -44,7 +44,7 @@
                 </Panel>
                 <!-- RESUME -->
                 <Panel class="sapUiSmallMarginTop">
-                    <IllustratedMessage illustrationType="sapIllus-NoSavedItems"
+                    <IllustratedMessage illustrationType="sapIllus-ResizeColumn"
                         title="{i18n>ttlResume}" description="{i18n>tResumeOverview}"
                         illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
                             ? 'Spot' : 'Auto' }">
