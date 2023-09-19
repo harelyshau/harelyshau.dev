@@ -60,6 +60,7 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 			return this.byId(`block${sType}`).clone(sId);
 		},
 
+		// TODO: check why it's not coming automatically
 		refreshSideNavigationSelectedKey() {
 			setTimeout(() => {
 				const sKey = this.getModel('view').getProperty('/ArticleID');

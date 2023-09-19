@@ -3,11 +3,9 @@ sap.ui.define(
 		'sap/ui/core/mvc/Controller',
 		'sap/ui/core/UIComponent',
 		'sap/ui/Device',
-		'sap/m/MessageToast',
-		'../util/themeHelper',
-		'../util/languageHelper'
+		'sap/m/MessageToast'
 	],
-	(Controller, UIComponent, Device, MessageToast, themeHelper, languageHelper) => {
+	(Controller, UIComponent, Device, MessageToast) => {
 		'use strict';
 
 		return Controller.extend('pharelyshau.controller.BaseController', {

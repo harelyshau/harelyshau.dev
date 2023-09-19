@@ -25,26 +25,26 @@ sap.ui.define(
 			setPegBoxHeight() {
 				this.getModel('view').setProperty('/pegBoxHeight', null);
 				setTimeout(() => {
-					const oHtmlPegBox = this.getHtmlPegBox();
-					if (!oHtmlPegBox) {
+					const oDomPegBox = this.getDomPegBox();
+					if (!oDomPegBox) {
 						setTimeout(this.setPegBoxHeight.bind(this), 500);
 						return;
 					}
-					const iPegBoxHeight = oHtmlPegBox.clientHeight + 15;
+					const iPegBoxHeight = oDomPegBox.clientHeight + 15;
 					this.getModel('view').setProperty('/pegBoxHeight', iPegBoxHeight);
 				});
 			},
 
 			setDiscButtonMaxWidth() {
 				setTimeout(() => {
-					const oHtmlPegBox = this.getHtmlPegBox();
-					if (!oHtmlPegBox) return;
-					const iPegBoxWidth = oHtmlPegBox.clientWidth;
+					const oDomPegBox = this.getDomPegBox();
+					if (!oDomPegBox) return;
+					const iPegBoxWidth = oDomPegBox.clientWidth;
 					this.getModel('view').setProperty('/discButtonMaxWidth', iPegBoxWidth);
 				});
 			},
 
-			getHtmlPegBox() {
+			getDomPegBox() {
 				const aPegControls = this.getView().getControlsByFieldGroupId('pegs');
 				const aPegBoxes = aPegControls.filter((oControl) => oControl.hasStyleClass('phPegBox'));
 				return aPegBoxes[0]?.getDomRef();
@@ -258,7 +258,7 @@ sap.ui.define(
 			},
 
 			isGameFinished() {
-				const bFinished = this.oWinDialog?.isOpen() ?? false;
+				const bFinished = !!this.oWinDialog?.isOpen();
 				const bStarted = this.getModel().getProperty('/Moves') > 0;
 				return bFinished || !bStarted;
 			}
