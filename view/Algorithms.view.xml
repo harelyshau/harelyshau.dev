@@ -40,7 +40,7 @@
 								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.CodeBlock" type="XML"/>
 							</dependents>
 						</VBox>
-						<Toolbar visible="{= !${/Article/NotFound} }"
+						<Toolbar visible="{= !!${/Article/Previous} || !!${/Article/Next} }"
 							style="Clear" design="Transparent"
 							class="sapUiSmallMarginBottom">
 							<Button visible="{= !!${/Article/Previous} }"

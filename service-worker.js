@@ -13,9 +13,9 @@ const preloadResources = [
 	'/resource/image/MRCLogo.jpg',
 	'/resource/image/School33Logo.jpg',
 	// data
-	'/resource/data/Resume_en.json',
-	'/resource/data/Resume_de.json',
-	'/resource/data/Resume_ru.json'
+	'/resource/data/resume/resume-en.json',
+	'/resource/data/resume/resume-de.json',
+	'/resource/data/resume/resume-ru.json'
 ];
 
 self.addEventListener('install', async () => {

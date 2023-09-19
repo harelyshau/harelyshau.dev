@@ -77,7 +77,7 @@ sap.ui.define(
 			},
 
 			async getServiceAccountCredentials() {
-				const oResponse = await fetch('resource/data/ServiceAccountCreds.json');
+				const oResponse = await fetch('resource/data/calendar/service-acc-creds.json');
 				return oResponse.json();
 			},
 
