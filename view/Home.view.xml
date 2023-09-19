@@ -3,21 +3,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:f="sap.f">
-	<f:DynamicPage class="">
-        <!-- HEADER -->
-		<f:title>
-			<f:DynamicPageTitle>
-				<f:heading>
-					<Title text="harelyshau.dev" wrapping="true"/>
-				</f:heading>
-				<f:snappedContent>
-                    <Label text="{i18n>lHomePage}" wrapping="true"/>
-                </f:snappedContent>
-                <f:expandedContent>
-                    <Label text="{i18n>lHomePage}" wrapping="true"/>
-                </f:expandedContent>
-			</f:DynamicPageTitle>
-		</f:title>
+	<f:DynamicPage>
 		<f:content>
 			<VBox class="phLimitedPageContent sapUiMediumMarginBottom">
                 <!-- WELCOME -->
