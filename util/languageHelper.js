@@ -7,8 +7,8 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 		},
 
 		setLanguage(sLanguage) {
+			if (sLanguage) localStorage.setItem('language', sLanguage);
 			sLanguage = this.getSupportedLanguage(sLanguage);
-			localStorage.setItem('language', sLanguage);
 			Configuration.setLanguage(sLanguage);
 		},
 
@@ -29,7 +29,8 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 			return this.getManifest()['sap.app'].i18n.supportedLocales;
 		},
 
-		getSupportedLanguage(sLanguage = this.getCurrentLanguage()) {
+		getSupportedLanguage(sLanguage) {
+			sLanguage ??= this.getCurrentLanguage();
 			const bSupported = this.getSupportedLanguages().includes(sLanguage);
 			return bSupported ? sLanguage : this.getFallBackLanguage();
 		},
