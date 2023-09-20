@@ -121,6 +121,14 @@
 	margin-top: 0 !important;
 }
 
+/* Illustration */
+/* .phIllustration {
+	padding: 0;
+} */
+.phIllustration .sapMIllustratedMessageAdditionalContent {
+	display: none;
+}
+
 /* COMMON */
 
 .phLimitedPageContent {

@@ -41,6 +41,10 @@
 		},
 		{
 			"Text": "Here I want to describe how basic algorithms work and how they can help you achieve your goals. I will try to describe this in simple language that will be understandable for beginners, but if you find any inaccuracies or improvements, do not hesitate to write to me by email: pavel@harelyshau.dev."
+		},
+		{
+			"Type": "Illustration",
+			"Text": "Goal of this doing"
 		}
 	]
 }

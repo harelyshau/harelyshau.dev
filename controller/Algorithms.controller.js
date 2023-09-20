@@ -6,6 +6,7 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 			this.setModel(models.createAlgorithmsModel());
 			this.setModel(models.createAlgorithmsViewModel(), 'view');
 			this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
+			this.registerIllustrationSet('tnt', 'sap/tnt/themes/base/illustrations');
 		},
 
 		onPressToggleSideNavigation() {

@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <IllustratedMessage id="blockIllustration"
+        enableDefaultTitleAndDescription="false"
+        illustrationType="tnt-Success"
+        class="phIllustration"/>
+</core:FragmentDefinition>

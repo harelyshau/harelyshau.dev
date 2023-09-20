@@ -3,9 +3,10 @@ sap.ui.define(
 		'sap/ui/core/mvc/Controller',
 		'sap/ui/core/UIComponent',
 		'sap/ui/Device',
-		'sap/m/MessageToast'
+		'sap/m/MessageToast',
+		'sap/m/IllustrationPool'
 	],
-	(Controller, UIComponent, Device, MessageToast) => {
+	(Controller, UIComponent, Device, MessageToast, IllustrationPool) => {
 		'use strict';
 
 		return Controller.extend('pharelyshau.controller.BaseController', {
@@ -123,6 +124,17 @@ sap.ui.define(
 
 			getPathByControl(oControl, sModel) {
 				return oControl.getBindingContext(sModel).getPath();
+			},
+
+			// Illustrations
+
+			registerIllustrationSet(sSetFamily, sSetPath) {
+				const oIllustrationSet = {
+					setFamily: sSetFamily,
+					setURI: sap.ui.require.toUrl(sSetPath)
+				};
+	
+				IllustrationPool.registerIllustrationSet(oIllustrationSet, false);
 			}
 		});
 	}
