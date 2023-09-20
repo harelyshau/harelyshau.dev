@@ -133,7 +133,6 @@ sap.ui.define(
 					setFamily: sSetFamily,
 					setURI: sap.ui.require.toUrl(sSetPath)
 				};
-	
 				IllustrationPool.registerIllustrationSet(oIllustrationSet, false);
 			}
 		});

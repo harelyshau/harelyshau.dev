@@ -1,5 +1,5 @@
-const staticCacheKey = 'static-ph-v0.0.1';
-const dynamicCacheKey = 'dynamic-ph-v0.0.1';
+const staticCacheKey = 'static-ph-v0.0.2';
+const dynamicCacheKey = 'dynamic-ph-v0.0.2';
 
 const preloadResources = [
 	// core

@@ -65,7 +65,7 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 		factoryBlocks(sId, oContext) {
 			const sType = oContext.getProperty('Type') || 'Main';
 			const oBlock = this.byId(`block${sType}`).clone(sId);
-			const bIllustrationRequired = !oContext.getProperty('Illustration')
+			const bIllustrationRequired = !oContext.getProperty('Illustration');
 			if (bIllustrationRequired) oBlock.addStyleClass('phHiddenIllustration');
 			return oBlock;
 		},
