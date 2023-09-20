@@ -4,32 +4,22 @@
 	"Next": "binary-search",
 	"Contents": [
 		{
-			"Type": "Title",
-			"Text": "What is an Algorithm"
+			"Illustration": "tnt-ChartFlow",
+			"Title": "What is an Algorithm",
+			"Description": "An algorithm is a sequence of steps that leads to the desired result. It is important to select suitable algorithms that will produce results as quickly as possible for your case. However, it is worth remembering that it is quite rare that you can come up with an ideal solution in all respects, and you will often have to use an algorithm that will work quickly in some cases and slower in others. The goal of a good algorithm is to work well enough for all cases."
 		},
 		{
-			"Text": "An algorithm is a sequence of steps that leads to the desired result. It is important to select suitable algorithms that will produce results as quickly as possible for your case. However, it is worth remembering that it is quite rare that you can come up with an ideal solution in all respects, and you will often have to use an algorithm that will work quickly in some cases and slower in others. The goal of a good algorithm is to work well enough for all cases"
+			"Title": "Goal of this doing",
+			"Description": "Here I want to describe how basic algorithms work and how they can help you achieve your goals. I will try to describe this in simple language that will be understandable for beginners, but if you find any inaccuracies or improvements, do not hesitate to write to me by email: pavel@harelyshau.dev."
 		},
 		{
-			"Type": "Title",
-			"Text": "Goal of this doing"
+			"Title": "What you need to know",
+			"Description": "You will need to know programming at a very basic level and be willing to learn something new. I plan to do these examples primarily in JavaScript, so if you know that language it will probably be easier to understand how the code examples work. But this is not at all necessary; you can treat the examples written in these articles simply as pseudocode. However, if you want to participate and add an example of any algorithm in your favorite (or least favorite language) you can write to me in the email I left above."
 		},
 		{
-			"Text": "Here I want to describe how basic algorithms work and how they can help you achieve your goals. I will try to describe this in simple language that will be understandable for beginners, but if you find any inaccuracies or improvements, do not hesitate to write to me by email: pavel@harelyshau.dev."
-		},
-		{
-			"Type": "Title",
-			"Text": "What you need to know"
-		},
-		{
-			"Text": "You will need to know programming at a very basic level and be willing to learn something new. I plan to do these examples primarily in JavaScript, so if you know that language it will probably be easier to understand how the code examples work. But this is not at all necessary; you can treat the examples written in these articles simply as pseudocode. However, if you want to participate and add an example of any algorithm in your favorite (or least favorite language) you can write to me in the email I left above."
-		},
-		{
-			"Type": "Title",
-			"Text": "Let’s get started"
-		},
-		{
-			"Text": "Hope you will find it useful."
+			"Title": "Let’s get started",
+			"Description": "Hope you will find it useful.",
+			"Illustration": "tnt-Mission"
 		}
 	]
 }

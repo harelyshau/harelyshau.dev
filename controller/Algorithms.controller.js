@@ -33,6 +33,7 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 				if (oError.name === 'AbortError') return;
 				this.getModel().setProperty('/Article', { NotFound: true });
 				this.getModel('view').setProperty('/busy', false);
+				console.error(oError);
 			}
 		},
 
@@ -61,8 +62,11 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 		},
 
 		factoryBlocks(sId, oContext) {
-			const sType = oContext.getProperty('Type') || 'Text';
-			return this.byId(`block${sType}`).clone(sId);
+			const sType = oContext.getProperty('Type') || 'Main';
+			const oBlock = this.byId(`block${sType}`).clone(sId);
+			const bIllustrationRequired = !oContext.getProperty('Illustration')
+			if (bIllustrationRequired) oBlock.addStyleClass('phHiddenIllustration');
+			return oBlock;
 		},
 
 		// TODO: check why it's not coming automatically

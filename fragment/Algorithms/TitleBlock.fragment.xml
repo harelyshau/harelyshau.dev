@@ -1,7 +1,0 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-    <Title id="blockTitle"
-        text="{Text}"
-        level="{= ${Level} || 'Auto' }"
-        titleStyle="{= ${Level} || 'Auto' }"
-        class="sapUiSmallMarginTop"/>
-</core:FragmentDefinition>

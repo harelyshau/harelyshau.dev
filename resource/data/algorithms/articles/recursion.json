@@ -3,48 +3,24 @@
 	"Description": "Will coming soon",
 	"Contents": [
 		{
-			"Type": "Title",
-			"Text": "Some heading to display",
-			"Level": "H3"
-		},
-		{
-			"Type": "Text",
-			"Text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+			"Title": "Some heading to display",
+			"Description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 		},
 		{
 			"Type": "Code",
 			"Code": "console.log('test');\nconsole.log('test');\nconsole.log('test');"
 		},
 		{
-			"Type": "Title",
-			"Text": "Some heading to display",
-			"Level": "H3"
-		},
-		{
-			"Type": "Text",
-			"Text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-		},
-		{
 			"Type": "Code",
 			"Code": "console.log('test')"
 		},
 		{
-			"Type": "Title",
-			"Text": "What is an Algorithm"
+			"Title": "What is an Algorithm",
+			"Description": "An algorithm is a sequence of steps that leads to the desired result. It is important to select suitable algorithms that will produce results as quickly as possible for your case. However, it is worth remembering that it is quite rare that you can come up with an ideal solution in all respects, and you will often have to use an algorithm that will work quickly in some cases and slower in others. The goal of a good algorithm is to work well enough for all cases"
 		},
 		{
-			"Text": "An algorithm is a sequence of steps that leads to the desired result. It is important to select suitable algorithms that will produce results as quickly as possible for your case. However, it is worth remembering that it is quite rare that you can come up with an ideal solution in all respects, and you will often have to use an algorithm that will work quickly in some cases and slower in others. The goal of a good algorithm is to work well enough for all cases"
-		},
-		{
-			"Type": "Title",
-			"Text": "Goal of this doing"
-		},
-		{
-			"Text": "Here I want to describe how basic algorithms work and how they can help you achieve your goals. I will try to describe this in simple language that will be understandable for beginners, but if you find any inaccuracies or improvements, do not hesitate to write to me by email: pavel@harelyshau.dev."
-		},
-		{
-			"Type": "Illustration",
-			"Text": "Goal of this doing"
+			"Title": "Goal of this doing",
+			"Description": "Here I want to describe how basic algorithms work and how they can help you achieve your goals. I will try to describe this in simple language that will be understandable for beginners, but if you find any inaccuracies or improvements, do not hesitate to write to me by email: pavel@harelyshau.dev."
 		}
 	]
 }

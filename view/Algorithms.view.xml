@@ -30,31 +30,29 @@
 					</f:DynamicPageTitle>
 				</f:title>
 				<f:content>
-					<VBox renderType="{= !${/Article/NotFound} ? 'Div' : 'Bare' }" justifyContent="SpaceBetween" height="100%">
-						<VBox visible="{= !${/Article/NotFound} }"
-							items="{ path: '/Article/Contents', factory:'.factoryBlocks' }"
+					<VBox binding="{/Article}" renderType="{= !${NotFound} ? 'Div' : 'Bare' }" justifyContent="SpaceBetween" height="100%">
+						<VBox visible="{= !${NotFound} }"
+							items="{ path: 'Contents', factory:'.factoryBlocks' }"
 							class="sapUiMediumMarginBottom phLimitedPageContent">
 							<dependents>
-								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.TitleBlock" type="XML"/>
-								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.TextBlock" type="XML"/>
 								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.CodeBlock" type="XML"/>
-								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.IllustrationBlock" type="XML"/>
+								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.MainBlock" type="XML"/>
 							</dependents>
 						</VBox>
-						<Toolbar visible="{= !!${/Article/Previous} || !!${/Article/Next} }"
+						<Toolbar visible="{= !!${Previous} || !!${Next} }"
 							style="Clear" design="Transparent"
 							class="sapUiSmallMarginBottom">
-							<Button visible="{= !!${/Article/Previous} }"
+							<Button visible="{= !!${Previous} }"
 								text="Previos" icon="sap-icon://navigation-left-arrow"
-								press="navigateToArticle(${/Article/Previous})"/>
+								press="navigateToArticle(${Previous})"/>
 							<ToolbarSpacer/>
-							<Button visible="{= !!${/Article/Next} }"
+							<Button visible="{= !!${Next} }"
 								iconFirst="false" text="Next"
 								icon="sap-icon://navigation-right-arrow"
-								press="navigateToArticle(${/Article/Next})"/>
+								press="navigateToArticle(${Next})"/>
 						</Toolbar>
 						<!-- Not Found -->
-						<IllustratedMessage visible="{= !!${/Article/NotFound} }"
+						<IllustratedMessage visible="{= !!${NotFound} }"
 							illustrationType="sapIllus-PageNotFound"
 							title="Sorry, we can't find this article"
 							enableVerticalResponsiveness="true">
