@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <IllustratedMessage id="blockMain"
-        illustrationSize="Auto"
+        illustrationSize="{= ${device>/system/phone} || 640 > ${device>/resize/width} ? 'Spot' : 'Auto' }"
         enableDefaultTitleAndDescription="false"
         title="{Title}" description="{Description}"
         illustrationType="{Illustration}"

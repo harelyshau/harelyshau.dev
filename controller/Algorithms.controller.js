@@ -58,7 +58,8 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 		},
 
 		navigateToArticle(articleId) {
-			this.getRouter().navTo('Algorithm', { articleId });
+			const sTarget = articleId ? 'Algorithm' : 'Algorithms';
+			this.getRouter().navTo(sTarget, { articleId });
 		},
 
 		factoryBlocks(sId, oContext) {
