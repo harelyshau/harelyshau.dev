@@ -15,7 +15,7 @@ sap.ui.define(
 			// Data Models
 			createResumeModel() {
 				const sLanguage = languageHelper.getSupportedLanguage();
-				const sFilePath = `resource/data/resume/resume-${sLanguage}.json`;
+				const sFilePath = `resource/data/Resume/resume-${sLanguage}.json`;
 				const oModel = new JSONModel();
 				oModel.setDefaultBindingMode('OneWay').loadData(sFilePath);
 				return oModel;
@@ -41,7 +41,7 @@ sap.ui.define(
 			},
 
 			createAlgorithmsModel() {
-				const sFilePath = 'resource/data/algorithms/article-list.json';
+				const sFilePath = 'resource/data/Algorithms/article-list.json';
 				const oModel = new JSONModel();
 				oModel.loadData(sFilePath);
 				oModel.setDefaultBindingMode('OneWay');

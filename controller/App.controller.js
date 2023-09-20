@@ -12,8 +12,7 @@ sap.ui.define(
 			},
 
 			onRouteMatched(oEvent) {
-				let sPage = oEvent.getParameter('name');
-				if (sPage === 'Algorithm') sPage += 's';
+				const sPage = oEvent.getParameter('name');
 				this.getModel('app').setProperty('/page', sPage);
 				this.byId('page').setSideExpanded(false);
 			},

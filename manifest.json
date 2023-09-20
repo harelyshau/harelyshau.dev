@@ -88,13 +88,8 @@
 					"target": "hanoitower"
 				},
 				{
-					"pattern": "algorithms",
+					"pattern": "algorithms/:articleId:",
 					"name": "Algorithms",
-					"target": "algorithms"
-				},
-				{
-					"pattern": "algorithms/{articleId}",
-					"name": "Algorithm",
 					"target": "algorithms"
 				}
 			],

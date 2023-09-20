@@ -45,7 +45,7 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 		},
 
 		getArticlePath(sArticleId) {
-			const sRootPath = 'resource/data/algorithms/';
+			const sRootPath = 'resource/data/Algorithms/';
 			const sAdditionalPath = sArticleId ? `articles/${sArticleId}` : 'about';
 			return `${sRootPath}${sAdditionalPath}.json`;
 		},
@@ -58,8 +58,7 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 		},
 
 		navigateToArticle(articleId) {
-			const sTarget = articleId ? 'Algorithm' : 'Algorithms';
-			this.getRouter().navTo(sTarget, { articleId });
+			this.getRouter().navTo('Algorithms', { articleId });
 		},
 
 		factoryBlocks(sId, oContext) {
