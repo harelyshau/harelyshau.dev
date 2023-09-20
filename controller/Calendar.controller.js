@@ -35,11 +35,19 @@ sap.ui.define(
 				this.setModel(models.createCalendarModel());
 				this.setModel(models.createCalendarViewModel(), 'view');
 				this.addCalendarViews();
+				this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
 			},
 
 			onAfterRendering() {
 				// to see max count of appointments
 				this.getModel().setSizeLimit(250);
+			},
+
+			onRouteMatched(oEvent) {
+				const sViewFromURL = oEvent.getParameter('arguments').view;
+				const oView = this.byId('calendar').getViewByKey(sViewFromURL);
+				const sView = oView ? sViewFromURL : 'work-week';
+				this.byId('calendar').setSelectedView(sView);
 			},
 
 			//////////////////////////////////
@@ -270,6 +278,11 @@ sap.ui.define(
 				this.setCalendarDayView();
 			},
 
+			onViewChange(oEvent) {
+				const view = oEvent.getSource().getSelectedView();
+				this.getRouter().navTo('Calendar', {view});
+			},
+
 			onPressToggleFullDay(oEvent) {
 				const bPressed = oEvent.getSource().getProperty('pressed');
 				localStorage.setItem('fullDay', bPressed);
@@ -297,22 +310,23 @@ sap.ui.define(
 
 			addCalendarViews() {
 				const oDeviceModel = this.getOwnerComponent().getModel('device');
-				const oCalendar = this.byId('calendar');
 				const bDevicePhone = oDeviceModel.getProperty('/system/phone');
-				const bDeviceSmallWidth = oDeviceModel.getProperty('/resize/width') <= 800;
+				const bSmallWidth = oDeviceModel.getProperty('/resize/width') <= 800;
+				const bSmallScreen = bDevicePhone || bSmallWidth;
+				const aDiffViewKeys = bSmallScreen
+					? ['two-days', 'three-days', 'work-week']
+					: ['work-week', 'week'];
+				const aViewKeys = ['day', ...aDiffViewKeys, 'month'];
+				aViewKeys.forEach(sViewKey => this.addCalendarView(sViewKey));
+			},
 
-				oCalendar.addView(new DayView({ key: '1', title: this.i18n('ttlDay') }));
-				// Add views for mobile or small size screens
-				if (bDevicePhone || bDeviceSmallWidth) {
-					oCalendar.addView(new TwoDaysView({ key: '2', title: this.i18n('ttl2Days') }));
-					oCalendar.addView(new ThreeDaysView({ key: '3', title: this.i18n('ttl3Days') }));
-				}
-				oCalendar.addView(new WorkWeekView({ key: '5', title: this.i18n('ttlWorkWeek') }));
-				// Add week view for desktop device
-				if (!bDevicePhone && !bDeviceSmallWidth) {
-					oCalendar.addView(new WeekView({ key: '7', title: this.i18n('ttlWeek') }));
-				}
-				oCalendar.addView(new MonthView({ key: 'month', title: this.i18n('ttlMonth') }));
+			addCalendarView(key) {
+				const oViews = { DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView};
+				const sCamelCaseKey = key.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
+				const title = this.i18n(`ttl${sCamelCaseKey}`);
+				const oViewParams = { id: key, key, title };
+				const oView = new oViews[`${sCamelCaseKey}View`](oViewParams);
+				this.byId('calendar').addView(oView);
 			},
 
 			//////////////////////////////////

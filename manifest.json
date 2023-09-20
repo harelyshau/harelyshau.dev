@@ -78,7 +78,7 @@
 					"target": "resume"
 				},
 				{
-					"pattern": "calendar",
+					"pattern": "calendar/:view:",
 					"name": "Calendar",
 					"target": "calendar"
 				},

@@ -32,6 +32,7 @@
 				appointmentDrop="onAppointmentResizeDrop"
 				startDateChange="onStartDateChangeCalendar"
 				moreLinkPress="onMoreLinkPress"
+				viewChange="onViewChange"
 				enableAppointmentsCreate="{= !${view>/busy} }"
 				enableAppointmentsDragAndDrop="true"
 				enableAppointmentsResize="true"
