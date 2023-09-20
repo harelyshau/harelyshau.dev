@@ -7,16 +7,8 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 		},
 
 		setLanguage(sLanguage) {
-			sLanguage
-				? localStorage.setItem('language', sLanguage)
-				: sLanguage = this.getCurrentLanguage();
-
-			// check for supported languages
-			if (!this.getSupportedLanguages().includes(sLanguage)) {
-				sLanguage = this.getFallBackLanguage();
-			}
-
-			// apply language
+			sLanguage = this.getSupportedLanguage(sLanguage);
+			localStorage.setItem('language', sLanguage);
 			Configuration.setLanguage(sLanguage);
 		},
 
@@ -25,13 +17,21 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 		},
 
 		getFallBackLanguage() {
-			const oManifest = sap.ui.getCore().getComponent('container-pharelyshau').getManifest();
-			return oManifest['sap.app'].i18n.fallbackLocale;
+			return this.getManifest()['sap.app'].i18n.fallbackLocale;
+		},
+
+		getManifest() {
+			const oComponent = sap.ui.getCore().getComponent('container-pharelyshau');
+			return oComponent.getManifest();
 		},
 
 		getSupportedLanguages() {
-			const oManifest = sap.ui.getCore().getComponent('container-pharelyshau').getManifest();
-			return oManifest['sap.app'].i18n.supportedLocales;
+			return this.getManifest()['sap.app'].i18n.supportedLocales;
+		},
+
+		getSupportedLanguage(sLanguage = this.getCurrentLanguage()) {
+			const bSupported = this.getSupportedLanguages().includes(sLanguage);
+			return bSupported ? sLanguage : this.getFallBackLanguage();
 		},
 
 		initLanguage() {

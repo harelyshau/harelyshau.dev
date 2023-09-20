@@ -77,7 +77,7 @@ sap.ui.define(
 			},
 
 			async getServiceAccountCredentials() {
-				const oResponse = await fetch('resource/data/ServiceAccountCreds.json');
+				const oResponse = await fetch('resource/data/calendar/service-acc-creds.json');
 				return oResponse.json();
 			},
 
@@ -271,7 +271,7 @@ sap.ui.define(
 			},
 
 			onPressToggleFullDay(oEvent) {
-				const bPressed = oEvent.getSource().getProperty('pressed')
+				const bPressed = oEvent.getSource().getProperty('pressed');
 				localStorage.setItem('fullDay', bPressed);
 			},
 
@@ -428,7 +428,7 @@ sap.ui.define(
 
 			// Join to Conference
 			onPressJoinToConference(oEvent) {
-				const oAppointment = this.getObjectByControl(oEvent);
+				const oAppointment = this.getObjectByEvent(oEvent);
 				const sConferenceLink = oAppointment.GoogleMeet ?? oAppointment.Conference;
 				sap.m.URLHelper.redirect(sConferenceLink, true);
 			},

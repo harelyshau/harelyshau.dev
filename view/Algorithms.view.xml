@@ -10,18 +10,18 @@
 			<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.SideNavigation" type="XML"/>
 		</tnt:sideContent>
 		<tnt:mainContents>
-			<f:DynamicPage>
+			<f:DynamicPage busy="{view>/busy}" binding="{/Article}">
 				<!-- HEADER -->
 				<f:title>
 					<f:DynamicPageTitle>
 						<f:heading>
-							<Title text="Algorithms" wrapping="true" />
+							<Title wrapping="true" text="{= ${Title} || ${i18n>ttlAlgorithms} }"/>
 						</f:heading>
 						<f:snappedContent>
-							<Label text="{i18n>lHomePage}" wrapping="true"/>
+							<Label visible="{= !!${Description} }" text="{Description}" wrapping="true"/>
 						</f:snappedContent>
 						<f:expandedContent>
-							<Label text="{i18n>lHomePage}" wrapping="true"/>
+							<Label visible="{= !!${Description} }" text="{Description}" wrapping="true"/>
 						</f:expandedContent>
 						<f:actions>
 							<Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
@@ -29,11 +29,52 @@
 					</f:DynamicPageTitle>
 				</f:title>
 				<f:content>
+					<VBox height="100%" width="100%"
+						justifyContent="SpaceBetween"
+						renderType="{= !${NotFound} &amp;&amp; !!${Contents} ? 'Div' : 'Bare' }">
+						<VBox renderType="Bare"
+							class="sapUiMediumMarginBottom phLimitedPageContent"
+							items="{ path: 'Contents', factory:'.factoryBlocks' }">
+							<dependents>
+								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.CodeBlock" type="XML"/>
+								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.MainBlock" type="XML"/>
+							</dependents>
+						</VBox>
+						<!-- Not Found -->
+						<IllustratedMessage visible="{= !!${NotFound} }"
+							illustrationType="sapIllus-PageNotFound"
+							title="Sorry, we can't find this article"
+							enableVerticalResponsiveness="true">
+							<additionalContent>
+								<Button icon="{i18n>iAlgorithms}" text="Go to Algorithms" press="onPressNavigateToPage('Algorithms')"/>
+							</additionalContent>
+						</IllustratedMessage>
+						<!-- Coming Soon -->
+						<IllustratedMessage visible="{= !${Contents} &amp;&amp; !${NotFound} }"
+							illustrationType="tnt-Teams"
+							title="Will coming soon"
+							description="This article is not ready yet, but will be available soon"
+							enableVerticalResponsiveness="true">
+							<additionalContent>
+								<Button icon="{i18n>iAlgorithms}" text="Go to Algorithms" press="onPressNavigateToPage('Algorithms')"/>
+							</additionalContent>
+						</IllustratedMessage>
+						<!-- Navigation Toolbar -->
+						<Toolbar visible="{= !!${Previous} || !!${Next} }"
+							style="Clear" design="Transparent"
+							class="sapUiSmallMarginBottom">
+							<Button visible="{= ${Previous} !== undefined }"
+								text="Previos" icon="sap-icon://navigation-left-arrow"
+								press="navigateToArticle(${Previous})"/>
+							<ToolbarSpacer/>
+							<Button visible="{= !!${Next} }"
+								iconFirst="false" text="Next"
+								icon="sap-icon://navigation-right-arrow"
+								press="navigateToArticle(${Next})"/>
+						</Toolbar>
+					</VBox> 
 				</f:content>
 			</f:DynamicPage>
 		</tnt:mainContents>
 	</tnt:ToolPage>
-
-
-	
 </mvc:View>

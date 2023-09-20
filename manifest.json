@@ -91,6 +91,11 @@
 					"pattern": "algorithms",
 					"name": "Algorithms",
 					"target": "algorithms"
+				},
+				{
+					"pattern": "algorithms/{articleId}",
+					"name": "Algorithm",
+					"target": "algorithms"
 				}
 			],
 			"targets": {
@@ -117,7 +122,7 @@
 				"algorithms": {
 					"id": "algorithms",
 					"name": "Algorithms",
-					"title": "{i18n>ttlAlgorithms}"
+					"title": "{= ${/Article/Title} || ${i18n>ttlAlgorithms} }"
 				},
 				"notFound": {
 					"id": "notFound",

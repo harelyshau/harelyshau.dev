@@ -11,11 +11,11 @@
 					<Title text="{i18n>ttlPavelsCalendar}" wrapping="true"/>
 				</f:heading>
 				<f:snappedContent>
-						<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
-					</f:snappedContent>
-					<f:expandedContent>
-						<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
-					</f:expandedContent>
+					<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
+				</f:snappedContent>
+				<f:expandedContent>
+					<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
+				</f:expandedContent>
 				<f:actions>
 					<Button text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
 				</f:actions>

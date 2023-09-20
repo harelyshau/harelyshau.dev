@@ -1,0 +1,6 @@
+{
+	"Title": "Binary Search",
+	"Description": "The most efficient algorithm for searching an element in a sorted array",
+	"Next": "breadth-first-search",
+	"Previous": ""
+}

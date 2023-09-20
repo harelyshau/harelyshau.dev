@@ -20,11 +20,11 @@ sap.ui.define([], () => {
 
 		setThemeColor(sThemeKey) {
 			const oColors = {
-				'light': '#fff',
-				'dark': '#1d232a',
-				'hcw': '#fff',
-				'hcb': '#000'
-			}
+				light: '#fff',
+				dark: '#1d232a',
+				hcw: '#fff',
+				hcb: '#000'
+			};
 			document.querySelector('meta[name="theme-color"]').content = oColors[sThemeKey];
 		},
 

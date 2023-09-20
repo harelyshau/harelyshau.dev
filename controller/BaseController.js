@@ -4,10 +4,9 @@ sap.ui.define(
 		'sap/ui/core/UIComponent',
 		'sap/ui/Device',
 		'sap/m/MessageToast',
-		'../util/themeHelper',
-		'../util/languageHelper'
+		'sap/m/IllustrationPool'
 	],
-	(Controller, UIComponent, Device, MessageToast, themeHelper, languageHelper) => {
+	(Controller, UIComponent, Device, MessageToast, IllustrationPool) => {
 		'use strict';
 
 		return Controller.extend('pharelyshau.controller.BaseController', {
@@ -79,13 +78,14 @@ sap.ui.define(
 			},
 
 			async loadAndAssignFragment(sFragment, bCommon) {
+				const sPrefixFragment = `o${sFragment}`;
 				let sPath = 'pharelyshau.fragment.';
 				const sCurrentPage = this.getModel('app').getProperty('/page');
 				sPath += !bCommon ? `${sCurrentPage}.${sFragment}` : sFragment;
-				this['o' + sFragment] ??= this.loadFragment({ name: sPath });
-				this['o' + sFragment] = await this['o' + sFragment];
-				this['o' + sFragment].addStyleClass(this.getContentDensityClass());
-				return this['o' + sFragment];
+				this[sPrefixFragment] ??= this.loadFragment({ name: sPath });
+				this[sPrefixFragment] = await this[sPrefixFragment];
+				this[sPrefixFragment].addStyleClass(this.getContentDensityClass());
+				return this[sPrefixFragment];
 			},
 
 			isPopoverOpen(oPopover, sBinndingPath) {
@@ -96,12 +96,12 @@ sap.ui.define(
 
 			toggleSideNavigation(oPage, oSideNavigation) {
 				let bExpanded = oPage.getSideExpanded();
-				const bNotSame = oSideNavigation && oPage.getSideContent().getId() !== oSideNavigation.getId();
-				if (bNotSame) {
-					oPage.setSideContent(oSideNavigation)
+				const bSame = oPage.getSideContent() === oSideNavigation;
+				if (oSideNavigation && !bSame) {
+					oPage.setSideContent(oSideNavigation);
 					bExpanded = false;
-				};
-				
+				}
+
 				setTimeout(() => oPage.setSideExpanded(!bExpanded));
 				return !bExpanded;
 			},
@@ -124,6 +124,16 @@ sap.ui.define(
 
 			getPathByControl(oControl, sModel) {
 				return oControl.getBindingContext(sModel).getPath();
+			},
+
+			// Illustrations
+
+			registerIllustrationSet(sSetFamily, sSetPath) {
+				const oIllustrationSet = {
+					setFamily: sSetFamily,
+					setURI: sap.ui.require.toUrl(sSetPath)
+				};
+				IllustrationPool.registerIllustrationSet(oIllustrationSet, false);
 			}
 		});
 	}

@@ -14,14 +14,10 @@ sap.ui.define(
 
 			// Data Models
 			createResumeModel() {
-				let sLanguage = languageHelper.getCurrentLanguage();
-				if (!languageHelper.getSupportedLanguages().includes(sLanguage)) {
-					sLanguage = languageHelper.getFallBackLanguage();
-				}
-
-				const sFilePath = `pharelyshau/resource/data/Resume_${sLanguage}.json`;
-				const oModel = new JSONModel(sap.ui.require.toUrl(sFilePath));
-				oModel.setDefaultBindingMode('OneWay');
+				const sLanguage = languageHelper.getSupportedLanguage();
+				const sFilePath = `resource/data/resume/resume-${sLanguage}.json`;
+				const oModel = new JSONModel();
+				oModel.setDefaultBindingMode('OneWay').loadData(sFilePath);
 				return oModel;
 			},
 
@@ -42,6 +38,14 @@ sap.ui.define(
 					Time: 0
 				};
 				return new JSONModel(oData);
+			},
+
+			createAlgorithmsModel() {
+				const sFilePath = 'resource/data/algorithms/article-list.json';
+				const oModel = new JSONModel();
+				oModel.loadData(sFilePath);
+				oModel.setDefaultBindingMode('OneWay');
+				return oModel;
 			},
 
 			// View Models

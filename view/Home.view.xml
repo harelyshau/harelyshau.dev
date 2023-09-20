@@ -3,21 +3,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:f="sap.f">
-	<f:DynamicPage class="">
-        <!-- HEADER -->
-		<f:title>
-			<f:DynamicPageTitle>
-				<f:heading>
-					<Title text="harelyshau.dev" wrapping="true"/>
-				</f:heading>
-				<f:snappedContent>
-                    <Label text="{i18n>lHomePage}" wrapping="true"/>
-                </f:snappedContent>
-                <f:expandedContent>
-                    <Label text="{i18n>lHomePage}" wrapping="true"/>
-                </f:expandedContent>
-			</f:DynamicPageTitle>
-		</f:title>
+	<f:DynamicPage>
 		<f:content>
 			<VBox class="phLimitedPageContent sapUiMediumMarginBottom">
                 <!-- WELCOME -->
@@ -46,7 +32,7 @@
                 </Panel>
                 <!-- CALENDAR -->
                 <Panel class="sapUiSmallMarginTop">
-                    <IllustratedMessage illustrationType="sapIllus-SimpleCalendar"
+                    <IllustratedMessage illustrationType="sapIllus-EmptyCalendar"
                         title="{i18n>ttlCalendar}" description="{i18n>tCalendarOverview}"
                         illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
                             ? 'Spot' : 'Auto' }">
@@ -58,7 +44,7 @@
                 </Panel>
                 <!-- RESUME -->
                 <Panel class="sapUiSmallMarginTop">
-                    <IllustratedMessage illustrationType="sapIllus-NoSavedItems"
+                    <IllustratedMessage illustrationType="sapIllus-ResizeColumn"
                         title="{i18n>ttlResume}" description="{i18n>tResumeOverview}"
                         illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
                             ? 'Spot' : 'Auto' }">
