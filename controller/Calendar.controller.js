@@ -44,9 +44,13 @@ sap.ui.define(
 			},
 
 			onRouteMatched(oEvent) {
-				const sViewFromURL = oEvent.getParameter('arguments').view;
-				const oView = this.byId('calendar').getViewByKey(sViewFromURL);
-				const sView = oView ? sViewFromURL : 'work-week';
+				if (oEvent.getParameter('name') !== 'Calendar') return;
+				const sView = oEvent.getParameter('arguments').view;
+				const oView = this.byId('calendar').getViewByKey(sView);
+				if (!oView) {
+					this.getRouter().navTo('Calendar');
+					return;
+				}
 				this.byId('calendar').setSelectedView(sView);
 			},
 
