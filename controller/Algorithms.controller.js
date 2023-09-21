@@ -1,9 +1,10 @@
-sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) => {
+sap.ui.define(['./BaseController', '../model/models', '../util/articleList'],
+(BaseController, models, articleList) => {
 	'use strict';
 
 	return BaseController.extend('pharelyshau.controller.Algorithms', {
 		onInit() {
-			this.setModel(models.createAlgorithmsModel());
+			this.setModel(models.createAlgorithmsModel(articleList));
 			this.setModel(models.createAlgorithmsViewModel(), 'view');
 			this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
 			this.registerIllustrationSet('tnt', 'sap/tnt/themes/base/illustrations');
@@ -68,14 +69,6 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 			const bIllustrationRequired = !oContext.getProperty('Illustration');
 			if (bIllustrationRequired) oBlock.addStyleClass('phHiddenIllustration');
 			return oBlock;
-		},
-
-		// TODO: check why it's not coming automatically
-		refreshSideNavigationSelectedKey() {
-			setTimeout(() => {
-				const sKey = this.getModel('view').getProperty('/ArticleID');
-				this.byId('sideNavigation').setSelectedKey(sKey);
-			});
 		},
 
 		// Code Block
