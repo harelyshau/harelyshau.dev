@@ -2,8 +2,8 @@
     <VBox id="blockCode" class="sapUiTinyMarginTopBottom">
         <Toolbar style="Clear" design="Transparent">
             <ToolbarSpacer />
-            <Button text="{= ${Editable} ? 'Reset' : 'Edit' }" icon="{= ${Editable} ? 'sap-icon://reset' : 'sap-icon://edit' }" press="onPressEditResetCode"/>
-            <Button text="Copy" icon="{i18n>iCopy}" press="onPressCopyCode"/>
+            <Button text="{= ${Editable} ? ${i18n>btnReset} : ${i18n>btnEdit} }" icon="{= ${Editable} ? 'sap-icon://reset' : 'sap-icon://edit' }" press="onPressEditResetCode"/>
+            <Button text="{i18n>btnCopy}" icon="{i18n>iCopy}" press="onPressCopyCode"/>
             <Button text="Run" icon="sap-icon://media-play" press="onPressRunCode"/>
         </Toolbar>
         <ce:CodeEditor value="{Code}" maxLines="20" editable="{= !!${Editable} }"/>

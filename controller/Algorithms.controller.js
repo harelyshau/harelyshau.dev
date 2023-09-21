@@ -17,6 +17,7 @@ sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) 
 		},
 
 		onRouteMatched(oEvent) {
+			if (oEvent.getParameter('name') !== 'Algorithms') return;
 			const sArticleId = oEvent.getParameter('arguments').articleId;
 			this.setCurrentArticle(sArticleId);
 			if (!sArticleId) this.byId('sideNavigation').setSelectedItem(null);

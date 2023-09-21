@@ -13,9 +13,9 @@
 					selectedKey="{app>/page}" select="onSelectPage">
 					<items>
 						<IconTabFilter key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
-						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
 						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
-						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}" />
+						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
+						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
 						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
 					</items>
 				</IconTabHeader>

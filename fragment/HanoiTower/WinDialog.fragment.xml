@@ -1,8 +1,12 @@
 <core:FragmentDefinition
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
-    core:require="{formatter: 'pharelyshau/model/formatter'}">
-    <Dialog title="You dealt with Tower of {/DiscCount} Disks" state="Success" afterClose="onAfterCloseWinDialog">
+    core:require="{
+        formatter: 'pharelyshau/model/formatter',
+        formatMessage: 'sap/base/strings/formatMessage'
+    }">
+    <Dialog title="{parts: ['i18n>ttlWinDialog', '/DiscCount'], formatter: 'formatMessage'}"
+        state="Success" afterClose="onAfterCloseWinDialog">
         <VBox class="sapUiSmallMargin">
             <!-- Result -->
             <VBox renderType="Bare">
@@ -25,18 +29,20 @@
             <!-- New Record -->
             <VBox class="sapUiSmallMarginTop" renderType="Bare" visible="{= !!${view>/previousRecord}
                 &amp;&amp; (${view>/previousRecord/Time} > ${/Time} || ${view>/previousRecord/Moves} > ${/Moves}) }">
-                <Title text="New Record:" titleStyle="H6"/>
+                <Title text="{i18n>ttlNewRecord}:" titleStyle="H6"/>
                 <HBox class="sapUiTinyMarginTop">
                     <!-- Time -->
                     <HBox visible="{= ${view>/previousRecord/Time} > ${/Time} }"
                         renderType="Bare" alignItems="Center" class="sapUiSmallMarginEnd">
                         <core:Icon src="{i18n>iTime}" class="sapUiTinyMarginEnd"/>
+                        <!-- TODO: Add i18n text -->
                         <Text text="{= ${view>/previousRecord/Time} - ${/Time} } sec faster"/>
                     </HBox>
                     <!-- Moves -->
                     <HBox visible="{= ${view>/previousRecord/Moves} > ${/Moves} }"
                         renderType="Bare" alignItems="Center">
                         <core:Icon src="{i18n>iStep}" class="sapUiTinyMarginEnd"/>
+                        <!-- TODO: Add i18n text -->
                         <Text text="{= ${view>/previousRecord/Moves} - ${/Moves} } moves fewer"/>
                     </HBox>
                 </HBox>

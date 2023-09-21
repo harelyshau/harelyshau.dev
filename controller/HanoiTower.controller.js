@@ -246,9 +246,9 @@ sap.ui.define(
 
 			startTimer() {
 				if (this.timerId) return;
-				const iTime = this.getModel().getProperty('/Time');
+				let iTime = this.getModel().getProperty('/Time');
 				this.timerId = setInterval(() => {
-					this.getModel().setProperty('/Time', iTime + 1);
+					this.getModel().setProperty('/Time', ++iTime);
 				}, 1000);
 			},
 
