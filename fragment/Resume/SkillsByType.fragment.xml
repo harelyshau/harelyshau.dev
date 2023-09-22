@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <FlexBox direction="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
         ? 'Column' : 'Row' }">
-        <Label wrapping="true" text="{Type}:"
+        <Label wrapping="true" text="{Type}" showColon="true"
             width="{= ${device>/system/phone} || 550 >= ${device>/resize/width}
                 ? 'auto' : '12rem' }"/>
         <Text text="{Skills}" />

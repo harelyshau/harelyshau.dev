@@ -13,13 +13,13 @@
         <VBox class="sapUiSmallMarginBeginEnd">
             <!-- Title -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="{i18n>lTitle}:" labelFor="inpName"/>
+                <Label text="{i18n>lTitle}" showColon="true" labelFor="inpName"/>
                 <Input id="inpName" value="{Name}" valueLiveUpdate="true"
                     placeholder="{i18n>phAppointmentTitle}"/>
             </VBox>
             <!-- Email -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="{i18n>lYourEmail}:" labelFor="inpEmail"/>
+                <Label text="{i18n>lYourEmail}" showColon="true" labelFor="inpEmail"/>
                 <Input id="inpEmail" required="true" type="Email" placeholder="{i18n>phEmail}"
                     value="{path: 'Email', type: 'sap.ui.model.type.String',
                         constraints: {search: '^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$'} }"/>
@@ -53,7 +53,7 @@
             </VBox>
             <!-- Conference & Google Meet -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="{i18n>lConference}:"/>
+                <Label text="{i18n>lConference}" showColon="true"/>
                 <!-- Conference -->
                 <VBox visible="{= !${GoogleMeet}}">
                     <Input id="inpConference" value="{Conference}" type="Url"

@@ -10,7 +10,7 @@
         </customHeader>
         <VBox class="sapUiTinyMargin">
             <HBox visible="{= !!${Website} }" wrap="Wrap" renderType="Bare">
-                <Label text="{i18n>lWebsite}:" class="sapUiTinyMarginEnd"/>
+                <Label text="{i18n>lWebsite}" showColon="true" class="sapUiTinyMarginEnd"/>
                 <Link text="{Website}" href="{Website}" target="_blank"/>
             </HBox>
             <Text visible="{= !!${Description} }" text="{Description}" class="sapUiTinyMarginTop"/>

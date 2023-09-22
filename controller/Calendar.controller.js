@@ -249,7 +249,7 @@ sap.ui.define(
 			// Open Popover
 			onAppointmentSelectOpenPopover(oEvent) {
 				const oControl = oEvent.getParameter('appointment');
-				if (!oControl || oControl.getSelected()) return;
+				if (!oControl) return;
 				const oAppointment = this.getObjectByControl(oControl);
 				if (!this.isAppointmentAvailable(oAppointment.ID)) {
 					MessageToast.show(this.i18n('msgBusyAtThisTime'));

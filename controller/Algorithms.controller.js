@@ -66,8 +66,8 @@ sap.ui.define(['./BaseController', '../model/models', '../util/articleList'],
 		factoryBlocks(sId, oContext) {
 			const sType = oContext.getProperty('Type') || 'Main';
 			const oBlock = this.byId(`block${sType}`).clone(sId);
-			const bIllustrationRequired = !oContext.getProperty('Illustration');
-			if (bIllustrationRequired) oBlock.addStyleClass('phHiddenIllustration');
+			const bIllustrationRequired = oContext.getProperty('Illustration');
+			if (!bIllustrationRequired) oBlock.addStyleClass('phHiddenIllustration');
 			return oBlock;
 		},
 
@@ -92,6 +92,13 @@ sap.ui.define(['./BaseController', '../model/models', '../util/articleList'],
 			const oBlock = this.getObjectByEvent(oEvent);
 			if (oBlock.Editable) this.getCodeEditorByButtonClick(oEvent).setValue(oBlock.Code);
 			this.getModel().setProperty(`${sPath}/Editable`, !oBlock.Editable);
+		},
+
+		preventSelection(oEvent) {
+			queueMicrotask(() => {
+				const sKey = this.getModel('view').getProperty('/ArticleID');
+				oEvent.getSource().setSelectedKey(sKey);
+			});
 		}
 	});
 });

@@ -54,7 +54,7 @@
             </VBox>
         </VBox>
         <!-- Skills -->
-        <Label text="{i18n>lSkills}:" class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>
+        <Label text="{i18n>lSkills}" showColon="true" class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>
         <Text text="{Skills}"/>
         <Toolbar visible="{= ${} !== ${/Experience}.at(-1) }"
             height="0.8rem" class="phToolbarSeparator sapUiTinyMarginBottom"/>

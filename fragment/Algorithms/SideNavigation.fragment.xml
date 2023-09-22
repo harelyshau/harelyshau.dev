@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:tnt="sap.tnt">
-    <tnt:SideNavigation id="sideNavigation" itemSelect="refreshSideNavigationSelectedKey"
+    <tnt:SideNavigation id="sideNavigation" itemSelect="preventSelection"
 		selectedKey="{path: 'view>/ArticleID', mode: 'OneWay'}">
 		<tnt:NavigationList items="{/Articles}" itemSelect="onSelectNavigateToArticle">
 			<tnt:NavigationListItem text="{Title}" icon="{Icon}" key="{ID}"

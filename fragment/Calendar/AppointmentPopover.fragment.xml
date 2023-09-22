@@ -17,7 +17,7 @@
         <VBox class="sapUiSmallMarginBeginEnd">
             <!-- Email -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="{i18n>lYourEmail}:"/>
+                <Label text="{i18n>lYourEmail}" showColon="true"/>
                 <Text text="{Email}" emptyIndicatorMode="On"/>
             </VBox>
             <!-- Date and Time -->
@@ -37,7 +37,7 @@
             </VBox>
             <!-- Conference -->
             <VBox class="sapUiSmallMarginTop">
-                <Label text="{i18n>lConference}:"/>
+                <Label text="{i18n>lConference}" showColon="true"/>
                 <VBox visible="{= !!${GoogleMeet} || !!${Conference} }">
                     <HBox justifyContent="SpaceBetween" renderType="Bare">
                         <HBox width="80%" renderType="Bare">

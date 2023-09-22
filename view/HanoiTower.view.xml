@@ -90,7 +90,7 @@
                     <!-- FOOTER TOOLBAR -->
                     <HBox renderType="Bare" alignItems="Center" justifyContent="SpaceBetween" wrap="Wrap">
                         <HBox alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
-                            <Label text="{i18n>lShowButtons}:" wrapping="true" width="auto"/>
+                            <Label text="{i18n>lShowButtons}" showColon="true" wrapping="true" width="auto"/>
                             <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "
                                 change="onChangeMoveButtonsSwith"/>
                         </HBox>
