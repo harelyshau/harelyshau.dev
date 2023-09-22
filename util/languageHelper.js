@@ -1,7 +1,17 @@
 sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 	'use strict';
 
+	function getManifest() {
+		const oComponent = sap.ui.getCore().getComponent('container-pharelyshau');
+		return oComponent.getManifest();
+	}
+
+	function getCurrentLanguage() {
+		return Configuration.getLanguage().slice(0, 2);
+	}
+
 	return {
+
 		getLanguage() {
 			return localStorage.getItem('language');
 		},
@@ -12,25 +22,16 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 			Configuration.setLanguage(sLanguage);
 		},
 
-		getCurrentLanguage() {
-			return Configuration.getLanguage().slice(0, 2);
-		},
-
 		getFallBackLanguage() {
-			return this.getManifest()['sap.app'].i18n.fallbackLocale;
-		},
-
-		getManifest() {
-			const oComponent = sap.ui.getCore().getComponent('container-pharelyshau');
-			return oComponent.getManifest();
+			return getManifest()['sap.app'].i18n.fallbackLocale;
 		},
 
 		getSupportedLanguages() {
-			return this.getManifest()['sap.app'].i18n.supportedLocales;
+			return getManifest()['sap.app'].i18n.supportedLocales;
 		},
 
 		getSupportedLanguage(sLanguage) {
-			sLanguage ??= this.getCurrentLanguage();
+			sLanguage ??= getCurrentLanguage();
 			const bSupported = this.getSupportedLanguages().includes(sLanguage);
 			return bSupported ? sLanguage : this.getFallBackLanguage();
 		},
@@ -39,5 +40,6 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 			const sLanguage = this.getLanguage();
 			this.setLanguage(sLanguage);
 		}
+
 	};
 });

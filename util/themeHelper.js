@@ -1,7 +1,18 @@
 sap.ui.define([], () => {
 	'use strict';
 
+	function setThemeColor(sThemeKey) {
+		const oColors = {
+			light: '#eaecee',
+			dark: '#0a0d10',
+			hcw: '#fff',
+			hcb: '#000'
+		};
+		document.querySelector('meta[name="theme-color"]').content = oColors[sThemeKey];
+	}
+
 	return {
+
 		getTheme() {
 			return localStorage.getItem('theme');
 		},
@@ -15,17 +26,7 @@ sap.ui.define([], () => {
 			}
 
 			sap.ui.getCore().applyTheme(this.mapTheme(sThemeKey));
-			this.setThemeColor(sThemeKey);
-		},
-
-		setThemeColor(sThemeKey) {
-			const oColors = {
-				light: '#eaecee',
-				dark: '#0a0d10',
-				hcw: '#fff',
-				hcb: '#000'
-			};
-			document.querySelector('meta[name="theme-color"]').content = oColors[sThemeKey];
+			setThemeColor(sThemeKey);
 		},
 
 		mapTheme(sKey, sValue) {
