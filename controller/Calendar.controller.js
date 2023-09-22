@@ -10,7 +10,8 @@ sap.ui.define(
 		'../fragment/Calendar/ThreeDaysView',
 		'../util/googleApiTokenFetcher',
 		'../model/models',
-		'../model/formatter'
+		'../model/formatter',
+		'../util/lib/GoogleAPI'
 	],
 	(
 		BaseController,
@@ -23,7 +24,8 @@ sap.ui.define(
 		ThreeDaysView,
 		googleApiTokenFetcher,
 		models,
-		formatter
+		formatter,
+		GoogleAPI
 	) => {
 		'use strict';
 
@@ -31,10 +33,10 @@ sap.ui.define(
 			formatter,
 
 			onInit() {
-				this.loadGoogleAPI();
+				this.addCalendarViews();
 				this.setModel(models.createCalendarModel());
 				this.setModel(models.createCalendarViewModel(), 'view');
-				this.addCalendarViews();
+				gapi.load('client', this.onLoadGoogleCalendarClient.bind(this));
 				this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
 			},
 
@@ -57,16 +59,6 @@ sap.ui.define(
 			//////////////////////////////////
 			////// GOOGLE CALENDAR API ///////
 			//////////////////////////////////
-
-			loadGoogleAPI() {
-				const script = document.createElement('script');
-				script.src = 'https://apis.google.com/js/api.js';
-				script.onload = () => {
-					gapi.load('client', this.onLoadGoogleCalendarClient.bind(this));
-				};
-				document.head.appendChild(script);
-			},
-
 			async onLoadGoogleCalendarClient() {
 				await this.initGoogleApiClient();
 				await this.setGoogleApiAuthToken();
@@ -74,13 +66,9 @@ sap.ui.define(
 				this.byId('btnMakeAppointment').setEnabled(true);
 			},
 
-			async initGoogleApiClient() {
-				try {
-					const sLink = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-					await gapi.client.init({ discoveryDocs: [sLink] });
-				} catch (oError) {
-					console.error('Error initializing Google Calendar Client:', oError.error);
-				}
+			initGoogleApiClient() {
+				const sLink = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+				return gapi.client.init({ discoveryDocs: [sLink] });
 			},
 
 			async setGoogleApiAuthToken() {

@@ -5,22 +5,8 @@ I only use this approach because I don't have any sensitive information here.
 You can see how to get Google Service Account Credentials from this link
 https://developers.google.com/identity/protocols/oauth2/service-account */
 
-sap.ui.define([], () => {
+sap.ui.define(['./lib/JSEncrypt', './lib/CryptoJS'], () => {
 	'use strict';
-
-	(() => {
-		const aScriptURLs = [
-			'https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js',
-			'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js'
-		];
-		aScriptURLs.forEach((sScriptURL) => loadScript(sScriptURL));
-	})();
-
-	function loadScript(sScriptURL) {
-		const script = document.createElement('script');
-		script.src = sScriptURL;
-		document.head.appendChild(script);
-	}
 
 	return {
 		async getToken(oCredentials) {
