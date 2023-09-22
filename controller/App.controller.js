@@ -38,11 +38,6 @@ sap.ui.define(
 				window.location.reload(); // need to refresh to change controls language
 			},
 
-			onPressShowCode() {
-				const sWebsiteURL = 'https://github.com/harelyshau/harelyshau.dev';
-				sap.m.URLHelper.redirect(sWebsiteURL, true);
-			},
-
 			onPressToggleSideNavigation() {
 				const oPage = this.byId('page');
 				this.toggleSideNavigation(oPage, this.byId('sideNavigation'));

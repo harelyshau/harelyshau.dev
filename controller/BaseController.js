@@ -39,16 +39,14 @@ sap.ui.define(
 				this.getRouter().navTo(sPage);
 			},
 
+			onPressShowCode() {
+				const sWebsiteURL = 'https://github.com/harelyshau/harelyshau.dev';
+				sap.m.URLHelper.redirect(sWebsiteURL, true);
+			},
+
 			onPressSendEmail() {
 				const sEmail = this.getModel()?.getProperty('/Email') ?? 'pavel@harelyshau.dev';
 				sap.m.URLHelper.triggerEmail(sEmail, 'Email from harelyshau.dev website');
-			},
-
-			async onPressShareLink() {
-				const sWebsiteURL = window.location.href;
-				const sSuccessMessage = this.i18n('msgSiteUrlCopied', [sWebsiteURL]);
-				const sErrorMessage = this.i18n('msgSiteUrlNotCopied');
-				this.copyToClipboard(sWebsiteURL, sSuccessMessage, sErrorMessage);
 			},
 
 			async copyToClipboard(sValueToCopy, sSuccessMessage, sErrorMessage) {
@@ -128,11 +126,9 @@ sap.ui.define(
 
 			// Illustrations
 
-			registerIllustrationSet(sSetFamily, sSetPath) {
-				const oIllustrationSet = {
-					setFamily: sSetFamily,
-					setURI: sap.ui.require.toUrl(sSetPath)
-				};
+			registerIllustrationSet(setFamily, sSetPath) {
+				const setURI = sap.ui.require.toUrl(sSetPath);
+				const oIllustrationSet = { setFamily, setURI };
 				IllustrationPool.registerIllustrationSet(oIllustrationSet, false);
 			}
 		});
