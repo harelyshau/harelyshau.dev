@@ -33,6 +33,10 @@ sap.ui.define(
 				return Device.support.touch ? 'sapUiSizeCozy' : 'sapUiSizeCompact';
 			},
 
+			setBusy(bBusy) {
+				this.getModel('view').setProperty('/busy', bBusy);
+			},
+
 			// Common Buttons
 
 			onPressNavigateToPage(sPage) {

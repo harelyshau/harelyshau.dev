@@ -25,16 +25,16 @@ sap.ui.define(['./BaseController', '../model/models', '../util/articleList'],
 		},
 
 		async setCurrentArticle(sArticleId) {
-			this.getModel('view').setProperty('/busy', true);
+			this.setBusy(true);
 			this.getModel('view').setProperty('/ArticleID', sArticleId);
 			try {
 				const oArticle = await this.getArticle(this.getArticlePath(sArticleId));
 				this.getModel().setProperty('/Article', oArticle);
-				this.getModel('view').setProperty('/busy', false);
+				this.setBusy(false);
 			} catch (oError) {
 				if (oError.name === 'AbortError') return;
 				this.getModel().setProperty('/Article', { NotFound: true });
-				this.getModel('view').setProperty('/busy', false);
+				this.setBusy(false);
 				console.error(oError);
 			}
 		},

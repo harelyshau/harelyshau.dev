@@ -49,8 +49,9 @@
 						type="Emphasized" class="phResponsiveMarginEnd"/>
 				</actions>
 				<appointments>
-					<unified:CalendarAppointment text= "{Description}" type= "{Type}"
-						title="{= !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"
+					<unified:CalendarAppointment text= "{= ${Available} ? ${Description} : '' }"
+						type= "{= ${Available} ? 'Type01' : 'Type16' }"
+						title="{= !${Available} ? ${i18n>ttlBusy} : !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"
 						startDate= "{StartDate}" endDate= "{EndDate}"/>
 				</appointments>
 			</SinglePlanningCalendar>
