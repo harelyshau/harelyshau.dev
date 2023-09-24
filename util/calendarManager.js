@@ -2,15 +2,13 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI', ],
 (googleApiTokenFetcher, GoogleAPI) => {
 	'use strict';
 
+    const calendarId = 'pavel@harelyshau.dev';
+
     /* This Class allows managing appointments in Google Calendar
     and provide following 5 public methods: "init", "getAppointments",
     "createAppointment", "updateAppointment", "removeAppointment" */
 
 	class CalendarManager {
-
-        constructor(sEmail) {
-            this.calendarId = sEmail;
-        }
         
         //////////////////////////////////
         ///////// INITIALIZATION /////////
@@ -48,7 +46,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI', ],
 
         async getAppointments(oStartDate, oEndDate) {
             const oParams = {
-                calendarId: this.calendarId,
+                calendarId,
                 maxResults: 250, // max available value
                 singleEvents: true,
                 timeMin: oStartDate.toISOString(),
@@ -61,7 +59,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI', ],
 
         async createAppointment(oAppointment) {
             const oParams = {
-                calendarId: this.calendarId,
+                calendarId,
                 resource: this.#formatAppointmentGC(oAppointment),
                 conferenceDataVersion: 1,
                 sendUpdates: 'all'
@@ -73,7 +71,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI', ],
 
         async removeAppointment(eventId) {
             const oParams = {
-                calendarId: this.calendarId,
+                calendarId,
                 eventId,
                 sendUpdates: 'all'
             };
@@ -84,7 +82,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI', ],
 
         async updateAppointment(oAppointment) {
             const oParams = {
-                calendarId: this.calendarId,
+                calendarId,
                 eventId: oAppointment.ID,
                 resource: this.#formatAppointmentGC(oAppointment),
                 conferenceDataVersion: 1,
@@ -130,7 +128,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI', ],
                 end: { dateTime: oAppointment.EndDate.toISOString() },
                 attendees: [
                     { email: oAppointment.Email, responseStatus: 'accepted' },
-                    { email: this.calendarId }
+                    { email: calendarId }
                 ],
                 conferenceData: null,
                 location: null,
@@ -162,7 +160,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI', ],
             if (!oAppointment.Available) return oAppointment;
 
             const Email = oAppointmentGC.attendees.find(
-                (oAttendee) => oAttendee.email !== this.calendarId
+                (oAttendee) => oAttendee.email !== calendarId
             ).email;
             const oAvailableAppointment = {
                 ...oAppointment,
@@ -193,5 +191,5 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI', ],
 
     }
 
-	return new CalendarManager('pavel@harelyshau.dev');
+	return new CalendarManager();
 });
