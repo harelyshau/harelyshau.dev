@@ -16,6 +16,7 @@ sap.ui.define(
 				this.setupGame();
 				this.setDiscButtonMaxWidth();
 				ResizeHandler.register(this.getView(), this.setDiscButtonMaxWidth.bind(this));
+				this.getView().addEventDelegate({ onBeforeHide: this.stopTimer.bind(this) });
 			},
 
 			//////////////////////////////////
