@@ -220,10 +220,10 @@ sap.ui.define(
 
 			addCalendarView(key) {
 				const oViews = { DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView};
-				const sCamelCaseKey = key.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
-				const title = this.i18n(`ttl${sCamelCaseKey}`);
+				const sPascalCaseKey = key.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
+				const title = this.i18n(`ttl${sPascalCaseKey}`);
 				const oViewParams = { id: key, key, title };
-				const oView = new oViews[`${sCamelCaseKey}View`](oViewParams);
+				const oView = new oViews[`${sPascalCaseKey}View`](oViewParams);
 				this.byId('calendar').addView(oView);
 			},
 
@@ -414,13 +414,13 @@ sap.ui.define(
 			// Refresh
 			refreshAppointment(oUpdatedAppointment) {
 				const aAppointments = this.getExistingAppointments();
-				aAppointments.forEach((oAppointment, i) => {
-					const bThis = oAppointment.ID === oUpdatedAppointment.ID;
-					if (bThis || oAppointment.ID === 'new') {
+				for (let i = aAppointments.length - 1; i >= 0; i--) {
+					const bThis = aAppointments[i].ID === oUpdatedAppointment.ID;
+					if (bThis || aAppointments[i].ID === 'new') {
 						aAppointments[i] = oUpdatedAppointment;
-						return;
+						break;
 					}
-				});
+				}
 				this.refreshAppointments();
 			},
 
