@@ -43,6 +43,7 @@
                         <HBox width="80%" renderType="Bare">
                             <Button enabled="{= !${GoogleMeet} || ${GoogleMeet} !== 'willBeCreated' }"
                                 press="onPressJoinToConference" iconDensityAware="false" class="phButton"
+                                accessibleRole="Link"
                                 text="{= ${GoogleMeet} ? ${i18n>btnJoinWithGoogleMeet} : ${i18n>btnJoinToConference} }"
                                 icon="{= ${GoogleMeet} ? '/resource/image/GoogleMeetIcon.svg' : 'sap-icon://video' }"/>
                         </HBox>

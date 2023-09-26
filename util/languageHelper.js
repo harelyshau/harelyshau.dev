@@ -11,7 +11,6 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 	}
 
 	return {
-
 		getLanguage() {
 			return localStorage.getItem('language');
 		},
@@ -40,6 +39,5 @@ sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
 			const sLanguage = this.getLanguage();
 			this.setLanguage(sLanguage);
 		}
-
 	};
 });

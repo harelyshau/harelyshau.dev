@@ -78,7 +78,7 @@
                         <HBox visible="{= ${GoogleMeet} !== 'willBeCreated' }" width="80%" renderType="Bare">
                             <Button text="{i18n>btnJoinWithGoogleMeet}" press="onPressJoinToConference"
                                 icon="/resource/image/GoogleMeetIcon.svg" iconDensityAware="false"
-                                class="phButton"/>
+                                accessibleRole="Link" class="phButton"/>
                         </HBox>
                         <!-- Remove Button -->
                         <Button icon="{i18n>iClose}" tooltip="Remove Google Meet conferencing"

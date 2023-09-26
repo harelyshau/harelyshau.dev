@@ -12,7 +12,6 @@ sap.ui.define([], () => {
 	}
 
 	return {
-
 		getTheme() {
 			return localStorage.getItem('theme');
 		},

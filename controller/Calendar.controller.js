@@ -176,7 +176,7 @@ sap.ui.define(
 
 			onViewChange(oEvent) {
 				const view = oEvent.getSource().getSelectedView();
-				this.getRouter().navTo('Calendar', {view});
+				this.getRouter().navTo('Calendar', { view });
 			},
 
 			onPressToggleFullDay(oEvent) {
@@ -215,12 +215,22 @@ sap.ui.define(
 					? ['two-days', 'three-days', 'work-week']
 					: ['work-week', 'week'];
 				const aViewKeys = ['day', ...aDiffViewKeys, 'month'];
-				aViewKeys.forEach(sViewKey => this.addCalendarView(sViewKey));
+				aViewKeys.forEach((sViewKey) => this.addCalendarView(sViewKey));
 			},
 
 			addCalendarView(key) {
-				const oViews = { DayView, WorkWeekView, WeekView, MonthView, TwoDaysView, ThreeDaysView};
-				const sPascalCaseKey = key.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('');
+				const oViews = {
+					DayView,
+					WorkWeekView,
+					WeekView,
+					MonthView,
+					TwoDaysView,
+					ThreeDaysView
+				};
+				const sPascalCaseKey = key
+					.split('-')
+					.map((s) => s[0].toUpperCase() + s.slice(1))
+					.join('');
 				const title = this.i18n(`ttl${sPascalCaseKey}`);
 				const oViewParams = { id: key, key, title };
 				const oView = new oViews[`${sPascalCaseKey}View`](oViewParams);
@@ -250,8 +260,8 @@ sap.ui.define(
 					oAppointment = await calendarManager.createAppointment(oAppointment);
 				} else {
 					this.setInitialAppointment(oAppointment);
-					oAppointment = await calendarManager.updateAppointment(oAppointment)
-				};
+					oAppointment = await calendarManager.updateAppointment(oAppointment);
+				}
 				this.refreshAppointment(oAppointment);
 			},
 
@@ -483,8 +493,7 @@ sap.ui.define(
 
 			setInitialAppointment(oAppointment) {
 				this.getModel().setProperty('/InitialAppointment', { ...oAppointment });
-			},
-
+			}
 		});
 	}
 );
