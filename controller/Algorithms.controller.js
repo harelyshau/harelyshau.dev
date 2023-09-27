@@ -7,7 +7,7 @@ sap.ui.define(
 			onInit() {
 				this.setModel(models.createAlgorithmsModel(articleList));
 				this.setModel(models.createAlgorithmsViewModel(), 'view');
-				this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
+				this.getRouter().getRoute("Algorithms").attachMatched(this.onAlgorithmsMatched.bind(this));
 				this.registerIllustrationSet('tnt', 'sap/tnt/themes/base/illustrations');
 			},
 
@@ -18,8 +18,7 @@ sap.ui.define(
 				this.getModel('view').setProperty('/sideExpanded', bExpanded);
 			},
 
-			onRouteMatched(oEvent) {
-				if (oEvent.getParameter('name') !== 'Algorithms') return;
+			onAlgorithmsMatched(oEvent) {
 				const sArticleId = oEvent.getParameter('arguments').articleId;
 				this.setCurrentArticle(sArticleId);
 				if (!sArticleId) this.byId('sideNavigation').setSelectedItem(null);

@@ -35,7 +35,7 @@ sap.ui.define(
 				this.setModel(models.createCalendarModel());
 				this.setModel(models.createCalendarViewModel(), 'view');
 				this.initCalendarManager();
-				this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
+				this.getRouter().getRoute('Calendar').attachMatched(this.onCalendarMatched.bind(this));
 			},
 
 			onAfterRendering() {
@@ -43,8 +43,7 @@ sap.ui.define(
 				this.getModel().setSizeLimit(250);
 			},
 
-			onRouteMatched(oEvent) {
-				if (oEvent.getParameter('name') !== 'Calendar') return;
+			onCalendarMatched(oEvent) {
 				const sView = oEvent.getParameter('arguments').view;
 				const oView = this.byId('calendar').getViewByKey(sView);
 				if (!oView) {
