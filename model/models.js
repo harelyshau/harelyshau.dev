@@ -4,6 +4,7 @@ sap.ui.define(
 		'use strict';
 
 		return {
+
 			// Device Model
 
 			createDeviceModel() {
@@ -13,6 +14,7 @@ sap.ui.define(
 			},
 
 			// Data Models
+
 			createResumeModel() {
 				const sLanguage = languageHelper.getSupportedLanguage();
 				const sFilePath = `resource/data/Resume/resume-${sLanguage}.json`;
@@ -24,7 +26,8 @@ sap.ui.define(
 			createCalendarModel() {
 				const oData = {
 					Email: 'pavel@harelyshau.dev',
-					Appointments: []
+					Appointments: [],
+					ExistingAppointments: []
 				};
 				return new JSONModel(oData);
 			},

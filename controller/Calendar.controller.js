@@ -2,6 +2,7 @@ sap.ui.define(
 	[
 		'./BaseController',
 		'sap/m/MessageToast',
+		'sap/m/MessageBox',
 		'sap/m/SinglePlanningCalendarDayView',
 		'sap/m/SinglePlanningCalendarWorkWeekView',
 		'sap/m/SinglePlanningCalendarWeekView',
@@ -15,6 +16,7 @@ sap.ui.define(
 	(
 		BaseController,
 		MessageToast,
+		MessageBox,
 		DayView,
 		WorkWeekView,
 		WeekView,
@@ -200,8 +202,12 @@ sap.ui.define(
 			async refreshCalendar() {
 				this.setBusy(true);
 				const aDates = this.getDateRange();
-				const aAppointments = await calendarManager.getAppointments(...aDates);
-				this.setAppointments(aAppointments);
+				try {
+					const aAppointments = await calendarManager.getAppointments(...aDates);
+					this.setAppointments(aAppointments);
+				} catch {
+					MessageBox.error(this.i18n('msgErrorFetchingAppointments'));
+				}	
 				this.setBusy(false);
 			},
 
@@ -255,13 +261,32 @@ sap.ui.define(
 				let oAppointment = this.getObjectByEvent(oEvent);
 				localStorage.setItem('email', oAppointment.Email);
 				if (oAppointment.ID === 'new') {
-					this.getModel().getProperty('/ExistingAppointments').push(oAppointment);
-					oAppointment = await calendarManager.createAppointment(oAppointment);
+					oAppointment = await this.createAppointmentGC(oAppointment);
 				} else {
-					this.setInitialAppointment(oAppointment);
-					oAppointment = await calendarManager.updateAppointment(oAppointment);
+					oAppointment = await this.updateAppointmentGC(oAppointment);
 				}
 				this.refreshAppointment(oAppointment);
+			},
+
+			async createAppointmentGC(oAppointment) {
+				try {
+					this.getModel().getProperty('/ExistingAppointments').push(oAppointment);
+					return await calendarManager.createAppointment(oAppointment);
+				} catch {
+					MessageBox.error(this.i18n('msgErrorCreatingAppointment'));
+					this.removeAppointment(oAppointment);
+				}
+			},
+
+			async updateAppointmentGC(oAppointment) {
+				const oInitialAppointment = this.getInitialAppointment();
+				try {
+					this.setInitialAppointment(oAppointment);
+					return await calendarManager.updateAppointment(oAppointment);
+				} catch {
+					MessageBox.error(this.i18n('msgErrorUpdatingAppointment'));
+					this.setInitialAppointment(oInitialAppointment);
+				}
 			},
 
 			// Cancel Button
