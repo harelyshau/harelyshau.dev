@@ -30,13 +30,11 @@ sap.ui.define(
 				try {
 					const oArticle = await this.getArticle(this.getArticlePath(sArticleId));
 					this.getModel().setProperty('/Article', oArticle);
-					this.setBusy(false);
 				} catch (oError) {
 					if (oError.name === 'AbortError') return;
 					this.getModel().setProperty('/Article', { NotFound: true });
-					this.setBusy(false);
-					console.error(oError);
 				}
+				this.setBusy(false);
 			},
 
 			async getArticle(sArticlePath) {
