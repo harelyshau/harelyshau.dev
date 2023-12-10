@@ -157,10 +157,10 @@ sap.ui.define(
 			onAppointmentResizeDrop(oEvent) {
 				const oAppointment = this.getObjectByControl(oEvent.getParameter('appointment'));
 				if (!oAppointment.Available || oAppointment.ID === 'new') return;
+				this.setInitialAppointment(oAppointment);
 				oAppointment.StartDate = oEvent.getParameter('startDate');
 				oAppointment.EndDate = oEvent.getParameter('endDate');
-				this.getModel().refresh();
-				calendarManager.updateAppointment(oAppointment);
+				this.updateAppointmentGC(oAppointment);
 			},
 
 			onStartDateChangeCalendar() {
@@ -212,9 +212,9 @@ sap.ui.define(
 			},
 
 			addCalendarViews() {
-				const oDeviceModel = this.getOwnerComponent().getModel('device');
-				const bDevicePhone = oDeviceModel.getProperty('/system/phone');
-				const bSmallWidth = oDeviceModel.getProperty('/resize/width') <= 800;
+				const oDeviceData = this.getOwnerComponent().getModel('device').getData();
+				const bDevicePhone = oDeviceData.system.phone;
+				const bSmallWidth = oDeviceData.resize.width <= 800;
 				const bSmallScreen = bDevicePhone || bSmallWidth;
 				const aDiffViewKeys = bSmallScreen
 					? ['two-days', 'three-days', 'work-week']
@@ -252,26 +252,20 @@ sap.ui.define(
 
 			// Save Button
 			async onPressCreateEditAppointment(oEvent) {
-				const [bValidEmail, sMessage] = this.validateEmailInput();
-				if (!bValidEmail) {
-					MessageToast.show(sMessage);
-					return;
-				}
+				if (!this.validateEmailInput()) return;
 				this.oAppointmentDialog.close();
 				let oAppointment = this.getObjectByEvent(oEvent);
 				localStorage.setItem('email', oAppointment.Email);
-				if (oAppointment.ID === 'new') {
-					oAppointment = await this.createAppointmentGC(oAppointment);
-				} else {
-					oAppointment = await this.updateAppointmentGC(oAppointment);
-				}
-				this.refreshAppointment(oAppointment);
+				if (oAppointment.ID === 'new') this.createAppointmentGC(oAppointment);
+				else this.updateAppointmentGC(oAppointment);
 			},
 
 			async createAppointmentGC(oAppointment) {
+				this.getModel().getProperty('/ExistingAppointments').push(oAppointment);
 				try {
-					this.getModel().getProperty('/ExistingAppointments').push(oAppointment);
-					return await calendarManager.createAppointment(oAppointment);
+					oAppointment = await calendarManager.createAppointment(oAppointment);
+					MessageToast.show(this.i18n('msgAppointmentWasCreated'));
+					this.refreshAppointment(oAppointment);
 				} catch {
 					MessageBox.error(this.i18n('msgErrorCreatingAppointment'));
 					this.removeAppointment(oAppointment);
@@ -280,13 +274,16 @@ sap.ui.define(
 
 			async updateAppointmentGC(oAppointment) {
 				const oInitialAppointment = this.getInitialAppointment();
+				this.setInitialAppointment(oAppointment);
 				try {
-					this.setInitialAppointment(oAppointment);
-					return await calendarManager.updateAppointment(oAppointment);
+					oAppointment = await calendarManager.updateAppointment(oAppointment);
+					MessageToast.show(this.i18n('msgAppointmentWasUpdated'));
 				} catch {
 					MessageBox.error(this.i18n('msgErrorUpdatingAppointment'));
 					this.setInitialAppointment(oInitialAppointment);
+					oAppointment = oInitialAppointment;
 				}
+				this.refreshAppointment(oAppointment);
 			},
 
 			// Cancel Button
@@ -355,8 +352,19 @@ sap.ui.define(
 			async onPressRemoveAppointment(oEvent) {
 				this.oAppointmentPopover.close();
 				const oAppointment = this.getObjectByEvent(oEvent);
+				this.removeAppointmentGC(oAppointment);
+			},
+
+			async removeAppointmentGC(oAppointment) {
 				this.removeAppointment(oAppointment);
-				calendarManager.removeAppointment(oAppointment.ID);
+				try {
+					await calendarManager.removeAppointment(oAppointment.ID);
+					MessageToast.show(this.i18n('msgAppointmentWasRemoved'));
+				} catch {
+					MessageBox.error(this.i18n('msgErrorRemovingAppointment'));
+					this.getModel().getProperty('/ExistingAppointments').push(oAppointment);
+					this.refreshAppointment(oAppointment);
+				}
 			},
 
 			// Close Button
@@ -385,12 +393,11 @@ sap.ui.define(
 			// Inputs
 			validateEmailInput() {
 				const oEmailInput = this.byId('inpEmail');
-				if (this.isInputFilledAndValid(oEmailInput)) return [true];
-				if (!oEmailInput.getValue()) {
-					this.resetInputValue(oEmailInput);
-					return [false, this.i18n('msgFillEmail')];
-				}
-				return [false, this.i18n('msgInvalidEmail')];
+				if (this.isInputFilledAndValid(oEmailInput)) return true;
+				const bEmpty = !oEmailInput.getValue();
+				if (bEmpty) this.resetInputValue(oEmailInput);
+				MessageToast.show(this.i18n(bEmpty ? 'msgFillEmail' : 'msgInvalidEmail'));
+				return false;
 			},
 
 			isInputFilledAndValid(oInput) {

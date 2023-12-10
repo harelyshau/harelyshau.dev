@@ -50,7 +50,7 @@
 				</actions>
 				<appointments>
 					<unified:CalendarAppointment text= "{= ${Available} ? ${Description} : '' }"
-						type= "{= ${Available} ? 'Type01' : 'Type16' }"
+						type= "{= ${Available} ? ${ID} === 'new' ? 'Type08' : 'Type01' : 'Type16' }"
 						title="{= !${Available} ? ${i18n>ttlBusy} : !${Name} || !${Name}.trim() ? ${i18n>ttlNoAppointmentName} : ${Name} }"
 						startDate= "{StartDate}" endDate= "{EndDate}"/>
 				</appointments>
