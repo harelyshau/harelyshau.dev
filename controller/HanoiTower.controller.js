@@ -71,7 +71,7 @@ sap.ui.define(
 
 			onPressOpenRecordsDialog() {
 				this.stopTimer();
-				this.openRecordsDialog();
+				this.openDialog('RecordsDialog');
 			},
 
 			onChangeMoveButtonsSwith(oEvent) {
@@ -104,10 +104,6 @@ sap.ui.define(
 			///////// RECORDS DIALOG /////////
 			//////////////////////////////////
 
-			openRecordsDialog() {
-				this.openDialog('RecordsDialog');
-			},
-
 			onPressImrpoveResult(oEvent) {
 				const iDiscCount = this.getObjectByEvent(oEvent).DiscCount;
 				this.getModel().setProperty('/DiscCount', iDiscCount);
@@ -122,10 +118,6 @@ sap.ui.define(
 			//////////////////////////////////
 			/////////// WIN DIALOG ///////////
 			//////////////////////////////////
-
-			openWinDialog() {
-				this.openDialog('WinDialog');
-			},
 
 			onPressLevelUp() {
 				const iDiscCount = this.getModel().getProperty('/DiscCount');
@@ -195,7 +187,7 @@ sap.ui.define(
 
 			finishGame() {
 				this.stopTimer();
-				this.openWinDialog();
+				this.openDialog('WinDialog');
 				this.setNewRecord();
 			},
 
