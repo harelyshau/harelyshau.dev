@@ -508,6 +508,7 @@ sap.ui.define(
 			setInitialAppointment(oAppointment) {
 				this.getModel().setProperty('/InitialAppointment', { ...oAppointment });
 			}
+
 		});
 	}
 );

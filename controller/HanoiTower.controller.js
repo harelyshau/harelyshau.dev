@@ -10,6 +10,7 @@ sap.ui.define(
 		'use strict';
 
 		return BaseController.extend('pharelyshau.controller.HanotoiTower', {
+
 			onInit() {
 				this.setModel(models.createHanoiTowerModel());
 				this.setModel(models.createHanoiTowerViewModel(), 'view');
@@ -247,6 +248,7 @@ sap.ui.define(
 				const bStarted = this.getModel().getProperty('/Moves') > 0;
 				return bFinished || !bStarted;
 			}
+
 		});
 	}
 );

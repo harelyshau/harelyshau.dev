@@ -25,8 +25,8 @@ sap.ui.define(
 			},
 
 			i18n(sKey, aParams) {
-				const oResourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
-				return oResourceBundle.getText(sKey, aParams);
+				const oI18nModel = this.getOwnerComponent().getModel('i18n');
+				return oI18nModel.getResourceBundle().getText(sKey, aParams);
 			},
 
 			getContentDensityClass() {
@@ -139,6 +139,7 @@ sap.ui.define(
 				const oIllustrationSet = { setFamily, setURI };
 				IllustrationPool.registerIllustrationSet(oIllustrationSet, false);
 			}
+
 		});
 	}
 );

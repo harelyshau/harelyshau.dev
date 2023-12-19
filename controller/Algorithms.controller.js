@@ -4,6 +4,7 @@ sap.ui.define(
 		'use strict';
 
 		return BaseController.extend('pharelyshau.controller.Algorithms', {
+
 			onInit() {
 				this.setModel(models.createAlgorithmsModel(articleList));
 				this.setModel(models.createAlgorithmsViewModel(), 'view');
@@ -98,6 +99,7 @@ sap.ui.define(
 					oEvent.getSource().setSelectedKey(sKey);
 				});
 			}
+
 		});
 	}
 );

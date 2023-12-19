@@ -4,6 +4,7 @@ sap.ui.define(
 		'use strict';
 
 		return BaseController.extend('pharelyshau.controller.App', {
+
 			onInit() {
 				this.getView().addStyleClass(this.getContentDensityClass());
 				this.setModel(models.createAppModel(), 'app');
@@ -42,6 +43,7 @@ sap.ui.define(
 				const oPage = this.byId('page');
 				this.toggleSideNavigation(oPage, this.byId('sideNavigation'));
 			}
+
 		});
 	}
 );
