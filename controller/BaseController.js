@@ -63,14 +63,14 @@ sap.ui.define(
 			},
 
 			// MODAL WINDOWS
-			async openDialog(sFragmentName, sBinndingPath, bCommon) {
-				const oDialog = await this.loadAndAssignFragment(sFragmentName, bCommon);
+			async openDialog(sFragmentName, sBinndingPath) {
+				const oDialog = await this.loadAndAssignFragment(sFragmentName);
 				if (sBinndingPath) oDialog.bindElement(sBinndingPath);
 				oDialog.open();
 			},
 
-			async openPopover(sFragmentName, oControl, sBinndingPath, bCommon) {
-				const oPopover = await this.loadAndAssignFragment(sFragmentName, bCommon);
+			async openPopover(sFragmentName, oControl, sBinndingPath) {
+				const oPopover = await this.loadAndAssignFragment(sFragmentName);
 				if (this.isPopoverOpen(oPopover, sBinndingPath)) {
 					oPopover.close();
 					return;
@@ -79,11 +79,10 @@ sap.ui.define(
 				oPopover.openBy(oControl);
 			},
 
-			async loadAndAssignFragment(sFragment, bCommon) {
+			async loadAndAssignFragment(sFragment) {
 				const sPrefixFragment = `o${sFragment}`;
-				let sPath = 'pharelyshau.fragment.';
 				const sCurrentPage = this.getModel('app').getProperty('/page');
-				sPath += !bCommon ? `${sCurrentPage}.${sFragment}` : sFragment;
+				const sPath = `pharelyshau.fragment.${sCurrentPage}.${sFragment}`;
 				this[sPrefixFragment] ??= this.loadFragment({ name: sPath });
 				this[sPrefixFragment] = await this[sPrefixFragment];
 				this[sPrefixFragment].addStyleClass(this.getContentDensityClass());

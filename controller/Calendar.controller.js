@@ -149,8 +149,8 @@ sap.ui.define(
 					MessageToast.show(this.i18n('msgBusyAtThisTime'));
 					return;
 				}
-				const sPath = this.getPathForAppointment(oAppointment);
-				this.openAppointmentPopover(sPath, oControl);
+				const sPath = this.getPathByControl(oControl);
+				this.openPopover('AppointmentPopover', oControl, sPath);
 			},
 
 			// Resize & Drop
@@ -274,6 +274,9 @@ sap.ui.define(
 
 			async updateAppointmentGC(oAppointment) {
 				const oInitialAppointment = this.getInitialAppointment();
+				const bNoChanges = JSON.stringify(oInitialAppointment) === JSON.stringify(oAppointment);
+				bNoChanges && MessageToast.show(this.i18n('msgNoChanges'));
+				if (bNoChanges) return;
 				this.setInitialAppointment(oAppointment);
 				try {
 					oAppointment = await calendarManager.updateAppointment(oAppointment);
@@ -293,14 +296,14 @@ sap.ui.define(
 
 			// Google Meet
 			onPressAddGoogleMeet(oEvent) {
-				const sPath = this.getPathByEvent(oEvent);
+				const sPath = this.getPathByEvent(oEvent) + '/GoogleMeet';
 				const sGoogleMeet = this.getInitialAppointment()?.GoogleMeet;
-				this.getModel().setProperty(sPath + '/GoogleMeet', sGoogleMeet ?? 'willBeCreated');
+				this.getModel().setProperty(sPath, sGoogleMeet ?? 'willBeCreated');
 			},
 
 			onPressRemoveGoogleMeet(oEvent) {
-				const sPath = this.getPathByEvent(oEvent);
-				this.getModel().setProperty(sPath + '/GoogleMeet', null);
+				const sPath = this.getPathByEvent(oEvent) + '/GoogleMeet';
+				this.getModel().setProperty(sPath, null);
 			},
 
 			// Pickers
@@ -334,10 +337,6 @@ sap.ui.define(
 			//////////////////////////////////
 			///////////// POPOVER ////////////
 			//////////////////////////////////
-
-			async openAppointmentPopover(sPath, oControl) {
-				this.openPopover('AppointmentPopover', oControl, sPath);
-			},
 
 			// Edit Button
 			onPressEditOpenAppointmentDialog(oEvent) {
@@ -500,12 +499,6 @@ sap.ui.define(
 			updateAppointmentEndDateByDuration(oNewStartDate, oAppointment) {
 				const nDuration = oAppointment.EndDate - oAppointment.StartDate;
 				oAppointment.EndDate.setTime(oNewStartDate.getTime() + nDuration);
-			},
-
-			// Get Path
-			getPathForAppointment(oAppointment) {
-				const aAppointments = this.getModel().getProperty('/Appointments');
-				return '/Appointments/' + aAppointments.indexOf(oAppointment);
 			},
 
 			// Get Editable
