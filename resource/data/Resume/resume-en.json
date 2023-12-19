@@ -9,7 +9,7 @@
 		"Link": "https://www.canada.ca/en/employment-social-development/services/foreign-workers.html",
 		"LinkText": "the official website of the Government of Canada"
 	},
-	"Summary": "Enthusiastic Software Engineer with over 3.5 years of commercial frontend development experience, adept at utilizing modern technologies and Agile methodologies. Proficient in SAP products, skilled in collaborating with diverse international teams, and experienced in mentoring interns. Adept problem solver who thrives on creating user-friendly applications.",
+	"Summary": "Enthusiastic Software Engineer with over 4 years of commercial frontend development experience, adept at utilizing modern technologies and Agile methodologies. Proficient in SAP products, skilled in collaborating with diverse international teams, and experienced in mentoring interns. Adept problem solver who thrives on creating user-friendly applications.",
 	"SkillsByTypes": [
 		{
 			"Type": "Programming Skills",
@@ -192,7 +192,7 @@
 			"Icon": "sap-icon://competitor"
 		},
 		{
-			"Name": "4 kyu on Codewars",
+			"Name": "3 kyu on Codewars",
 			"Link": "https://www.codewars.com/users/harelyshau",
 			"LinkText": "click to see profile",
 			"Icon": "sap-icon://syntax"

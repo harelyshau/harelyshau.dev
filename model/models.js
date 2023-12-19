@@ -34,7 +34,7 @@ sap.ui.define(
 
 			createHanoiTowerModel() {
 				const oData = {
-					DiscCounts: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+					DiscCounts: Array.from({ length: 18 }, (_, i) => i + 3),
 					DiscCount: +localStorage.getItem('discs') || 3,
 					Records: JSON.parse(localStorage.getItem('records')) ?? [],
 					Moves: 0,

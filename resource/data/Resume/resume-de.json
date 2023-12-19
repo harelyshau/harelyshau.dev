@@ -9,7 +9,7 @@
 		"Link": "https://www.canada.ca/en/employment-social-development/services/foreign-workers.html",
 		"LinkText": "the official website of the Government of Canada"
 	},
-	"Summary": "Begeisterter Software-Ingenieur mit über 3,5 Jahren Erfahrung in der kommerziellen Frontend-Entwicklung, der sich mit der Nutzung moderner Technologien und agiler Methoden auskennt. Beherrscht SAP-Produkte, ist geübt in der Zusammenarbeit mit verschiedenen internationalen Teams und hat Erfahrung in der Betreuung von Praktikanten. Erfahrener Problemlöser, der sich für die Erstellung benutzerfreundlicher Anwendungen einsetzt.",
+	"Summary": "Begeisterter Software-Ingenieur mit über 4 Jahren Erfahrung in der kommerziellen Frontend-Entwicklung, der sich mit der Nutzung moderner Technologien und agiler Methoden auskennt. Beherrscht SAP-Produkte, ist geübt in der Zusammenarbeit mit verschiedenen internationalen Teams und hat Erfahrung in der Betreuung von Praktikanten. Erfahrener Problemlöser, der sich für die Erstellung benutzerfreundlicher Anwendungen einsetzt.",
 	"SkillsByTypes": [
 		{
 			"Type": "Programmierkenntnisse",
@@ -192,7 +192,7 @@
 			"Icon": "sap-icon://competitor"
 		},
 		{
-			"Name": "4 kyu on Codewars",
+			"Name": "3 kyu on Codewars",
 			"Link": "https://www.codewars.com/users/harelyshau",
 			"LinkText": "click to see profile",
 			"Icon": "sap-icon://syntax"
