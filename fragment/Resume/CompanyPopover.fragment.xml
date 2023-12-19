@@ -4,7 +4,7 @@
             <Toolbar style="Clear">
                 <Title text="{Name}"/>                
                 <ToolbarSpacer/>
-                <Button tooltip="Close" press="onPressCloseCompanyPopover"
+                <Button tooltip="Close" press="onPressCloseModalWindow"
                     icon="{i18n>iClose}"/>
             </Toolbar>
         </customHeader>

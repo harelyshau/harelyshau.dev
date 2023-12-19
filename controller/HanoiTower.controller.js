@@ -115,10 +115,6 @@ sap.ui.define(
 				InstanceManager.closeAllDialogs();
 			},
 
-			onPressCloseRecordsDialog() {
-				this.oRecordsDialog.close();
-			},
-
 			onAfterCloseRecordsDialog() {
 				if (!this.isGameFinished()) this.startTimer();
 			},
@@ -135,10 +131,6 @@ sap.ui.define(
 				const iDiscCount = this.getModel().getProperty('/DiscCount');
 				this.getModel().setProperty('/DiscCount', iDiscCount + 1);
 				this.setDiscCountToLocalStorage();
-				this.oWinDialog.close();
-			},
-
-			onPressCloseWinDialog() {
 				this.oWinDialog.close();
 			},
 

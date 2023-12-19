@@ -32,7 +32,7 @@
             title="{i18n>ttlNoRecords}" illustrationType="sapIllus-SuccessBalloon"
             description="{i18n>tCompleteToSeeRecord}"/>
         <endButton>
-            <Button text="{i18n>btnClose}" press="onPressCloseRecordsDialog"/>
+            <Button text="{i18n>btnClose}" press="onPressCloseModalWindow"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

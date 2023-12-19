@@ -289,11 +289,6 @@ sap.ui.define(
 				this.refreshAppointment(oAppointment);
 			},
 
-			// Cancel Button
-			onPressCloseAppointmentDialog() {
-				this.oAppointmentDialog.close();
-			},
-
 			// Google Meet
 			onPressAddGoogleMeet(oEvent) {
 				const sPath = this.getPathByEvent(oEvent) + '/GoogleMeet';
@@ -364,11 +359,6 @@ sap.ui.define(
 					this.getModel().getProperty('/ExistingAppointments').push(oAppointment);
 					this.refreshAppointment(oAppointment);
 				}
-			},
-
-			// Close Button
-			onPressCloseAppointmentPopover() {
-				this.oAppointmentPopover.close();
 			},
 
 			// Copy Conference

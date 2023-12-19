@@ -54,7 +54,7 @@
             <Button text="{i18n>btnLevelUp}" press="onPressLevelUp" icon="{i18n>iLevelUp}" type="Emphasized"/>
         </beginButton>
         <endButton>
-            <Button text="{i18n>btnRestart}" icon="{i18n>iRestart}" press="onPressCloseWinDialog"/>
+            <Button text="{i18n>btnRestart}" icon="{i18n>iRestart}" press="onPressCloseModalWindow"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

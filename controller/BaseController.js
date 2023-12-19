@@ -53,6 +53,11 @@ sap.ui.define(
 				sap.m.URLHelper.triggerEmail(sEmail, 'Email from harelyshau.dev website');
 			},
 
+			onPressCloseModalWindow(oEvent) {
+				const oParent = oEvent.getSource().getParent();
+				oParent.close ? oParent.close() : oParent.getParent().close();
+			},
+
 			async copyToClipboard(sValueToCopy, sSuccessMessage, sErrorMessage) {
 				try {
 					await navigator.clipboard.writeText(sValueToCopy);

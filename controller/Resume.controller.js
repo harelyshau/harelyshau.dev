@@ -23,20 +23,13 @@ sap.ui.define(
 				this.openPopover('RelocationPopover', oControl, sPath);
 			},
 
-			onPressCloseRelocationPopover() {
-				this.oRelocationPopover.close();
-			},
-
 			// Page Content
 			onPressOpenCompanyPopover(oEvent) {
 				const oControl = oEvent.getSource();
 				const sPath = this.getPathByEvent(oEvent) + '/Company';
 				this.openPopover('CompanyPopover', oControl, sPath);
-			},
-
-			onPressCloseCompanyPopover(oEvent) {
-				this.oCompanyPopover.close();
 			}
+
 		});
 	}
 );
