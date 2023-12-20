@@ -50,7 +50,6 @@
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
 	height: auto !important;
-	pointer-events: none;
 }
 .phDiscButton span {
 	min-width: 0 !important;

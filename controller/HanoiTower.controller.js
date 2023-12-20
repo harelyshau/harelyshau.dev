@@ -82,16 +82,22 @@ sap.ui.define(
 			onPressMoveDiscByBox(oEvent) {
 				const aTargetPeg = this.getObjectByEvent(oEvent);
 				const aSelectedPeg = this.getModel('view').getProperty('/selectedPeg');
-				if (aSelectedPeg && aSelectedPeg !== aTargetPeg) {
-					this.tryMovingDisc(aSelectedPeg, aTargetPeg);
-				}
 				this.getModel('view').setProperty('/selectedPeg', !aSelectedPeg ? aTargetPeg : null);
+				const bSecondPegSelected = aSelectedPeg && aSelectedPeg !== aTargetPeg
+				if (bSecondPegSelected) this.tryMovingDisc(aSelectedPeg, aTargetPeg);
 			},
 
 			onPressMoveDiscByButton(oEvent) {
-				const oParentControl = oEvent.getSource().getParent();
-				const aCurrentPeg = this.getObjectByControl(oParentControl);
+				const oPegControl = oEvent.getSource().getParent();
+				const aCurrentPeg = this.getObjectByControl(oPegControl);
 				const aTargetPeg = this.getObjectByEvent(oEvent);
+				this.tryMovingDisc(aCurrentPeg, aTargetPeg);
+			},
+
+			onDropMoveDisc(oEvent) {
+				const oPegControl = oEvent.getSource().getParent().getParent();
+				const aCurrentPeg = this.getObjectByControl(oPegControl);
+				const aTargetPeg = this.getObjectByControl(oEvent.getParameter("droppedControl"));
 				this.tryMovingDisc(aCurrentPeg, aTargetPeg);
 			},
 
@@ -161,6 +167,7 @@ sap.ui.define(
 			},
 
 			tryMovingDisc(aCurrentPeg, aTargetPeg) {
+				this.getModel('view').setProperty('/selectedPeg', null);
 				if (aCurrentPeg[0] > aTargetPeg[0] || !aCurrentPeg.length) {
 					MessageToast.show('This move is not possible');
 					return;
