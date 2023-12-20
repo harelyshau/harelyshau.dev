@@ -83,8 +83,7 @@ sap.ui.define(
 				const aTargetPeg = this.getObjectByEvent(oEvent);
 				const aSelectedPeg = this.getModel('view').getProperty('/selectedPeg');
 				this.getModel('view').setProperty('/selectedPeg', !aSelectedPeg ? aTargetPeg : null);
-				const bSecondPegSelected = aSelectedPeg && aSelectedPeg !== aTargetPeg
-				if (bSecondPegSelected) this.tryMovingDisc(aSelectedPeg, aTargetPeg);
+				this.tryMovingDisc(aSelectedPeg, aTargetPeg);
 			},
 
 			onPressMoveDiscByButton(oEvent) {
@@ -167,6 +166,7 @@ sap.ui.define(
 			},
 
 			tryMovingDisc(aCurrentPeg, aTargetPeg) {
+				if (!aCurrentPeg || aCurrentPeg === aTargetPeg) return;
 				this.getModel('view').setProperty('/selectedPeg', null);
 				if (aCurrentPeg[0] > aTargetPeg[0] || !aCurrentPeg.length) {
 					MessageToast.show('This move is not possible');
