@@ -75,8 +75,8 @@
                                             <FlexItemData minWidth="28px" maxWidth="100%"/>
                                         </layoutData>
                                         <dragDropConfig>
-                                            <dnd:DragDropInfo drop="onDropMoveDisc" enabled="{path: '', formatter: 'formatDiscDragAndDropEnable'}"
-                                                core:require="{formatDiscDragAndDropEnable: 'pharelyshau/model/formatDiscDragAndDropEnable'}"
+                                            <dnd:DragDropInfo drop="onDropMoveDisc" enabled="{path: '', formatter: 'formatDiscDragAndDropEnabled'}"
+                                                core:require="{formatDiscDragAndDropEnabled: 'pharelyshau/model/formatDiscDragAndDropEnabled'}"
                                                 targetElement="gameGrid" targetAggregation="items"/>
                                         </dragDropConfig>
                                     </Button>
