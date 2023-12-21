@@ -169,7 +169,7 @@ sap.ui.define(
 				if (aCurrentPeg === aTargetPeg) return;
 				this.getModel('view').setProperty('/selectedPeg', null);
 				if (aCurrentPeg[0] > aTargetPeg[0] || !aCurrentPeg.length) {
-					MessageToast.show('This move is not possible');
+					MessageToast.show(this.i18n('msgImpossibleMove'));
 					return;
 				}
 				this.startTimer();
