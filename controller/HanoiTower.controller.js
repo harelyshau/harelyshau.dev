@@ -57,8 +57,7 @@ sap.ui.define(
 			//////////////////////////////////
 
 			onChangeDiscsCount() {
-				this.setDiscCountToLocalStorage();
-				this.setupGame();
+				this.setNewLevel()
 			},
 
 			setDiscCountToLocalStorage() {
@@ -67,7 +66,8 @@ sap.ui.define(
 			},
 
 			onPressRestartGame() {
-				this.setupGame();
+				this.stopTimer();
+				this.confirmRestart(this.setupGame.bind(this));
 			},
 
 			onPressOpenRecordsDialog() {
@@ -112,13 +112,11 @@ sap.ui.define(
 
 			onPressImrpoveResult(oEvent) {
 				const iDiscCount = this.getObjectByEvent(oEvent).DiscCount;
-				this.getModel().setProperty('/DiscCount', iDiscCount);
-				this.setupGame();
-				InstanceManager.closeAllDialogs();
+				this.setNewLevel(iDiscCount);
 			},
 
 			onAfterCloseRecordsDialog() {
-				if (!this.isGameFinished()) this.startTimer();
+				this.startTimer();
 			},
 
 			//////////////////////////////////
@@ -126,10 +124,8 @@ sap.ui.define(
 			//////////////////////////////////
 
 			onPressLevelUp() {
-				const iDiscCount = this.getModel().getProperty('/DiscCount');
-				this.getModel().setProperty('/DiscCount', iDiscCount + 1);
-				this.setDiscCountToLocalStorage();
-				this.oWinDialog.close();
+				const iDiscCount = this.getModel().getProperty('/DiscCount') + 1;
+				this.setNewLevel(iDiscCount);
 			},
 
 			onAfterCloseWinDialog() {
@@ -172,25 +168,16 @@ sap.ui.define(
 					MessageToast.show(this.i18n('msgImpossibleMove'));
 					return;
 				}
-				this.startTimer();
 				this.moveDisc(aCurrentPeg, aTargetPeg);
 				this.increaseMoves();
-				this.checkGameWin(aTargetPeg);
+				this.startTimer();
+				if (this.isGameFinished()) this.finishGame();
 			},
 
 			moveDisc(aCurrentPeg, aTargetPeg) {
 				aTargetPeg.unshift(aCurrentPeg[0]);
 				aCurrentPeg.shift();
 				this.getModel().refresh(true);
-			},
-
-			checkGameWin(aTargetPeg) {
-				const iDiscCount = this.getModel().getProperty('/DiscCount');
-				const aPegs = this.getModel().getProperty('/Pegs');
-				const bEnoughDisks = iDiscCount === aTargetPeg.length;
-				const bLastPeg = aTargetPeg === aPegs.at(-1);
-				if (!bEnoughDisks || !bLastPeg) return;
-				this.finishGame();
 			},
 
 			finishGame() {
@@ -221,11 +208,8 @@ sap.ui.define(
 			},
 
 			getCurrentResult() {
-				return {
-					DiscCount: this.getModel().getProperty('/DiscCount'),
-					Time: this.getModel().getProperty('/Time'),
-					Moves: this.getModel().getProperty('/Moves')
-				};
+				const { DiscCount, Time, Moves } = this.getModel().getData();
+				return { DiscCount, Time, Moves };
 			},
 
 			increaseMoves() {
@@ -238,7 +222,7 @@ sap.ui.define(
 			//////////////////////////////////
 
 			startTimer() {
-				if (this.timerId) return;
+				if (this.timerId || !this.isGameStarted()) return;
 				let iTime = this.getModel().getProperty('/Time');
 				this.timerId = setInterval(() => {
 					this.getModel().setProperty('/Time', ++iTime);
@@ -250,10 +234,32 @@ sap.ui.define(
 				this.timerId = null;
 			},
 
+			isGameStarted() {
+				const iMoves = this.getModel().getProperty('/Moves');
+				return iMoves && !this.isGameFinished();
+			},
+
 			isGameFinished() {
-				const bFinished = !!this.oWinDialog?.isOpen();
-				const bStarted = this.getModel().getProperty('/Moves') > 0;
-				return bFinished || !bStarted;
+				const { Pegs, DiscCount } = this.getModel().getData();
+				return Pegs[2].length === DiscCount;
+			},
+
+			setNewLevel(iDiscCount) {
+				this.confirmRestart(() => {
+					if (iDiscCount) this.getModel().setProperty('/DiscCount', iDiscCount);
+					this.setDiscCountToLocalStorage();
+					this.setupGame();
+					InstanceManager.closeAllDialogs();
+				});
+			},
+
+			confirmRestart(fnCallback) {
+				const sMessage = this.i18n('msgConfirmRestartGame');
+				if (this.isGameStarted()) {
+					const fnCallbackCancel = this.startTimer.bind(this);
+					this.openConfirmationMessageBox(sMessage, fnCallback, fnCallbackCancel);
+				}
+				else fnCallback();
 			}
 
 		});

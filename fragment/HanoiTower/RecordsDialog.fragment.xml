@@ -1,14 +1,17 @@
 <core:FragmentDefinition
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
-    core:require="{formatter: 'pharelyshau/model/formatter'}">
+    core:require="{
+        formatter: 'pharelyshau/model/formatter',
+        formatMessage: 'sap/base/strings/formatMessage'
+    }">
     <Dialog title="{i18n>ttlYourRecords}" icon="{i18n>iAchievement}" afterClose="onAfterCloseRecordsDialog"
         class="phRecordsDialog">
         <List items="{/Records}" visible="{= ${/Records}.length > 0}">
             <CustomListItem class="phNoFocus">
                 <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
                     <VBox class="sapUiSmallMarginEnd" renderType="Bare">
-                        <Title text="Tower of {DiscCount} Discs" titleStyle="H6"/>
+                        <Title text="{parts: ['i18n>ttlRecord', 'DiscCount'], formatter: 'formatMessage'}" titleStyle="H6"/>
                         <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Result" type="XML"/>
                     </VBox>
                     <Button icon="{i18n>iImprove}" tooltip="{i18n>btnTryToImprove}" press="onPressImrpoveResult"/>

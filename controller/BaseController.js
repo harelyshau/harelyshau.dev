@@ -4,9 +4,10 @@ sap.ui.define(
 		'sap/ui/core/UIComponent',
 		'sap/ui/Device',
 		'sap/m/MessageToast',
+		'sap/m/MessageBox',
 		'sap/m/IllustrationPool'
 	],
-	(Controller, UIComponent, Device, MessageToast, IllustrationPool) => {
+	(Controller, UIComponent, Device, MessageToast, MessageBox, IllustrationPool) => {
 		'use strict';
 
 		return Controller.extend('pharelyshau.controller.BaseController', {
@@ -98,6 +99,12 @@ sap.ui.define(
 				const bSamePath = oPopover.getBindingContext()?.getPath() === sBinndingPath;
 				const bOpen = oPopover.isOpen ? oPopover.isOpen() : false;
 				return bOpen && bSamePath;
+			},
+
+			openConfirmationMessageBox(sMessage, fnCallbackOK, fnCallbackCancel) {
+				MessageBox.confirm(sMessage, {
+					onClose: (sAction) => sAction === 'OK' ? fnCallbackOK() : fnCallbackCancel()
+				});
 			},
 
 			toggleSideNavigation(oPage, oSideNavigation) {
