@@ -1,22 +1,26 @@
-sap.ui.define(
-	['sap/ui/core/format/DateFormat', "sap/ui/core/format/NumberFormat", 'sap/ui/core/Configuration'],
-	(DateFormat, NumberFormat, Configuration) => {
+sap.ui.define([
+	'sap/ui/core/format/DateFormat',
+	"sap/ui/core/format/NumberFormat",
+	'sap/ui/core/Configuration',
+	'sap/base/strings/formatMessage'
+], (DateFormat, NumberFormat, Configuration, formatMessage) => {
 		'use strict';
 
-		function getPluralForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
+		function getPluralForm(nQuantity, ...aTexts) {
 			if (!nQuantity || nQuantity <= 0) return '';
+			return nQuantity + '\u00A0' + getRightForm(nQuantity, ...aTexts);
+		}
 
-			if (nQuantity === 1) return nQuantity + '\u00A0' + sTextSingular;
-
+		function getRightForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
+			if (nQuantity === 1) return sTextSingular;
 			// for Russian plural forms
 			if (Configuration.getLanguage() === 'ru') {
 				const sLastDigits = String(nQuantity).slice(-2);
-				const nLastDigits = sLastDigits > 20 ? +sLastDigits.slice(-1) : +sLastDigits;
-				if (nLastDigits === 1) return nQuantity + '\u00A0' + sTextSingular;
-				if (nLastDigits > 4) return nQuantity + '\u00A0' + sTextPlural2;
+				const iLastDigits = sLastDigits > 20 ? +sLastDigits.slice(-1) : +sLastDigits;
+				if (iLastDigits === 1) return sTextSingular;
+				if (iLastDigits > 4) return sTextPlural2 || sTextPlural;
 			}
-
-			return nQuantity + '\u00A0' + sTextPlural;
+			return sTextPlural;
 		}
 
 		return {
@@ -35,18 +39,18 @@ sap.ui.define(
 				const oEndDate = sEndDate === 'Present' ? new Date() : new Date(sEndDate);
 				// round up
 				oEndDate.setMonth(oEndDate.getMonth() + 1);
-				let nYears = oEndDate.getFullYear() - oStartDate.getFullYear();
-				let nMonths = oEndDate.getMonth() - oStartDate.getMonth();
+				let iYears = oEndDate.getFullYear() - oStartDate.getFullYear();
+				let iMonths = oEndDate.getMonth() - oStartDate.getMonth();
 
-				if (nMonths < 0) {
-					nYears--;
-					nMonths += 12;
+				if (iMonths < 0) {
+					iYears--;
+					iMonths += 12;
 				}
 				const aYearTexts = ['lYear', 'lYears', 'lYearPlural'].map((sKey) => this.i18n(sKey));
-				let sResult = getPluralForm(nYears, ...aYearTexts);
-				sResult += nMonths && nYears ? '\u00A0' : '';
+				let sResult = getPluralForm(iYears, ...aYearTexts);
+				sResult += iMonths && iYears ? '\u00A0' : '';
 				const aMonthTexts = ['lMonth', 'lMonths', 'lMonthPlural'].map((sKey) => this.i18n(sKey));
-				sResult += getPluralForm(nMonths, ...aMonthTexts);
+				sResult += getPluralForm(iMonths, ...aMonthTexts);
 				return sResult;
 			},
 
@@ -72,12 +76,15 @@ sap.ui.define(
 			/////////// HANOI TOWER //////////
 			//////////////////////////////////
 
-			timeMinSec(iSeconds) {
+			timeMinSec(iSeconds, sHour, sMinute, sSecond, sSec) {
+				const iHours = Math.floor(iSeconds / 3600);
+				iSeconds = iSeconds % 3600;
 				const iMinutes = Math.floor(iSeconds / 60);
 				iSeconds = iSeconds % 60;
-				const sMinutes = iMinutes ? iMinutes + 'm ' : '';
-				const sSeconds = iMinutes ? iSeconds + 's' : iSeconds + ' sec';
-				return sMinutes + sSeconds;
+				const sHours = iHours ? `${iHours}${sHour} ` : '';
+				const sMinutes = iMinutes ? `${iMinutes}${sMinute} ` : '';
+				const sSeconds = iMinutes || iHours ? `${iSeconds}${sSec}` : `${iSeconds} ${sSecond}`;
+				return sHours + sMinutes + sSeconds;
 			},
 
 			discWidth(iDisc, iDiscCount, iMaxWidth) {
@@ -103,6 +110,18 @@ sap.ui.define(
 				const oLocale = sap.ui.getCore().getConfiguration().getLocale();
 				const oFloatNumberFormat = NumberFormat.getFloatInstance(oLocale);
 				return oFloatNumberFormat.format(this.minMovesToWin(iDiscCount));
+			},
+
+			fasterByTime(sText, iPreviousTime, iCurrentTime, ...aTexts) {
+				if (!iPreviousTime) return;
+				const sDiff = this.timeMinSec(iPreviousTime - iCurrentTime, ...aTexts);
+				return formatMessage(sText, sDiff);
+			},
+
+			fasterByMoves(iPreviousMoves, iCurrentMoves, ...aTexts) {
+				const iDiff = iPreviousMoves - iCurrentMoves;
+				const sText = getRightForm(iDiff, ...aTexts);
+				return formatMessage(sText, iDiff);
 			}
 
 		};

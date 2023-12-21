@@ -7,7 +7,7 @@
     }">
     <Dialog title="{parts: ['i18n>ttlWinDialog', 'DiscCount'], formatter: 'formatMessage'}"
         state="Success" afterClose="onAfterCloseWinDialog" binding="{/}">
-        <VBox class="sapUiSmallMargin">
+        <VBox class="sapUiSmallMargin" renderType="Bare">
             <!-- Result -->
             <VBox renderType="Bare">
                 <Title text="{i18n>ttlYourResult}:" titleStyle="H6"/>
@@ -22,20 +22,18 @@
                     <HBox visible="{= ${view>/previousRecord/Time} > ${Time} }"
                         renderType="Bare" alignItems="Center" class="sapUiSmallMarginEnd">
                         <core:Icon src="{i18n>iTime}" class="sapUiTinyMarginEnd"/>
-                        <!-- TODO: Add i18n text -->
-                        <Text text="{= ${view>/previousRecord/Time} - ${Time} } sec faster"/>
+                        <Text text="{ parts: ['i18n>tFasterByTime', 'view>/previousRecord/Time', 'Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.fasterByTime' }"/>
                     </HBox>
                     <!-- Moves -->
                     <HBox visible="{= ${view>/previousRecord/Moves} > ${Moves} }"
                         renderType="Bare" alignItems="Center">
                         <core:Icon src="{i18n>iStep}" class="sapUiTinyMarginEnd"/>
-                        <!-- TODO: Add i18n text -->
-                        <Text text="{= ${view>/previousRecord/Moves} - ${Moves} } moves fewer"/>
+                        <Text text="{ parts: ['view>/previousRecord/Moves', 'Moves', 'i18n>tFasterByMoves', 'i18n>tFasterByMovesPlural', 'i18n>tFasterByMovesPlural2'], formatter: 'formatter.fasterByMoves' }"/>
                     </HBox>
                 </HBox>
-                <Button text="{i18n>btnSeeRecords}" icon="{i18n>iAchievement}"
-                    press="onPressOpenRecordsDialog" class="sapUiTinyMarginTop"/>
             </VBox>
+            <Button text="{i18n>btnSeeRecords}" icon="{i18n>iAchievement}"
+                press="onPressOpenRecordsDialog" class="sapUiSmallMarginTop"/>
         </VBox>
         <beginButton>
             <Button text="{i18n>btnLevelUp}" press="onPressLevelUp" icon="{i18n>iLevelUp}" type="Emphasized"/>

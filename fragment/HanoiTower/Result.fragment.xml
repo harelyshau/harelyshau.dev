@@ -6,7 +6,8 @@
         <!-- Time -->
         <HBox renderType="Bare" alignItems="Center">
             <core:Icon src="{i18n>iTime}"/>
-            <Text text="{i18n>ttlTime}: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
+            <Text text="{i18n>ttlTime}:
+                {parts: ['Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
         </HBox>
         <!-- Moves -->
         <HBox renderType="Bare" alignItems="Center" class="sapUiSmallMarginBegin"

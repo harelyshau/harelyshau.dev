@@ -45,7 +45,7 @@
                             <core:Icon src="{i18n>iTime}"/>
                             <VBox renderType="Bare">
                                 <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
-                                    {path: '/Time', formatter: 'formatter.timeMinSec'}"/>
+                                    {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
                             </VBox>
                             <!-- Moves -->
                             <core:Icon src="{i18n>iStep}" class="sapUiSmallMarginBegin"/>
