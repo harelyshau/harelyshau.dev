@@ -58,15 +58,15 @@
                     </headerToolbar>
                     <!-- GAME -->
                     <grid:CSSGrid id="gameGrid" items="{/Pegs}" gridAutoFlow="Column"
-                        gridTemplateColumns="repeat(3, 33.3333%)" class="sapUiSmallMarginTopBottom">
+                        gridTemplateColumns="repeat(3, 33.3333%)">
                         <!-- Peg -->
                         <VBox width="100%" alignItems="Center" justifyContent="End" renderType="Bare">
                             <Title visible="{view>/showMoveButtons}" titleStyle="H6" wrapping="true" wrappingType="Hyphenated" textAlign="Center"
-                                text="{i18n>ttlPeg} {= String.fromCharCode(${/Pegs}.indexOf(${}) + 65) }" class="sapUiSmallMarginBottom"/>
+                                text="{i18n>ttlPeg} {= String.fromCharCode(${/Pegs}.indexOf(${}) + 65) }" class="sapUiSmallMarginTop"/>
                             <CustomListItem type="{= !${}.length &amp;&amp; !${view>/selectedPeg} ? 'Inactive' : 'Active'}"
-                                press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus">
-                                <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox" alignItems="Center" fieldGroupIds="pegs"
-                                    width="100%" height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
+                                press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus sapUiSmallMarginTop">
+                                <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox sapUiSmallMarginTop" alignItems="Center" fieldGroupIds="pegs"
+                                    height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
                                     <!-- Disc -->
                                     <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: 'formatter.discWidth'}"
                                         text="{}" type="{path: '', formatter: 'formatter.discType'}"
@@ -89,7 +89,7 @@
                     </grid:CSSGrid>
                     <!-- BUTTONS -->
                     <grid:CSSGrid visible="{view>/showMoveButtons}" items="{/Pegs}" gridAutoFlow="Column"
-                        gridTemplateColumns="repeat(3, 33.3333%)" class="sapUiSmallMarginBottom">
+                        gridTemplateColumns="repeat(3, 33.3333%)" class="sapUiSmallMarginTop">
                         <VBox  items="{path: '/Pegs', templateShareable: true}" alignItems="Center">
                             <Button text="{i18n>btnTo} {= String.fromCharCode(${/Pegs}.indexOf(${}) + 65) }"
                                 core:require="{moveButtonVisible: 'pharelyshau/model/formatMoveButtonVisible'}"
@@ -97,7 +97,8 @@
                         </VBox>
                     </grid:CSSGrid>
                     <!-- FOOTER TOOLBAR -->
-                    <HBox renderType="Bare" alignItems="Center" justifyContent="SpaceBetween" wrap="Wrap">
+                    <HBox renderType="Bare" alignItems="Center" justifyContent="SpaceBetween"
+                        wrap="Wrap" class="sapUiSmallMarginTop">
                         <HBox alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
                             <Label text="{i18n>lShowButtons}" showColon="true" wrapping="true" width="auto"/>
                             <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "

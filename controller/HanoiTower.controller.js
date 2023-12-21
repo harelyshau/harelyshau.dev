@@ -32,7 +32,7 @@ sap.ui.define(
 						setTimeout(this.setPegBoxHeight.bind(this), 500);
 						return;
 					}
-					const iPegBoxHeight = oDomPegBox.clientHeight + 15;
+					const iPegBoxHeight = oDomPegBox.clientHeight;
 					this.getModel('view').setProperty('/pegBoxHeight', iPegBoxHeight);
 				});
 			},
@@ -83,7 +83,7 @@ sap.ui.define(
 				const aTargetPeg = this.getObjectByEvent(oEvent);
 				const aSelectedPeg = this.getModel('view').getProperty('/selectedPeg');
 				this.getModel('view').setProperty('/selectedPeg', !aSelectedPeg ? aTargetPeg : null);
-				this.tryMovingDisc(aSelectedPeg, aTargetPeg);
+				if (aSelectedPeg) this.tryMovingDisc(aSelectedPeg, aTargetPeg);
 			},
 
 			onPressMoveDiscByButton(oEvent) {
@@ -161,12 +161,12 @@ sap.ui.define(
 			},
 
 			getDiscs() {
-				const iDiscCount = this.getModel().getProperty('/DiscCount');
-				return [...Array(iDiscCount)].map((_, i) => i + 1);
+				const length = this.getModel().getProperty('/DiscCount');
+				return Array.from({ length }).map((_, i) => i + 1);
 			},
 
 			tryMovingDisc(aCurrentPeg, aTargetPeg) {
-				if (!aCurrentPeg || aCurrentPeg === aTargetPeg) return;
+				if (aCurrentPeg === aTargetPeg) return;
 				this.getModel('view').setProperty('/selectedPeg', null);
 				if (aCurrentPeg[0] > aTargetPeg[0] || !aCurrentPeg.length) {
 					MessageToast.show('This move is not possible');
