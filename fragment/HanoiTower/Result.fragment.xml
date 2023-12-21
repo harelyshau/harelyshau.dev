@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    core:require="{formatter: 'pharelyshau/model/formatter'}">
+    <HBox class="sapUiTinyMarginTop">
+        <!-- Time -->
+        <HBox renderType="Bare" alignItems="Center">
+            <core:Icon src="{i18n>iTime}"/>
+            <Text text="{i18n>ttlTime}: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
+        </HBox>
+        <!-- Moves -->
+        <HBox renderType="Bare" alignItems="Center" class="sapUiSmallMarginBegin"
+            tooltip="{= ${Moves} === ${ path: 'DiscCount', formatter: 'formatter.minMovesToWin' }
+                ? ${i18n>ttMinMoves} : '' }">
+            <core:Icon src="{i18n>iStep}"
+                color="{= ${Moves} === ${ path: 'DiscCount', formatter: 'formatter.minMovesToWin' } ? 'Positive' : '' }"/>
+            <Text text="{i18n>ttlMoves}: {Moves}" class="sapUiTinyMarginBegin"/>
+        </HBox>
+    </HBox>
+</core:FragmentDefinition>

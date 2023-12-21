@@ -1,6 +1,6 @@
 sap.ui.define(
-	['sap/ui/core/format/DateFormat', 'sap/ui/core/Configuration'],
-	(DateFormat, Configuration) => {
+	['sap/ui/core/format/DateFormat', "sap/ui/core/format/NumberFormat", 'sap/ui/core/Configuration'],
+	(DateFormat, NumberFormat, Configuration) => {
 		'use strict';
 
 		function getPluralForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
@@ -93,7 +93,18 @@ sap.ui.define(
 			discCountIcon(iDiscCount, aRecords) {
 				const bCompleted = aRecords.some((oRecord) => oRecord.DiscCount === iDiscCount);
 				return bCompleted ? 'sap-icon://accept' : '';
+			},
+
+			minMovesToWin(iDiscCount) {
+				return 2 ** iDiscCount - 1;
+			},
+
+			formattedMinMovesToWin(iDiscCount) {
+				const oLocale = sap.ui.getCore().getConfiguration().getLocale();
+				const oFloatNumberFormat = NumberFormat.getFloatInstance(oLocale);
+				return oFloatNumberFormat.format(this.minMovesToWin(iDiscCount));
 			}
+
 		};
 	}
 );

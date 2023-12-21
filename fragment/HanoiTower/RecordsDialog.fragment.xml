@@ -9,20 +9,7 @@
                 <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
                     <VBox class="sapUiSmallMarginEnd" renderType="Bare">
                         <Title text="Tower of {DiscCount} Discs" titleStyle="H6"/>
-                        <HBox renderType="Bare" alignItems="Center" class="sapUiTinyMarginTop">
-                            <!-- Time -->
-                            <HBox renderType="Bare" alignItems="Center">
-                                <core:Icon src="{i18n>iTime}"/>
-                                <Text text="{i18n>ttlTime}: {path: 'Time', formatter: 'formatter.timeMinSec'}" class="sapUiTinyMarginBegin"/>
-                            </HBox>
-                            <!-- Moves -->
-                            <HBox alignItems="Center" renderType="Bare" class="sapUiSmallMarginBegin"
-                                tooltip="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'You did it in the minimum number of moves' : '' }">
-                                <core:Icon src="{i18n>iStep}"
-                                    color="{= ${Moves} === Math.pow(2, ${DiscCount}) - 1 ? 'Positive' : '' }"/>
-                                <Text text="{i18n>ttlMoves}: {Moves}" class="sapUiTinyMarginBegin"/>
-                            </HBox>
-                        </HBox>
+                        <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Result" type="XML"/>
                     </VBox>
                     <Button icon="{i18n>iImprove}" tooltip="{i18n>btnTryToImprove}" press="onPressImrpoveResult"/>
                 </HBox>
