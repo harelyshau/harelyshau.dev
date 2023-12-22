@@ -56,8 +56,9 @@ sap.ui.define(
 			/////////// PLAYGROUND ///////////
 			//////////////////////////////////
 
-			onChangeDiscsCount() {
-				this.setNewLevel()
+			onChangeDiscsCount(oEvent) {
+				const iDiscCount = +oEvent.getParameter('selectedItem').getKey();
+				this.setNewLevel(iDiscCount);
 			},
 
 			setDiscCountToLocalStorage() {
@@ -66,7 +67,6 @@ sap.ui.define(
 			},
 
 			onPressRestartGame() {
-				this.stopTimer();
 				this.confirmRestart(this.setupGame.bind(this));
 			},
 
@@ -254,12 +254,14 @@ sap.ui.define(
 			},
 
 			confirmRestart(fnCallback) {
+				if (!this.isGameStarted()) return fnCallback();
+				this.stopTimer();
+				const fnCallbackCancel = () => {
+					this.startTimer();
+					this.getModel().refresh(true);
+				};
 				const sMessage = this.i18n('msgConfirmRestartGame');
-				if (this.isGameStarted()) {
-					const fnCallbackCancel = this.startTimer.bind(this);
-					this.openConfirmationMessageBox(sMessage, fnCallback, fnCallbackCancel);
-				}
-				else fnCallback();
+				this.openConfirmationMessageBox(sMessage, fnCallback, fnCallbackCancel);
 			}
 
 		});

@@ -33,7 +33,7 @@
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
                             </Label>
-                            <Select items="{/DiscCounts}" selectedKey="{path: '/DiscCount', type: 'sap.ui.model.type.Integer'}"
+                            <Select items="{/DiscCounts}" selectedKey="{path: '/DiscCount', type: 'sap.ui.model.type.Integer', mode: 'OneWay'}"
                                 change="onChangeDiscsCount" ariaLabelledBy="lblDiscCount">
                                 <core:ListItem text="{}" key="{}" icon="{parts: ['', '/Records'], formatter: 'formatter.discCountIcon'}"/>
                                 <layoutData>
