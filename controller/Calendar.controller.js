@@ -270,8 +270,7 @@ sap.ui.define(
 			async updateAppointmentGC(oAppointment) {
 				const oInitialAppointment = this.getInitialAppointment();
 				const bNoChanges = JSON.stringify(oInitialAppointment) === JSON.stringify(oAppointment);
-				bNoChanges && MessageToast.show(this.i18n('msgNoChanges'));
-				if (bNoChanges) return;
+				if (bNoChanges) return MessageToast.show(this.i18n('msgNoChanges'));
 				this.setInitialAppointment(oAppointment);
 				try {
 					oAppointment = await calendarManager.updateAppointment(oAppointment);
@@ -319,7 +318,7 @@ sap.ui.define(
 
 			onAfterCloseAppointmentDialog(oEvent) {
 				const oAppointment = this.getObjectByEvent(oEvent);
-				if (oAppointment.ID !== 'new') this.resetAppointment(oAppointment);
+				if (oAppointment.ID !== 'new') this.resetEditableAppointment();
 				this.setEditableAppointment(null);
 				this.refreshAppointments();
 			},
@@ -473,7 +472,10 @@ sap.ui.define(
 			},
 
 			// Reset
-			resetAppointment(oAppointment) {
+			resetEditableAppointment() {
+				const sID = this.getEditableAppointment().ID;
+				const aAppointments = this.getExistingAppointments();
+				const oAppointment = aAppointments.find(oAppointment => oAppointment.ID === sID);
 				const oInitialAppointment = this.getInitialAppointment();
 				Object.keys(oInitialAppointment).forEach((sKey) => {
 					oAppointment[sKey] = oInitialAppointment[sKey];
@@ -483,7 +485,7 @@ sap.ui.define(
 			// Update End Date
 			updateAppointmentEndDateByDuration(oNewStartDate, oAppointment) {
 				const nDuration = oAppointment.EndDate - oAppointment.StartDate;
-				oAppointment.EndDate.setTime(oNewStartDate.getTime() + nDuration);
+				oAppointment.EndDate = new Date(oNewStartDate.getTime() + nDuration);
 			},
 
 			// Get Editable
