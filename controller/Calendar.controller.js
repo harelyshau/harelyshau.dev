@@ -48,10 +48,7 @@ sap.ui.define(
 			onCalendarMatched(oEvent) {
 				const sView = oEvent.getParameter('arguments').view;
 				const oView = this.byId('calendar').getViewByKey(sView);
-				if (!oView) {
-					this.getRouter().navTo('Calendar');
-					return;
-				}
+				if (!oView) return this.getRouter().navTo('Calendar');
 				this.byId('calendar').setSelectedView(sView);
 			},
 
@@ -109,10 +106,8 @@ sap.ui.define(
 				const oEditableAppointment = this.getEditableAppointment();
 				if (!oEditableAppointment) return;
 				const bAlreadyHas = aAppointments.some((oAppointment, i) => {
-					if (oAppointment.ID === oEditableAppointment.ID) {
-						aAppointments[i] = oEditableAppointment;
-						return true;
-					}
+					const bEditable = oAppointment.ID === oEditableAppointment.ID;
+					return bEditable && !!(aAppointments[i] = oEditableAppointment);
 				});
 				if (!bAlreadyHas) aAppointments.push(oEditableAppointment);
 			},

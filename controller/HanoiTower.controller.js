@@ -61,11 +61,6 @@ sap.ui.define(
 				this.setNewLevel(iDiscCount);
 			},
 
-			setDiscCountToLocalStorage() {
-				const iDiscCount = this.getModel().getProperty('/DiscCount');
-				localStorage.setItem('discs', iDiscCount);
-			},
-
 			onPressRestartGame() {
 				this.confirmRestart(this.setupGame.bind(this));
 			},
@@ -164,10 +159,8 @@ sap.ui.define(
 			tryMovingDisc(aCurrentPeg, aTargetPeg) {
 				if (aCurrentPeg === aTargetPeg) return;
 				this.getModel('view').setProperty('/selectedPeg', null);
-				if (aCurrentPeg[0] > aTargetPeg[0] || !aCurrentPeg.length) {
-					MessageToast.show(this.i18n('msgImpossibleMove'));
-					return;
-				}
+				const bImpossible = aCurrentPeg[0] > aTargetPeg[0] || !aCurrentPeg.length;
+				if (bImpossible) return MessageToast.show(this.i18n('msgImpossibleMove'));
 				this.moveDisc(aCurrentPeg, aTargetPeg);
 				this.increaseMoves();
 				this.startTimer();
@@ -246,8 +239,8 @@ sap.ui.define(
 
 			setNewLevel(iDiscCount) {
 				this.confirmRestart(() => {
-					if (iDiscCount) this.getModel().setProperty('/DiscCount', iDiscCount);
-					this.setDiscCountToLocalStorage();
+					this.getModel().setProperty('/DiscCount', iDiscCount);
+					localStorage.setItem('discs', iDiscCount);
 					this.setupGame();
 					InstanceManager.closeAllDialogs();
 				});
