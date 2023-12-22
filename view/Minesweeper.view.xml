@@ -1,0 +1,70 @@
+<mvc:View xmlns:core="sap.ui.core"
+    controllerName="pharelyshau.controller.Minesweeper"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+    core:require="{formatter: 'pharelyshau/model/formatter'}"
+    xmlns:dnd="sap.ui.core.dnd"
+    xmlns:grid="sap.ui.layout.cssgrid">
+	<f:DynamicPage>
+        <!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>ttlMinesweeper}" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+                    <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
+                </f:expandedContent>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
+                <Panel>
+                    <!-- HEADER TOOLBAR -->
+                    <headerToolbar>
+                        <OverflowToolbar height="3rem">
+                            <!-- lLevels -->
+                            <Label id="lblLevels" text="{i18n>lLevels}" showColon="true">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
+                                </layoutData>
+                            </Label>
+                            <Select items="{/Levels}" selectedKey="{/Level}"
+                                change="onChangeLevel" ariaLabelledBy="lblLevels">
+                                <core:ListItem text="{Key}" key="{Key}"/>
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
+                                </layoutData>
+                            </Select>
+                            <ToolbarSpacer/>
+                            <!-- Time -->
+                            <core:Icon src="{i18n>iTime}"/>
+                            <VBox renderType="Bare">
+                                <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
+                                    {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
+                            </VBox>
+                            <ToolbarSpacer/>
+                            <!-- Buttons -->
+                            <Button text="{i18n>btnRestart}" press="onPressRestartGame" icon="{i18n>iRestart}"/>
+                            <Button text="{i18n>btnRecords}" press="onPressOpenRecordsDialog" icon="{i18n>iAchievement}"/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <!-- GAME -->
+                    <VBox items="{/Field}" renderType="Bare">
+                        <HBox items="{ path: '' }" renderType="Bare">
+                            <Button text="{Index}" type="{= ${IsMine} ? 'Reject' : 'Unstyled' }"
+                                width="2rem" press="onPressCell"/>
+                        </HBox>
+                    </VBox>
+                </Panel>
+                <!-- INSTRUCTIONS -->
+                <!-- <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Instructions"
+					type="XML" class="sapUiSmallMarginTop"/> -->
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

@@ -43,6 +43,18 @@ sap.ui.define(
 				return new JSONModel(oData);
 			},
 
+			createMinesweeperModel() {
+				const oData = {
+					Levels: [
+						{ Key: 'Easy', Width: 9, Height: 9, Mines: 10 },
+						{ Key: 'Medium', Width: 10, Height: 10, Mines: 10}
+					],
+					Level: 'Easy',
+					Time: 0
+				};
+				return new JSONModel(oData);
+			},
+
 			createAlgorithmsModel(oArticleList) {
 				const oModel = new JSONModel(oArticleList);
 				oModel.setDefaultBindingMode('OneWay');
