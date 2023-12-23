@@ -59,15 +59,26 @@
                     <!-- GAME -->
                     <ScrollContainer class="sapUiSmallMarginTopBottom">
                         <VBox items="{/Field}" renderType="Bare">
-                            <HBox items="{ path: '', templateShareable: false }" renderType="Bare" height="2em" justifyContent="Center">
-                                <VBox height="2em" width="2em">
+                            <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
+                                <Button text="{= ${IsOpen} &amp;&amp; ${IsMine} ? '*' : ${MineCount} }"
+                                    type="Unstyled"
+                                    enabled="{= !${IsOpen} }"
+                                    width="2em" press="onPressCell"
+                                    class="phCell">
+                                    <customData>
+                                        <core:CustomData key="cell" writeToDom="true"
+                                            value="color{path: '', formatter: 'formatter.colorMineCount'}"/>
+                                    </customData>
+                                </Button>
+                            </HBox>
+
+                            <!-- <VBox height="2em">
                                     <ObjectStatus text="{= ${IsOpened} ? ${IsMine} ? '*' : ${parts: ['/Field', ''], formatter: 'formatter.mineCountNearby' } : 'O' }"
                                         state="{= ${IsOpened} &amp;&amp; ${IsMine} ? 'Error' : 'None' }"
                                         active="{= !${IsOpened} }"
                                         inverted="true"
                                         press="onPressCell"/>
-                                </VBox>
-                            </HBox>
+                                </VBox> -->
                         </VBox>
                     </ScrollContainer>
                 </Panel>

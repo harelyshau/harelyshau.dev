@@ -154,6 +154,65 @@
 	margin-right: auto;
 }
 
+/* .phMinesweeperCell {
+	width: 2.5em;
+	height: 2.55em;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #ccc;
+	cursor: pointer;
+	background-color: #ffffff;
+}
+
+.phMinesweeperCell:hover {
+	background-color: #b0b0b0;
+}
+
+.phMinesweeperCell:disabled {
+	background-color: #c7c7c7;
+	cursor: default;
+} */
+
+.phCell {
+	font-weight: bold;
+}
+
+[data-cell="colorBlue"] {
+	color: blue;
+}
+
+[data-cell="colorGreen"] {
+	color: green;
+}
+
+[data-cell="colorRed"] {
+	color: red;
+}
+
+[data-cell="colorDarkBlue"] {
+	color: darkblue;
+}
+
+[data-cell="colorBrown"] {
+	color: brown;
+}
+
+[data-cell="colorTurquoise"] {
+	color: turquoise;
+}
+
+[data-cell="colorBlack"] {
+	color: black;
+}
+
+[data-cell="colorWhite"] {
+	color: white;
+}
+
+[data-cell="colorMine"] {
+	background-color: red;
+}
+
 /* COMMON */
 
 .phLimitedPageContent {

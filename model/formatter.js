@@ -128,6 +128,20 @@ sap.ui.define([
 		/////////// MINESWEEPER //////////
 		//////////////////////////////////
 
+		colorMineCount(oCell) {
+			const aColors = [
+				'Blue',
+				'Green',
+				'Red',
+				'DarkBlue',
+				'Brown',
+				'Turquoise',
+				'Black',
+				'White'
+			];
+			return oCell.IsOpen && oCell.IsMine ? 'Mine' : aColors[oCell.MineCount - 1];
+		},
+
 		mineCountNearby(aField, oCell) {
 			let iMineCount = 0;
 			const aDx = [-1, 0, 1];
