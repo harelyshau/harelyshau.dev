@@ -28,12 +28,12 @@
                     <headerToolbar>
                         <OverflowToolbar height="3rem">
                             <!-- lLevels -->
-                            <Label id="lblLevels" text="{i18n>lLevels}" showColon="true">
+                            <Label id="lblLevels" text="{i18n>lLevel}" showColon="true">
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
                             </Label>
-                            <Select items="{/Levels}" selectedKey="{/Level}"
+                            <Select items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
                                 change="onChangeLevel" ariaLabelledBy="lblLevels">
                                 <core:ListItem text="{Key}" key="{Key}"/>
                                 <layoutData>
@@ -47,6 +47,9 @@
                                 <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
                                     {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
                             </VBox>
+                            <!-- Mines -->
+                            <core:Icon src="sap-icon://flag-2" class="sapUiSmallMarginBegin"/>
+                            <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Mines}" />
                             <ToolbarSpacer/>
                             <!-- Buttons -->
                             <Button text="{i18n>btnRestart}" press="onPressRestartGame" icon="{i18n>iRestart}"/>
@@ -54,12 +57,19 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
-                    <VBox items="{/Field}" renderType="Bare">
-                        <HBox items="{ path: '' }" renderType="Bare">
-                            <Button text="{Index}" type="{= ${IsMine} ? 'Reject' : 'Unstyled' }"
-                                width="2rem" press="onPressCell"/>
-                        </HBox>
-                    </VBox>
+                    <ScrollContainer class="sapUiSmallMarginTopBottom">
+                        <VBox items="{/Field}" renderType="Bare">
+                            <HBox items="{ path: '', templateShareable: false }" renderType="Bare" height="2em" justifyContent="Center">
+                                <VBox height="2em" width="2em">
+                                    <ObjectStatus text="{= ${IsOpened} ? ${IsMine} ? '*' : ${parts: ['/Field', ''], formatter: 'formatter.mineCountNearby' } : 'O' }"
+                                        state="{= ${IsOpened} &amp;&amp; ${IsMine} ? 'Error' : 'None' }"
+                                        active="{= !${IsOpened} }"
+                                        inverted="true"
+                                        press="onPressCell"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </ScrollContainer>
                 </Panel>
                 <!-- INSTRUCTIONS -->
                 <!-- <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Instructions"

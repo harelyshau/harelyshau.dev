@@ -20,6 +20,8 @@ sap.ui.define(
             setupGame() {
                 // const aField = this.createArray(Height, () => this.createArray(Width));
                 this.getModel().setProperty('/Field', this.createField());
+                const { Mines } = this.getCurrentLevel();
+                this.getModel().setProperty('/Mines', Mines);
             },
 
             createField() {
@@ -28,22 +30,29 @@ sap.ui.define(
                     { length: Height },
                     (_, i) => Array.from(
                         { length: Width },
-                        (_, j) => ({ Index: i * Width + j })
+                        (_, j) => ({ ID: i * Width + j, Coordinates: [i, j] })
                     )
-                )
+                );
             },
 
-            insertMines(iCurrentIndex) {
+            insertMines(iCurrentID) {
+                if (this.isAlreadyMined()) return;
                 const aField = this.getModel().getProperty('/Field');
                 const { Width, Height, Mines } = this.getCurrentLevel();
                 const aMineIndecies = [...Array(Width * Height).keys()]
-                    .filter(i => i !== iCurrentIndex)
+                    .filter(i => i !== iCurrentID)
                     .sort(() => Math.random() - 0.5)
                     .slice(0, Mines);
                 aField.forEach(aRow => aRow.forEach(
-                    oCell => oCell.IsMine = aMineIndecies.includes(oCell.Index)
+                    oCell => oCell.IsMine = aMineIndecies.includes(oCell.ID)
                 ));
-                this.getModel().refresh(true);
+                this.getModel().refresh();
+            },
+
+            isAlreadyMined() {
+                const aField = this.getModel().getProperty('/Field');
+                const oCell = aField[0][0];
+                return 'IsMine' in oCell;
             },
 
             // createArray(length, fnMapping) {
@@ -51,15 +60,30 @@ sap.ui.define(
             // },
 
             getCurrentLevel() {
-                const aLevels = this.getModel().getProperty('/Levels');
-                const sLevel = this.getModel().getProperty('/Level');
-                return aLevels.find(oLevel => oLevel.Key === sLevel);
+                return this.getModel().getProperty('/Level');
             },
 
             onPressCell(oEvent) {
-                const iCellIndex = this.getObjectByEvent(oEvent).Index;
-                this.insertMines(iCellIndex);
+                const iCellID = this.getObjectByEvent(oEvent).ID;
+                this.insertMines(iCellID);
+                const sPath = this.getPathByEvent(oEvent) + '/IsOpened';
+                this.getModel().setProperty(sPath, true);
+            },
+
+            onPressRestartGame() {
+                this.setupGame();
+            },
+
+            onChangeLevel(oEvent) {
+				const oLevel = this.getObjectByControl(oEvent.getParameter('selectedItem'));
+				this.setNewLevel(oLevel);
+			},
+
+            setNewLevel(oLevel) {
+                this.getModel().setProperty('/Level', oLevel);
+                this.setupGame();
             }
+
 
 		});
 	}

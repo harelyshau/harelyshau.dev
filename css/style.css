@@ -146,6 +146,14 @@
 	display: none;
 }
 
+/* MINESWEEPER */
+
+.phMinesweeperPage {
+	width: 750px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /* COMMON */
 
 .phLimitedPageContent {

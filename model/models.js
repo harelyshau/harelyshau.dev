@@ -47,11 +47,12 @@ sap.ui.define(
 				const oData = {
 					Levels: [
 						{ Key: 'Easy', Width: 9, Height: 9, Mines: 10 },
-						{ Key: 'Medium', Width: 10, Height: 10, Mines: 10}
+						{ Key: 'Medium', Width: 16, Height: 16, Mines: 40},
+						{ Key: 'Hard', Width: 30, Height: 16, Mines: 99}
 					],
-					Level: 'Easy',
 					Time: 0
 				};
+				oData.Level = oData.Levels.find(oLevel => oLevel.Key === 'Easy');
 				return new JSONModel(oData);
 			},
 

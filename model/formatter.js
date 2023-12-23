@@ -122,6 +122,23 @@ sap.ui.define([
 			const iDiff = iPreviousMoves - iCurrentMoves;
 			const sText = getRightForm(iDiff, ...aTexts);
 			return formatMessage(sText, iDiff);
+		},
+
+		//////////////////////////////////
+		/////////// MINESWEEPER //////////
+		//////////////////////////////////
+
+		mineCountNearby(aField, oCell) {
+			let iMineCount = 0;
+			const aDx = [-1, 0, 1];
+			aDx.forEach(iRowDx => {
+				aDx.forEach(iColDx => {
+					const [iCell, jCell] = oCell.Coordinates;
+					const oNeighbour = aField[iCell + iRowDx]?.[jCell + iColDx];
+					if (oNeighbour?.IsMine) iMineCount++;
+				});
+			});
+			return iMineCount;
 		}
 
 	};
