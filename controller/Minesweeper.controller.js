@@ -14,10 +14,12 @@ sap.ui.define(
             formatter,
 
             onRightPressCell(oEvent) {
+                if (!this.isGameStarted()) return;
                 const sPath = this.getPathByEvent(oEvent) + '/IsFlagged';
                 const bFlagged = !this.getModel().getProperty(sPath);
                 this.getModel().setProperty(sPath, bFlagged);
                 this.updateFlagCount(bFlagged);
+                this.getModel().refresh(true);
             },
 
 			onInit() {
@@ -79,12 +81,19 @@ sap.ui.define(
                 const oCell = this.getObjectByEvent(oEvent);
                 if (this.isGameFinished() || oCell.IsFlagged) return;
                 this.insertMines(this.getObjectByEvent(oEvent).ID);
-                this.openCells(oEvent.getSource());
-                this.getModel().refresh(true);
+                this.openCells(this.getObjectByEvent(oEvent));
                 this.startTimer();
-                const bGameOver = oCell.IsMine;
-                if (bGameOver) this.finishLostGame();
-                if (this.isGameWon()) this.finishWonGame();
+                this.getModel().refresh(true);
+                const bGameLost = oCell.IsMine;
+                if (bGameLost || this.isGameWon()) this.finishGame(!bGameLost);
+            },
+
+            finishGame(bWon) {
+                this.getModel().setProperty('/GameFinished', true);
+                MessageToast.show(bWon ? 'You won' : 'Game over');
+                this.showMines(bWon);
+                this.stopTimer();
+                if (bWon) this.getModel().setProperty('/Flags', 0);
             },
 
             isGameStarted() {
@@ -98,50 +107,32 @@ sap.ui.define(
                 return !this.getModel().getProperty('/CellsLeft');
             },
 
-            finishWonGame() {
-                this.getModel().setProperty('/GameFinished', true);
-                MessageToast.show('You won');
-                this.showMines();
-                this.stopTimer();
-            },
-
             isGameFinished() {
                 return this.getModel().getProperty('/GameFinished');
             },
 
-            finishLostGame() {
-                this.getModel().setProperty('/GameFinished', true);
-                this.showMines();
-                MessageToast.show('Game over');
-                this.stopTimer();
+            showMines(bForceUpdate) {
+                const aMines = this.getField().flat().filter(oCell => oCell.IsMine);
+                aMines.forEach(oMine => this.openCell(oMine, true));
+                this.getModel().refresh(bForceUpdate);
             },
 
-            showMines() {
-                const aButtons = this.byId('gameBox').getItems()
-                    .flatMap(oRow => oRow.getItems());
-                aButtons.forEach(oButton => {
-                    const bMine = this.getObjectByControl(oButton).IsMine;
-                    if (bMine) this.openCell(oButton);
-                });
-                this.getModel().refresh();
+            openCells(oCell) {
+                oCell = this.openCell(oCell);
+                if (!oCell || oCell.MineCount) return;
+                const aNeighbours = this.getNeighbourCells(oCell);
+                aNeighbours.forEach(oCell => this.openCells(oCell));
             },
 
-            openCells(oButton) {
-                const oCell = this.openCell(oButton);
-                if (oCell && !oCell.MineCount) {
-                    const aNeighbours = this.getNeighbourCells(oButton);
-                    aNeighbours.forEach(oButton => this.openCells(oButton));
-                }
-            },
-
-            openCell(oButton) {
-                const oCell = this.getObjectByControl(oButton);
+            openCell(oCell, bKeepFlag) {
                 if (oCell.IsOpen) return;
                 const iCellsLeft = this.getModel().getProperty('/CellsLeft') - 1;
                 if (!oCell.IsMine) this.getModel().setProperty('/CellsLeft', iCellsLeft);
+                if (!bKeepFlag) {
+                    if (oCell.IsFlagged) this.updateFlagCount();
+                    oCell.IsFlagged = false;
+                }
                 oCell.IsOpen = true;
-                if (oCell.IsFlagged) this.updateFlagCount();
-                oCell.IsFlagged = false;
                 oCell.MineCount = this.getCellMineCount(oCell) || '';
                 return oCell;
             },
@@ -165,14 +156,14 @@ sap.ui.define(
                 return iMineCount;
             },
 
-            getNeighbourCells(oButton) {
-                const aRows = oButton.getParent().getParent().getItems();
+            getNeighbourCells(oCell) {
+                const aField = this.getField();
                 const aDiff = [-1, 0, 1];
                 const aNeighbours = [];
                 aDiff.forEach(iRowDiff => {
                     aDiff.forEach(iColDiff => {
-                        const [x, y] = this.getObjectByControl(oButton).Coordinates;
-                        const oNeighbour = aRows[x + iColDiff]?.getItems()[y + iRowDiff];
+                        const [x, y] = oCell.Coordinates;
+                        const oNeighbour = aField[x + iColDiff]?.[y + iRowDiff];
                         if (oNeighbour) aNeighbours.push(oNeighbour);
                     });
                 });

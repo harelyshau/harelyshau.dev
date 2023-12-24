@@ -48,7 +48,7 @@ sap.ui.define(
 					Levels: [
 						{ Key: 'Easy', Width: 9, Height: 9, Mines: 10 },
 						{ Key: 'Medium', Width: 16, Height: 16, Mines: 40},
-						{ Key: 'Hard', Width: 30, Height: 16, Mines: 100}
+						{ Key: 'Hard', Width: 30, Height: 16, Mines: 99}
 					],
 					Time: 0
 				};

@@ -66,15 +66,15 @@
                     <ScrollContainer class="sapUiSmallMarginTopBottom">
                         <VBox items="{/Field}" renderType="Bare" id="gameBox">
                             <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
-                                <cc:CellButton text="{= ${IsOpen} &amp;&amp; ${IsMine} ? '💣' : ${MineCount} }"
+                                <cc:CellButton text="{= ${IsOpen} &amp;&amp; ${IsMine} ? !${IsFlagged} &amp;&amp; ${/CellsLeft} ? '💣' : '' : ${MineCount} }"
                                     type="Unstyled"
-                                    icon="{= ${IsFlagged} ? 'sap-icon://flag' : '' }"
+                                    icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : '' }"
                                     enabled="{= !${IsOpen} }"
                                     width="2em" press="onPressCell" rightPress="onRightPressCell"
                                     class="phCell">
                                     <cc:customData>
                                         <core:CustomData key="cell" writeToDom="true"
-                                            value="state{parts: ['IsOpen', 'IsMine', 'IsFlagged', 'MineCount'], formatter: 'formatter.cellState'}"/>
+                                            value="state{parts: ['', '/CellsLeft', '/GameFinished'], formatter: 'formatter.cellState'}"/>
                                     </cc:customData>
                                 </cc:CellButton>
                             </HBox>

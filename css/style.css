@@ -218,6 +218,14 @@
 	color: red;
 }
 
+[data-cell="stateWrongFlag"] {
+	background-color: #ff000063;
+}
+
+[data-cell="stateWrongFlag"] span::before {
+	color: red;
+}
+
 /* COMMON */
 
 .phLimitedPageContent {
