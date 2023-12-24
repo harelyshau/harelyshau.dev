@@ -214,18 +214,18 @@ sap.ui.define(
 			///////////// COMMON /////////////
 			//////////////////////////////////
 
-			startTimer() {
-				if (this.timerId || !this.isGameStarted()) return;
-				let iTime = this.getModel().getProperty('/Time');
-				this.timerId = setInterval(() => {
-					this.getModel().setProperty('/Time', ++iTime);
-				}, 1000);
-			},
+			// startTimer() {
+			// 	if (this.timerId || !this.isGameStarted()) return;
+			// 	let iTime = this.getModel().getProperty('/Time');
+			// 	this.timerId = setInterval(() => {
+			// 		this.getModel().setProperty('/Time', ++iTime);
+			// 	}, 1000);
+			// },
 
-			stopTimer() {
-				clearInterval(this.timerId);
-				this.timerId = null;
-			},
+			// stopTimer() {
+			// 	clearInterval(this.timerId);
+			// 	this.timerId = null;
+			// },
 
 			isGameStarted() {
 				const iMoves = this.getModel().getProperty('/Moves');

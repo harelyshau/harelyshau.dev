@@ -13,6 +13,13 @@ sap.ui.define(
 		return BaseController.extend('pharelyshau.controller.Minesweeper', {
             formatter,
 
+            onRightPressCell(oEvent) {
+                const sPath = this.getPathByEvent(oEvent) + '/IsFlagged';
+                const bFlagged = !this.getModel().getProperty(sPath);
+                this.getModel().setProperty(sPath, bFlagged);
+                this.updateFlagCount(bFlagged);
+            },
+
 			onInit() {
 				this.setModel(models.createMinesweeperModel());
 				// this.setModel(models.createMinesweeperViewModel(), 'view');
@@ -21,11 +28,16 @@ sap.ui.define(
 
             setupGame() {
                 this.getModel().setProperty('/GameFinished', false);
-                
                 this.getModel().setProperty('/Field', this.createField());
+                this.resetStartupParams();
+                this.stopTimer();
+            },
+
+            resetStartupParams() {
                 const { Mines, Width, Height } = this.getCurrentLevel();
                 this.getModel().setProperty('/CellsLeft', Width * Height - Mines);
-                this.getModel().setProperty('/Mines', Mines);
+                this.getModel().setProperty('/Flags', Mines);
+                this.getModel().setProperty('/Time', 0);
             },
 
             createField() {
@@ -64,14 +76,23 @@ sap.ui.define(
             },
 
             onPressCell(oEvent) {
-                if (this.isGameFinished()) return;
+                const oCell = this.getObjectByEvent(oEvent);
+                if (this.isGameFinished() || oCell.IsFlagged) return;
                 this.insertMines(this.getObjectByEvent(oEvent).ID);
                 this.openCells(oEvent.getSource());
                 this.getModel().refresh(true);
-                const bGameOver = this.getObjectByEvent(oEvent).IsMine;
+                this.startTimer();
+                const bGameOver = oCell.IsMine;
                 if (bGameOver) this.finishLostGame();
                 if (this.isGameWon()) this.finishWonGame();
             },
+
+            isGameStarted() {
+                const iCellsLeft = this.getModel().getProperty('/CellsLeft');
+                const { Width, Height, Mines } = this.getCurrentLevel();
+				const bStarted = iCellsLeft !== Width * Height - Mines;
+				return bStarted && !this.isGameFinished();
+			},
 
             isGameWon() {
                 return !this.getModel().getProperty('/CellsLeft');
@@ -81,6 +102,7 @@ sap.ui.define(
                 this.getModel().setProperty('/GameFinished', true);
                 MessageToast.show('You won');
                 this.showMines();
+                this.stopTimer();
             },
 
             isGameFinished() {
@@ -91,6 +113,7 @@ sap.ui.define(
                 this.getModel().setProperty('/GameFinished', true);
                 this.showMines();
                 MessageToast.show('Game over');
+                this.stopTimer();
             },
 
             showMines() {
@@ -117,8 +140,16 @@ sap.ui.define(
                 const iCellsLeft = this.getModel().getProperty('/CellsLeft') - 1;
                 if (!oCell.IsMine) this.getModel().setProperty('/CellsLeft', iCellsLeft);
                 oCell.IsOpen = true;
+                if (oCell.IsFlagged) this.updateFlagCount();
+                oCell.IsFlagged = false;
                 oCell.MineCount = this.getCellMineCount(oCell) || '';
                 return oCell;
+            },
+
+            updateFlagCount(bDecrease) {
+                let iFlags = this.getModel().getProperty('/Flags');
+                iFlags -= bDecrease ? 1 : -1;
+                this.getModel().setProperty('/Flags', iFlags);
             },
 
             getCellMineCount(oCell) {

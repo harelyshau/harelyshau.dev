@@ -178,40 +178,44 @@
 	color: black
 }
 
-[data-cell="colorBlue"] {
+[data-cell="stateBlue"] {
 	color: blue;
 }
 
-[data-cell="colorGreen"] {
+[data-cell="stateGreen"] {
 	color: green;
 }
 
-[data-cell="colorRed"] {
+[data-cell="stateRed"] {
 	color: red;
 }
 
-[data-cell="colorDarkBlue"] {
+[data-cell="stateDarkBlue"] {
 	color: darkblue;
 }
 
-[data-cell="colorBrown"] {
+[data-cell="stateBrown"] {
 	color: brown;
 }
 
-[data-cell="colorTurquoise"] {
+[data-cell="stateTurquoise"] {
 	color: turquoise;
 }
 
-[data-cell="colorBlack"] {
+[data-cell="stateBlack"] {
 	color: black;
 }
 
-[data-cell="colorWhite"] {
+[data-cell="stateWhite"] {
 	color: white;
 }
 
-[data-cell="colorMine"] {
+[data-cell="stateMine"] {
 	background-color: red;
+}
+
+[data-cell="stateFlag"] span::before {
+	color: red;
 }
 
 /* COMMON */

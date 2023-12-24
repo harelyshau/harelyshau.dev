@@ -4,8 +4,7 @@
 	xmlns="sap.m"
 	xmlns:f="sap.f"
     core:require="{formatter: 'pharelyshau/model/formatter'}"
-    xmlns:dnd="sap.ui.core.dnd"
-    xmlns:grid="sap.ui.layout.cssgrid">
+    xmlns:cc="pharelyshau.control">
 	<f:DynamicPage>
         <!-- HEADER -->
 		<f:title>
@@ -23,6 +22,7 @@
 		</f:title>
 		<f:content>
 			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
+                <!-- <cc:CellButton text="test" press="test" rightPress="test"/> -->
                 <Panel>
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>
@@ -52,7 +52,7 @@
                                 <!-- Mines -->
                                 <HBox renderType="Bare" alignItems="Center">
                                     <core:Icon src="sap-icon://flag-2" class="sapUiTinyMarginEnd"/>
-                                    <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Mines}" class="sapUiMediumMarginEnd"/>
+                                    <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Flags}"/>
                                 </HBox>
                             </HBox>
                             <ToolbarSpacer/>
@@ -66,16 +66,17 @@
                     <ScrollContainer class="sapUiSmallMarginTopBottom">
                         <VBox items="{/Field}" renderType="Bare" id="gameBox">
                             <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
-                                <Button text="{= ${IsOpen} &amp;&amp; ${IsMine} ? '💣' : ${MineCount} }"
+                                <cc:CellButton text="{= ${IsOpen} &amp;&amp; ${IsMine} ? '💣' : ${MineCount} }"
                                     type="Unstyled"
+                                    icon="{= ${IsFlagged} ? 'sap-icon://flag' : '' }"
                                     enabled="{= !${IsOpen} }"
-                                    width="2em" press="onPressCell"
+                                    width="2em" press="onPressCell" rightPress="onRightPressCell"
                                     class="phCell">
-                                    <customData>
+                                    <cc:customData>
                                         <core:CustomData key="cell" writeToDom="true"
-                                            value="color{path: '', formatter: 'formatter.colorMineCount'}"/>
-                                    </customData>
-                                </Button>
+                                            value="state{parts: ['IsOpen', 'IsMine', 'IsFlagged', 'MineCount'], formatter: 'formatter.cellState'}"/>
+                                    </cc:customData>
+                                </cc:CellButton>
                             </HBox>
 
                             <!-- <VBox height="2em">
