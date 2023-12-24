@@ -27,12 +27,12 @@
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>
                         <OverflowToolbar height="3rem">
-                            <!-- lLevels -->
-                            <Label id="lblLevels" text="{i18n>lLevel}" showColon="true">
+                            <!-- Levels -->
+                            <!-- <Label id="lblLevels" text="{i18n>lLevel}" showColon="true">
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
-                            </Label>
+                            </Label> -->
                             <Select items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
                                 change="onChangeLevel" ariaLabelledBy="lblLevels">
                                 <core:ListItem text="{Key}" key="{Key}"/>
@@ -41,26 +41,32 @@
                                 </layoutData>
                             </Select>
                             <ToolbarSpacer/>
-                            <!-- Time -->
-                            <core:Icon src="{i18n>iTime}"/>
-                            <VBox renderType="Bare">
-                                <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
-                                    {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
-                            </VBox>
-                            <!-- Mines -->
-                            <core:Icon src="sap-icon://flag-2" class="sapUiSmallMarginBegin"/>
-                            <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Mines}" />
+                            <HBox renderType="Bare">
+                                <!-- Time -->
+                                <HBox renderType="Bare" alignItems="Center">
+                                    <core:Icon src="{i18n>iTime}" class="sapUiTinyMarginEnd"/>
+                                    <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
+                                        {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
+                                </HBox>
+                                <Button text="{= !${/CellsLeft} ? '😎' : ${/GameFinished} ? '😵' : '🙂' }" type="Ghost" press="onPressRestartGame" class="sapUiSmallMarginBeginEnd"/>
+                                <!-- Mines -->
+                                <HBox renderType="Bare" alignItems="Center">
+                                    <core:Icon src="sap-icon://flag-2" class="sapUiTinyMarginEnd"/>
+                                    <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Mines}" class="sapUiMediumMarginEnd"/>
+                                </HBox>
+                            </HBox>
                             <ToolbarSpacer/>
+                             <!-- <Title text="{/CellsLeft}" /> -->
                             <!-- Buttons -->
-                            <Button text="{i18n>btnRestart}" press="onPressRestartGame" icon="{i18n>iRestart}"/>
+                            <!-- <Button text="{i18n>btnRestart}" press="onPressRestartGame" icon="{i18n>iRestart}"/> -->
                             <Button text="{i18n>btnRecords}" press="onPressOpenRecordsDialog" icon="{i18n>iAchievement}"/>
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
                     <ScrollContainer class="sapUiSmallMarginTopBottom">
-                        <VBox items="{/Field}" renderType="Bare">
+                        <VBox items="{/Field}" renderType="Bare" id="gameBox">
                             <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
-                                <Button text="{= ${IsOpen} &amp;&amp; ${IsMine} ? '*' : ${MineCount} }"
+                                <Button text="{= ${IsOpen} &amp;&amp; ${IsMine} ? '💣' : ${MineCount} }"
                                     type="Unstyled"
                                     enabled="{= !${IsOpen} }"
                                     width="2em" press="onPressCell"

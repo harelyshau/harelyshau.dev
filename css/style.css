@@ -175,6 +175,7 @@
 
 .phCell {
 	font-weight: bold;
+	color: black
 }
 
 [data-cell="colorBlue"] {

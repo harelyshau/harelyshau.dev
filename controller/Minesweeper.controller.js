@@ -20,9 +20,11 @@ sap.ui.define(
 			},
 
             setupGame() {
-                // const aField = this.createArray(Height, () => this.createArray(Width));
+                this.getModel().setProperty('/GameFinished', false);
+                
                 this.getModel().setProperty('/Field', this.createField());
-                const { Mines } = this.getCurrentLevel();
+                const { Mines, Width, Height } = this.getCurrentLevel();
+                this.getModel().setProperty('/CellsLeft', Width * Height - Mines);
                 this.getModel().setProperty('/Mines', Mines);
             },
 
@@ -57,38 +59,49 @@ sap.ui.define(
                 return 'IsMine' in oCell;
             },
 
-            // createArray(length, fnMapping) {
-            //     return Array.from({ length }, fnMapping);
-            // },
-
             getCurrentLevel() {
                 return this.getModel().getProperty('/Level');
             },
 
             onPressCell(oEvent) {
+                if (this.isGameFinished()) return;
                 this.insertMines(this.getObjectByEvent(oEvent).ID);
                 this.openCells(oEvent.getSource());
+                this.getModel().refresh(true);
                 const bGameOver = this.getObjectByEvent(oEvent).IsMine;
-                if (bGameOver) return MessageToast.show('Game over');
+                if (bGameOver) this.finishLostGame();
+                if (this.isGameWon()) this.finishWonGame();
             },
 
-            // setCellStyleClass(oCellButton) {
-            //     const oCell = this.getObjectByControl(oCellButton);
-            //     const { MineCount } = oCell;
-            //     if (!MineCount) return;
-            //     const oColors = {
-            //         1: 'Blue',
-            //         2: 'Green',
-            //         3: 'Red',
-            //         4: 'DarkBlue',
-            //         5: 'Brown',
-            //         6: 'Turquoise',
-            //         7: 'Black',
-            //         8: 'White'
-            //     };
-            //     const sColor = oCell.IsMine ? 'Mine' : oColors[MineCount];
-            //     oCellButton.addStyleClass(`ph${ sColor }Cell`);
-            // },
+            isGameWon() {
+                return !this.getModel().getProperty('/CellsLeft');
+            },
+
+            finishWonGame() {
+                this.getModel().setProperty('/GameFinished', true);
+                MessageToast.show('You won');
+                this.showMines();
+            },
+
+            isGameFinished() {
+                return this.getModel().getProperty('/GameFinished');
+            },
+
+            finishLostGame() {
+                this.getModel().setProperty('/GameFinished', true);
+                this.showMines();
+                MessageToast.show('Game over');
+            },
+
+            showMines() {
+                const aButtons = this.byId('gameBox').getItems()
+                    .flatMap(oRow => oRow.getItems());
+                aButtons.forEach(oButton => {
+                    const bMine = this.getObjectByControl(oButton).IsMine;
+                    if (bMine) this.openCell(oButton);
+                });
+                this.getModel().refresh();
+            },
 
             openCells(oButton) {
                 const oCell = this.openCell(oButton);
@@ -96,12 +109,13 @@ sap.ui.define(
                     const aNeighbours = this.getNeighbourCells(oButton);
                     aNeighbours.forEach(oButton => this.openCells(oButton));
                 }
-                this.getModel().refresh(true);
             },
 
             openCell(oButton) {
                 const oCell = this.getObjectByControl(oButton);
                 if (oCell.IsOpen) return;
+                const iCellsLeft = this.getModel().getProperty('/CellsLeft') - 1;
+                if (!oCell.IsMine) this.getModel().setProperty('/CellsLeft', iCellsLeft);
                 oCell.IsOpen = true;
                 oCell.MineCount = this.getCellMineCount(oCell) || '';
                 return oCell;
@@ -150,6 +164,11 @@ sap.ui.define(
 
             getField() {
                 return this.getModel().getProperty('/Field')
+            },
+
+            onPressCloseAndRestart(oEvent) {
+                this.oGameOverDialog.close();
+                this.setupGame();
             }
 
 
