@@ -64,7 +64,7 @@
 }
 
 .sapUiTheme-sap_horizon_dark .phCell[data-cell="stateDarkBlue"] {
-	color: blue;
+	color: #6363fe;
 }
 
 .phCell[data-cell="stateBrown"] {
@@ -72,10 +72,14 @@
 }
 
 .sapUiTheme-sap_horizon_dark .phCell[data-cell="stateBrown"] {
-	color: #d43737;
+	color: #ff7338;
 }
 
 .phCell[data-cell="stateTurquoise"] {
+	color: #30968c;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateTurquoise"] {
 	color: turquoise;
 }
 
