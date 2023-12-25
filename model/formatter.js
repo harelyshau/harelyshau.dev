@@ -142,19 +142,6 @@ sap.ui.define([
 				'White'
 			];
 			return aColors[MineCount - 1];
-		},
-
-		mineCountNearby(aField, oCell) {
-			let iMineCount = 0;
-			const aDx = [-1, 0, 1];
-			aDx.forEach(iRowDx => {
-				aDx.forEach(iColDx => {
-					const [iCell, jCell] = oCell.Coordinates;
-					const oNeighbour = aField[iCell + iRowDx]?.[jCell + iColDx];
-					if (oNeighbour?.IsMine) iMineCount++;
-				});
-			});
-			return iMineCount;
 		}
 
 	};
