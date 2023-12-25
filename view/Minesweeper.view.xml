@@ -21,8 +21,8 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<VBox class="phAlignCenter sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
-                <!-- <cc:CellButton text="test" press="test" rightPress="test"/> -->
+			<VBox class="phAlignCenter sapUiMediumMarginBottom" alignItems="Center" renderType="Bare"
+                width="{= !${view>/fullWidth} ? '750px' : 'auto' }">
                 <Panel>
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>
@@ -55,7 +55,7 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
-                    <ScrollContainer id="scrollContainer" class="sapUiSmallMarginTopBottom">
+                    <ScrollContainer class="sapUiSmallMarginTopBottom">
                         <VBox renderType="Bare">
                             <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
                                 <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">

@@ -90,6 +90,10 @@ sap.ui.define(
 				return new JSONModel(oData);
 			},
 
+			createMinesweeperViewModel() {
+				return new JSONModel();
+			},
+
 			createAlgorithmsViewModel() {
 				const oData = {
 					sideExpanded: true

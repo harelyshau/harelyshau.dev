@@ -11,6 +11,7 @@ sap.ui.define([
 
         onInit() {
             this.setModel(models.createMinesweeperModel());
+            this.setModel(models.createMinesweeperViewModel(), 'view');
             this.setupGame();
             this.attachTimer();
         },
@@ -24,6 +25,19 @@ sap.ui.define([
             this.createField();
             this.resetStartupParams();
             this.stopTimer();
+            this.setGameWidth(300);
+        },
+
+        setGameWidth(iDelay = 50) {
+            setTimeout(() => {
+                console.log('timeout')
+                const oCellButton = this.byId('gameBox').getItems()[0].getItems()[0];
+                const oHtmlButton = oCellButton.getDomRef();
+                if (!oHtmlButton) return this.setGameWidth();
+                const { Width } = this.getCurrentLevel();
+                const iWidth = oHtmlButton.offsetWidth * Width;
+                this.setProperty('/fullWidth', iWidth > 700, 'view');
+            }, iDelay);
         },
 
         resetStartupParams() {
