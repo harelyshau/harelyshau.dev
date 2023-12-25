@@ -21,7 +21,7 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<VBox class="phLimitedPageContent sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
+			<VBox class="phAlignCenter sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" >
                 <!-- <cc:CellButton text="test" press="test" rightPress="test"/> -->
                 <Panel>
                     <!-- HEADER TOOLBAR -->
@@ -55,31 +55,23 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
-                    <ScrollContainer class="sapUiSmallMarginTopBottom">
-                    <VBox renderType="Bare" justifyContent="SpaceBetween" fitContainer="true" alignContent="Center">
-                        <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
-                            <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
-                                <cc:CellButton text="{MineCount}"
-                                    icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
-                                    enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }"
-                                    width="2em" press="onPressCell" rightPress="onRightPressCell"
-                                    class="phCell">
-                                    <cc:customData>
-                                        <core:CustomData key="cell" writeToDom="true"
-                                            value="state{parts: ['', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
-                                    </cc:customData>
-                                </cc:CellButton>
-                            </HBox>
-
-                            <!-- <VBox height="2em">
-                                    <ObjectStatus text="{= ${IsOpened} ? ${IsMine} ? '*' : ${parts: ['/Field', ''], formatter: 'formatter.mineCountNearby' } : 'O' }"
-                                        state="{= ${IsOpened} &amp;&amp; ${IsMine} ? 'Error' : 'None' }"
-                                        active="{= !${IsOpened} }"
-                                        inverted="true"
-                                        press="onPressCell"/>
-                                </VBox> -->
+                    <ScrollContainer id="scrollContainer" class="sapUiSmallMarginTopBottom">
+                        <VBox renderType="Bare">
+                            <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
+                                <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
+                                    <cc:CellButton text="{MineCount}"
+                                        icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
+                                        enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }"
+                                        width="2em" press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
+                                        class="phCell">
+                                        <cc:customData>
+                                            <core:CustomData key="cell" writeToDom="true"
+                                                value="state{parts: ['', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
+                                        </cc:customData>
+                                    </cc:CellButton>
+                                </HBox>
+                            </VBox>
                         </VBox>
-                    </VBox>
                     </ScrollContainer>
                 </Panel>
                 <!-- INSTRUCTIONS -->

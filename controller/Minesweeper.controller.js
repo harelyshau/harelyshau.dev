@@ -70,8 +70,12 @@ sap.ui.define([
             const oCell = this.getObjectByEvent(oEvent);
             if (this.isGameFinished() || oCell.IsFlagged) return;
             this.insertMines(oCell.ID);
-            this.openCells(oCell);
             this.startTimer();
+            this.handleOpeningCell(oCell);
+        },
+
+        handleOpeningCell(oCell) {
+            this.openCells(oCell);
             this.getModel().refresh(true);
             const bGameLost = oCell.IsMine;
             if (bGameLost) this.setProperty('/SelectedMine', oCell.ID)
@@ -118,7 +122,7 @@ sap.ui.define([
                 aDiff.forEach(iColDiff => {
                     const [x, y] = oCell.Coordinates;
                     const oNeighbour = aField[x + iColDiff]?.[y + iRowDiff];
-                    if (oNeighbour) aNeighbours.push(oNeighbour);
+                    if (oNeighbour && oCell !== oNeighbour) aNeighbours.push(oNeighbour);
                 });
             });
             return aNeighbours;
@@ -131,6 +135,16 @@ sap.ui.define([
             this.setProperty(sPath, bFlagged);
             this.updateFlagCount(bFlagged);
             this.getModel().refresh(true);
+        },
+
+        onDoublePressCell(oEvent) {
+            const oCell = this.getObjectByEvent(oEvent);
+            const aNeighbours = this.getNeighbourCells(oCell);
+            const aFlaggedNeighbours = aNeighbours.filter(oCell => oCell.IsFlagged);
+            const bReadyToOpen = oCell.MineCount === aFlaggedNeighbours.length;
+            if (!bReadyToOpen) return;
+            aNeighbours.filter(oCell => !oCell.IsFlagged)
+                .forEach(oCell => this.handleOpeningCell(oCell));
         },
 
         finishGame(bWon) {

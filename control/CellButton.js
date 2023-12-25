@@ -6,16 +6,21 @@ sap.ui.define(
     return Button.extend('pharelyshau.control.CellButton', {
         metadata: {
             events: {
-                rightPress: {}
+                rightPress: {},
+                doublePress: {}
             }
         },
+
+        renderer: {},
 
         oncontextmenu(oEvent) {
             oEvent.preventDefault();
             this.getEnabled() && this.fireRightPress();
         },
 
-        renderer: {},
+        ondblclick() {
+            !this.getEnabled() && this.fireDoublePress();
+        },
 
         init() {
             Button.prototype.init.apply(this, arguments);
