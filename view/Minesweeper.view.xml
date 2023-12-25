@@ -21,8 +21,7 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<VBox class="phAlignCenter sapUiMediumMarginBottom" alignItems="Center" renderType="Bare"
-                width="{= !${view>/fullWidth} ? '750px' : 'auto' }">
+			<VBox class="phAlignCenter sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" width="100%">
                 <Panel>
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>
@@ -77,6 +76,9 @@
                 <!-- INSTRUCTIONS -->
                 <!-- <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Instructions"
 					type="XML" class="sapUiSmallMarginTop"/> -->
+                <layoutData>
+                    <FlexItemData maxWidth="{= !${view>/fullWidth} ? '750px' : 'auto' }"/>
+                </layoutData>
 			</VBox>
 		</f:content>
 	</f:DynamicPage>
