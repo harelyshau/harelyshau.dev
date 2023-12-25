@@ -122,6 +122,26 @@ sap.ui.define([
 			const iDiff = iPreviousMoves - iCurrentMoves;
 			const sText = getRightForm(iDiff, ...aTexts);
 			return formatMessage(sText, iDiff);
+		},
+
+		//////////////////////////////////
+		/////////// MINESWEEPER //////////
+		//////////////////////////////////
+
+		cellState({ID, IsOpen, IsMine, IsFlagged, MineCount }, iCellsLeft, bGameFinished, SelectedMineID) {
+			if (IsFlagged) return bGameFinished && !IsMine ? 'WrongFlag' : 'Flag';
+			if (IsMine && IsOpen) return iCellsLeft ? SelectedMineID === ID ? 'Mine' : '' : 'Flag';
+			const aColors = [
+				'Blue',
+				'Green',
+				'Red',
+				'DarkBlue',
+				'Brown',
+				'Turquoise',
+				'Black',
+				'White'
+			];
+			return aColors[MineCount - 1];
 		}
 
 	};

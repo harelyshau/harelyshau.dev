@@ -25,6 +25,14 @@ sap.ui.define(
 				return this.getView().setModel(oModel, sName);
 			},
 
+			getProperty(sPath, sModel) {
+				return this.getModel(sModel).getProperty(sPath);
+			},
+
+			setProperty(sPath, oValue, sModel) {
+				return this.getModel(sModel).setProperty(sPath, oValue, null, true);
+			},
+
 			i18n(sKey, aParams) {
 				const oI18nModel = this.getOwnerComponent().getModel('i18n');
 				return oI18nModel.getResourceBundle().getText(sKey, aParams);
@@ -145,6 +153,28 @@ sap.ui.define(
 				const setURI = sap.ui.require.toUrl(sSetPath);
 				const oIllustrationSet = { setFamily, setURI };
 				IllustrationPool.registerIllustrationSet(oIllustrationSet, false);
+			},
+
+			// Timers
+
+			attachTimer() {
+				this.getView().addEventDelegate({
+					onBeforeHide: this.stopTimer.bind(this),
+					onBeforeShow: this.startTimer.bind(this)
+				});
+			},
+
+			startTimer() {
+				if (this.timerId || !this.isGameStarted()) return;
+				let iTime = this.getModel().getProperty('/Time');
+				this.timerId = setInterval(() => {
+					this.getModel().setProperty('/Time', ++iTime);
+				}, 1000);
+			},
+
+			stopTimer() {
+				clearInterval(this.timerId);
+				this.timerId = null;
 			}
 
 		});

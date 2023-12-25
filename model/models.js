@@ -43,6 +43,20 @@ sap.ui.define(
 				return new JSONModel(oData);
 			},
 
+			createMinesweeperModel() {
+				const oData = {
+					Levels: [
+						{ Key: 'Easy', Width: 9, Height: 9, Mines: 10 },
+						{ Key: 'Medium', Width: 16, Height: 16, Mines: 40},
+						{ Key: 'Hard', Width: 30, Height: 16, Mines: 99}
+					],
+					Time: 0
+				};
+				const sLevelKey = localStorage.getItem('level') || 'Easy';
+				oData.Level = oData.Levels.find(oLevel => oLevel.Key === sLevelKey);
+				return new JSONModel(oData);
+			},
+
 			createAlgorithmsModel(oArticleList) {
 				const oModel = new JSONModel(oArticleList);
 				oModel.setDefaultBindingMode('OneWay');
@@ -74,6 +88,10 @@ sap.ui.define(
 					showMoveButtons: !!JSON.parse(localStorage.getItem('moveButtons'))
 				};
 				return new JSONModel(oData);
+			},
+
+			createMinesweeperViewModel() {
+				return new JSONModel();
 			},
 
 			createAlgorithmsViewModel() {

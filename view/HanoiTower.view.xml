@@ -28,7 +28,7 @@
                     <headerToolbar>
                         <OverflowToolbar height="3rem">
                             <!-- Disc Count -->
-                            <Label id="lblDiscCount" text="{i18n>lDiscs}:">
+                            <Label id="lblDiscCount" text="{i18n>lDiscs}" showColon="true">
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>

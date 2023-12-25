@@ -88,6 +88,11 @@
 					"target": "hanoitower"
 				},
 				{
+					"pattern": "minesweeper",
+					"name": "Minesweeper",
+					"target": "minesweeper"
+				},
+				{
 					"pattern": "algorithms/:articleId:",
 					"name": "Algorithms",
 					"target": "algorithms"
@@ -113,6 +118,11 @@
 					"id": "hanoitower",
 					"name": "HanoiTower",
 					"title": "{i18n>ttlHanoiTower}"
+				},
+				"minesweeper": {
+					"id": "minesweeper",
+					"name": "Minesweeper",
+					"title": "{i18n>ttlMinesweeper}"
 				},
 				"algorithms": {
 					"id": "algorithms",

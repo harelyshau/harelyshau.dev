@@ -1,0 +1,83 @@
+<mvc:View xmlns:core="sap.ui.core"
+    controllerName="pharelyshau.controller.Minesweeper"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+    core:require="{formatter: 'pharelyshau/model/formatter'}"
+    xmlns:cc="pharelyshau.control">
+	<f:DynamicPage>
+        <!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>ttlMinesweeper}" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+                    <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
+                </f:expandedContent>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox class="phAlignCenter sapUiMediumMarginBottom" alignItems="Center" renderType="Bare"
+                width="{= !${view>/fullWidth} ? '750px' : 'auto' }">
+                <Panel>
+                    <!-- HEADER TOOLBAR -->
+                    <headerToolbar>
+                        <OverflowToolbar height="3rem">
+                            <!-- Levels -->
+                            <Label id="lblLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
+                            <Select items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
+                                change="onChangeLevel" ariaLabelledBy="lblLevels">
+                                <core:ListItem text="{Key}" key="{Key}"/>
+                            </Select>
+                            <ToolbarSpacer/>
+                            <HBox renderType="Bare">
+                                <!-- Mines -->
+                                <HBox renderType="Bare" alignItems="Center">
+                                    <core:Icon src="sap-icon://flag-2" class="sapUiTinyMarginEnd"/>
+                                    <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Flags}"/>
+                                </HBox>
+                                <Button text="{= !${/CellsLeft} ? '😎' : ${/GameFinished} ? '😵' : '🙂' }" type="Ghost" press="onPressRestartGame" class="sapUiSmallMarginBeginEnd"/>
+                                <!-- Time -->
+                                <HBox renderType="Bare" alignItems="Center">
+                                    <core:Icon src="{i18n>iTime}" class="sapUiTinyMarginEnd"/>
+                                    <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
+                                        {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
+                                </HBox>
+                            </HBox>
+                            <ToolbarSpacer/>
+                            <!-- Buttons -->
+                            <!-- <Button text="{i18n>btnRestart}" press="onPressRestartGame" icon="{i18n>iRestart}"/> -->
+                            <Button text="{i18n>btnRecords}" press="onPressOpenRecordsDialog" icon="{i18n>iAchievement}"/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <!-- GAME -->
+                    <ScrollContainer class="sapUiSmallMarginTopBottom">
+                        <VBox renderType="Bare">
+                            <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
+                                <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
+                                    <cc:CellButton text="{MineCount}"
+                                        icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
+                                        enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }"
+                                        width="2em" press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
+                                        class="phCell">
+                                        <cc:customData>
+                                            <core:CustomData key="cell" writeToDom="true"
+                                                value="state{parts: ['', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
+                                        </cc:customData>
+                                    </cc:CellButton>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </ScrollContainer>
+                </Panel>
+                <!-- INSTRUCTIONS -->
+                <!-- <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Instructions"
+					type="XML" class="sapUiSmallMarginTop"/> -->
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>
