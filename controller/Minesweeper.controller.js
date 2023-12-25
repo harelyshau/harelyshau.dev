@@ -28,9 +28,8 @@ sap.ui.define([
             this.setGameWidth(300);
         },
 
-        setGameWidth(iDelay = 50) {
+        setGameWidth(iDelay) {
             setTimeout(() => {
-                console.log('timeout')
                 const oCellButton = this.byId('gameBox').getItems()[0].getItems()[0];
                 const oHtmlButton = oCellButton.getDomRef();
                 if (!oHtmlButton) return this.setGameWidth();
@@ -88,6 +87,25 @@ sap.ui.define([
             this.handleOpeningCell(oCell);
         },
 
+        onRightPressCell(oEvent) {
+            if (!this.isGameStarted()) return;
+            const sPath = this.getPathByEvent(oEvent) + '/IsFlagged';
+            const bFlagged = !this.getProperty(sPath);
+            this.setProperty(sPath, bFlagged);
+            this.updateFlagCount(bFlagged);
+            this.getModel().refresh(true);
+        },
+
+        onDoublePressCell(oEvent) {
+            const oCell = this.getObjectByEvent(oEvent);
+            const aNeighbours = this.getNeighbourCells(oCell);
+            const aFlaggedNeighbours = aNeighbours.filter(oCell => oCell.IsFlagged);
+            const bReadyToOpen = oCell.MineCount === aFlaggedNeighbours.length;
+            if (!bReadyToOpen) return;
+            aNeighbours.filter(oCell => !oCell.IsFlagged)
+                .forEach(oCell => this.handleOpeningCell(oCell));
+        },
+
         handleOpeningCell(oCell) {
             this.openCells(oCell);
             this.getModel().refresh(true);
@@ -140,25 +158,6 @@ sap.ui.define([
                 });
             });
             return aNeighbours;
-        },
-
-        onRightPressCell(oEvent) {
-            if (!this.isGameStarted()) return;
-            const sPath = this.getPathByEvent(oEvent) + '/IsFlagged';
-            const bFlagged = !this.getProperty(sPath);
-            this.setProperty(sPath, bFlagged);
-            this.updateFlagCount(bFlagged);
-            this.getModel().refresh(true);
-        },
-
-        onDoublePressCell(oEvent) {
-            const oCell = this.getObjectByEvent(oEvent);
-            const aNeighbours = this.getNeighbourCells(oCell);
-            const aFlaggedNeighbours = aNeighbours.filter(oCell => oCell.IsFlagged);
-            const bReadyToOpen = oCell.MineCount === aFlaggedNeighbours.length;
-            if (!bReadyToOpen) return;
-            aNeighbours.filter(oCell => !oCell.IsFlagged)
-                .forEach(oCell => this.handleOpeningCell(oCell));
         },
 
         finishGame(bWon) {
