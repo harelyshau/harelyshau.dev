@@ -46,7 +46,7 @@ sap.ui.define(
 			createMinesweeperModel() {
 				const oData = {
 					Levels: [
-						{ Key: 'Easy', Width: 9, Height: 9, Mines: 5 },
+						{ Key: 'Easy', Width: 9, Height: 9, Mines: 10 },
 						{ Key: 'Medium', Width: 16, Height: 16, Mines: 40},
 						{ Key: 'Hard', Width: 30, Height: 16, Mines: 1}
 					],

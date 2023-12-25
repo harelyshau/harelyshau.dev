@@ -146,87 +146,20 @@
 	margin-right: auto;
 }
 
-/* .phMinesweeperCell {
-	width: 2.5em;
-	height: 2.55em;
-	text-align: center;
-	vertical-align: middle;
-	border: 1px solid #ccc;
-	cursor: pointer;
-	background-color: #ffffff;
+.phMinesweeper {
+	margin-left: auto;
+	margin-right: auto;
+	border-right: 3px solid white;
+	border-bottom: 3px solid white;
+	border-left: 3px solid #7c7c7c;
+	border-top: 3px solid #7c7c7c;
 }
 
-.phMinesweeperCell:hover {
-	background-color: #b0b0b0;
-}
-
-.phMinesweeperCell:disabled {
-	background-color: #c7c7c7;
-	cursor: default;
-} */
-
-/* Peg Color depending on theme */
-.phCell .sapUiTheme-sap_horizon {
-	/* background-color: #f5f6f7; */
-}
-
-.phCell {
-	font-weight: bold;
-	color: black;
-	/* background-color: #1d232a;
-	border: 1px solid #8496a8; */
-}
-
-.phCell span::before {
-	color: black;
-}
-
-[data-cell="stateBlue"] {
-	color: blue;
-}
-
-[data-cell="stateGreen"] {
-	color: green;
-}
-
-[data-cell="stateRed"] {
-	color: red;
-}
-
-[data-cell="stateDarkBlue"] {
-	color: darkblue;
-}
-
-[data-cell="stateBrown"] {
-	color: brown;
-}
-
-[data-cell="stateTurquoise"] {
-	color: turquoise;
-}
-
-[data-cell="stateBlack"] {
-	color: black;
-}
-
-[data-cell="stateWhite"] {
-	color: white;
-}
-
-[data-cell="stateMine"] {
-	background-color: red;
-}
-
-[data-cell="stateFlag"] span::before {
-	color: red;
-}
-
-[data-cell="stateWrongFlag"] {
-	background-color: #ff000063;
-}
-
-[data-cell="stateWrongFlag"] span::before {
-	color: red;
+.sapUiTheme-sap_horizon_dark .phMinesweeper {
+	border-right: 3px solid #4e5e6c;
+	border-bottom: 3px solid #4e5e6c;
+	border-left: 3px solid black;
+	border-top: 3px solid black;
 }
 
 /* COMMON */

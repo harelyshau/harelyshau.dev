@@ -1,0 +1,112 @@
+.phCell {
+	font-weight: bold;
+	font-size: 18px;
+	color: black;
+	background-color: #d7d9db;
+	border-left: 3px solid white;
+	border-top: 3px solid white;
+	border-right: 3px solid #7c7c7c;
+	border-bottom: 3px solid #7c7c7c;
+	padding: 0;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell {
+	background-color: #1d232a;
+	border-left: 3px solid #4e5e6c;
+	border-top: 3px solid #4e5e6c;
+	border-right: 3px solid black;
+	border-bottom: 3px solid black;
+}
+
+.phCell:disabled {
+	border-bottom: 0;
+	border-right: 0;
+	border-top: 1px solid #7c7c7c;
+	border-left: 1px solid #7c7c7c;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell:disabled {
+	background-color: black;
+	border-top: 1px solid #4e5e6c;
+	border-left: 1px solid #4e5e6c;
+}
+
+.phCell span::before {
+	color: black;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell span::before {
+	color: lightgray;
+}
+
+.phCell[data-cell="stateBlue"] {
+	color: blue;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateBlue"] {
+	color: #2db2fd;
+}
+
+.phCell[data-cell="stateGreen"] {
+	color: green;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateGreen"] {
+	color: #00e053;
+}
+
+.phCell[data-cell="stateRed"] {
+	color: red;
+}
+
+.phCell[data-cell="stateDarkBlue"] {
+	color: darkblue;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateDarkBlue"] {
+	color: blue;
+}
+
+.phCell[data-cell="stateBrown"] {
+	color: brown;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateBrown"] {
+	color: #d43737;
+}
+
+.phCell[data-cell="stateTurquoise"] {
+	color: turquoise;
+}
+
+.phCell[data-cell="stateBlack"] {
+	color: black;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateBlack"] {
+	color: grey;
+}
+
+.phCell[data-cell="stateWhite"] {
+	color: white;
+}
+
+.phCell[data-cell="stateMine"] {
+	background-color: red;
+}
+
+.sapUiTheme-sap_horizon_dark  .phCell[data-cell="stateMine"] {
+	background-color: #860303;
+}
+
+.phCell[data-cell="stateFlag"] span::before {
+	color: red;
+}
+
+.phCell[data-cell="stateWrongFlag"] {
+	background-color: #ff000063;
+}
+
+.phCell[data-cell="stateWrongFlag"] span::before {
+	color: red;
+}

@@ -159,6 +159,7 @@ sap.ui.define([
 
         setNewLevel(oLevel) {
             this.setProperty('/Level', oLevel);
+            localStorage.setItem('level', oLevel.Key)
             this.setupGame();
         },
 
