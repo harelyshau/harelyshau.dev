@@ -65,7 +65,6 @@ sap.ui.define([
         //////////////////////////////////
 
         onPressCell(oEvent) {
-            console.log(Date.now())
             const oCell = this.getObjectByEvent(oEvent);
             if (this.isGameFinished() || oCell.IsFlagged) return;
             this.insertMines(oCell.ID);
@@ -74,7 +73,6 @@ sap.ui.define([
             this.getModel().refresh(true);
             const bGameLost = oCell.IsMine;
             if (bGameLost || this.isGameWon()) this.finishGame(!bGameLost);
-            console.log(Date.now())
         },
 
         openCells(oCell) {
