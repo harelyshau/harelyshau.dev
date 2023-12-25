@@ -47,8 +47,8 @@ sap.ui.define(
 				const oData = {
 					Levels: [
 						{ Key: 'Easy', Width: 9, Height: 9, Mines: 5 },
-						{ Key: 'Medium', Width: 16, Height: 16, Mines: 7},
-						{ Key: 'Hard', Width: 30, Height: 16, Mines: 99}
+						{ Key: 'Medium', Width: 16, Height: 16, Mines: 40},
+						{ Key: 'Hard', Width: 30, Height: 16, Mines: 1}
 					],
 					Time: 0
 				};

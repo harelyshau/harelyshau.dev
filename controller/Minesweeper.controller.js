@@ -19,17 +19,17 @@ sap.ui.define([
         //////////////////////////////////
 
         setupGame() {
-            this.getModel().setProperty('/GameFinished', false);
-            this.getModel().setProperty('/Field', this.createField());
+            this.setProperty('/GameFinished', false);
+            this.setProperty('/Field', this.createField());
             this.resetStartupParams();
             this.stopTimer();
         },
 
         resetStartupParams() {
             const { Mines, Width, Height } = this.getCurrentLevel();
-            this.getModel().setProperty('/CellsLeft', Width * Height - Mines);
-            this.getModel().setProperty('/Flags', Mines);
-            this.getModel().setProperty('/Time', 0);
+            this.setProperty('/CellsLeft', Width * Height - Mines);
+            this.setProperty('/Flags', Mines);
+            this.setProperty('/Time', 0);
         },
 
         createField() {
@@ -75,6 +75,7 @@ sap.ui.define([
             if (bGameLost || this.isGameWon()) this.finishGame(!bGameLost);
         },
 
+        // TODO: check callstack for big fields
         openCells(oCell) {
             oCell = this.openCell(oCell);
             if (!oCell || oCell.MineCount || oCell.IsMine) return;
@@ -85,8 +86,8 @@ sap.ui.define([
         openCell(oCell) {
             if (oCell.IsOpen) return;
             if (!oCell.IsMine) {
-                const iCellsLeft = this.getModel().getProperty('/CellsLeft') - 1;
-                this.getModel().setProperty('/CellsLeft', iCellsLeft);
+                const iCellsLeft = this.getProperty('/CellsLeft') - 1;
+                this.setProperty('/CellsLeft', iCellsLeft);
                 oCell.MineCount = this.getCellMineCount(oCell) || '';
             };
             if (oCell.IsFlagged) this.updateFlagCount();
@@ -96,9 +97,9 @@ sap.ui.define([
         },
 
         updateFlagCount(bDecrease) {
-            let iFlags = this.getModel().getProperty('/Flags');
+            let iFlags = this.getProperty('/Flags');
             iFlags -= bDecrease ? 1 : -1;
-            this.getModel().setProperty('/Flags', iFlags);
+            this.setProperty('/Flags', iFlags);
         },
 
         getCellMineCount(oCell) {
@@ -123,18 +124,18 @@ sap.ui.define([
         onRightPressCell(oEvent) {
             if (!this.isGameStarted()) return;
             const sPath = this.getPathByEvent(oEvent) + '/IsFlagged';
-            const bFlagged = !this.getModel().getProperty(sPath);
-            this.getModel().setProperty(sPath, bFlagged);
+            const bFlagged = !this.getProperty(sPath);
+            this.setProperty(sPath, bFlagged);
             this.updateFlagCount(bFlagged);
             this.getModel().refresh(true);
         },
 
         finishGame(bWon) {
-            this.getModel().setProperty('/GameFinished', true);
+            this.setProperty('/GameFinished', true);
             MessageToast.show(bWon ? 'You won' : 'Game over');
             this.showMines(bWon);
             this.stopTimer();
-            if (bWon) this.getModel().setProperty('/Flags', 0);
+            if (bWon) this.setProperty('/Flags', 0);
         },
 
         showMines(bForceUpdate) {
@@ -154,27 +155,27 @@ sap.ui.define([
         },
 
         setNewLevel(oLevel) {
-            this.getModel().setProperty('/Level', oLevel);
+            this.setProperty('/Level', oLevel);
             this.setupGame();
         },
 
         isGameStarted() {
-            const iCellsLeft = this.getModel().getProperty('/CellsLeft');
+            const iCellsLeft = this.getProperty('/CellsLeft');
             const { Width, Height, Mines } = this.getCurrentLevel();
             const bStarted = iCellsLeft !== Width * Height - Mines;
             return bStarted && !this.isGameFinished();
         },
 
         isGameWon() {
-            return !this.getModel().getProperty('/CellsLeft');
+            return !this.getProperty('/CellsLeft');
         },
 
         isGameFinished() {
-            return this.getModel().getProperty('/GameFinished');
+            return this.getProperty('/GameFinished');
         },
 
         getField() {
-            return this.getModel().getProperty('/Field')
+            return this.getProperty('/Field')
         },
 
         getCells() {
@@ -182,7 +183,7 @@ sap.ui.define([
         },
 
         getCurrentLevel() {
-            return this.getModel().getProperty('/Level');
+            return this.getProperty('/Level');
         }
 
 

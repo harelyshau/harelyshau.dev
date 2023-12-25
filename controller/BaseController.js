@@ -25,6 +25,14 @@ sap.ui.define(
 				return this.getView().setModel(oModel, sName);
 			},
 
+			getProperty(sPath, sModel) {
+				return this.getModel(sModel).getProperty(sPath);
+			},
+
+			setProperty(sPath, oValue, sModel) {
+				return this.getModel(sModel).setProperty(sPath, oValue, null, true);
+			},
+
 			i18n(sKey, aParams) {
 				const oI18nModel = this.getOwnerComponent().getModel('i18n');
 				return oI18nModel.getResourceBundle().getText(sKey, aParams);

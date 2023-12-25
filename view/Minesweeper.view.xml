@@ -56,7 +56,6 @@
                                 </HBox>
                             </HBox>
                             <ToolbarSpacer/>
-                             <!-- <Title text="{/CellsLeft}" /> -->
                             <!-- Buttons -->
                             <!-- <Button text="{i18n>btnRestart}" press="onPressRestartGame" icon="{i18n>iRestart}"/> -->
                             <Button text="{i18n>btnRecords}" press="onPressOpenRecordsDialog" icon="{i18n>iAchievement}"/>
