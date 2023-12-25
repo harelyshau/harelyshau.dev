@@ -128,9 +128,9 @@ sap.ui.define([
 		/////////// MINESWEEPER //////////
 		//////////////////////////////////
 
-		cellState({ IsOpen, IsMine, IsFlagged, MineCount }, iCellsLeft, bGameFinished) {
+		cellState({ID, IsOpen, IsMine, IsFlagged, MineCount }, iCellsLeft, bGameFinished, SelectedMineID) {
 			if (IsFlagged) return bGameFinished && !IsMine ? 'WrongFlag' : 'Flag';
-			if (IsMine && IsOpen) return iCellsLeft ? 'Mine' : 'Flag';
+			if (IsMine && IsOpen) return iCellsLeft ? SelectedMineID === ID ? 'Mine' : '' : 'Flag';
 			const aColors = [
 				'Blue',
 				'Green',

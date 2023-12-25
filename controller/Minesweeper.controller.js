@@ -12,6 +12,7 @@ sap.ui.define([
         onInit() {
             this.setModel(models.createMinesweeperModel());
             this.setupGame();
+            this.attachTimer();
         },
 
         //////////////////////////////////
@@ -20,7 +21,7 @@ sap.ui.define([
 
         setupGame() {
             this.setProperty('/GameFinished', false);
-            this.setProperty('/Field', this.createField());
+            this.createField();
             this.resetStartupParams();
             this.stopTimer();
         },
@@ -34,13 +35,14 @@ sap.ui.define([
 
         createField() {
             const { Width, Height } = this.getCurrentLevel();
-            return Array.from(
+            const aField = Array.from(
                 { length: Height },
-                (_, i) => Array.from(
+                (_, x) => Array.from(
                     { length: Width },
-                    (_, j) => ({ ID: i * Width + j, Coordinates: [i, j] })
+                    (_, y) => ({ ID: x * Width + y, Coordinates: [x, y] })
                 )
             );
+            this.setProperty('/Field', aField);
         },
 
         insertMines(iCurrentID) {
@@ -72,6 +74,7 @@ sap.ui.define([
             this.startTimer();
             this.getModel().refresh(true);
             const bGameLost = oCell.IsMine;
+            if (bGameLost) this.setProperty('/SelectedMine', oCell.ID)
             if (bGameLost || this.isGameWon()) this.finishGame(!bGameLost);
         },
 

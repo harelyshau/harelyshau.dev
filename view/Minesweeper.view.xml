@@ -68,12 +68,12 @@
                                 <cc:CellButton text="{MineCount}"
                                     type="Unstyled"
                                     icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
-                                    enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft}  }"
+                                    enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }"
                                     width="2em" press="onPressCell" rightPress="onRightPressCell"
                                     class="phCell">
                                     <cc:customData>
                                         <core:CustomData key="cell" writeToDom="true"
-                                            value="state{parts: ['', '/CellsLeft', '/GameFinished'], formatter: 'formatter.cellState'}"/>
+                                            value="state{parts: ['', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
                                     </cc:customData>
                                 </cc:CellButton>
                             </HBox>

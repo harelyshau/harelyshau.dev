@@ -52,7 +52,8 @@ sap.ui.define(
 					],
 					Time: 0
 				};
-				oData.Level = oData.Levels.find(oLevel => oLevel.Key === 'Easy');
+				const sLevelKey = localStorage.getItem('level') || 'Easy';
+				oData.Level = oData.Levels.find(oLevel => oLevel.Key === sLevelKey);
 				return new JSONModel(oData);
 			},
 
