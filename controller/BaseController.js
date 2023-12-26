@@ -175,6 +175,14 @@ sap.ui.define(
 			stopTimer() {
 				clearInterval(this.timerId);
 				this.timerId = null;
+			},
+
+			// Inputs
+
+			isInputFilledAndValid(oInput) {
+				const bValid = oInput.getValueState() !== 'Error';
+				const bFilled = oInput.getValue();
+				return bValid && bFilled;
 			}
 
 		});

@@ -44,16 +44,23 @@ sap.ui.define(
 			},
 
 			createMinesweeperModel() {
-				const oData = {
-					Levels: [
-						{ Key: 'Easy', Width: 9, Height: 9, Mines: 10 },
-						{ Key: 'Medium', Width: 16, Height: 16, Mines: 40},
-						{ Key: 'Hard', Width: 30, Height: 16, Mines: 99}
-					],
-					Time: 0
+				const [iCustomW, iCustomH, iCustomMines] = ['Width', 'Height', 'Mines']
+					.map(sProperty => +localStorage.getItem('custom' + sProperty));
+				const oCustomLevel = {
+					Key: 'Custom',
+					Width: iCustomW || 30,
+					Height: iCustomH || 60,
+					Mines: iCustomMines || 150
 				};
+				const Levels = [
+					{ Key: 'Easy', Width: 9, Height: 9, Mines: 10 },
+					{ Key: 'Medium', Width: 16, Height: 16, Mines: 40},
+					{ Key: 'Hard', Width: 30, Height: 16, Mines: 99},
+					oCustomLevel
+				];
 				const sLevelKey = localStorage.getItem('level') || 'Easy';
-				oData.Level = oData.Levels.find(oLevel => oLevel.Key === sLevelKey);
+				const Level = Levels.find(oLevel => oLevel.Key === sLevelKey);
+				const oData = { Levels, Level, Time: 0 };
 				return new JSONModel(oData);
 			},
 

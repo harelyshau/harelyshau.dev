@@ -383,12 +383,6 @@ sap.ui.define(
 				return false;
 			},
 
-			isInputFilledAndValid(oInput) {
-				const bValid = oInput.getValueState() !== 'Error';
-				const bFilled = oInput.getValue();
-				return bValid && bFilled;
-			},
-
 			resetInputValue(oInput) {
 				oInput.setValue('s');
 				oInput.setValue('');

@@ -31,7 +31,16 @@
                             <Select items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
                                 change="onChangeLevel" ariaLabelledBy="lblLevels">
                                 <core:ListItem text="{Key}" key="{Key}"/>
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1"/>
+                                </layoutData>
                             </Select>
+                            <Button id='ddd' icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
+                                tooltip="Settings" press="openDialog('SettingsDialog')">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1"/>
+                                </layoutData>
+                            </Button>
                             <ToolbarSpacer/>
                             <HBox renderType="Bare">
                                 <!-- Mines -->
@@ -48,8 +57,7 @@
                                 </HBox>
                             </HBox>
                             <ToolbarSpacer/>
-                            <!-- Buttons -->
-                            <!-- <Button text="{i18n>btnRestart}" press="onPressRestartGame" icon="{i18n>iRestart}"/> -->
+                            <!-- Records -->
                             <Button text="{i18n>btnRecords}" press="onPressOpenRecordsDialog" icon="{i18n>iAchievement}"/>
                         </OverflowToolbar>
                     </headerToolbar>
@@ -61,7 +69,7 @@
                                     <cc:CellButton text="{MineCount}" type="Unstyled"
                                         icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
                                         enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }"
-                                        width="1.8em" height="1.8em" press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
+                                        width="1.8em" press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
                                         class="phCell">
                                         <cc:customData>
                                             <core:CustomData key="cell" writeToDom="true"

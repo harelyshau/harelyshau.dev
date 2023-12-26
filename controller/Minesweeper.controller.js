@@ -215,6 +215,21 @@ sap.ui.define([
 
         getCurrentLevel() {
             return this.getProperty('/Level');
+        },
+
+        onPressApplySettings() {
+            const aInputs = this.byId('settingsBox').getItems()
+                .map(oBox => oBox.getItems()[1]);
+            const bValid = aInputs.every(oInput => this.isInputFilledAndValid(oInput));
+            if (!bValid) return MessageToast.show('Enter correct values');
+            aInputs.forEach(oInput => {
+                const sProperty = oInput.getBinding('value').getPath();
+                const iValue = +oInput.getValue();
+                localStorage.setItem('custom' + sProperty, iValue);
+                this.setProperty('/Level/' + sProperty, iValue);
+            });
+            this.setupGame();
+            this.oSettingsDialog.close();
         }
 
 
