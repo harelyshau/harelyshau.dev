@@ -36,13 +36,13 @@
                                 </layoutData>
                             </Select>
                             <Button id='ddd' icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
-                                tooltip="Settings" press="openDialog('SettingsDialog')">
+                                tooltip="Settings" press="onPressOpenSettingsDialog">
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1"/>
                                 </layoutData>
                             </Button>
-                            <ToolbarSpacer/>
-                            <HBox renderType="Bare">
+                            <ToolbarSpacer class="sapUiTinyMarginBeginEnd"/>
+                            <HBox renderType="Bare" class="">
                                 <!-- Mines -->
                                 <HBox renderType="Bare" alignItems="Center">
                                     <core:Icon src="sap-icon://flag-2" class="sapUiTinyMarginEnd"/>
@@ -56,7 +56,7 @@
                                         {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
                                 </HBox>
                             </HBox>
-                            <ToolbarSpacer/>
+                            <ToolbarSpacer class="sapUiTinyMarginBeginEnd"/>
                             <!-- Records -->
                             <Button text="{i18n>btnRecords}" press="onPressOpenRecordsDialog" icon="{i18n>iAchievement}"/>
                         </OverflowToolbar>

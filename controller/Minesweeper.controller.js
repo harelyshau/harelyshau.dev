@@ -222,16 +222,23 @@ sap.ui.define([
                 .map(oBox => oBox.getItems()[1]);
             const bValid = aInputs.every(oInput => this.isInputFilledAndValid(oInput));
             if (!bValid) return MessageToast.show('Enter correct values');
+            const oLevel = this.getProperty('/CustomLevel', 'view');
+            this.setProperty('/Level', oLevel);
+            this.setProperty('/Levels/3', oLevel);
             aInputs.forEach(oInput => {
                 const sProperty = oInput.getBinding('value').getPath();
                 const iValue = +oInput.getValue();
                 localStorage.setItem('custom' + sProperty, iValue);
-                this.setProperty('/Level/' + sProperty, iValue);
             });
             this.setupGame();
             this.oSettingsDialog.close();
-        }
+        },
 
+        onPressOpenSettingsDialog() {
+            const oLevel = { ...this.getCurrentLevel() };
+            this.setProperty('/CustomLevel', oLevel, 'view');
+            this.openDialog('SettingsDialog');
+        }
 
     });
 });

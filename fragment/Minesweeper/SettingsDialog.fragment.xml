@@ -6,23 +6,28 @@
         formatMessage: 'sap/base/strings/formatMessage'
     }">
     <Dialog title="Set up field" icon="sap-icon://table-view"
-        afterClose="onAfterCloseRecordsDialog" binding="{/Level}">
+        afterClose="onAfterCloseRecordsDialog" binding="{view>/CustomLevel}">
         <HBox class="sapUiSmallMargin" justifyContent="SpaceBetween" id="settingsBox">
             <VBox>
                 <Label text="Width" showColon="true" design="Bold"/>
-                <Input width="5em" value="{path: 'Width', type: 'sap.ui.model.type.Integer' }"
-                    valueState="{= ${Width} > 100 || 1 > ${Width} ? 'Error' : 'None' }"
-                    valueStateText="{= ${Width} > 100 ? 'Value must be less than or equal to 100' : 1 > ${Width} ? 'Value must be greater than 0' : '' }"/>
+                <Input width="5em" maxLength="3"
+                    value="{path: 'view>Width', type: 'sap.ui.model.type.Integer' }"
+                    valueState="{= ${view>Width} > 100 || 1 > ${view>Width} ? 'Error' : 'None' }"
+                    valueStateText="{= ${view>Width} > 100 ? 'Value must be less than or equal to 100' : 1 > ${view>Width} ? 'Value must be greater than 0' : '' }"/>
             </VBox>
             <VBox>
                 <Label text="Height" showColon="true" design="Bold"/>
-                <Input width="5em" value="{path: 'Height', type: 'sap.ui.model.type.Integer' }"
-                    valueState="{= ${Height} > 100 || 1 > ${Height} ? 'Error' : 'None' }"
-                    valueStateText="{= ${Height} > 100 ? 'Value must be less than or equal to 100' : 1 > ${Height} ? 'Value must be greater than 0' : '' }"/>
+                <Input width="5em" maxLength="3"
+                    value="{path: 'view>Height', type: 'sap.ui.model.type.Integer' }"
+                    valueState="{= ${view>Height} > 100 || 1 > ${view>Height} ? 'Error' : 'None' }"
+                    valueStateText="{= ${view>Height} > 100 ? 'Value must be less than or equal to 100' : 1 > ${view>Height} ? 'Value must be greater than 0' : '' }"/>
             </VBox>
             <VBox>
                 <Label text="Mines" showColon="true" design="Bold"/>
-                <Input width="5em" value="{path: 'Mines', type: 'sap.ui.model.type.Integer' }"/>
+                <Input width="5em" maxLength="4"
+                    value="{path: 'view>Mines', type: 'sap.ui.model.type.Integer' }"
+                    valueState="{= 1 > ${view>Mines} || ${view>Mines} > ${view>Width} * ${view>Height} - 1 ? 'Error' : 'None'}"
+                    valueStateText="{= 1 > ${view>Mines} ? 'Value must be greater than 0' : ${view>Mines} >= ${view>Width} * ${view>Height} ? 'Mines must be less than the cells on the field' : '' }"/>
             </VBox>
         </HBox>
         <beginButton>
