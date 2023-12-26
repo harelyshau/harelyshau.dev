@@ -139,7 +139,11 @@
 		"resources": {
 			"css": [
 				{ "uri": "css/style.css" },
-				{ "uri": "css/cell.css" }
+				{ "uri": "css/resume.css" },
+				{ "uri": "css/calendar.css" },
+				{ "uri": "css/algorithms.css" },
+				{ "uri": "css/hanoitower.css" },
+				{ "uri": "css/minesweeper.css" }
 			]
 		},
 		"handleValidation": true

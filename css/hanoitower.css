@@ -1,0 +1,57 @@
+/* DISC */
+.phDiscButton {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	height: auto !important;
+}
+.phDiscButton span {
+	min-width: 0 !important;
+}
+
+.phDiscButton span .sapUiIcon {
+	/* Remove icon from sap types buttons */
+	display: none;
+}
+
+/* PEG */
+ 
+.phPegBox {
+	margin-bottom: 0.295rem;
+}
+.phPegBox::before,
+.phPegBox::after {
+	content: '';
+	position: absolute;
+	background-color: #4db1ff;
+	bottom: 0;
+}
+/* Peg Color depending on theme */
+.sapUiTheme-sap_horizon .phPegBox::before,
+.sapUiTheme-sap_horizon .phPegBox::after {
+	background-color: #0064d9;
+}
+/* Vertical Line */
+.phPegBox::before {
+	top: 0;
+	left: 50%;
+	width: 0.6rem;
+	transform: translateX(-50%);
+	border-radius: 0.25rem;
+}
+/* Horizontal Line */
+.phPegBox::after {
+	left: 0;
+	right: 0;
+	height: 0.6rem;
+	transform: translateY(50%);
+	margin-left: -0.3px;
+	margin-right: -0.3px;
+}
+
+.phRecordsDialog {
+	max-height: 20rem !important;
+}
+
+.phNoFocus:focus {
+	outline: none;
+}

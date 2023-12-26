@@ -1,0 +1,40 @@
+.phCalendar .sapMPCHeadNavToolbar {
+	border-radius: 0;
+}
+
+.phCalendar .sapMPCHeadActionsToolbar {
+	border-radius: 0;
+	padding-right: 0;
+}
+
+.phNoMargin {
+	margin: 0 !important;
+}
+
+.phNoPaddingBegin {
+	padding-left: 0;
+}
+
+@media (max-width: 600px) {
+	/* make padding for calenar default button */
+	#container-pharelyshau---calendar--calendar-Header-ActionsToolbar-overflowButton,
+	.phResponsiveMarginEnd {
+		margin-right: 1rem !important;
+	}
+}
+
+@media (min-width: 601px) and (max-width: 1439px) {
+	/* make padding for calenar default button */
+	#container-pharelyshau---calendar--calendar-Header-ActionsToolbar-overflowButton,
+	.phResponsiveMarginEnd {
+		margin-right: 2rem !important;
+	}
+}
+
+@media (min-width: 1440px) {
+	/* make padding for calenar default button */
+	#container-pharelyshau---calendar--calendar-Header-ActionsToolbar-overflowButton,
+	.phResponsiveMarginEnd {
+		margin-right: 3rem !important;
+	}
+}

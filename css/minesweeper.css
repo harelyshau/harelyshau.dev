@@ -1,3 +1,23 @@
+/* GAME CONTAINER */
+
+.phMinesweeper {
+	margin-left: auto;
+	margin-right: auto;
+	border-right: 3px solid white;
+	border-bottom: 3px solid white;
+	border-left: 3px solid #7c7c7c;
+	border-top: 3px solid #7c7c7c;
+}
+
+.sapUiTheme-sap_horizon_dark .phMinesweeper {
+	border-right: 3px solid #4e5e6c;
+	border-bottom: 3px solid #4e5e6c;
+	border-left: 3px solid black;
+	border-top: 3px solid black;
+}
+
+/* CELL */
+
 .phCell {
 	font-weight: bold;
 	font-size: 18px;

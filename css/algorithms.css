@@ -1,0 +1,38 @@
+/* PAGE */
+.phAlgorithmsPage {
+	padding: 0 !important;
+}
+.phAlgorithmsPage aside {
+	margin-top: 0 !important;
+}
+.phAlgorithmsPage .sapTntToolPageMain {
+	margin-top: 0 !important;
+}
+.phAlgorithmsPage .sapFDynamicPageContent {
+	padding-top: 0;
+}
+
+/* ILLUSTRATION */
+
+.phIllustratedMessage {
+	padding: 0;
+}
+.phIllustratedMessage .sapMIllustratedMessageDescription {
+	margin: 0 !important;
+}
+.phIllustratedMessage figcaption {
+	max-width: 100% !important;
+}
+.phIllustratedMessage .sapMTitle {
+	margin-top: 0 !important;
+}
+.phIllustratedMessage span {
+	text-align: start !important;
+}
+.phIllustratedMessage .sapMIllustratedMessageAdditionalContent {
+	display: none;
+}
+
+.phHiddenIllustration svg {
+	display: none;
+}
