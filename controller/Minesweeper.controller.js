@@ -83,8 +83,8 @@ sap.ui.define([
             const oCell = this.getObjectByEvent(oEvent);
             if (this.isGameFinished() || oCell.IsFlagged) return;
             this.insertMines(oCell.ID);
-            this.startTimer();
             this.handleOpeningCell(oCell);
+            this.startTimer();
         },
 
         onRightPressCell(oEvent) {

@@ -1,6 +1,4 @@
-sap.ui.define(
-['sap/m/Button', 'sap/ui/dom/includeStylesheet'],
-(Button, includeStylesheet) => {
+sap.ui.define(['sap/m/Button'], (Button) => {
     'use strict';
 
     return Button.extend('pharelyshau.control.CellButton', {
@@ -20,12 +18,6 @@ sap.ui.define(
 
         ondblclick() {
             !this.getEnabled() && this.fireDoublePress();
-        },
-
-        init() {
-            Button.prototype.init.apply(this, arguments);
-            includeStylesheet('../css/cell.css');
-            this.setType('Unstyled').addStyleClass('phCell');
         }
 
     });
