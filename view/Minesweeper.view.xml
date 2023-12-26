@@ -54,19 +54,22 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
-                    <ScrollContainer class="sapUiSmallMarginTopBottom">
-                        <VBox renderType="Bare">
+                    <ScrollContainer class="sapUiSmallMarginTop sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiTinyMarginBottom">
                             <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
                                 <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
                                     <cc:CellButton text="{MineCount}" type="Unstyled"
                                         icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
                                         enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }"
-                                        width="2em" press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
+                                        width="1.8em" height="1.8em" press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
                                         class="phCell">
                                         <cc:customData>
                                             <core:CustomData key="cell" writeToDom="true"
                                                 value="state{parts: ['', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
                                         </cc:customData>
+                                        <cc:layoutData>
+                                            <FlexItemData maxWidth="auto"/>
+                                        </cc:layoutData>
                                     </cc:CellButton>
                                 </HBox>
                             </VBox>
@@ -77,7 +80,7 @@
                 <!-- <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Instructions"
 					type="XML" class="sapUiSmallMarginTop"/> -->
                 <layoutData>
-                    <FlexItemData maxWidth="{= !${view>/fullWidth} ? '750px' : 'auto' }"/>
+                    <FlexItemData maxWidth="{= !${view>/fullWidth} ? '750px' : '100%' }"/>
                 </layoutData>
 			</VBox>
 		</f:content>
