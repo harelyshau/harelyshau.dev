@@ -52,8 +52,18 @@
 	border-left: 1px solid #4e5e6c;
 }
 
+.phCell .sapMBtnIcon {
+	width: 100%;
+	line-height: 1.8;
+}
+
+.sapUiSizeCompact .sapMBtnIcon {
+	line-height: 1.5rem !important;
+}
+
 .phCell span::before {
 	color: black;
+	padding-right: 0.5px;
 }
 
 .sapUiTheme-sap_horizon_dark .phCell span::before {
