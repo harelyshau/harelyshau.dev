@@ -12,7 +12,7 @@
             <!-- Description -->
             <VBox>
                 <HBox>
-                    <core:Icon src="{i18n>iPuzzle}" class="sapUiTinyMarginEnd"/>
+                    <core:Icon src="{i18n>iHanoiTower}" class="sapUiTinyMarginEnd"/>
                     <Title titleStyle="H6" text="{i18n>ttlGameDescription}:" wrapping="true"/>
                 </HBox>
                 <Text text="{i18n>tGameDescription}"/>

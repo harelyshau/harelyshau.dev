@@ -78,6 +78,9 @@
                                         <cc:layoutData>
                                             <FlexItemData maxWidth="auto"/>
                                         </cc:layoutData>
+                                        <cc:tooltip>
+                                            <core:TooltipBase visible="false"/>
+                                        </cc:tooltip>
                                     </cc:CellButton>
                                 </HBox>
                             </VBox>

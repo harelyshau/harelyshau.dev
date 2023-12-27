@@ -16,7 +16,7 @@
 						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
 						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
 						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
-						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
+						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
 					</items>
 				</IconTabHeader>
 				<ToolbarSpacer />
@@ -41,7 +41,7 @@
 					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
 					<tnt:NavigationListItem key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
 					<tnt:NavigationListItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
-					<tnt:NavigationListItem key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iPuzzle}"/>
+					<tnt:NavigationListItem key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
 				</tnt:NavigationList>
 			</tnt:SideNavigation>
 		</tnt:sideContent>

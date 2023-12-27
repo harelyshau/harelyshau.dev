@@ -61,7 +61,7 @@
                         illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
-                            <Button icon="{i18n>iPuzzle}" text="{i18n>btnPlayHanoiTower}"
+                            <Button icon="{i18n>iHanoiTower}" text="{i18n>btnPlayHanoiTower}"
                                 press="onPressNavigateToPage('HanoiTower')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
