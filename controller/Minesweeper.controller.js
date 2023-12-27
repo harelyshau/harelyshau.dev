@@ -80,13 +80,11 @@ sap.ui.define([
         //////////////////////////////////
 
         onPressCell(oEvent) {
-            var start = Date.now()
             const oCell = this.getObjectByEvent(oEvent);
             if (this.isGameFinished() || oCell.IsFlagged) return;
             this.insertMines(oCell.ID);
             this.handleOpeningCell(oCell);
             this.startTimer();
-            console.log(Date.now() - start)
         },
 
         onRightPressCell(oEvent) {
