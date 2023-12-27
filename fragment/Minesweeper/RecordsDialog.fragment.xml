@@ -5,14 +5,12 @@
         formatter: 'pharelyshau/model/formatter',
         formatMessage: 'sap/base/strings/formatMessage'
     }">
-    <Dialog title="{i18n>ttlYourRecords}" icon="{i18n>iAchievement}" afterClose="startTimer"
-        class="phRecordsDialog">
+    <Dialog title="{i18n>ttlYourRecords}" icon="{i18n>iAchievement}" afterClose="startTimer">
         <List items="{/Records}" visible="{= ${/Records}.length > 0}">
             <CustomListItem class="phNoFocus">
                 <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
                     <VBox class="sapUiSmallMarginEnd" renderType="Bare">
-                        <Title text="{parts: ['i18n>ttlRecord', 'DiscCount'], formatter: 'formatMessage'}" titleStyle="H6"/>
-                        <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Result" type="XML"/>
+                        <Title text="{parts: ['i18n>ttlRecord', 'Key'], formatter: 'formatMessage'} {Time}" titleStyle="H6"/>
                     </VBox>
                     <Button icon="{i18n>iImprove}" tooltip="{i18n>btnTryToImprove}" press="onPressImrpoveResult"/>
                 </HBox>

@@ -60,7 +60,8 @@ sap.ui.define(
 				];
 				const sLevelKey = localStorage.getItem('level') || 'Easy';
 				const Level = Levels.find(oLevel => oLevel.Key === sLevelKey);
-				const oData = { Levels, Level, Time: 0 };
+				const Records = JSON.parse(localStorage.getItem('minesweeperRecords')) ?? [];
+				const oData = { Levels, Level, Time: 0, Records };
 				return new JSONModel(oData);
 			},
 

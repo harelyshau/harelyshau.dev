@@ -35,12 +35,12 @@
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
                             </Select>
-                            <Button icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
-                                tooltip="Settings" press="onPressOpenSettingsDialog">
+                            <OverflowToolbarButton icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
+                                text="Settings" press="onPressOpenSettingsDialog">
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1"  priority="Low"/>
                                 </layoutData>
-                            </Button>
+                            </OverflowToolbarButton>
                             <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
                             <!-- Mines -->
                             <core:Icon src="sap-icon://flag-2"/>
@@ -58,7 +58,7 @@
                                 <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
                                     {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
                                 <layoutData>
-                                    <OverflowToolbarLayoutData shrinkable="true"/>
+                                    <OverflowToolbarLayoutData shrinkable="true" />
                                 </layoutData>
                             </FlexBox>
                             <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>

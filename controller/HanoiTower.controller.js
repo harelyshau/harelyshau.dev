@@ -110,10 +110,6 @@ sap.ui.define(
 				this.setNewLevel(iDiscCount);
 			},
 
-			onAfterCloseRecordsDialog() {
-				this.startTimer();
-			},
-
 			//////////////////////////////////
 			/////////// WIN DIALOG ///////////
 			//////////////////////////////////

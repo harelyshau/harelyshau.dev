@@ -163,7 +163,9 @@ sap.ui.define([
             MessageToast.show(bWon ? 'You won' : 'Game over');
             this.showMines();
             this.stopTimer();
-            if (bWon) this.setProperty('/Flags', 0);
+            if (!bWon) return;
+            this.setProperty('/Flags', 0);
+            this.setNewRecord();
         },
 
         showMines() {
@@ -177,13 +179,15 @@ sap.ui.define([
         },
 
         onChangeLevel(oEvent) {
-            const oSelectedItem = oEvent.getParameter('selectedItem');
-            this.setNewLevel(this.getObjectByControl(oSelectedItem));
+            const sLevelKey = oEvent.getParameter('selectedItem').getKey();
+            this.setNewLevel(sLevelKey);
         },
 
-        setNewLevel(oLevel) {
+        setNewLevel(sLevelKey) {
+            const aLevels = this.getProperty('/Levels');
+            const oLevel = aLevels.find(oLevel => oLevel.Key === sLevelKey);
             this.setProperty('/Level', oLevel);
-            localStorage.setItem('level', oLevel.Key)
+            localStorage.setItem('level', sLevelKey)
             this.setupGame();
         },
 
@@ -213,6 +217,8 @@ sap.ui.define([
         getCurrentLevel() {
             return this.getProperty('/Level');
         },
+
+        // Settings for custom field
 
         onPressApplySettings() {
             if (!this.isSettingsValid()) return MessageToast.show('Enter correct values');
@@ -245,7 +251,30 @@ sap.ui.define([
             const oLevel = { ...this.getCurrentLevel() };
             this.setProperty('/CustomLevel', oLevel, 'view');
             this.openDialog('SettingsDialog');
+        },
+
+        onPressOpenRecordsDialog() {
+            this.stopTimer();
+            this.openDialog('RecordsDialog');
+        },
+
+        setNewRecord() {
+            const { Key } = this.getCurrentLevel();
+            if (Key === 'Custom') return;
+            const aRecords = this.getProperty('/Records');
+            const Time = this.getProperty('/Time');
+            const oRecord = aRecords.find((oRecord) => oRecord.Key === Key);
+            if (oRecord) oRecord.Time = Math.min(oRecord.Time, Time);
+            else aRecords.push({ Key, Time });
+            localStorage.setItem('minesweeperRecords', JSON.stringify(aRecords));
+        },
+
+        onPressImrpoveResult(oEvent) {
+            const sLevelKey = this.getObjectByEvent(oEvent).Key;
+			this.setNewLevel(sLevelKey);
+            this.oRecordsDialog.close();
         }
+
 
     });
 });
