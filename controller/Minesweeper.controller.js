@@ -241,6 +241,7 @@ sap.ui.define([
         },
 
         onPressOpenSettingsDialog() {
+            this.stopTimer();
             const oLevel = { ...this.getCurrentLevel() };
             this.setProperty('/CustomLevel', oLevel, 'view');
             this.openDialog('SettingsDialog');

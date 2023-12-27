@@ -32,33 +32,42 @@
                                 change="onChangeLevel" ariaLabelledBy="lblLevels">
                                 <core:ListItem text="{Key}" key="{Key}"/>
                                 <layoutData>
-                                    <OverflowToolbarLayoutData group="1"/>
+                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
                             </Select>
-                            <Button id='ddd' icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
+                            <Button icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
                                 tooltip="Settings" press="onPressOpenSettingsDialog">
                                 <layoutData>
-                                    <OverflowToolbarLayoutData group="1"/>
+                                    <OverflowToolbarLayoutData group="1"  priority="Low"/>
                                 </layoutData>
                             </Button>
-                            <ToolbarSpacer class="sapUiTinyMarginBeginEnd"/>
-                            <HBox renderType="Bare" class="">
-                                <!-- Mines -->
-                                <HBox renderType="Bare" alignItems="Center">
-                                    <core:Icon src="sap-icon://flag-2" class="sapUiTinyMarginEnd"/>
-                                    <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Flags}"/>
-                                </HBox>
-                                <Button text="{= !${/CellsLeft} ? '😎' : ${/GameFinished} ? '😵' : '🙂' }" type="Ghost" press="onPressRestartGame" class="sapUiSmallMarginBeginEnd"/>
-                                <!-- Time -->
-                                <HBox renderType="Bare" alignItems="Center">
-                                    <core:Icon src="{i18n>iTime}" class="sapUiTinyMarginEnd"/>
-                                    <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
-                                        {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
-                                </HBox>
-                            </HBox>
-                            <ToolbarSpacer class="sapUiTinyMarginBeginEnd"/>
+                            <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
+                            <!-- Mines -->
+                            <core:Icon src="sap-icon://flag-2"/>
+                            <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Flags}"
+                                class="sapUiTinyMarginEnd"/>
+                            <Button text="{= !${/CellsLeft} ? '😎' : ${/GameFinished} ? '😵' : '🙂' }"
+                                type="Ghost" press="onPressRestartGame">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                                </layoutData>
+                            </Button>
+                            <!-- Time -->
+                            <core:Icon src="{i18n>iTime}" class="sapUiSmallMarginBegin"/>
+                            <FlexBox renderType="Bare">
+                                <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
+                                    {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
+                                <layoutData>
+                                    <OverflowToolbarLayoutData shrinkable="true"/>
+                                </layoutData>
+                            </FlexBox>
+                            <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
                             <!-- Records -->
-                            <Button text="{i18n>btnRecords}" press="onPressOpenRecordsDialog" icon="{i18n>iAchievement}"/>
+                            <Button text="{i18n>btnRecords}" press="onPressOpenRecordsDialog" icon="{i18n>iAchievement}">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="Low"/>
+                                </layoutData>
+                            </Button>
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->

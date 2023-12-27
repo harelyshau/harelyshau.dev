@@ -6,7 +6,7 @@
         formatMessage: 'sap/base/strings/formatMessage'
     }">
     <Dialog title="Set up field" icon="sap-icon://table-view"
-        afterClose="onAfterCloseRecordsDialog" binding="{view>/CustomLevel}">
+        afterClose="startTimer" binding="{view>/CustomLevel}">
         <HBox class="sapUiSmallMargin" justifyContent="SpaceBetween" id="settingsBox">
             <VBox>
                 <Label text="Width" showColon="true" design="Bold"/>
