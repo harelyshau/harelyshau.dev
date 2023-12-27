@@ -20,6 +20,7 @@
 						<IconTabFilter key="Minesweeper" text="{i18n>ttlMinesweeper}" icon="{i18n>iFlag}"/>
 					</items>
 				</IconTabHeader>
+				<ToolbarSpacer visible="{device>/system/phone}"/>
 				<Button icon="{i18n>iCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
 				<Button icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
 					tooltip="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
