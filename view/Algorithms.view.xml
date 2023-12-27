@@ -46,7 +46,7 @@
 							title="Sorry, we can't find this article"
 							enableVerticalResponsiveness="true">
 							<additionalContent>
-								<Button icon="{i18n>iAlgorithms}" text="{i18n>btnGoToAlgorithms}" press="onPressNavigateToPage('Algorithms')"/>
+								<Button icon="{i18n>iAlgorithm}" text="{i18n>btnGoToAlgorithms}" press="onPressNavigateToPage('Algorithms')"/>
 							</additionalContent>
 						</IllustratedMessage>
 						<!-- Coming Soon -->
@@ -56,7 +56,7 @@
 							description="This article is not ready yet, but will be available soon"
 							enableVerticalResponsiveness="true">
 							<additionalContent>
-								<Button icon="{i18n>iAlgorithms}" text="{i18n>btnGoToAlgorithms}" press="onPressNavigateToPage('Algorithms')"/>
+								<Button icon="{i18n>iAlgorithm}" text="{i18n>btnGoToAlgorithms}" press="onPressNavigateToPage('Algorithms')"/>
 							</additionalContent>
 						</IllustratedMessage>
 						<!-- Navigation Toolbar -->

@@ -14,12 +14,12 @@
 					<items>
 						<IconTabFilter key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
 						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
-						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
+						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithm}"/>
 						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
 						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
+						<IconTabFilter key="Minesweeper" text="{i18n>ttlMinesweeper}" icon="{i18n>iFlag}"/>
 					</items>
 				</IconTabHeader>
-				<ToolbarSpacer />
 				<Button icon="{i18n>iCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
 				<Button icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
 					tooltip="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
@@ -38,10 +38,11 @@
 				selectedKey="{app>/page}" itemSelect="onSelectPage">
 				<tnt:NavigationList>
 					<tnt:NavigationListItem key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
-					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithms}"/>
+					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithm}"/>
 					<tnt:NavigationListItem key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
 					<tnt:NavigationListItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
 					<tnt:NavigationListItem key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
+					<tnt:NavigationListItem key="Minesweeper" text="{i18n>ttlMinesweeper}" icon="{i18n>iFlag}"/>
 				</tnt:NavigationList>
 			</tnt:SideNavigation>
 		</tnt:sideContent>
