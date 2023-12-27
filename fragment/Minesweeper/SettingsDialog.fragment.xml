@@ -12,21 +12,21 @@
                 <Label text="Width" showColon="true" design="Bold"/>
                 <Input width="5em" maxLength="3"
                     value="{path: 'view>Width', type: 'sap.ui.model.type.Integer' }"
-                    valueState="{= ${view>Width} > 100 || 1 > ${view>Width} ? 'Error' : 'None' }"
+                    valueState="{ path: 'view>Width', formatter: 'formatter.fieldSizeState' }"
                     valueStateText="{= ${view>Width} > 100 ? 'Value must be less than or equal to 100' : 1 > ${view>Width} ? 'Value must be greater than 0' : '' }"/>
             </VBox>
             <VBox>
                 <Label text="Height" showColon="true" design="Bold"/>
                 <Input width="5em" maxLength="3"
                     value="{path: 'view>Height', type: 'sap.ui.model.type.Integer' }"
-                    valueState="{= ${view>Height} > 100 || 1 > ${view>Height} ? 'Error' : 'None' }"
+                    valueState="{ path: 'view>Height', formatter: 'formatter.fieldSizeState' }"
                     valueStateText="{= ${view>Height} > 100 ? 'Value must be less than or equal to 100' : 1 > ${view>Height} ? 'Value must be greater than 0' : '' }"/>
             </VBox>
             <VBox>
                 <Label text="Mines" showColon="true" design="Bold"/>
                 <Input width="5em" maxLength="4"
                     value="{path: 'view>Mines', type: 'sap.ui.model.type.Integer' }"
-                    valueState="{= 1 > ${view>Mines} || ${view>Mines} > ${view>Width} * ${view>Height} - 1 ? 'Error' : 'None'}"
+                    valueState="{ parts: ['view>Mines', 'view>Width', 'view>Height'], formatter: 'formatter.minesCountState' }"
                     valueStateText="{= 1 > ${view>Mines} ? 'Value must be greater than 0' : ${view>Mines} >= ${view>Width} * ${view>Height} ? 'Mines must be less than the cells on the field' : '' }"/>
             </VBox>
         </HBox>

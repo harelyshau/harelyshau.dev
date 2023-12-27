@@ -128,7 +128,7 @@ sap.ui.define([
 		/////////// MINESWEEPER //////////
 		//////////////////////////////////
 
-		cellState({ID, IsOpen, IsMine, IsFlagged, MineCount }, iCellsLeft, bGameFinished, SelectedMineID) {
+		cellState(ID, IsOpen, IsMine, IsFlagged, MineCount, iCellsLeft, bGameFinished, SelectedMineID) {
 			if (IsFlagged) return bGameFinished && !IsMine ? 'WrongFlag' : 'Flag';
 			if (IsMine && IsOpen) return iCellsLeft ? SelectedMineID === ID ? 'Mine' : '' : 'Flag';
 			const aColors = [
@@ -142,6 +142,14 @@ sap.ui.define([
 				'White'
 			];
 			return aColors[MineCount - 1];
+		},
+
+		fieldSizeState(iSize) {
+			return iSize > 0 && iSize <= 100 ? 'None' : 'Error';
+		},
+
+		minesCountState(iMines, iWidth, iHeight) {
+			return iMines > 0 && iMines < iWidth * iHeight ? 'None' : 'Error';
 		}
 
 	};

@@ -73,7 +73,7 @@
                                         class="phCell">
                                         <cc:customData>
                                             <core:CustomData key="cell" writeToDom="true"
-                                                value="state{parts: ['', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
+                                                value="state{parts: ['ID', 'IsOpen', 'IsMine', 'IsFlagged', 'MineCount', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
                                         </cc:customData>
                                         <cc:layoutData>
                                             <FlexItemData maxWidth="auto"/>

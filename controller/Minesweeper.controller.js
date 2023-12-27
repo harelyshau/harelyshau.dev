@@ -80,11 +80,13 @@ sap.ui.define([
         //////////////////////////////////
 
         onPressCell(oEvent) {
+            var start = Date.now()
             const oCell = this.getObjectByEvent(oEvent);
             if (this.isGameFinished() || oCell.IsFlagged) return;
             this.insertMines(oCell.ID);
             this.handleOpeningCell(oCell);
             this.startTimer();
+            console.log(Date.now() - start)
         },
 
         onRightPressCell(oEvent) {
@@ -93,7 +95,6 @@ sap.ui.define([
             const bFlagged = !this.getProperty(sPath);
             this.setProperty(sPath, bFlagged);
             this.updateFlagCount(bFlagged);
-            this.getModel().refresh(true);
         },
 
         onDoublePressCell(oEvent) {
@@ -108,7 +109,6 @@ sap.ui.define([
 
         handleOpeningCell(oCell) {
             this.openCells(oCell);
-            this.getModel().refresh(true);
             const bGameLost = oCell.IsMine;
             if (bGameLost) this.setProperty('/SelectedMine', oCell.ID)
             if (bGameLost || this.isGameWon()) this.finishGame(!bGameLost);
@@ -163,16 +163,15 @@ sap.ui.define([
         finishGame(bWon) {
             this.setProperty('/GameFinished', true);
             MessageToast.show(bWon ? 'You won' : 'Game over');
-            this.showMines(bWon);
+            this.showMines();
             this.stopTimer();
             if (bWon) this.setProperty('/Flags', 0);
         },
 
-        showMines(bForceUpdate) {
+        showMines() {
             const aCells = this.getCells();
             const aMines = aCells.filter(oCell => oCell.IsMine && !oCell.IsFlagged);
             aMines.forEach(oMine => this.openCell(oMine));
-            this.getModel().refresh(bForceUpdate);
         },
 
         onPressRestartGame() {
@@ -218,20 +217,29 @@ sap.ui.define([
         },
 
         onPressApplySettings() {
-            const aInputs = this.byId('settingsBox').getItems()
-                .map(oBox => oBox.getItems()[1]);
-            const bValid = aInputs.every(oInput => this.isInputFilledAndValid(oInput));
-            if (!bValid) return MessageToast.show('Enter correct values');
+            if (!this.isSettingsValid()) return MessageToast.show('Enter correct values');
             const oLevel = this.getProperty('/CustomLevel', 'view');
             this.setProperty('/Level', oLevel);
             this.setProperty('/Levels/3', oLevel);
-            aInputs.forEach(oInput => {
-                const sProperty = oInput.getBinding('value').getPath();
-                const iValue = +oInput.getValue();
-                localStorage.setItem('custom' + sProperty, iValue);
-            });
+            this.saveSettingsToLocalStorage();
             this.setupGame();
             this.oSettingsDialog.close();
+        },
+
+        saveSettingsToLocalStorage() {
+            const oLevel = this.getProperty('/CustomLevel', 'view');
+            Object.keys(oLevel)
+                .filter(sKey => sKey !== 'Key')
+                .forEach(sKey => localStorage.setItem('custom' + sKey, oLevel[sKey]));
+        },
+
+        isSettingsValid() {
+            const oFormatter = this.formatter;
+            const { Width, Height, Mines } = this.getProperty('/CustomLevel', 'view');
+            const bSizeValid = [Width, Height]
+                .every(iSize => oFormatter.fieldSizeState(iSize) === 'None');
+            const bMinesValid = oFormatter.minesCountState(Mines, Width, Height) === 'None';
+            return bSizeValid && bMinesValid;
         },
 
         onPressOpenSettingsDialog() {
