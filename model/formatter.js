@@ -144,10 +144,6 @@ sap.ui.define([
 			return aColors[MineCount - 1];
 		},
 
-		fieldSizeState(iSize) {
-			return iSize > 0 && iSize <= 100 ? 'None' : 'Error';
-		},
-
 		minesCountState(iMines, iWidth, iHeight) {
 			return iMines > 0 && iMines < iWidth * iHeight ? 'None' : 'Error';
 		}

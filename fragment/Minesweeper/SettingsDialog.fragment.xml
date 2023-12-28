@@ -3,31 +3,41 @@
     xmlns="sap.m"
     core:require="{
         formatter: 'pharelyshau/model/formatter',
-        formatMessage: 'sap/base/strings/formatMessage'
+        formatMessage: 'sap/base/strings/formatMessage',
+        Integer: 'sap/ui/model/type/Integer'
     }">
     <Dialog title="Set up field" icon="sap-icon://table-view"
         afterClose="startTimer" binding="{view>/CustomLevel}">
         <HBox class="sapUiSmallMargin" justifyContent="SpaceBetween" id="settingsBox">
             <VBox>
                 <Label text="Width" showColon="true" design="Bold"/>
-                <Input width="5em" maxLength="3"
-                    value="{path: 'view>Width', type: 'sap.ui.model.type.Integer' }"
-                    valueState="{ path: 'view>Width', formatter: 'formatter.fieldSizeState' }"
-                    valueStateText="{= ${view>Width} > 100 ? 'Value must be less than or equal to 100' : 1 > ${view>Width} ? 'Value must be greater than 0' : '' }"/>
+                <Input width="5em" type="Number"
+                    value="{
+                        path: 'view>Width',
+                        type: 'Integer',
+                        constraints: { minimum: 1, maximum: 100}
+                    }"/>
             </VBox>
             <VBox>
                 <Label text="Height" showColon="true" design="Bold"/>
-                <Input width="5em" maxLength="3"
-                    value="{path: 'view>Height', type: 'sap.ui.model.type.Integer' }"
-                    valueState="{ path: 'view>Height', formatter: 'formatter.fieldSizeState' }"
-                    valueStateText="{= ${view>Height} > 100 ? 'Value must be less than or equal to 100' : 1 > ${view>Height} ? 'Value must be greater than 0' : '' }"/>
+                <Input width="5em" type="Number"
+                    value="{
+                        path: 'view>Height',
+                        type: 'Integer',
+                        constraints: { minimum: 1, maximum: 100}
+                    }"/>
             </VBox>
             <VBox>
                 <Label text="Mines" showColon="true" design="Bold"/>
-                <Input width="5em" maxLength="4"
+                <Input width="5em" type="Number"
+                id="inpMines"
                     value="{path: 'view>Mines', type: 'sap.ui.model.type.Integer' }"
                     valueState="{ parts: ['view>Mines', 'view>Width', 'view>Height'], formatter: 'formatter.minesCountState' }"
-                    valueStateText="{= 1 > ${view>Mines} ? 'Value must be greater than 0' : ${view>Mines} >= ${view>Width} * ${view>Height} ? 'Mines must be less than the cells on the field' : '' }"/>
+                    valueStateText="{= 1 > ${view>Mines} 
+                        ? 'Enter a number greater than or equal to 1' 
+                        : ${view>Mines} >= ${view>Width} * ${view>Height} 
+                            ? 'Enter a number less than or equal to ' + (${view>Width} * ${view>Height} - 1)
+                            : '' }"/>
             </VBox>
         </HBox>
         <beginButton>

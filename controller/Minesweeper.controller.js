@@ -239,11 +239,9 @@ sap.ui.define([
 
         isSettingsValid() {
             const oFormatter = this.formatter;
-            const { Width, Height, Mines } = this.getProperty('/CustomLevel', 'view');
-            const bSizeValid = [Width, Height]
-                .every(iSize => oFormatter.fieldSizeState(iSize) === 'None');
-            const bMinesValid = oFormatter.minesCountState(Mines, Width, Height) === 'None';
-            return bSizeValid && bMinesValid;
+            const aInputs = this.byId('settingsBox').getItems()
+                .map(oBox => oBox.getItems()[1]);
+            return aInputs.every(oInput => oInput.getValueState() === 'None');
         },
 
         onPressOpenSettingsDialog() {

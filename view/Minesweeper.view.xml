@@ -77,8 +77,8 @@
                                 <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2em">
                                     <cc:CellButton text="{MineCount}" type="Unstyled"
                                         icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
-                                        enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }"
-                                        width="1.8em" press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
+                                        enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }" width="1.8em"
+                                        press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
                                         class="phCell">
                                         <cc:customData>
                                             <core:CustomData key="cell" writeToDom="true"
