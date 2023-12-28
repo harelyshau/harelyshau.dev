@@ -21,7 +21,7 @@
 					</items>
 				</IconTabHeader>
 				<ToolbarSpacer visible="{device>/system/phone}"/>
-				<OverflowToolbarButton icon="{i18n>iCode}" text="{i18n>btnSeeCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
+				<OverflowToolbarButton icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
 				<OverflowToolbarButton icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
 					text="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
 					tooltip="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
