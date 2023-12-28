@@ -21,17 +21,18 @@
 					</items>
 				</IconTabHeader>
 				<ToolbarSpacer visible="{device>/system/phone}"/>
-				<Button icon="{i18n>iCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
-				<Button icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
+				<OverflowToolbarButton icon="{i18n>iCode}" text="{i18n>btnSeeCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
+				<OverflowToolbarButton icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
+					text="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
 					tooltip="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
 					press="onPressToggleTheme"/>
-				<MenuButton tooltip="{i18n>btnLanguage}" icon="{i18n>iLanguage}">
+				<OverflowToolbarMenuButton text="{i18n>btnLanguage}" tooltip="{i18n>btnLanguage}" icon="{i18n>iLanguage}">
 					<Menu title="{i18n>btnLanguage}" itemSelected="onSelectLanguage">
 						<MenuItem key="en" text="{i18n>btnEnglish}" press="onPressSetLanguage('en')"/>
 						<MenuItem key="ru" text="{i18n>btnRussian}" press="onPressSetLanguage('ru')"/>
 						<MenuItem key="de" text="{i18n>btnGerman}" press="onPressSetLanguage('de')"/>
 					</Menu>
-				</MenuButton>
+				</OverflowToolbarMenuButton>
 			</tnt:ToolHeader>
 		</tnt:header>
 		<tnt:sideContent>

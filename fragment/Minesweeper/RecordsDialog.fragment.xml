@@ -8,7 +8,7 @@
     <Dialog title="{i18n>ttlYourRecords}" icon="{i18n>iAchievement}" afterClose="startTimer">
         <List items="{/Records}" visible="{= ${/Records}.length > 0}">
             <CustomListItem class="phNoFocus">
-                <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
+                <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiTinyMarginTopBottom" justifyContent="SpaceBetween">
                     <VBox class="sapUiSmallMarginEnd" renderType="Bare">
                         <Title titleStyle="H6"
                             text="{Key}: {parts: ['Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
