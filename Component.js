@@ -1,10 +1,10 @@
 sap.ui.define([
 	'sap/ui/core/UIComponent',
+	'sap/ui/core/IconPool',
 	'./model/models',
 	'./util/themeHelper',
-	'./util/languageHelper',
-	'sap/ui/core/IconPool'
-], function (UIComponent, models, themeHelper, languageHelper, IconPool) {
+	'./util/languageHelper'
+], function (UIComponent, IconPool, models, themeHelper, languageHelper) {
 	'use strict';
 
 	return UIComponent.extend('pharelyshau.Component', {
@@ -14,7 +14,6 @@ sap.ui.define([
 		},
 
 		init() {
-			// call the base component's init function and create the App view
 			UIComponent.prototype.init.apply(this, arguments);
 			this.getRouter().initialize();
 			this.setModel(models.createDeviceModel(), 'device');

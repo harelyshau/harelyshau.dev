@@ -1,5 +1,6 @@
 {
-	"_version": "1.54.0",
+	"_version": "1.60.0",
+	"start_url": "index.html",
 	"sap.app": {
 		"id": "pharelyshau",
 		"type": "application",
@@ -13,7 +14,8 @@
 			"supportedLocales": ["en", "de", "ru"],
 			"fallbackLocale": "en"
 		},
-		"dataSources": {}
+		"dataSources": {},
+		"offline": true
 	},
 	"sap.ui": {
 		"technology": "UI5",
@@ -22,11 +24,11 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": ["sap_horizon", "sap_horizon_dark"]
+		"fullWidth": true
 	},
 	"sap.ui5": {
 		"dependencies": {
-			"minUI5Version": "1.115.0",
+			"minUI5Version": "1.120.0",
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {},
