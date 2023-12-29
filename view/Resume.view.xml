@@ -31,7 +31,7 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<VBox class="phLimitedPageContent sapUiMediumMarginBottom">
+			<VBox class="phLimitedPageContent sapUiSmallMarginBottom">
 				<!-- SUMMARY -->
 				<Panel>
 					<Title text="{i18n>ttlSummary}" wrapping="true"/>

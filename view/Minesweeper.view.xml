@@ -21,7 +21,7 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<VBox class="phAlignCenter sapUiMediumMarginBottom" alignItems="Center" renderType="Bare" width="100%">
+			<VBox class="phAlignCenter sapUiSmallMarginBottom" alignItems="Center" renderType="Bare" width="100%">
                 <Panel>
                     <!-- HEADER TOOLBAR -->
                     <headerToolbar>

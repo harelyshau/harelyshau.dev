@@ -49,7 +49,7 @@
 			</tnt:SideNavigation>
 		</tnt:sideContent>
 		<tnt:mainContents>
-			<App id="app" />
+			<NavContainer id="app" />
 		</tnt:mainContents>
 	</tnt:ToolPage>
 </mvc:View>

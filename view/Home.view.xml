@@ -5,7 +5,7 @@
 	xmlns:f="sap.f">
 	<f:DynamicPage>
 		<f:content>
-			<VBox class="phLimitedPageContent sapUiMediumMarginBottom">
+			<VBox class="phLimitedPageContent sapUiSmallMarginBottom">
                 <!-- WELCOME -->
                 <Panel>
                     <IllustratedMessage illustrationType="tnt-Success" enableFormattedText="true"

@@ -62,7 +62,7 @@
 						<!-- Navigation Toolbar -->
 						<Toolbar visible="{= !!${Previous} || !!${Next} }"
 							style="Clear" design="Transparent"
-							class="sapUiSmallMarginBottom">
+							class="sapUiTinyMarginBottom">
 							<Button visible="{= ${Previous} !== undefined }"
 								text="Previos" icon="sap-icon://navigation-left-arrow"
 								press="navigateToArticle(${Previous})"/>
