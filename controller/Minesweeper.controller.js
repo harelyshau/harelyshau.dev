@@ -101,7 +101,7 @@ sap.ui.define([
             const aFlaggedNeighbours = aNeighbours.filter(oCell => oCell.IsFlagged);
             const bReadyToOpen = oCell.MineCount === aFlaggedNeighbours.length;
             if (!bReadyToOpen) return;
-            aNeighbours.filter(oCell => !oCell.IsFlagged)
+            aNeighbours.filter(oCell => !oCell.IsFlagged && !oCell.IsOpen)
                 .forEach(oCell => this.handleOpeningCell(oCell));
         },
 
@@ -264,6 +264,7 @@ sap.ui.define([
             const oRecord = aRecords.find((oRecord) => oRecord.Key === Key);
             if (oRecord) oRecord.Time = Math.min(oRecord.Time, Time);
             else aRecords.push({ Key, Time });
+            this.getModel().refresh(true);
             localStorage.setItem('minesweeperRecords', JSON.stringify(aRecords));
         },
 
