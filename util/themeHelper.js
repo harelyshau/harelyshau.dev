@@ -1,4 +1,4 @@
-sap.ui.define([], () => {
+sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 	'use strict';
 
 	function setThemeColor(sThemeKey) {
@@ -24,11 +24,11 @@ sap.ui.define([], () => {
 				sThemeKey = bLight ? 'light' : 'dark';
 			}
 
-			sap.ui.getCore().applyTheme(this.mapTheme(sThemeKey));
+			Theming.setTheme(this.mapTheme(sThemeKey));
 			setThemeColor(sThemeKey);
 		},
 
-		mapTheme(sKey, sValue) {
+		mapTheme(sKey) {
 			const oThemes = {
 				light: 'sap_horizon',
 				dark: 'sap_horizon_dark',
@@ -39,7 +39,7 @@ sap.ui.define([], () => {
 			if (sKey) return oThemes[sKey];
 			// return key by value
 			const aThemeKeys = Object.keys(oThemes);
-			if (sValue) return aThemeKeys.find((sThemeKey) => oThemes[sThemeKey] === sValue);
+			return aThemeKeys.find((sKey) => oThemes[sKey] === Theming.getTheme());
 		},
 
 		initTheme() {

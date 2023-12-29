@@ -1,6 +1,9 @@
-sap.ui.define(
-	['sap/ui/model/json/JSONModel', 'sap/ui/Device', '../util/themeHelper', '../util/languageHelper'],
-	(JSONModel, Device, themeHelper, languageHelper) => {
+sap.ui.define([
+	'sap/ui/model/json/JSONModel',
+	'sap/ui/Device',
+	'../util/themeHelper',
+	'../util/languageHelper'
+], (JSONModel, Device, themeHelper, languageHelper) => {
 		'use strict';
 
 		return {
@@ -74,8 +77,7 @@ sap.ui.define(
 			// View Models
 
 			createAppModel() {
-				const sCurrentTheme = sap.ui.core.Configuration.getTheme();
-				const oData = { theme: themeHelper.mapTheme(null, sCurrentTheme) };
+				const oData = { theme: themeHelper.mapTheme() };
 				return new JSONModel(oData);
 			},
 

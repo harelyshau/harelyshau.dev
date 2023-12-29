@@ -1,8 +1,11 @@
-sap.ui.define(['sap/ui/core/Configuration'], (Configuration) => {
+sap.ui.define([
+	'sap/ui/core/Configuration',
+	'sap/ui/core/Component'
+], (Configuration, Component) => {
 	'use strict';
 
 	function getManifest() {
-		const oComponent = sap.ui.getCore().getComponent('container-pharelyshau');
+		const oComponent = Component.get('container-pharelyshau');
 		return oComponent.getManifest();
 	}
 

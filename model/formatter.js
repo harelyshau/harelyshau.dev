@@ -107,7 +107,7 @@ sap.ui.define([
 		},
 
 		formattedMinMovesToWin(iDiscCount) {
-			const oLocale = sap.ui.getCore().getConfiguration().getLocale();
+			const oLocale = Configuration.getLocale();
 			const oFloatNumberFormat = NumberFormat.getFloatInstance(oLocale);
 			return oFloatNumberFormat.format(this.minMovesToWin(iDiscCount));
 		},
