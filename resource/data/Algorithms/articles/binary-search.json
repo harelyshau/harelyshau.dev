@@ -2,5 +2,22 @@
 	"Title": "Binary Search",
 	"Description": "The most efficient algorithm for searching an element in a sorted array",
 	"Next": "breadth-first-search",
-	"Previous": ""
+	"Contents": [
+		{
+			"Title": "What is Binary Search?",
+			"Description": "Binary search is a powerful algorithm for efficiently finding a specific value in a sorted array. It follows the divide-and-conquer approach, making it much faster than linear search for large datasets."
+		},
+		{
+			"Title": "How Binary Search Works",
+			"Description": "Binary search works by repeatedly dividing the search interval in half. Here's a step-by-step breakdown of the algorithm: \n- Initialize low and high pointers to the beginning and end of the array, respectively.\n- Calculate the midpoint between the low and high pointers.\n- Compare the value at the midpoint with the target value.\n- If the value is equal, the search is successful. If the value is less, update the high pointer; if greater, update the low pointer.\n- Repeat steps 2-4 until the low pointer is greater than the high pointer or the target is found."
+		},
+		{
+			"Type": "Code",
+			"Code": "function binarySearch(arr, target) {\n\tlet min = 0\n\tlet max = arr.length - 1\n\twhile (min <= max) {\n\t\tconst mid = Math.floor((min + max) / 2)\n\t\tconst guess = arr[mid]\n\t\tif (guess > target) {\n\t\t\tmax = mid - 1\n\t\t} else if (guess < target) {\n\t\t\tmin = mid + 1\n\t\t} else {\n\t\t\treturn mid\n\t\t}\n\t}\n}\n\nconst arr = Array.from({ length: 10000 }).map((_, i) => i ** 2 * 4 - 4)\nconst numberToFind = 16896\nalert(binarySearch(arr, numberToFind))\n"
+		},
+		{
+			"Title": "Comparison with Linear Search",
+			"Description": "Binary search stands out in efficiency when compared to linear search. While linear search checks each element one by one, binary search leverages the sorted nature of the array to eliminate half of the remaining elements with each comparison. This results in a significantly faster search, especially for large datasets. In terms of time complexity, binary search boasts O(log n), making it logarithmic, whereas linear search has a linear time complexity of O(n). The advantage of binary search becomes more pronounced as the size of the dataset increases. But you need to keep in mind that Binary Search only works with sorted arrays."
+		}
+	]
 }

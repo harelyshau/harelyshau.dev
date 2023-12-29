@@ -6,6 +6,6 @@
             <Button text="{i18n>btnCopy}" icon="{i18n>iCopy}" press="onPressCopyCode"/>
             <Button text="Run" icon="sap-icon://media-play" press="onPressRunCode"/>
         </Toolbar>
-        <ce:CodeEditor value="{Code}" maxLines="20" editable="{= !!${Editable} }"/>
+        <ce:CodeEditor value="{Code}" maxLines="20" editable="{= !!${Editable} }" syntaxHints="false"/>
     </VBox>
 </core:FragmentDefinition>

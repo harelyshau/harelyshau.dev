@@ -3,8 +3,8 @@
 .phMinesweeper {
 	margin-left: auto;
 	margin-right: auto;
-	border-right: 3px solid white;
-	border-bottom: 3px solid white;
+	border-right: 3px solid #ebebeb;
+	border-bottom: 3px solid #ebebeb;
 	border-left: 3px solid #7c7c7c;
 	border-top: 3px solid #7c7c7c;
 }

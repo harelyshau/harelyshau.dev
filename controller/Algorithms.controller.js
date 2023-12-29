@@ -67,6 +67,9 @@ sap.ui.define(
 				const oBlock = this.byId(`block${sType}`).clone(sId);
 				const bIllustrationRequired = oContext.getProperty('Illustration');
 				if (!bIllustrationRequired) oBlock.addStyleClass('phHiddenIllustration');
+				const bFirstBlock = oContext.getPath() === '/Article/Contents/0';
+				const bMarginTopRequierd = !bIllustrationRequired && bFirstBlock;
+				if (bMarginTopRequierd) oBlock.addStyleClass('sapUiMediumMarginTop')
 				return oBlock;
 			},
 

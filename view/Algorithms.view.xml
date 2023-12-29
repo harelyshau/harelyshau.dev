@@ -33,7 +33,7 @@
 						justifyContent="SpaceBetween"
 						renderType="{= !${NotFound} &amp;&amp; !!${Contents} ? 'Div' : 'Bare' }">
 						<VBox renderType="Bare"
-							class="sapUiMediumMarginBottom phLimitedPageContent"
+							class="sapUiMediumMarginBottom sapUiTinyMarginTop phLimitedPageContent"
 							items="{ path: 'Contents', factory:'.factoryBlocks' }">
 							<dependents>
 								<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.CodeBlock" type="XML"/>
