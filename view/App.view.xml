@@ -21,11 +21,6 @@
 					</items>
 				</IconTabHeader>
 				<ToolbarSpacer visible="{device>/system/phone}"/>
-				<OverflowToolbarButton icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
-				<OverflowToolbarButton icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
-					text="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
-					tooltip="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
-					press="onPressToggleTheme"/>
 				<OverflowToolbarMenuButton text="{i18n>btnLanguage}" tooltip="{i18n>btnLanguage}" icon="{i18n>iLanguage}">
 					<Menu title="{i18n>btnLanguage}" itemSelected="onSelectLanguage">
 						<MenuItem key="en" text="{i18n>btnEnglish}" press="onPressSetLanguage('en')"/>
@@ -33,6 +28,11 @@
 						<MenuItem key="de" text="{i18n>btnGerman}" press="onPressSetLanguage('de')"/>
 					</Menu>
 				</OverflowToolbarMenuButton>
+				<OverflowToolbarButton icon="{= ${app>/theme} === 'light' ? ${i18n>iDarkMode} : ${i18n>iLightMode} }"
+					text="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
+					tooltip="{= ${app>/theme} === 'light' ? ${i18n>btnDarkMode} : ${i18n>btnLightMode} }"
+					press="onPressToggleTheme"/>
+				<OverflowToolbarButton icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" tooltip="{i18n>btnSeeCode}" press="onPressShowCode"/>
 			</tnt:ToolHeader>
 		</tnt:header>
 		<tnt:sideContent>

@@ -86,7 +86,7 @@ sap.ui.define(
 
 			onPressRunCode(oEvent) {
 				const sCode = this.getCodeEditorByButtonClick(oEvent).getValue();
-				window.eval(`"use strict";${sCode}`);
+				window.eval(`'use strict';${sCode}`);
 			},
 
 			onPressEditResetCode(oEvent) {
