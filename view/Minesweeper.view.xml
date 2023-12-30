@@ -74,7 +74,7 @@
                     <ScrollContainer class="sapUiSmallMarginTop sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiTinyMarginBottom">
                             <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
-                                <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="2rem">
+                                <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="1.8rem">
                                     <cc:CellButton text="{MineCount}" type="Unstyled"
                                         icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
                                         enabled="{= !${IsOpen} || ${IsMine} &amp;&amp; !${/CellsLeft} }" width="1.8rem"

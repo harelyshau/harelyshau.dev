@@ -55,11 +55,7 @@
 .phCell .sapMBtnIcon {
 	width: 100%;
 	/* icon height for mobile */
-	line-height: 1.8; 
-}
-
-.sapUiSizeCompact .phCell .sapMBtnIcon {
-	line-height: 1.5rem;
+	line-height: 1.5; 
 }
 
 .phCell span::before {
