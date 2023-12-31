@@ -43,7 +43,7 @@
                             </OverflowToolbarButton>
                             <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
                             <!-- Mines -->
-                            <core:Icon src="sap-icon://flag-2"/>
+                            <core:Icon src="sap-icon://flag-2" class="sapUiSmallMarginBegin"/>
                             <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Flags}"
                                 class="sapUiTinyMarginEnd"/>
                             <Button text="{= !${/CellsLeft} ? '😎' : ${/GameFinished} ? '😵' : '🙂' }"
@@ -54,7 +54,7 @@
                             </Button>
                             <!-- Time -->
                             <core:Icon src="{i18n>iTime}" class="sapUiSmallMarginBegin"/>
-                            <FlexBox renderType="Bare">
+                            <FlexBox renderType="Bare" class="sapUiSmallMarginEnd">
                                 <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
                                     {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
                                 <layoutData>
