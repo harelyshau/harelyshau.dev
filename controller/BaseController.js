@@ -67,12 +67,12 @@ sap.ui.define(
 				oParent.close ? oParent.close() : oParent.getParent().close();
 			},
 
-			async copyToClipboard(sValueToCopy, sSuccessMessage, sErrorMessage) {
+			async copyToClipboard(sValueToCopy) {
 				try {
 					await navigator.clipboard.writeText(sValueToCopy);
-					MessageToast.show(sSuccessMessage ?? this.i18n('msgCopied'));
+					MessageToast.show(this.i18n('msgCopied'));
 				} catch {
-					MessageToast.show(sErrorMessage ?? this.i18n('msgNotCopied'));
+					MessageToast.show(this.i18n('msgNotCopied'));
 				}
 			},
 

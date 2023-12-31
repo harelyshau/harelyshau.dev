@@ -13,10 +13,10 @@
 					<Title text="{i18n>ttlMinesweeper}" wrapping="true"/>
 				</f:heading>
 				<f:snappedContent>
-                    <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
+                    <Label text="{i18n>lTryMinesweeper}" wrapping="true"/>
                 </f:snappedContent>
                 <f:expandedContent>
-                    <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
+                    <Label text="{i18n>lTryMinesweeper}" wrapping="true"/>
                 </f:expandedContent>
 			</f:DynamicPageTitle>
 		</f:title>
