@@ -1,7 +1,7 @@
 sap.ui.define([
-	'sap/ui/core/Configuration',
+	'sap/base/i18n/Localization',
 	'sap/ui/core/Component'
-], (Configuration, Component) => {
+], (Localization, Component) => {
 	'use strict';
 
 	function getManifest() {
@@ -10,7 +10,7 @@ sap.ui.define([
 	}
 
 	function getCurrentLanguage() {
-		return Configuration.getLanguage().slice(0, 2);
+		return Localization.getLanguage().slice(0, 2);
 	}
 
 	return {
@@ -21,7 +21,7 @@ sap.ui.define([
 		setLanguage(sLanguage) {
 			if (sLanguage) localStorage.setItem('language', sLanguage);
 			sLanguage = this.getSupportedLanguage(sLanguage);
-			Configuration.setLanguage(sLanguage);
+			Localization.setLanguage(sLanguage);
 		},
 
 		getFallBackLanguage() {
