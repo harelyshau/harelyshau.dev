@@ -38,10 +38,10 @@
 				enableAppointmentsResize="true"
 				class="phCalendar">
 				<actions>
-					<ToggleButton press="onPressToggleFullDay" icon="{i18n>iMoreTime}"
+					<OverflowToolbarToggleButton press="onPressToggleFullDay" icon="{i18n>iMoreTime}"
 						pressed="{view>/fullDay}"
-						tooltip="{= ${view>/fullDay}
-							? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"/>
+						tooltip="{= ${view>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"
+						text="{= ${view>/fullDay} ? ${i18n>btnShowWorkingHours} : ${i18n>btnShowFullDay} }"/>
 					<Button id="btnMakeAppointment" enabled="false"
 						press="onPressOpenAppointmentDialog" icon="{i18n>iAppointment}"
 						text="{= ${device>/system/phone} || 420 >= ${device>/resize/width}
