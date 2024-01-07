@@ -97,8 +97,8 @@
                     </ScrollContainer>
                 </Panel>
                 <!-- INSTRUCTIONS -->
-                <!-- <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Instructions"
-					type="XML" class="sapUiSmallMarginTop"/> -->
+                <core:Fragment fragmentName="pharelyshau.fragment.Minesweeper.Instructions"
+					type="XML" class="sapUiSmallMarginTop"/>
                 <layoutData>
                     <FlexItemData maxWidth="{= !${view>/fullWidth} ? '750px' : '100%' }"/>
                 </layoutData>

@@ -15,7 +15,7 @@
                     <core:Icon src="{i18n>iPuzzle}" class="sapUiTinyMarginEnd"/>
                     <Title titleStyle="H6" text="{i18n>ttlGameDescription}:" wrapping="true"/>
                 </HBox>
-                <Text text="{i18n>tGameDescription}"/>
+                <Text text="{i18n>tMinesweeperDescription}"/>
             </VBox>
             <!-- Objective -->
             <VBox class="sapUiSmallMarginTop">
@@ -23,24 +23,15 @@
                     <core:Icon src="{i18n>iGoal}" class="sapUiTinyMarginEnd"/>
                     <Title titleStyle="H6" text="{i18n>ttlObjective}:" wrapping="true"/>
                 </HBox>
-                <Text text="{i18n>tHanoiTowerObjective}"/>
+                <Text text="{i18n>tMinesweeperObjective}"/>
             </VBox>
-            <!-- Rules -->
+            <!-- Gameplay -->
             <VBox class="sapUiSmallMarginTop">
                 <HBox>
-                    <core:Icon src="{i18n>iRules}" class="sapUiTinyMarginEnd"/>
-                    <Title titleStyle="H6" text="{i18n>ttlRules}:" wrapping="true"/>
+                    <core:Icon src="{i18n>iExample}" class="sapUiTinyMarginEnd"/>
+                    <Title titleStyle="H6" text="{i18n>ttlGameplay}:" wrapping="true"/>
                 </HBox>
-                <Text text="{i18n>tHanoiTowerRule1}"/>
-                <Text text="{i18n>tHanoiTowerRule2}"/>
-            </VBox>
-            <!-- Example -->
-            <VBox class="sapUiSmallMarginTop">
-                <HBox>
-                    <core:Icon src="{i18n>iExample}"/>
-                    <Title titleStyle="H6" text="{i18n>ttlExample}:" class="sapUiTinyMarginBegin"/>
-                </HBox>
-                <Image width="100%" src="./resource/image/HanoiTowerEx_{app>/theme}.jpg" class="sapUiTinyMarginTop"/>
+                <Text text="{i18n>tMinesweeperGameplay}"/>
             </VBox>
         </VBox>
     </Panel>
