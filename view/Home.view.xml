@@ -14,7 +14,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
-                                press="onPressSendEmail"/>
+                                press="onPressSendEmail" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>
@@ -38,7 +38,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iAppointment}" text="{i18n>btnMakeAppointment}"
-                                press="onPressNavigateToPage('Calendar')"/>
+                                press="onPressNavigateToPage('Calendar')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>
@@ -50,7 +50,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iResume}" text="{i18n>btnSeeResume}"
-                                press="onPressNavigateToPage('Resume')"/>
+                                press="onPressNavigateToPage('Resume')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>

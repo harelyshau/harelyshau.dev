@@ -1,6 +1,10 @@
-sap.ui.define(
-	['./BaseController', '../model/models', '../util/themeHelper', '../util/languageHelper'],
-	(BaseController, models, themeHelper, languageHelper) => {
+sap.ui.define([
+	'./BaseController',
+	'../model/models',
+	'../util/themeHelper',
+	'../util/languageHelper',
+	'sap/ui/core/ResizeHandler',
+], (BaseController, models, themeHelper, languageHelper, ResizeHandler) => {
 		'use strict';
 
 		return BaseController.extend('pharelyshau.controller.App', {
@@ -10,6 +14,15 @@ sap.ui.define(
 				this.setModel(models.createAppModel(), 'app');
 				this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
 				this.getRouter().attachTitleChanged(this.onTitleChanged.bind(this));
+				this.attachToResize();
+			},
+
+			attachToResize() {
+				const oView = this.getView();
+				ResizeHandler.register(
+					oView,
+					() => this.setModel(models.createDeviceModel(), 'device')
+				);
 			},
 
 			onRouteMatched(oEvent) {
