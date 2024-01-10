@@ -18,9 +18,8 @@ sap.ui.define([
 			},
 
 			attachToResize() {
-				const oView = this.getView();
 				ResizeHandler.register(
-					oView,
+					this.getView(),
 					() => this.setModel(models.createDeviceModel(), 'device')
 				);
 			},
