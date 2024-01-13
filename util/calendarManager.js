@@ -174,10 +174,8 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFet
 		#formatAppointmentDatesLocal(oStartDateGC, oEndDateGC) {
 			const oStartDate = new Date(oStartDateGC.dateTime ?? oStartDateGC.date + 'T00:00');
 			const oEndDate = new Date(oEndDateGC.dateTime ?? oEndDateGC.date + 'T00:00');
-			if (!oEndDateGC.dateTime) {
-				// set up all-day appointments for correct displaying
-				oEndDate.setDate(oEndDate.getDate() - 1);
-			}
+			// set up all-day appointments for correct displaying
+			if (!oEndDateGC.dateTime) oEndDate.setDate(oEndDate.getDate() - 1);
 			return [oStartDate, oEndDate];
 		}
 

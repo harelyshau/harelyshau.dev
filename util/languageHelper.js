@@ -32,8 +32,7 @@ sap.ui.define([
 			return getManifest()['sap.app'].i18n.supportedLocales;
 		},
 
-		getSupportedLanguage(sLanguage) {
-			sLanguage ??= getCurrentLanguage();
+		getSupportedLanguage(sLanguage = getCurrentLanguage()) {
 			const bSupported = this.getSupportedLanguages().includes(sLanguage);
 			return bSupported ? sLanguage : this.getFallBackLanguage();
 		},

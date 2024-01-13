@@ -1,13 +1,11 @@
 sap.ui.define([
     './BaseController',
     'sap/m/MessageToast',
-    '../model/models',
-    '../model/formatter',
-], (BaseController, MessageToast, models, formatter) => {
+    '../model/models'
+], (BaseController, MessageToast, models) => {
     'use strict';
 
     return BaseController.extend('pharelyshau.controller.Minesweeper', {
-        formatter,
 
         onInit() {
             this.setModel(models.createMinesweeperModel());
@@ -238,7 +236,6 @@ sap.ui.define([
         },
 
         isSettingsValid() {
-            const oFormatter = this.formatter;
             const aInputs = this.byId('settingsBox').getItems()
                 .map(oBox => oBox.getItems()[1]);
             return aInputs.every(oInput => oInput.getValueState() === 'None');
