@@ -74,6 +74,26 @@ sap.ui.define([
 				return oModel;
 			},
 
+			createSandboxModel() {
+				const files = [
+					{
+						name: 'index.html',
+						value: `<!DOCTYPE html>\n<html>\n\t<head>\n\t\t\x3Cscript\n\t\t\tid="sap-ui-bootstrap"\n\t\t\tsrc="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"\n\t\t\tdata-sap-ui-theme="sap_horizon"\n\t\t\tdata-sap-ui-compatVersion="edge"\n\t\t\tdata-sap-ui-async="true"\n\t\t\tdata-sap-ui-oninit="module:sap/ui/core/ComponentSupport"\n\t\t\tdata-sap-ui-resourceroots='{"pharelyshau": "./"}'\n\t\t>\x3C/script>\n\t</head>\n\t<body class="sapUiBody" id="content">\n\t\t<div\n\t\t\tdata-sap-ui-component\n\t\t\tdata-name="pharelyshau"\n\t\t\tdata-id="container"\n\t\t\tdata-settings='{"id" : "pharelyshau"}'\n\t\t></div>\n\t\t<H1>Some title</H1>\n\t</body>\n</html>`,
+						path: '/index.html'
+					},
+					{
+						name: 'index.js',
+						value: 'console.log(3333)',
+						path: '/index.js'
+					}
+				];
+				const oData = {
+					files,
+					selectedFile: files[0]
+				};
+				return new JSONModel(oData);
+			},
+
 			// View Models
 
 			createAppModel() {

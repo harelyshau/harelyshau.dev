@@ -101,6 +101,11 @@
 					"pattern": "algorithms/:articleId:",
 					"name": "Algorithms",
 					"target": "algorithms"
+				},
+				{
+					"pattern": "sandbox",
+					"name": "Sandbox",
+					"target": "sandbox"
 				}
 			],
 			"targets": {
@@ -133,6 +138,11 @@
 					"id": "algorithms",
 					"name": "Algorithms",
 					"title": "{= ${/Article/Title} || ${i18n>ttlAlgorithms} }"
+				},
+				"sandbox": {
+					"id": "sandbox",
+					"name": "Sandbox",
+					"title": "{i18n>ttlSandbox}"
 				},
 				"notFound": {
 					"id": "notFound",
