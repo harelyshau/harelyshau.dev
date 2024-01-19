@@ -78,7 +78,7 @@ sap.ui.define([
 				const files = [
 					{
 						name: 'HTML',
-						value: `<h1>Some title</h1>`,
+						value: `<h1>Some title</h1>`
 					},
 					{
 						name: 'JavaScript',
@@ -86,7 +86,7 @@ sap.ui.define([
 					},
 					{
 						name: 'CSS',
-						value: ''
+						value: 'body { background: red }'
 					}
 				];
 				const oData = {

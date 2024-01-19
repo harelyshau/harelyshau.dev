@@ -18,7 +18,7 @@
 					<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
 				</f:expandedContent> -->
 				<f:actions>
-					<Button text="{i18n>btnSendEmail}" press="onPressSave" icon="{i18n>iEmail}"/>
+					<Button text="{i18n>btnSendEmail}" icon="{i18n>iEmail}"/>
 				</f:actions>
 			</f:DynamicPageTitle>
 		</f:title>
@@ -30,20 +30,28 @@
                             <!-- <l:SplitterLayoutData size="{sizes>/pane1}" /> -->
                         </l:layoutData>
                         <Page>
-                            <headerContent>
-                                <IconTabHeader mode="Inline" items="{/files}" select="onSelectFile">
-                                    <items>
-                                        <IconTabFilter key="{name}" text="{name}"/>
-                                    </items>
-                                </IconTabHeader>
-                            </headerContent>
-                            <ce:CodeEditor value="{/selectedFile/value}" syntaxHints="false" height="100%"/>
+                            <customHeader>
+                                <OverflowToolbar height="auto" style="Clear">
+                                    <IconTabHeader items="{/files}" select="onSelectFile">
+                                        <items>
+                                            <IconTabFilter key="{name}" text="{name}{= !${unsaved} ? '' : ' *' }"/>
+                                        </items>
+                                    </IconTabHeader>
+                                    <ToolbarSpacer />
+                                    <OverflowToolbarButton text="Save" icon="sap-icon://save" press="onPressSave"/>
+                                </OverflowToolbar>
+                            </customHeader>
+                            <NavContainer pages="{/files}" id="filesNavContainer">
+                                <ce:CodeEditor value="{ path: 'value', mode: 'OneWay' }" syntaxHints="false"
+                                    type="{= ${name}.toLowerCase() }" height="100%" liveChange="onChangeCode"/>
+                            </NavContainer>
+                            
                         </Page>
                     </l:SplitPane>
                     <l:SplitPane requiredParentWidth="400" id="result">
                         <!-- <Page id="resultPage" showHeader="false"> -->
                         <VBox renderType="Bare" height="100%" width="100%">
-                            <core:HTML content="&lt;iframe srcDoc='{/result}' width='100%' height='100%'/&gt;"/>
+                            <core:HTML content="&lt;iframe srcDoc='&lt;!DOCTYPEhtml&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;{/files/2/value}&lt;/style&gt;&lt;script&gt;{/files/1/value}&lt;/script&gt;&lt;/head&gt;&lt;body&gt;{/files/0/value}&lt;/body&gt;&lt;/html&gt;' width='100%' height='100%'/&gt;"/>
                         </VBox>
                         <!-- </Page> -->
                     </l:SplitPane>

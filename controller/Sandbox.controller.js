@@ -15,38 +15,29 @@ sap.ui.define([
 
         onSelectFile(oEvent) {
             const sFile = oEvent.getSource().getSelectedKey();
-            const oFile = this.getProperty('/files').find(oFile => oFile.name === sFile);
-            this.setProperty('/selectedFile', oFile);
+            const oNavContainer = this.byId('filesNavContainer');
+            const oPage = oNavContainer.getPages()
+                .find(oPage => this.getObjectByControl(oPage).name === sFile);
+            oNavContainer.to(oPage, 'show');
+        },
+
+        onChangeCode(oEvent) {
+            const sPath = this.getPathByEvent(oEvent);
+            const { unsaved } = this.getProperty(sPath);
+            const bUnsaved = unsaved === undefined ? false : true;
+            this.setProperty(sPath + '/unsaved', bUnsaved);
         },
 
         onPressSave() {
-            this.generateIFrame();
+            const oEditor = this.byId('filesNavContainer').getCurrentPage();
+            const sPath = this.getPathByControl(oEditor);
+            this.setProperty(sPath + '/value', oEditor.getValue());
+            this.setProperty(sPath + '/unsaved', false);
         },
 
         getFiles() {
             return this.getProperty('/files')
                 .reduce((file, files) => files[file.name.toLowerCase()] = file.value, {});
-        },
-
-        generateIFrame() {
-            console.clear();
-            const aFiles = this.getProperty('/files').map(oFile => oFile.value);
-            const sHTML = `<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<style>${aFiles[2]}</style>\n\t\t<script>${aFiles[1]}</script>\n\t</head>\n\t<body>${aFiles[0]}</body>\n</html>`;
-            this.setProperty('/result', sHTML);
-            // var iframe = document.createElement('iframe');
-            // iframe.srcdoc = sHTML;
-            // this.byId('resultPage').getDomRef().append(iframe);
-            // debugger
-            // $("body").append(iframe);
-            // var doc = null;
-            // iframe=iframe[0];
-            // if (iframe.contentDocument) {
-            //     doc = iframe.contentDocument;
-            // }
-            // else if (iframe.contentWindow) {
-            //     doc = iframe.contentWindow.document;
-            // }
-            // doc.all[0].innerHTML=(sIndex);
         }
 
     });
