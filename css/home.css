@@ -1,0 +1,80 @@
+.phHomePageHeader {
+	background: url(../resource/image/HomePageBanner.jpg) center center;
+	background-size: cover;
+}
+
+/* Title */
+
+.phTitle {
+	color: white;
+	font-size: 2rem;
+}
+
+@media (min-width: 470px) {
+	.phTitle {
+		color: white;
+		font-size: 3rem;
+	}
+}
+
+@media (min-width: 803px) {
+	.phTitle {
+		color: white;
+		font-size: 4rem;
+	}
+}
+
+/* Button */
+
+.sapMBtn.phActionButton {
+	padding-top: 0;
+	height: 2.375rem;
+}
+
+.sapMBtn.phActionButton .sapMBtnInner {
+	padding-left: 0.875rem;
+	padding-right: 0.875rem;
+	height: 2.375rem;
+}
+
+.sapMBtn.phActionButton .sapMBtnInner.sapMBtnIconFirst {
+	padding-left: 1rem;
+}
+
+.sapMBtn.phActionButton .sapMBtnContent,
+.sapMBtn.phActionButton .sapMBtnIcon  {
+	line-height: 2.375rem;
+	font-size: 1.1rem;
+}
+
+@media (min-width: 803px) {
+
+	.sapMBtn.phActionButton {
+		padding-top: 0;
+		height: 3.25rem;
+	}
+
+	.sapMBtn.phActionButton .sapMBtnInner {
+		height: 3.250rem;
+	}
+
+	.sapMBtn.phActionButton .sapMBtnInner.sapMBtnIconFirst {
+		padding-left: 0.5rem;
+	}
+
+	.sapMBtn.phActionButton .sapMBtnIcon {
+		margin-left: 0.6rem;
+		margin-right: 0.6rem;
+	}
+
+	.sapMBtn.phActionButton .sapMBtnContent,
+	.sapMBtn.phActionButton .sapMBtnIcon {
+		line-height: 3.25rem;
+		font-size: 1.375rem;
+	}
+}
+
+/* Contacts Illustration */
+.phHiddenIllustrationTexts figcaption{
+	display: none;
+}

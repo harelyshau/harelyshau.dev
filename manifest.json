@@ -154,6 +154,7 @@
 		"resources": {
 			"css": [
 				{ "uri": "css/style.css" },
+				{ "uri": "css/home.css" },
 				{ "uri": "css/resume.css" },
 				{ "uri": "css/calendar.css" },
 				{ "uri": "css/algorithms.css" },

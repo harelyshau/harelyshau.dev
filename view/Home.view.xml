@@ -4,8 +4,36 @@
 	xmlns="sap.m"
 	xmlns:f="sap.f">
 	<f:DynamicPage>
+        <f:header>
+            <f:DynamicPageHeader pinnable="false" class="phHomePageHeader">
+                <VBox class="sapUiLargeMarginTopBottom sapUiSmallMarginBeginEnd"  alignContent="Center" alignItems="Center">
+                    <Title text="Progressive Web Application on OpenUI5"
+                        textAlign="Center"
+                        titleStyle="H1" wrapping="true" class="phTitle">
+                        <layoutData>
+                            <FlexItemData maxWidth="35rem"/>
+                        </layoutData>
+                    </Title>
+                     <Button icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" press="onPressShowCode"
+                        type="Emphasized" class="phButton phActionButton sapUiMediumMarginTop"/>
+                    
+                <!-- <VBox class="sapUiLargeMargin"  width="35rem"> -->
+                    <!-- <Title text="{i18n>ttlWelcome}" class="phWhite"
+                        titleStyle="H1" wrapping="true" />
+                    <Title text="{i18n>ttlWelcome}" class="phWhite"
+                        titleStyle="H2" wrapping="true" width="35rem"/>
+                    <HBox class="sapUiMediumMarginTop">
+                        <Button icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" press="onPressShowCode"
+                            type="Emphasized" class="phButton phActionButton"/>
+                        <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
+                            press="onPressSendEmail" class="phButton phActionButton sapUiMediumMarginBegin"/>
+                    </HBox> -->
+                    
+                </VBox>
+            </f:DynamicPageHeader>
+        </f:header>
 		<f:content>
-			<VBox class="phLimitedPageContent sapUiSmallMarginBottom">
+			<VBox class="phLimitedPageContent sapUiSmallMarginBottom sapUiLargeMarginTop">
                 <!-- WELCOME -->
                 <Panel>
                     <IllustratedMessage illustrationType="tnt-Success" enableFormattedText="true"
@@ -65,6 +93,44 @@
                                 press="onPressNavigateToPage('HanoiTower')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
+                </Panel>
+                <!-- Contact form -->
+                <Panel class="sapUiMediumMarginTop">
+                    <HBox justifyContent="SpaceBetween" class="sapUiSmallMargin">
+                        <VBox width="50%">
+                            <Title text="Contact me" titleStyle="H2"/>
+                            <!-- Subject -->
+                            <VBox class="sapUiSmallMarginTop">
+                                <Label text="{i18n>lSubject}" showColon="true" labelFor="inpName"/>
+                                <Input id="inpName" valueLiveUpdate="true"
+                                    placeholder="{i18n>phTopicToDiscuss}"/>
+                            </VBox>
+                            <!-- Message -->
+                            <VBox class="sapUiSmallMarginTopBottom">
+                                <Label text="{i18n>lMessage}" showColon="true" labelFor="inpDescription"/>
+                                <TextArea id="inpDescription" width="100%" value="{Description}" valueLiveUpdate="true"
+                                    rows="4" placeholder="{i18n>phAgenda}"/>
+                            </VBox>
+                            <HBox justifyContent="End">
+                                <Button icon="{i18n>iAppointment}" text="{i18n>btnMakeAppointment}"
+                                    press="onPressNavigateToPage('Calendar')" class="phButton" type="Emphasized"/>
+                                <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
+                                    press="onPressSendEmail" class="phButton sapUiSmallMarginBegin"/>
+                            </HBox>
+                        </VBox>
+                        <IllustratedMessage illustrationType="sapIllus-Survey" title=" "
+                            description=" " 
+                            illustrationSize="Scene" class="phIllustratedMessage phHiddenIllustrationTexts sapUiSmallMarginTop">
+                            <additionalContent>
+                                <Button icon="/resource/image/GitHub.svg" iconDensityAware="false"
+                                    type="Transparent" press="openLink('https://github.com/harelyshau')"/>
+                                <Button icon="/resource/image/LinkedIn.png" iconDensityAware="false"
+                                    type="Transparent" class="sapUiTinyMarginBegin" press="openLink('https://linkedin.com/in/harelyshau')"/>
+                                <Button icon="/resource/image/Telegram.svg" iconDensityAware="false"
+                                    type="Transparent" class="sapUiTinyMarginBegin" press="openLink('https://t.me/harelyshau')"/>
+                            </additionalContent>
+                        </IllustratedMessage>
+                    </HBox>
                 </Panel>
 			</VBox>
 		</f:content>

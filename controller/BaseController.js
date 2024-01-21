@@ -52,6 +52,10 @@ sap.ui.define(
 				this.getRouter().navTo(sPage);
 			},
 
+			openLink(sLink) {
+				sap.m.URLHelper.redirect(sLink, true);
+			},
+
 			onPressShowCode() {
 				const sWebsiteURL = 'https://github.com/harelyshau/harelyshau.dev';
 				sap.m.URLHelper.redirect(sWebsiteURL, true);
