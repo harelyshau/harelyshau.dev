@@ -8,18 +8,22 @@ sap.ui.define(['./BaseController'], (BaseController) => {
 		},
 
 		onPressSendEmail() {
-			const { subject, message } = this.getSubjectAndBody();
+			const { subject, message } = this.getSubjectAndMessage();
 			this.triggerEmail(subject, message);
 		},
 
 		getSubjectAndMessage() {
 			const subject = this.byId('inpSubject').getValue();
 			const message = this.byId('inpMessage').getValue();
-			return { subject, message };
+			return { subject , message };
 		},
 
 		onPressMakeAppointment() {
-			const { subject, message } = this.getSubjectAndBody();
+			const { subject, message } = this.getSubjectAndMessage();
+			const oParams = subject || message ? {} : null;
+			if (subject) oParams.title = subject;
+			if (message) oParams.agenda = message;
+			this.navigateTo('NewAppointment', { '?query': oParams });
 		}
 	
 	});

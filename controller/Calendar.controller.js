@@ -71,8 +71,10 @@ sap.ui.define([
 			this.onCalendarMatched(oEvent);
 			await this.pCalendarAPI;
 			const { appointment } = oEvent.getParameter('arguments');
-			const oAppointment = await calendarManager.get(appointment);
-			if (!oAppointment.Available) return this.navigateTo('Calendar');
+			try {
+				var oAppointment = await calendarManager.get(appointment);
+			} catch {}
+			if (!oAppointment?.Available) return this.navigateTo('Calendar');
 			this.setEditableAppointment(oAppointment);
 			this.setInitialAppointment(oAppointment);
 			this.openAppointmentDialog();
@@ -80,12 +82,12 @@ sap.ui.define([
 		},
 
 		onCalendarMatched(oEvent) {
+			this.oAppointmentDialog?.close();
 			const { view } = oEvent.getParameter('arguments');
 			if (!view) return;
 			const oView = this.byId('calendar').getViewByKey(view);
 			if (!oView) return this.navigateTo('Calendar');
 			this.byId('calendar').setSelectedView(view);
-			this.oAppointmentDialog?.close();
 		},
 
 		//////////////////////////////////

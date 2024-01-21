@@ -15,7 +15,7 @@
             </VBox>
             <HBox justifyContent="End" wrap="Wrap" renderType="Bare">
                 <Button icon="{i18n>iAppointment}" text="{i18n>btnMakeAppointment}"
-                    press="navigateTo('Calendar')" class="phButton" type="Emphasized"/>
+                    press="onPressMakeAppointment" class="phButton" type="Emphasized"/>
                 <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
                     press="onPressSendEmail" class="phButton sapUiSmallMarginBegin"/>
             </HBox>
