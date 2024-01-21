@@ -5,7 +5,7 @@
 	<IllustratedMessage illustrationType="sapIllus-PageNotFound"
         enableVerticalResponsiveness="true">
         <additionalContent>
-            <Button icon="{i18n>iHome}" text="{i18n>btnGoHome}" press="onPressNavigateToPage('Home')"/>
+            <Button icon="{i18n>iHome}" text="{i18n>btnGoHome}" press="navigateTo('Home')"/>
         </additionalContent>
     </IllustratedMessage>
 </mvc:View>

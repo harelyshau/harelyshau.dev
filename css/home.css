@@ -5,20 +5,20 @@
 
 /* Title */
 
-.phTitle {
+.phTitle.sapMTitleStyleH1 {
 	color: white;
 	font-size: 2rem;
 }
 
 @media (min-width: 470px) {
-	.phTitle {
+	.phTitle.sapMTitleStyleH1 {
 		color: white;
 		font-size: 3rem;
 	}
 }
 
 @media (min-width: 803px) {
-	.phTitle {
+	.phTitle.sapMTitleStyleH1 {
 		color: white;
 		font-size: 4rem;
 	}
@@ -77,4 +77,8 @@
 /* Contacts Illustration */
 .phHiddenIllustrationTexts figcaption{
 	display: none;
+}
+
+.phHiddenIllustrationTexts .sapMIllustratedMessageAdditionalContent {
+	margin-bottom: 0 !important;
 }

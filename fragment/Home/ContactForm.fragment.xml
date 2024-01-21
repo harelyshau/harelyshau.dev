@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <HBox justifyContent="SpaceBetween" class="sapUiTinyMargin" wrap="Wrap">
+        <VBox width="{= 800 >= ${device>/resize/width} ? '100%' : '50%' }">
+            <Title text="Contact me" titleStyle="H2"/>
+            <!-- Subject -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="{i18n>lSubject}" showColon="true" labelFor="inpName"/>
+                <Input id="inpSubject"
+                    placeholder="{i18n>phTopicToDiscuss}"/>
+            </VBox>
+            <!-- Message -->
+            <VBox class="sapUiSmallMarginTopBottom">
+                <Label text="{i18n>lMessage}" showColon="true" labelFor="inpDescription"/>
+                <TextArea id="inpMessage" width="100%" rows="4" placeholder="{i18n>phAgenda}"/>
+            </VBox>
+            <HBox justifyContent="End" wrap="Wrap" renderType="Bare">
+                <Button icon="{i18n>iAppointment}" text="{i18n>btnMakeAppointment}"
+                    press="navigateTo('Calendar')" class="phButton" type="Emphasized"/>
+                <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
+                    press="onPressSendEmail" class="phButton sapUiSmallMarginBegin"/>
+            </HBox>
+        </VBox>
+        <!-- Illustration -->
+        <FlexBox width="{= 800 >= ${device>/resize/width} ? '100%' : '50%' }" justifyContent="Center" >
+            <IllustratedMessage illustrationType="sapIllus-Survey" title=" " description=" "
+                illustrationSize="{= 500 >= ${device>/resize/width} ? 'Dialog' : 'Scene' }" class=" phHiddenIllustrationTexts">
+                <additionalContent>
+                    <Button icon="/resource/image/GitHub-{app>/theme}.svg" iconDensityAware="false"
+                        tooltip="GitHub" accessibleRole="Link" type="Transparent"
+                        press="openLink('https://github.com/harelyshau')"/>
+                    <Button icon="/resource/image/LinkedIn.png" iconDensityAware="false" tooltip="LinkedIn"
+                        accessibleRole="Link" type="Transparent" class="sapUiTinyMarginBegin"
+                        press="openLink('https://linkedin.com/in/harelyshau')"/>
+                    <Button icon="/resource/image/Telegram.svg" iconDensityAware="false" tooltip="Telegram"
+                        accessibleRole="Link" type="Transparent" class="sapUiTinyMarginBegin"
+                        press="openLink('https://t.me/harelyshau')"/>
+                </additionalContent>
+            </IllustratedMessage>
+        </FlexBox>
+    </HBox>
+</core:FragmentDefinition>

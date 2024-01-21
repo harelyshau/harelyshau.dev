@@ -5,6 +5,21 @@ sap.ui.define(['./BaseController'], (BaseController) => {
 
 		onInit() {
 			this.registerIllustrationSet('tnt', 'sap/tnt/themes/base/illustrations');
+		},
+
+		onPressSendEmail() {
+			const { subject, message } = this.getSubjectAndBody();
+			this.triggerEmail(subject, message);
+		},
+
+		getSubjectAndMessage() {
+			const subject = this.byId('inpSubject').getValue();
+			const message = this.byId('inpMessage').getValue();
+			return { subject, message };
+		},
+
+		onPressMakeAppointment() {
+			const { subject, message } = this.getSubjectAndBody();
 		}
 	
 	});

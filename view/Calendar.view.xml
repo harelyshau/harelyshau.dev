@@ -17,7 +17,7 @@
 					<Label text="{i18n>lShowsAppointmentsFor} {/Email}" wrapping="true"/>
 				</f:expandedContent>
 				<f:actions>
-					<Button text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
+					<Button text="{i18n>btnSendEmail}" press="triggerEmail()" icon="{i18n>iEmail}"/>
 				</f:actions>
 			</f:DynamicPageTitle>
 		</f:title>
