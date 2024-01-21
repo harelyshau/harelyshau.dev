@@ -48,8 +48,12 @@ sap.ui.define(
 
 			// Common Buttons
 
-			navigateTo(sPage) {
-				this.getRouter().navTo(sPage);
+			attachRouteMatched(sRoute, fnCallback) {
+				this.getRouter().getRoute(sRoute).attachMatched(fnCallback);
+			},
+
+			navigateTo(sPage, oParams) {
+				this.getRouter().navTo(sPage, oParams);
 			},
 
 			openLink(sLink) {
@@ -68,7 +72,7 @@ sap.ui.define(
 
 			onPressCloseModalWindow(oEvent) {
 				const oParent = oEvent.getSource().getParent();
-				oParent.close ? oParent.close() : oParent.getParent().close();
+				oParent.close?.() ?? oParent.getParent().close();
 			},
 
 			async copyToClipboard(sValueToCopy) {

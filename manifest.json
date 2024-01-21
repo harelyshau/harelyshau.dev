@@ -67,7 +67,7 @@
 				"controlId": "app",
 				"controlAggregation": "pages",
 				"bypassed": {
-					"target": ["notFound"]
+					"target": ["NotFound"]
 				},
 				"async": true
 			},
@@ -75,77 +75,79 @@
 				{
 					"pattern": "",
 					"name": "Home",
-					"target": "home"
+					"target": "Home"
 				},
 				{
 					"pattern": "resume",
 					"name": "Resume",
-					"target": "resume"
+					"target": "Resume"
+				},
+				{
+					"pattern": "calendar/appointment:?query:",
+					"name": "NewAppointment",
+					"target": "Calendar"
+				},
+				{
+					"pattern": "calendar/appointment/{appointment}",
+					"name": "Appointment",
+					"target": "Calendar"
 				},
 				{
 					"pattern": "calendar/:view:",
 					"name": "Calendar",
-					"target": "calendar"
+					"target": "Calendar"
 				},
 				{
 					"pattern": "hanoitower",
 					"name": "HanoiTower",
-					"target": "hanoitower"
+					"target": "HanoiTower"
 				},
 				{
 					"pattern": "minesweeper",
 					"name": "Minesweeper",
-					"target": "minesweeper"
+					"target": "Minesweeper"
 				},
 				{
 					"pattern": "algorithms/:articleId:",
 					"name": "Algorithms",
-					"target": "algorithms"
+					"target": "Algorithms"
 				},
 				{
 					"pattern": "sandbox",
 					"name": "Sandbox",
-					"target": "sandbox"
+					"target": "Sandbox"
 				}
 			],
 			"targets": {
-				"home": {
-					"id": "home",
+				"Home": {
 					"name": "Home",
 					"title": "harelyshau.dev"
 				},
-				"resume": {
-					"id": "resume",
+				"Resume": {
 					"name": "Resume",
 					"title": "{/FirstName} {/LastName}"
 				},
-				"calendar": {
-					"id": "calendar",
+				"Calendar": {
 					"name": "Calendar",
 					"title": "{i18n>ttlPavelsCalendar}"
 				},
-				"hanoitower": {
-					"id": "hanoitower",
+				"HanoiTower": {
 					"name": "HanoiTower",
 					"title": "{i18n>ttlHanoiTower}"
 				},
-				"minesweeper": {
-					"id": "minesweeper",
+				"Minesweeper": {
 					"name": "Minesweeper",
 					"title": "{i18n>ttlMinesweeper}"
 				},
-				"algorithms": {
-					"id": "algorithms",
+				"Algorithms": {
 					"name": "Algorithms",
 					"title": "{= ${/Article/Title} || ${i18n>ttlAlgorithms} }"
 				},
-				"sandbox": {
-					"id": "sandbox",
+				"Sandbox": {
 					"name": "Sandbox",
 					"title": "{i18n>ttlSandbox}"
 				},
-				"notFound": {
-					"id": "notFound",
+				"NotFound": {
 					"name": "NotFound",
 					"title": "{i18n>ttlPageNotFound}"
 				}
