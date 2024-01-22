@@ -1,11 +1,11 @@
-sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFetcher, GoogleAPI) => {
+sap.ui.define(['./getGoogleApiToken', './lib/GoogleAPI'], (getGoogleApiToken, GoogleAPI) => {
 	'use strict';
 
 	const calendarId = 'pavel@harelyshau.dev';
 
 	/* This Class allows managing appointments in Google Calendar
-    and provide following 5 public methods: "init", "getAppointments",
-    "createAppointment", "updateAppointment", "removeAppointment" */
+    and provide following 5 public methods: "init", "list", "get",
+    "create", "update", "remove" */
 
 	class CalendarManager {
 		//////////////////////////////////
@@ -29,7 +29,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFet
 
 		async #setGoogleApiAuthToken() {
 			const oCredentials = await this.#getServiceAccountCredentials();
-			const oToken = await googleApiTokenFetcher.getToken(oCredentials);
+			const oToken = await getGoogleApiToken(oCredentials);
 			return gapi.auth.setToken(oToken);
 		}
 
@@ -184,5 +184,5 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFet
 		}
 	}
 
-	return new CalendarManager();
+	return new CalendarManager;
 });
