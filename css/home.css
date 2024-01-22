@@ -3,24 +3,40 @@
 	background-size: cover;
 }
 
-/* Title */
+.phWhite {
+	color: white;
+}
+
+/* Titles */
+
+/* H1 */
 
 .phTitle.sapMTitleStyleH1 {
-	color: white;
 	font-size: 2rem;
 }
 
-@media (min-width: 470px) {
+.phTitle.sapMTitleStyleH2 {
+	font-size: 1.5rem;
+}
+
+@media (min-width: 500px) {
 	.phTitle.sapMTitleStyleH1 {
-		color: white;
 		font-size: 3rem;
+	}
+
+	.phTitle.sapMTitleStyleH2 {
+		font-size: 2rem;
 	}
 }
 
-@media (min-width: 803px) {
+@media (min-width: 800px) {
 	.phTitle.sapMTitleStyleH1 {
-		color: white;
+		/* color: white; */
 		font-size: 4rem;
+	}
+
+	.phTitle.sapMTitleStyleH2 {
+		font-size: 2.3rem;
 	}
 }
 
@@ -47,7 +63,7 @@
 	font-size: 1.1rem;
 }
 
-@media (min-width: 803px) {
+@media (min-width: 800px) {
 
 	.sapMBtn.phActionButton {
 		padding-top: 0;

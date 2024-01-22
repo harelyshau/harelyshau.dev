@@ -71,14 +71,13 @@ sap.ui.define([
 			this.onCalendarMatched(oEvent);
 			await this.pCalendarAPI;
 			const { appointment } = oEvent.getParameter('arguments');
-			try {
-				var oAppointment = await calendarManager.get(appointment);
-			} catch {}
-			if (!oAppointment?.Available) return this.navigateTo('Calendar');
-			this.setEditableAppointment(oAppointment);
-			this.setInitialAppointment(oAppointment);
-			this.openAppointmentDialog();
-			this.byId('calendar').setStartDate(oAppointment.StartDate);
+			calendarManager.get(appointment).then(oAppointment => {
+				if (!oAppointment?.Available) throw new Error;
+				this.setEditableAppointment(oAppointment);
+				this.setInitialAppointment(oAppointment);
+				this.openAppointmentDialog();
+				this.byId('calendar').setStartDate(oAppointment.StartDate);
+			}).catch(() => this.navigateTo('Calendar'));
 		},
 
 		onCalendarMatched(oEvent) {

@@ -6,16 +6,15 @@
 	<f:DynamicPage>
         <f:header>
             <f:DynamicPageHeader pinnable="false" class="phHomePageHeader">
-                <VBox class="sapUiLargeMarginTopBottom sapUiSmallMarginBeginEnd"  alignContent="Center" alignItems="Center">
-                    <Title text="Progressive Web Application on OpenUI5"
-                        textAlign="Center"
-                        titleStyle="H1" wrapping="true" class="phTitle">
+                <VBox class="sapUiLargeMarginTopBottom sapUiSmallMarginBeginEnd" alignContent="Center" alignItems="Center">
+                    <Title text="Progressive Web Application on OpenUI5" textAlign="Center"
+                        titleStyle="H1" wrapping="true" class="phTitle phWhite sapUiMediumMarginTop">
                         <layoutData>
                             <FlexItemData maxWidth="35rem"/>
                         </layoutData>
                     </Title>
                      <Button icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" press="onPressShowCode"
-                        type="Emphasized" class="phButton phActionButton sapUiMediumMarginTop"/>
+                        type="Emphasized" class="phButton phActionButton sapUiMediumMarginTopBottom"/>
                 </VBox>
             </f:DynamicPageHeader>
         </f:header>
