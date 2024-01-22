@@ -19,9 +19,9 @@
 					<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
 				</f:expandedContent>
 				<f:actions>
-					<Button text="{i18n>btnMakeAppointment}" press="onPressNavigateToPage('Calendar')"
+					<Button text="{i18n>btnMakeAppointment}" press="navigateTo('Calendar')"
 							icon="{i18n>iAppointment}" type="Emphasized"/>
-					<Button text="{i18n>btnSendEmail}" press="onPressSendEmail" icon="{i18n>iEmail}"/>
+					<Button text="{i18n>btnSendEmail}" press="triggerEmail()" icon="{i18n>iEmail}"/>
 					<Button text="{i18n>btnDownloadResume}" press="onPressDownloadResume" icon="{i18n>iDownload}">
 						<layoutData>
                             <OverflowToolbarLayoutData priority="AlwaysOverflow"/>

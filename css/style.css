@@ -18,3 +18,7 @@
 .phButton {
 	max-width: 100%;
 }
+
+iframe {
+	border: none
+}

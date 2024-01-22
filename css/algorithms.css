@@ -30,7 +30,7 @@
 	text-align: start !important;
 }
 .phIllustratedMessage .sapMIllustratedMessageAdditionalContent {
-	display: none;
+	margin-bottom: 0 !important;
 }
 
 .phHiddenIllustration svg {

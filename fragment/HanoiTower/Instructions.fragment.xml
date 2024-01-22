@@ -40,7 +40,7 @@
                     <core:Icon src="{i18n>iExample}"/>
                     <Title titleStyle="H6" text="{i18n>ttlExample}:" class="sapUiTinyMarginBegin"/>
                 </HBox>
-                <Image width="100%" src="./resource/image/HanoiTowerEx_{app>/theme}.jpg" class="sapUiTinyMarginTop"/>
+                <Image width="100%" src="./resource/image/HanoiTowerEx-{app>/theme}.jpg" class="sapUiTinyMarginTop"/>
             </VBox>
         </VBox>
     </Panel>

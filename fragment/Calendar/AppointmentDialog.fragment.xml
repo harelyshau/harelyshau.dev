@@ -90,7 +90,7 @@
             </VBox>
             <!-- Agenda -->
             <VBox class="sapUiSmallMarginTopBottom">
-                <Label text="{i18n>lAgenda}:" labelFor="inpDescription"/>
+                <Label text="{i18n>lAgenda}" showColon="true" labelFor="inpDescription"/>
                 <TextArea id="inpDescription" width="100%" value="{Description}" valueLiveUpdate="true"
                     rows="4" placeholder="{i18n>phAgenda}"/>
             </VBox>

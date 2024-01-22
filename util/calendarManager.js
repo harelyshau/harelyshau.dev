@@ -1,11 +1,11 @@
-sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFetcher, GoogleAPI) => {
+sap.ui.define(['./getGoogleApiToken', './lib/GoogleAPI'], (getGoogleApiToken, GoogleAPI) => {
 	'use strict';
 
 	const calendarId = 'pavel@harelyshau.dev';
 
 	/* This Class allows managing appointments in Google Calendar
-    and provide following 5 public methods: "init", "getAppointments",
-    "createAppointment", "updateAppointment", "removeAppointment" */
+    and provide following 5 public methods: "init", "list", "get",
+    "create", "update", "remove" */
 
 	class CalendarManager {
 		//////////////////////////////////
@@ -29,7 +29,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFet
 
 		async #setGoogleApiAuthToken() {
 			const oCredentials = await this.#getServiceAccountCredentials();
-			const oToken = await googleApiTokenFetcher.getToken(oCredentials);
+			const oToken = await getGoogleApiToken(oCredentials);
 			return gapi.auth.setToken(oToken);
 		}
 
@@ -42,7 +42,7 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFet
 		////////////// CRUD //////////////
 		//////////////////////////////////
 
-		async getAppointments(oStartDate, oEndDate) {
+		async list(oStartDate, oEndDate) {
 			const oParams = {
 				calendarId,
 				maxResults: 250, // max available value
@@ -50,35 +50,33 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFet
 				timeMin: oStartDate.toISOString(),
 				timeMax: oEndDate.toISOString()
 			};
-			const oResponse = await gapi.client.calendar.events.list(oParams);
+			const oResponse = await this.#events.list(oParams);
 			const aAppointmentsGC = oResponse.result.items;
 			return aAppointmentsGC.map(this.#formatAppointmentLocal.bind(this));
 		}
 
-		async createAppointment(oAppointment) {
-			const oParams = {
-				calendarId,
-				resource: this.#formatAppointmentGC(oAppointment),
-				conferenceDataVersion: 1,
-				sendUpdates: 'all'
-			};
+		async get(eventId) {
+			const oParams = { calendarId, eventId };
+			const oAppointmentGC = (await this.#events.get(oParams)).result;
+			return this.#formatAppointmentLocal(oAppointmentGC);
+		}
+
+		async create(oAppointment) {
+			const resource = this.#formatAppointmentGC(oAppointment);
+			const oParams = { calendarId, resource, conferenceDataVersion: 1, sendUpdates: 'all' };
 			const oCreatedAppointmentGC = (await this.#events.insert(oParams)).result;
 			this.#addAppointmentIdToLocalStorage(oCreatedAppointmentGC.id);
 			return this.#formatAppointmentLocal(oCreatedAppointmentGC);
 		}
 
-		async removeAppointment(eventId) {
-			const oParams = {
-				calendarId,
-				eventId,
-				sendUpdates: 'all'
-			};
+		async remove(eventId) {
+			const oParams = { calendarId, eventId, sendUpdates: 'all' };
 			await this.#events.delete(oParams);
 			this.#removeAppointmentIdFromLocalStorage(eventId);
 			return eventId;
 		}
 
-		async updateAppointment(oAppointment) {
+		async update(oAppointment) {
 			const oParams = {
 				calendarId,
 				eventId: oAppointment.ID,
@@ -186,5 +184,5 @@ sap.ui.define(['./googleApiTokenFetcher', './lib/GoogleAPI'], (googleApiTokenFet
 		}
 	}
 
-	return new CalendarManager();
+	return new CalendarManager;
 });

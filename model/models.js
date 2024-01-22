@@ -74,6 +74,28 @@ sap.ui.define([
 				return oModel;
 			},
 
+			createSandboxModel() {
+				const files = [
+					{
+						name: 'HTML',
+						value: `<h1>Some title</h1>`
+					},
+					{
+						name: 'JavaScript',
+						value: 'console.log(3333)'
+					},
+					{
+						name: 'CSS',
+						value: 'body { background: red }'
+					}
+				];
+				const oData = {
+					files,
+					selectedFile: files[0]
+				};
+				return new JSONModel(oData);
+			},
+
 			// View Models
 
 			createAppModel() {

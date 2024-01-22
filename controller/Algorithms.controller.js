@@ -8,7 +8,7 @@ sap.ui.define(
 			onInit() {
 				this.setModel(models.createAlgorithmsModel(articleList));
 				this.setModel(models.createAlgorithmsViewModel(), 'view');
-				this.getRouter().getRoute("Algorithms").attachMatched(this.onAlgorithmsMatched.bind(this));
+				this.attachRouteMatched('Algorithms', this.onAlgorithmsMatched.bind(this));
 				this.registerIllustrationSet('tnt', 'sap/tnt/themes/base/illustrations');
 			},
 

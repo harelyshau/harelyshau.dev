@@ -48,23 +48,31 @@ sap.ui.define(
 
 			// Common Buttons
 
-			onPressNavigateToPage(sPage) {
-				this.getRouter().navTo(sPage);
+			attachRouteMatched(sRoute, fnCallback) {
+				this.getRouter().getRoute(sRoute).attachMatched(fnCallback);
+			},
+
+			navigateTo(sPage, oParams) {
+				this.getRouter().navTo(sPage, oParams);
+			},
+
+			openLink(sLink) {
+				sap.m.URLHelper.redirect(sLink, true);
 			},
 
 			onPressShowCode() {
-				const sWebsiteURL = 'https://github.com/harelyshau/harelyshau.dev';
-				sap.m.URLHelper.redirect(sWebsiteURL, true);
+				this.openLink('https://github.com/harelyshau/harelyshau.dev');
 			},
 
-			onPressSendEmail() {
-				const sEmail = this.getModel()?.getProperty('/Email') ?? 'pavel@harelyshau.dev';
-				sap.m.URLHelper.triggerEmail(sEmail, 'Email from harelyshau.dev website');
+			triggerEmail(sSubject, sBody) {
+				const sEmail = 'pavel@harelyshau.dev';
+				sSubject ||= 'Email from harelyshau.dev website';
+				sap.m.URLHelper.triggerEmail(sEmail, sSubject, sBody);
 			},
 
 			onPressCloseModalWindow(oEvent) {
 				const oParent = oEvent.getSource().getParent();
-				oParent.close ? oParent.close() : oParent.getParent().close();
+				oParent.close?.() ?? oParent.getParent().close();
 			},
 
 			async copyToClipboard(sValueToCopy) {

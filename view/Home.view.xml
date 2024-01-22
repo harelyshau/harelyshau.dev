@@ -1,11 +1,25 @@
-<mvc:View
-    controllerName="pharelyshau.controller.Home"
+<mvc:View controllerName="pharelyshau.controller.Home"
 	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
 	xmlns="sap.m"
 	xmlns:f="sap.f">
 	<f:DynamicPage>
+        <f:header>
+            <f:DynamicPageHeader pinnable="false" class="phHomePageHeader">
+                <VBox class="sapUiLargeMarginTopBottom sapUiSmallMarginBeginEnd" alignContent="Center" alignItems="Center">
+                    <Title text="Progressive Web Application on OpenUI5" textAlign="Center"
+                        titleStyle="H1" wrapping="true" class="phTitle phWhite sapUiMediumMarginTop">
+                        <layoutData>
+                            <FlexItemData maxWidth="35rem"/>
+                        </layoutData>
+                    </Title>
+                     <Button icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" press="onPressShowCode"
+                        type="Emphasized" class="phButton phActionButton sapUiMediumMarginTopBottom"/>
+                </VBox>
+            </f:DynamicPageHeader>
+        </f:header>
 		<f:content>
-			<VBox class="phLimitedPageContent sapUiSmallMarginBottom">
+			<VBox class="phLimitedPageContent sapUiSmallMarginBottom sapUiLargeMarginTop">
                 <!-- WELCOME -->
                 <Panel>
                     <IllustratedMessage illustrationType="tnt-Success" enableFormattedText="true"
@@ -14,7 +28,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iEmail}" text="{i18n>btnSendEmail}"
-                                press="onPressSendEmail" class="phButton"/>
+                                press="triggerEmail()" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>
@@ -38,7 +52,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iAppointment}" text="{i18n>btnMakeAppointment}"
-                                press="onPressNavigateToPage('Calendar')" class="phButton"/>
+                                press="navigateTo('Calendar')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>
@@ -50,7 +64,7 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iResume}" text="{i18n>btnSeeResume}"
-                                press="onPressNavigateToPage('Resume')" class="phButton"/>
+                                press="navigateTo('Resume')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
                 </Panel>
@@ -62,9 +76,13 @@
                             ? 'Spot' : 'Auto' }">
                         <additionalContent>
                             <Button icon="{i18n>iHanoiTower}" text="{i18n>btnPlayHanoiTower}"
-                                press="onPressNavigateToPage('HanoiTower')" class="phButton"/>
+                                press="navigateTo('HanoiTower')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
+                </Panel>
+                <!-- Contact form -->
+                <Panel class="sapUiMediumMarginTop">
+                    <core:Fragment fragmentName="pharelyshau.fragment.Home.ContactForm" type="XML"/>
                 </Panel>
 			</VBox>
 		</f:content>
