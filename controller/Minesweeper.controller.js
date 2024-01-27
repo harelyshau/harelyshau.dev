@@ -132,9 +132,8 @@ sap.ui.define([
         },
 
         updateFlagCount(bDecrease) {
-            let iFlags = this.getProperty('/Flags');
-            iFlags -= bDecrease ? 1 : -1;
-            this.setProperty('/Flags', iFlags);
+            const iFlags = this.getProperty('/Flags');
+            this.setProperty('/Flags', bDecrease ? iFlags - 1 : iFlags + 1);
         },
 
         getCellMineCount(oCell) {

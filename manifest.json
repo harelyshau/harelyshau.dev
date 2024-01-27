@@ -103,6 +103,11 @@
 					"target": "HanoiTower"
 				},
 				{
+					"pattern": "tictactoe",
+					"name": "TicTacToe",
+					"target": "TicTacToe"
+				},
+				{
 					"pattern": "minesweeper",
 					"name": "Minesweeper",
 					"target": "Minesweeper"
@@ -138,6 +143,10 @@
 				"Minesweeper": {
 					"name": "Minesweeper",
 					"title": "{i18n>ttlMinesweeper}"
+				},
+				"TicTacToe": {
+					"name": "TicTacToe",
+					"title": "{i18n>ttlTicTacToe}"
 				},
 				"Algorithms": {
 					"name": "Algorithms",

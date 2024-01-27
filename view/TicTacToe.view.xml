@@ -1,0 +1,72 @@
+<mvc:View xmlns:core="sap.ui.core"
+    controllerName="pharelyshau.controller.Minesweeper"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+    core:require="{formatter: 'pharelyshau/model/formatter'}"
+    xmlns:cc="pharelyshau.control">
+	<f:DynamicPage>
+        <!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>ttlTicTacToe}" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+                    <Label text="{i18n>lTryTicTacToe}" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="{i18n>lTryTicTacToe}" wrapping="true"/>
+                </f:expandedContent>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox class="phLimitedPageContent sapUiSmallMarginBottom" alignItems="Center" renderType="Bare" width="100%">
+                <Panel>
+                    <!-- HEADER TOOLBAR -->
+                    <headerToolbar>
+                        <OverflowToolbar height="3rem">
+                            <!-- Levels -->
+                            <Label id="lblLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
+                            <Select items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
+                                change="onChangeLevel" ariaLabelledBy="lblLevels">
+                                <core:ListItem text="{Key}" key="{Key}"/>
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
+                                </layoutData>
+                            </Select>
+                            <OverflowToolbarButton icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
+                                text="Settings" press="onPressOpenSettingsDialog">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData group="1"  priority="Low"/>
+                                </layoutData>
+                            </OverflowToolbarButton>
+                            <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
+                            <!-- Turn -->
+                            <Title text="Turn" class="sapUiSmallMarginBegin"/>
+                                <core:Icon src="sap-icon://decline" class="sapUiTinyMarginEnd"/>
+                            <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
+                            <!-- Records -->
+                            <Button text="{i18n>btnRestart}" press="onPressRestart" icon="{i18n>iRestart}">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="Low"/>
+                                </layoutData>
+                            </Button>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <!-- GAME -->
+                    <VBox renderType="Bare" class="sapUiMediumMarginTopBottom" items="{/rows}">
+                        <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
+                            <HBox items="{ path: '', templateShareable: false }" renderType="Bare">
+                                <Text />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </Panel>
+                <!-- INSTRUCTIONS -->
+                <!-- <core:Fragment fragmentName="pharelyshau.fragment.Minesweeper.Instructions"
+					type="XML" class="sapUiSmallMarginTop"/> -->
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>
