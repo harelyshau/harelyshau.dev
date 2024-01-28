@@ -20,7 +20,12 @@ sap.ui.define([
         onPress(oEvent) {
             const iTurn = this.getProperty('/turn');
             this.getObjectByEvent(oEvent).value = iTurn;
+            this.checkGameOver();
             this.setProperty('/turn', !iTurn);
+        },
+
+        checkGameOver() {
+            // this.getProperty('/field').some(aCells => aCells.every(({ value }))
         },
 
         createField() {
