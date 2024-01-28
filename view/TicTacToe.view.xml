@@ -1,5 +1,5 @@
 <mvc:View xmlns:core="sap.ui.core"
-    controllerName="pharelyshau.controller.Minesweeper"
+    controllerName="pharelyshau.controller.TicTacToe"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
@@ -28,23 +28,17 @@
                         <OverflowToolbar height="3rem">
                             <!-- Levels -->
                             <Label id="lblLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
-                            <Select items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
+                            <Select items="{/levels}" selectedKey="{path: '/level', mode: 'OneWay'}"
                                 change="onChangeLevel" ariaLabelledBy="lblLevels">
-                                <core:ListItem text="{Key}" key="{Key}"/>
+                                <core:ListItem text="{}" key="{}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
                             </Select>
-                            <OverflowToolbarButton icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
-                                text="Settings" press="onPressOpenSettingsDialog">
-                                <layoutData>
-                                    <OverflowToolbarLayoutData group="1"  priority="Low"/>
-                                </layoutData>
-                            </OverflowToolbarButton>
-                            <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
+                            <ToolbarSpacer />
                             <!-- Turn -->
-                            <Title text="Turn" class="sapUiSmallMarginBegin"/>
-                                <core:Icon src="sap-icon://decline" class="sapUiTinyMarginEnd"/>
+                            <core:Icon src="{= ${/turn} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"/>
+                            <Label text="Turn"/>
                             <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
                             <!-- Records -->
                             <Button text="{i18n>btnRestart}" press="onPressRestart" icon="{i18n>iRestart}">
@@ -55,12 +49,23 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
-                    <VBox renderType="Bare" class="sapUiMediumMarginTopBottom" items="{/rows}">
-                        <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
-                            <HBox items="{ path: '', templateShareable: false }" renderType="Bare">
-                                <Text />
-                            </HBox>
-                        </VBox>
+                    <VBox renderType="Bare" class="sapUiMediumMarginTopBottom" items="{/field}"
+                        alignItems="Center">
+                        <HBox items="{ path: '', templateShareable: false, factory: '.factoryCells' }" renderType="Bare">
+                            <!-- <CustomListItem type="Active"> -->
+                            <!-- <dependents> -->
+                                <FlexBox renderType="Bare" class="phTicTacToeCell">
+                                    <Avatar displaySize="Custom" backgroundColor="Transparent"
+                                        customDisplaySize="4rem"
+                                        enabled="{= ${value} === undefined }"
+                                        customFontSize="{= ${value} ? '4rem' : '3.2rem' }"
+                                        src="{= ${value} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
+                                        press="onPress" displayShape="Square" class="sapUiTinyMargin"/>
+                                </FlexBox>
+                            <!-- </dependents> -->
+                            
+                            <!-- </CustomListItem> -->
+                        </HBox>
                     </VBox>
                 </Panel>
                 <!-- INSTRUCTIONS -->

@@ -22,3 +22,13 @@
 iframe {
 	border: none
 }
+
+.phTicTacToeCell {
+	border-radius: 0;
+	border-right: 0.4rem solid #9fb4ce;
+	border-bottom: 0.4rem solid #9fb4ce;
+}
+
+.phTicTacToeCell .sapFAvatar:not(.sapMAvatarDisabled) .sapUiIcon {
+	visibility: hidden;
+}

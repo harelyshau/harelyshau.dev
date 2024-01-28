@@ -68,6 +68,12 @@ sap.ui.define([
 			return new JSONModel(oData);
 		},
 
+		createTicTacToeModel() {
+			const levels = ['Easy', 'Medium', 'Against a friend'];
+			const oData = { levels, level: levels[2] };
+			return new JSONModel(oData);
+		},
+
 		createAlgorithmsModel(oArticleList) {
 			const oModel = new JSONModel(oArticleList);
 			oModel.setDefaultBindingMode('OneWay');
