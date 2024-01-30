@@ -66,7 +66,7 @@
                             <FlexBox renderType="Bare" class="phTicTacToeCell">
                                 <Avatar displaySize="Custom" backgroundColor="{= ${value} ? 'Accent9' : 'Accent7' }"
                                     customDisplaySize="4rem"
-                                    enabled="{= !${/gameFinished} &amp;&amp; ${value} === undefined }"
+                                    enabled="{= !${/gameFinished} &amp;&amp; ${value} === undefined &amp;&amp; !${/botIsThinking} }"
                                     customFontSize="{= ${value} ? '4rem' : '3.2rem' }"
                                     src="{= ${value} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
                                     press="onPress" displayShape="Square" class="sapUiTinyMargin"/>

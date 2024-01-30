@@ -92,8 +92,12 @@ sap.ui.define([
         makeBotMove() {
             const sLevel = this.getProperty('/level');
             if (sLevel === 'Friend') return;
-            const sFunctionName = `make${sLevel}Move`;
-            this[sFunctionName]();
+            this.setProperty('/botIsThinking', true);
+            setTimeout(() => {
+                const sFunctionName = `make${sLevel}Move`;
+                this[sFunctionName]();
+                this.setProperty('/botIsThinking', false);
+            }, 500);
         },
 
         makeMediumMove() {

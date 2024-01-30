@@ -10,7 +10,7 @@
 }
 
 .phTicTacToeCell[data-opened="isfalse"] .sapUiIcon {
-	visibility: hidden;
+	opacity: 0;
 }
 
 .phTicTacToeCell[data-cell="positionBottom"] {
@@ -31,8 +31,7 @@
 }
 
 .phTicTacToeCell[data-opened="istrue"] .sapUiIcon {
-	/* visibility: visible; */
-	transition: visibility 10s;
+	transition: opacity 0.5s;
 }
 
 .phTicTacToeCell[data-win="isfalse"] .sapFAvatar {
