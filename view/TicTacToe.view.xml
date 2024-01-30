@@ -1,0 +1,92 @@
+<mvc:View xmlns:core="sap.ui.core"
+    controllerName="pharelyshau.controller.TicTacToe"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+    xmlns:cc="pharelyshau.control">
+	<f:DynamicPage>
+        <!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>ttlTicTacToe}" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+                    <Label text="{i18n>lTryTicTacToe}" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="{i18n>lTryTicTacToe}" wrapping="true"/>
+                </f:expandedContent>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox class="phLimitedPageContent sapUiSmallMarginBottom" alignItems="Center" renderType="Bare" width="100%">
+                <Panel>
+                    <!-- HEADER TOOLBAR -->
+                    <headerToolbar>
+                        <OverflowToolbar height="3rem">
+                            <!-- Levels -->
+                            <Label id="lblLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
+                            <Select items="{/levels}" selectedKey="{/level}"
+                                change="onChangeLevel" ariaLabelledBy="lblLevels">
+                                <core:ListItem text="{path: '', formatter: '.formatter.levelText' }" key="{}"/>
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="Low"/>
+                                </layoutData>
+                            </Select>
+                            <ToolbarSpacer />
+                            <!-- Turn -->
+                            <core:Icon src="{= ${/turn} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
+                                size="{= ${/turn} ? '1rem' : '0.8rem' }"/>
+                            <Label text="{= ${/isDraw} ? 'Draw' : ${/gameFinished} ? 'Winner' : 'Turn' }"/>
+                            <core:Icon visible="{= !!${/isDraw} }"
+                                src="{= ${/turn} ? 'sap-icon://circle-task' : 'sap-icon://decline' }"
+                                size="{= ${/turn} ? '0.8rem' : '1rem' }"/>
+                            <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
+                            <SegmentedButton selectedKey="{/turn}" enabled="false">
+                                <items>
+                                    <SegmentedButtonItem icon="sap-icon://decline" text="{= ${/scoreX} || ${/score0} ?  ${/scoreX} || 0 : '' }" key="true"/>
+                                    <SegmentedButtonItem icon="sap-icon://circle-task" text="{= ${/scoreX} || ${/score0} ?  ${/score0} || 0 : '' }" key="false"/>
+                                </items>
+                            </SegmentedButton>
+                            <!-- Restart -->
+                            <Button text="{i18n>btnRestart}" press="onPressRestart" icon="{i18n>iRestart}"
+                                type="{= ${/gameFinished} ? 'Emphasized' : 'Default' }">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="Low"/>
+                                </layoutData>
+                            </Button>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <!-- GAME -->
+                    <VBox renderType="Bare" class="sapUiMediumMarginTopBottom" items="{/field}"
+                        alignItems="Center">
+                        <HBox items="{ path: '', templateShareable: false }" renderType="Bare">
+                            <FlexBox renderType="Bare" class="phTicTacToeCell">
+                                <Avatar displaySize="Custom" backgroundColor="{= ${value} ? 'Accent9' : 'Accent7' }"
+                                    customDisplaySize="4rem"
+                                    enabled="{= !${/gameFinished} &amp;&amp; ${value} === undefined &amp;&amp; !${/botIsThinking} }"
+                                    customFontSize="{= ${value} ? '4rem' : '3.2rem' }"
+                                    src="{= ${value} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
+                                    press="onPress" displayShape="Square" class="sapUiTinyMargin"/>
+                                <customData>
+                                    <core:CustomData key="cell" writeToDom="true"
+                                        value="position{= ${coordinates}[0] === 2 ? 'Bottom' : ''}{= ${coordinates}[1] === 2 ? 'End' : ''}"/>
+                                </customData>
+                                <customData>
+                                    <core:CustomData key="win" writeToDom="true" value="is{= !!${win} }"/>
+                                </customData>
+                                <customData>
+                                    <core:CustomData key="opened" writeToDom="true" value="is{= ${value} !== undefined  }"/>
+                                </customData>
+                            </FlexBox>
+                        </HBox>
+                    </VBox>
+                </Panel>
+                <!-- INSTRUCTIONS -->
+                <!-- <core:Fragment fragmentName="pharelyshau.fragment.Minesweeper.Instructions"
+					type="XML" class="sapUiSmallMarginTop"/> -->
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

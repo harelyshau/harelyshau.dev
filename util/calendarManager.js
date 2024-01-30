@@ -30,7 +30,7 @@ sap.ui.define(['./getGoogleApiToken', './lib/GoogleAPI'], (getGoogleApiToken, Go
 		async #setGoogleApiAuthToken() {
 			const oCredentials = await this.#getServiceAccountCredentials();
 			const oToken = await getGoogleApiToken(oCredentials);
-			return gapi.auth.setToken(oToken);
+			gapi.auth.setToken(oToken);
 		}
 
 		async #getServiceAccountCredentials() {

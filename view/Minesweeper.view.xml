@@ -100,7 +100,7 @@
                 <core:Fragment fragmentName="pharelyshau.fragment.Minesweeper.Instructions"
 					type="XML" class="sapUiSmallMarginTop"/>
                 <layoutData>
-                    <FlexItemData maxWidth="{= !${view>/fullWidth} ? '750px' : '100%' }"/>
+                    <FlexItemData maxWidth="{= ${view>/fullWidth} ? '100%' : '750px' }"/>
                 </layoutData>
 			</VBox>
 		</f:content>
