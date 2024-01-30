@@ -20,34 +20,35 @@ sap.ui.define([
             this.setProperty('/turn', bTurn);
             this.setProperty('/gameFinished', false);
             this.setProperty('/isDraw', false);
+            if (!bTurn) this.makeBotMove();
         },
 
         onPress(oEvent) {
-            const bTurn = this.getProperty('/turn');
-            this.getObjectByEvent(oEvent).value = bTurn;
-            const [bFinished, bDraw] = this.isGameFinished(bTurn);
-            bFinished
-                ? this.finishGame(bTurn, bDraw)
-                : this.setProperty('/turn', !bTurn);
+            const bFinished = this.makeMove(this.getObjectByEvent(oEvent));
+            if (!bFinished) this.makeBotMove();
         },
 
         isGameFinished(bTurn) {
-            const rows = this.getProperty('/field');
-            const cells = rows.flat();
-            const columns = Object.values(Object.groupBy(
-                cells, ({ coordinates }) => coordinates[1]
-            ));
-            const diagonals = [
-                [rows[0][0], rows[1][1], rows[2][2]],
-                [rows[0][2], rows[1][1], rows[2][0]]
-            ];
-            const bDraw = cells.every(({ value }) => value !== undefined);
-            const bSomeoneWon = [rows, columns, diagonals].some(lines => lines.some((cells) => {
-                const bWinLine = cells.every((cell) => cell.value === bTurn);
-                if (bWinLine) cells.forEach(cell => cell.win = true);
+            const aCells = this.getProperty('/field').flat();
+            const bDraw = aCells.every(({ value }) => value !== undefined);
+            const bSomeoneWon = this.getWinCombinations().some((aCells) => {
+                const bWinLine = aCells.every((cell) => cell.value === bTurn);
+                if (bWinLine) aCells.forEach(cell => cell.win = true);
                 return bWinLine;
-            }));
+            });
             return [bSomeoneWon || bDraw, !bSomeoneWon && bDraw];
+        },
+
+        getWinCombinations() {
+            const aRows = this.getProperty('/field');
+            const aColumns = Object.values(Object.groupBy(
+                aRows.flat(), ({ coordinates }) => coordinates[1]
+            ));
+            const aDiagonals = [
+                [aRows[0][0], aRows[1][1], aRows[2][2]],
+                [aRows[0][2], aRows[1][1], aRows[2][0]]
+            ];
+            return aRows.concat(aColumns, aDiagonals);
         },
 
         finishGame(bTurn, bDraw) {
@@ -71,7 +72,47 @@ sap.ui.define([
 
         onPressRestart() {
             this.setupGame();
-        }
+        },
+
+        makeMove(oCell) {
+            const bTurn = this.getProperty('/turn');
+            const [bFinished, bDraw] = this.isGameFinished(oCell.value = bTurn);
+            bFinished ? this.finishGame(bTurn, bDraw) : this.setProperty('/turn', !bTurn);
+            return bFinished;
+        },
+
+        onChangeLevel() {
+            this.setProperty('/scoreX', 0);
+            this.setProperty('/score0', 0);
+            this.setProperty('/gameFinished', null);
+            this.setProperty('/first', null);
+            this.setupGame();
+        },
+
+        makeBotMove() {
+            const sLevel = this.getProperty('/level');
+            if (sLevel === 'Friend') return;
+            const sFunctionName = `make${sLevel}Move`;
+            this[sFunctionName]();
+        },
+
+        makeMediumMove() {
+            const isUnopened = ({ value }) => value === undefined;
+            const aCombinations = this.getWinCombinations().filter(cells => cells.some(isUnopened));
+            const isFilled = (cells, bVal) => cells.filter(({ value }) => value === bVal).length === 2;
+            const bTurn = this.getProperty('/turn');
+            const aWinCells = aCombinations.find(cells => isFilled(cells, bTurn));
+            const aDangerousCells = aCombinations.find(cells => isFilled(cells, !bTurn));
+            const oCellToOpen = (aWinCells ?? aDangerousCells)?.find(isUnopened);
+            oCellToOpen ? this.makeMove(oCellToOpen) : this.makeEasyMove();
+        },
+
+        makeEasyMove() {
+            const oCellToOpen = this.getProperty('/field').flat()
+                .filter(oCell => oCell.value === undefined)
+                .sort(() => Math.random() - 0.5)[0];
+            this.makeMove(oCellToOpen);
+        },
 
     });
 });

@@ -69,8 +69,8 @@ sap.ui.define([
 		},
 
 		createTicTacToeModel() {
-			const levels = ['Easy', 'Medium', 'Against a friend'];
-			const oData = { levels, level: levels[2] };
+			const levels = ['Easy', 'Medium', 'Friend'];
+			const oData = { levels, level: levels[1] };
 			return new JSONModel(oData);
 		},
 

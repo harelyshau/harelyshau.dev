@@ -170,7 +170,8 @@
 				{ "uri": "css/calendar.css" },
 				{ "uri": "css/algorithms.css" },
 				{ "uri": "css/hanoitower.css" },
-				{ "uri": "css/minesweeper.css" }
+				{ "uri": "css/minesweeper.css" },
+				{ "uri": "css/tictactoe.css" }
 			]
 		},
 		"handleValidation": true

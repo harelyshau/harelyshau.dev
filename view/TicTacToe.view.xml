@@ -28,11 +28,11 @@
                         <OverflowToolbar height="3rem">
                             <!-- Levels -->
                             <Label id="lblLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
-                            <Select items="{/levels}" selectedKey="{path: '/level', mode: 'OneWay'}"
+                            <Select items="{/levels}" selectedKey="{/level}"
                                 change="onChangeLevel" ariaLabelledBy="lblLevels">
                                 <core:ListItem text="{}" key="{}"/>
                                 <layoutData>
-                                    <OverflowToolbarLayoutData group="1" priority="Low"/>
+                                    <OverflowToolbarLayoutData priority="Low"/>
                                 </layoutData>
                             </Select>
                             <ToolbarSpacer />
