@@ -48,14 +48,13 @@
                                     <SegmentedButtonItem icon="sap-icon://decline" text="{= ${/scoreX} || ${/score0} ?  ${/scoreX} || 0 : '' }" key="true"/>
                                     <SegmentedButtonItem icon="sap-icon://circle-task" text="{= ${/scoreX} || ${/score0} ?  ${/score0} || 0 : '' }" key="false"/>
                                 </items>
-                            </SegmentedButton>
-                            <!-- Restart -->
-                            <Button text="{i18n>btnRestart}" press="onPressRestart" icon="{i18n>iRestart}"
-                                type="{= ${/gameFinished} ? 'Emphasized' : 'Default' }">
                                 <layoutData>
                                     <OverflowToolbarLayoutData priority="Low"/>
                                 </layoutData>
-                            </Button>
+                            </SegmentedButton>
+                            <!-- Restart -->
+                            <Button text="{i18n>btnRestart}" press="onPressRestart" icon="{i18n>iRestart}"
+                                type="{= ${/gameFinished} ? 'Emphasized' : 'Default' }"/>
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
