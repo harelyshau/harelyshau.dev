@@ -46,6 +46,7 @@
 					<tnt:NavigationListItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
 					<tnt:NavigationListItem key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
 					<tnt:NavigationListItem key="Minesweeper" text="{i18n>ttlMinesweeper}" icon="{i18n>iFlag}"/>
+					<tnt:NavigationListItem key="TicTacToe" text="{i18n>ttlTicTacToe}" icon="{i18n>iTicTacToe}"/>
 				</tnt:NavigationList>
 			</tnt:SideNavigation>
 		</tnt:sideContent>
