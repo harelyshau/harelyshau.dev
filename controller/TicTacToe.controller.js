@@ -1,11 +1,12 @@
 sap.ui.define([
     './BaseController',
-    'sap/m/MessageToast',
-    '../model/models'
-], (BaseController, MessageToast, models) => {
+    '../model/models',
+    '../model/formatter'
+], (BaseController, models, formatter) => {
     'use strict';
 
     return BaseController.extend('pharelyshau.controller.Minesweeper', {
+        formatter,
 
         onInit() {
             this.setModel(models.createTicTacToeModel());

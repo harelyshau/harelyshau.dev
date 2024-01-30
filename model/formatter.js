@@ -146,6 +146,10 @@ sap.ui.define([
 
 		minesCountState(iMines, iWidth, iHeight) {
 			return iMines > 0 && iMines < iWidth * iHeight ? 'None' : 'Error';
+		},
+
+		levelText(sLevel) {
+			return this.i18n(`tLevel${sLevel}`);
 		}
 
 	};

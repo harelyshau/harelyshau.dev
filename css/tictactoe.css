@@ -31,7 +31,7 @@
 }
 
 .phTicTacToeCell[data-opened="istrue"] .sapUiIcon {
-	transition: opacity 0.5s;
+	transition: opacity 0.3s;
 }
 
 .phTicTacToeCell[data-win="isfalse"] .sapFAvatar {

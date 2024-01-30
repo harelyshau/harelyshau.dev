@@ -3,7 +3,6 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
-    core:require="{formatter: 'pharelyshau/model/formatter'}"
     xmlns:cc="pharelyshau.control">
 	<f:DynamicPage>
         <!-- HEADER -->
@@ -30,7 +29,7 @@
                             <Label id="lblLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
                             <Select items="{/levels}" selectedKey="{/level}"
                                 change="onChangeLevel" ariaLabelledBy="lblLevels">
-                                <core:ListItem text="{}" key="{}"/>
+                                <core:ListItem text="{path: '', formatter: '.formatter.levelText' }" key="{}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData priority="Low"/>
                                 </layoutData>
