@@ -42,9 +42,9 @@ sap.ui.define([
 
         getWinCombinations() {
             const aRows = this.getProperty('/field');
-            const aColumns = Object.values(Object.groupBy(
-                aRows.flat(), ({ coordinates }) => coordinates[1]
-            ));
+            const aColumns = aRows.map(
+                (_, i) => aRows.flat().filter(({ coordinates }) => coordinates[1] === i )
+            );
             const aDiagonals = [
                 [aRows[0][0], aRows[1][1], aRows[2][2]],
                 [aRows[0][2], aRows[1][1], aRows[2][0]]
