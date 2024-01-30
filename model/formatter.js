@@ -146,13 +146,6 @@ sap.ui.define([
 
 		minesCountState(iMines, iWidth, iHeight) {
 			return iMines > 0 && iMines < iWidth * iHeight ? 'None' : 'Error';
-		},
-
-
-
-		ticTacToeCellPosition([x, y]) {
-			let sPosition = x === 2
-			return true;
 		}
 
 	};

@@ -37,12 +37,22 @@
                             </Select>
                             <ToolbarSpacer />
                             <!-- Turn -->
-                            <!-- <core:Icon src="{= ${/turn} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
+                            <core:Icon src="{= ${/turn} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
                                 size="{= ${/turn} ? '1rem' : '0.8rem' }"/>
-                            <Label text="Turn"/> -->
+                            <Label text="{= ${/isDraw} ? 'Draw' : ${/gameFinished} ? 'Winner' : 'Turn' }"/>
+                            <core:Icon visible="{= !!${/isDraw} }"
+                                src="{= ${/turn} ? 'sap-icon://circle-task' : 'sap-icon://decline' }"
+                                size="{= ${/turn} ? '0.8rem' : '1rem' }"/>
                             <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
-                            <!-- Records -->
-                            <Button text="{i18n>btnRestart}" press="onPressRestart" icon="{i18n>iRestart}">
+                            <SegmentedButton selectedKey="{/turn}" enabled="false">
+                                <items>
+                                    <SegmentedButtonItem icon="sap-icon://decline" text="{= ${/scoreX} || ${/score0} ?  ${/scoreX} || 0 : '' }" key="true"/>
+                                    <SegmentedButtonItem icon="sap-icon://circle-task" text="{= ${/scoreX} || ${/score0} ?  ${/score0} || 0 : '' }" key="false"/>
+                                </items>
+                            </SegmentedButton>
+                            <!-- Restart -->
+                            <Button text="{i18n>btnRestart}" press="onPressRestart" icon="{i18n>iRestart}"
+                                type="{= ${/gameFinished} ? 'Emphasized' : 'Default' }">
                                 <layoutData>
                                     <OverflowToolbarLayoutData priority="Low"/>
                                 </layoutData>
@@ -53,23 +63,24 @@
                     <VBox renderType="Bare" class="sapUiMediumMarginTopBottom" items="{/field}"
                         alignItems="Center">
                         <HBox items="{ path: '', templateShareable: false }" renderType="Bare">
-                            <!-- <CustomListItem type="Active"> -->
-                            <!-- <dependents> -->
-                                <FlexBox renderType="Bare" class="phTicTacToeCell">
-                                    <Avatar displaySize="Custom" backgroundColor="{= ${value} ? 'Accent9' : 'Accent7' }"
-                                        customDisplaySize="4rem"
-                                        enabled="{= ${value} === undefined }"
-                                        customFontSize="{= ${value} ? '4rem' : '3.2rem' }"
-                                        src="{= ${value} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
-                                        press="onPress" displayShape="Square" class="sapUiTinyMargin"/>
-                                    <customData>
-                                        <core:CustomData key="cell" writeToDom="true"
-                                            value="position{= ${coordinates}[0] === 2 ? 'Bottom' : ''}{= ${coordinates}[1] === 2 ? 'End' : ''}"/>
-                                    </customData>
-                                </FlexBox>
-                            <!-- </dependents> -->
-                            
-                            <!-- </CustomListItem> -->
+                            <FlexBox renderType="Bare" class="phTicTacToeCell">
+                                <Avatar displaySize="Custom" backgroundColor="{= ${value} ? 'Accent9' : 'Accent7' }"
+                                    customDisplaySize="4rem"
+                                    enabled="{= !${/gameFinished} &amp;&amp; ${value} === undefined }"
+                                    customFontSize="{= ${value} ? '4rem' : '3.2rem' }"
+                                    src="{= ${value} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
+                                    press="onPress" displayShape="Square" class="sapUiTinyMargin"/>
+                                <customData>
+                                    <core:CustomData key="cell" writeToDom="true"
+                                        value="position{= ${coordinates}[0] === 2 ? 'Bottom' : ''}{= ${coordinates}[1] === 2 ? 'End' : ''}"/>
+                                </customData>
+                                <customData>
+                                    <core:CustomData key="win" writeToDom="true" value="is{= !!${win} }"/>
+                                </customData>
+                                <customData>
+                                    <core:CustomData key="opened" writeToDom="true" value="is{= ${value} !== undefined  }"/>
+                                </customData>
+                            </FlexBox>
                         </HBox>
                     </VBox>
                 </Panel>

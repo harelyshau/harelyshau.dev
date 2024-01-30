@@ -33,7 +33,7 @@ iframe {
 	border-color: #a8b3bd;
 }
 
-.phTicTacToeCell .sapFAvatar:not(.sapMAvatarDisabled) .sapUiIcon {
+.phTicTacToeCell[data-opened="isfalse"] .sapUiIcon {
 	visibility: hidden;
 }
 
@@ -54,6 +54,6 @@ iframe {
     opacity: 1;
 }
 
-.phTicTacToeCell .sapFAvatar {
+.phTicTacToeCell[data-win="isfalse"] .sapFAvatar {
 	background-color: transparent;
 }

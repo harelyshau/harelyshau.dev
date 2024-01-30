@@ -18,7 +18,7 @@
 						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
 						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
 						<IconTabFilter key="Minesweeper" text="{i18n>ttlMinesweeper}" icon="{i18n>iFlag}"/>
-						<IconTabFilter key="TicTacToe" text="{i18n>ttlTicTacToe}" icon="sap-icon://number-sign"/>
+						<IconTabFilter key="TicTacToe" text="{i18n>ttlTicTacToe}" icon="{i18n>iTicTacToe}"/>
 					</items>
 				</IconTabHeader>
 				<ToolbarSpacer visible="{device>/system/phone}"/>
