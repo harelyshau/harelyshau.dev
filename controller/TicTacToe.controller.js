@@ -5,7 +5,7 @@ sap.ui.define([
 ], (BaseController, models, formatter) => {
     'use strict';
 
-    return BaseController.extend('pharelyshau.controller.Minesweeper', {
+    return BaseController.extend('pharelyshau.controller.TicTacToe', {
         formatter,
 
         onInit() {
@@ -43,7 +43,7 @@ sap.ui.define([
         getWinCombinations() {
             const aRows = this.getProperty('/field');
             const aColumns = aRows.map(
-                (_, i) => aRows.flat().filter(({ coordinates }) => coordinates[1] === i )
+                (_, i) => aRows.flat().filter(({ coordinates }) => coordinates[1] === i)
             );
             const aDiagonals = [
                 [aRows[0][0], aRows[1][1], aRows[2][2]],
@@ -95,8 +95,7 @@ sap.ui.define([
             if (sLevel === 'Friend') return;
             this.setProperty('/botIsThinking', true);
             setTimeout(() => {
-                const sFunctionName = `make${sLevel}Move`;
-                this[sFunctionName]();
+                this[`make${sLevel}Move`]();
                 this.setProperty('/botIsThinking', false);
             }, 500);
         },
