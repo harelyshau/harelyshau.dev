@@ -51,7 +51,3 @@
 .phRecordsDialog {
 	max-height: 20rem !important;
 }
-
-.phNoFocus:focus {
-	outline: none;
-}

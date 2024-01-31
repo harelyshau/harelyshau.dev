@@ -67,7 +67,7 @@
                             <Title visible="{view>/showMoveButtons}" titleStyle="H6" wrapping="true" wrappingType="Hyphenated" textAlign="Center"
                                 text="{i18n>ttlPeg} {= String.fromCharCode(${/Pegs}.indexOf(${}) + 65) }" class="sapUiSmallMarginTop"/>
                             <CustomListItem type="{= !${}.length &amp;&amp; !${view>/selectedPeg} ? 'Inactive' : 'Active'}"
-                                press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus sapUiSmallMarginTop">
+                                press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus phCustomListItem sapUiSmallMarginTop">
                                 <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox sapUiSmallMarginTop" alignItems="Center" fieldGroupIds="pegs"
                                     height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
                                     <!-- Disc -->

@@ -58,29 +58,35 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
-                    <VBox renderType="Bare" class="sapUiMediumMarginTopBottom" items="{/field}"
-                        alignItems="Center">
-                        <HBox items="{ path: '', templateShareable: false }" renderType="Bare">
-                            <FlexBox renderType="Bare" class="phTicTacToeCell">
-                                <Avatar displaySize="Custom" backgroundColor="{= ${value} ? 'Accent9' : 'Accent7' }"
-                                    customDisplaySize="4rem"
-                                    enabled="{= !${/gameFinished} &amp;&amp; ${value} === undefined &amp;&amp; !${/botIsThinking} }"
-                                    customFontSize="{= ${value} ? '4rem' : '3.2rem' }"
-                                    src="{= ${value} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
-                                    press="onPress" displayShape="Square" class="sapUiTinyMargin"/>
-                                <customData>
-                                    <core:CustomData key="cell" writeToDom="true"
-                                        value="position{= ${coordinates}[0] === 2 ? 'Bottom' : ''}{= ${coordinates}[1] === 2 ? 'End' : ''}"/>
-                                </customData>
-                                <customData>
-                                    <core:CustomData key="win" writeToDom="true" value="is{= !!${win} }"/>
-                                </customData>
-                                <customData>
-                                    <core:CustomData key="opened" writeToDom="true" value="is{= ${value} !== undefined  }"/>
-                                </customData>
-                            </FlexBox>
-                        </HBox>
-                    </VBox>
+                    <FlexBox renderType="Bare" justifyContent="Center" class="sapUiSmallMargin">
+                        <CustomListItem type="{= ${/gameFinished} ? 'Active' : 'Inactive' }"
+                            class="phCustomListItem phNoFocus" press="setupGame"
+                            tooltip="{= ${/gameFinished} ? 'Press to restart' : '' }">
+                            <VBox renderType="Bare" class="sapUiSmallMargin" items="{/field}"
+                                alignItems="Center">
+                                <HBox items="{ path: '', templateShareable: false }" renderType="Bare">
+                                    <FlexBox renderType="Bare" class="phTicTacToeCell">
+                                        <Avatar displaySize="Custom" backgroundColor="{= ${value} ? 'Accent9' : 'Accent7' }"
+                                            customDisplaySize="4rem"
+                                            enabled="{= !${/gameFinished} &amp;&amp; ${value} === undefined &amp;&amp; !${/botIsThinking} }"
+                                            customFontSize="{= ${value} ? '4rem' : '3.2rem' }"
+                                            src="{= ${value} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
+                                            press="onPress" displayShape="Square" class="sapUiTinyMargin"/>
+                                        <customData>
+                                            <core:CustomData key="cell" writeToDom="true"
+                                                value="position{= ${coordinates}[0] === 2 ? 'Bottom' : ''}{= ${coordinates}[1] === 2 ? 'End' : ''}"/>
+                                        </customData>
+                                        <customData>
+                                            <core:CustomData key="win" writeToDom="true" value="is{= !!${win} }"/>
+                                        </customData>
+                                        <customData>
+                                            <core:CustomData key="opened" writeToDom="true" value="is{= ${value} !== undefined  }"/>
+                                        </customData>
+                                    </FlexBox>
+                                </HBox>
+                            </VBox>
+                        </CustomListItem>
+                    </FlexBox>
                 </Panel>
                 <!-- INSTRUCTIONS -->
                 <!-- <core:Fragment fragmentName="pharelyshau.fragment.Minesweeper.Instructions"

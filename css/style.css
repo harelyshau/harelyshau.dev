@@ -19,6 +19,15 @@
 	max-width: 100%;
 }
 
+.phNoFocus:focus {
+	outline: none;
+}
+
+.phCustomListItem {
+	border: 0 !important;
+	border-radius: 5%;
+}
+
 iframe {
 	border: none
 }
