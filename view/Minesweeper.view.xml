@@ -84,6 +84,10 @@
                                             <core:CustomData key="cell" writeToDom="true"
                                                 value="state{parts: ['ID', 'IsOpen', 'IsMine', 'IsFlagged', 'MineCount', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
                                         </cc:customData>
+                                        <cc:customData>
+                                            <core:CustomData key="gameFinished" writeToDom="true"
+                                                value="is{/GameFinished}"/>
+                                        </cc:customData>
                                         <cc:layoutData>
                                             <FlexItemData maxWidth="auto"/>
                                         </cc:layoutData>

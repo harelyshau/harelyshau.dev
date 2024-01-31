@@ -37,12 +37,12 @@
                             <ToolbarSpacer />
                             <!-- Turn -->
                             <core:Icon src="{= ${/turn} ? 'sap-icon://decline' : 'sap-icon://circle-task' }"
-                                size="{= ${/turn} ? '1rem' : '0.8rem' }"/>
-                            <Label text="{= ${/isDraw} ? 'Draw' : ${/gameFinished} ? 'Winner' : 'Turn' }"/>
+                                size="{= ${/turn} ? '1.25rem' : '1rem' }"/>
+                            <Title text="{= ${/isDraw} ? 'Draw' : ${/gameFinished} ? 'Winner' : 'Turn' }"/>
                             <core:Icon visible="{= !!${/isDraw} }"
                                 src="{= ${/turn} ? 'sap-icon://circle-task' : 'sap-icon://decline' }"
-                                size="{= ${/turn} ? '0.8rem' : '1rem' }"/>
-                            <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
+                                size="{= ${/turn} ? '1rem' : '1.25rem' }"/>
+                            <ToolbarSpacer/>
                             <SegmentedButton selectedKey="{/turn}" enabled="false">
                                 <items>
                                     <SegmentedButtonItem icon="sap-icon://decline" text="{= ${/scoreX} || ${/score0} ?  ${/scoreX} || 0 : '' }" key="true"/>

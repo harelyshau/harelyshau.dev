@@ -29,6 +29,7 @@
 	border-right: 3px solid #7c7c7c;
 	border-bottom: 3px solid #7c7c7c;
 	padding: 0;
+	cursor: pointer;
 }
 
 .sapUiTheme-sap_horizon_dark .phCell {
@@ -44,9 +45,27 @@
 	border-right: 0;
 	border-top: 1px solid #7c7c7c;
 	border-left: 1px solid #7c7c7c;
+	cursor: default;
 }
 
 .sapUiTheme-sap_horizon_dark .phCell:disabled {
+	background-color: black;
+	border-top: 1px solid #4e5e6c;
+	border-left: 1px solid #4e5e6c;
+}
+
+.phCell[data-gameFinished="istrue"], .phCell[data-cell="stateFlag"] {
+	cursor: default;
+}
+
+.phCell:active:hover:enabled[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
+	border-bottom: 0;
+	border-right: 0;
+	border-top: 1px solid #7c7c7c;
+	border-left: 1px solid #7c7c7c;
+}
+
+.sapUiTheme-sap_horizon_dark .phCell:active:hover:enabled[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
 	background-color: black;
 	border-top: 1px solid #4e5e6c;
 	border-left: 1px solid #4e5e6c;
