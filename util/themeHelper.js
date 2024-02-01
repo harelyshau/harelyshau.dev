@@ -11,6 +11,10 @@ sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 		document.querySelector('meta[name="theme-color"]').content = oColors[sThemeKey];
 	}
 
+	function getLightMedia() {
+		return matchMedia('(prefers-color-scheme: light)');
+	}
+
 	return {
 		getTheme() {
 			return localStorage.getItem('theme');
@@ -20,8 +24,7 @@ sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 			if (sThemeKey) localStorage.setItem('theme', sThemeKey);
 			else {
 				localStorage.removeItem('theme');
-				const bLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-				sThemeKey = bLight ? 'light' : 'dark';
+				sThemeKey = getLightMedia().matches ? 'light' : 'dark';
 			}
 
 			Theming.setTheme(this.mapTheme(sThemeKey));
@@ -43,7 +46,9 @@ sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 		},
 
 		initTheme() {
-			this.setTheme(this.getTheme());
+			const changeTheme = () => this.setTheme(this.getTheme());
+			getLightMedia().addEventListener('change', changeTheme);
+			changeTheme();
 		}
 	};
 });
