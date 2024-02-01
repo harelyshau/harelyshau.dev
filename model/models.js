@@ -76,8 +76,7 @@ sap.ui.define([
 
 		createAlgorithmsModel(oArticleList) {
 			const oModel = new JSONModel(oArticleList);
-			oModel.setDefaultBindingMode('OneWay');
-			return oModel;
+			return oModel.setDefaultBindingMode('OneWay');
 		},
 
 		createSandboxModel() {
