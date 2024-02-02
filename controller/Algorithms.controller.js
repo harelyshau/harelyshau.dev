@@ -20,9 +20,9 @@ sap.ui.define(
 			},
 
 			onAlgorithmsMatched(oEvent) {
-				const sArticleId = oEvent.getParameter('arguments').articleId;
-				this.setCurrentArticle(sArticleId);
-				if (!sArticleId) this.byId('sideNavigation').setSelectedItem(null);
+				const { article } = oEvent.getParameter('arguments');
+				this.setCurrentArticle(article);
+				if (!article) this.byId('sideNavigation').setSelectedItem(null);
 			},
 
 			async setCurrentArticle(sArticleId) {
@@ -58,8 +58,8 @@ sap.ui.define(
 				this.navigateToArticle(sArticleId);
 			},
 
-			navigateToArticle(articleId) {
-				this.getRouter().navTo('Algorithms', { articleId });
+			navigateToArticle(article) {
+				this.getRouter().navTo('Algorithms', { article });
 			},
 
 			factoryBlocks(sId, oContext) {

@@ -20,7 +20,7 @@
 				</f:expandedContent>
 				<f:actions>
 					<Button text="{i18n>btnMakeAppointment}" press="navigateTo('Calendar')"
-							icon="{i18n>iAppointment}" type="Emphasized"/>
+							icon="{i18n>iAppointment}" type="Emphasized" accessibleRole="Link"/>
 					<Button text="{i18n>btnSendEmail}" press="triggerEmail()" icon="{i18n>iEmail}"/>
 					<Button text="{i18n>btnDownloadResume}" press="onPressDownloadResume" icon="{i18n>iDownload}">
 						<layoutData>

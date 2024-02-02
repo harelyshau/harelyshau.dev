@@ -163,6 +163,10 @@ sap.ui.define(
 				IllustrationPool.registerIllustrationSet(oIllustrationSet, false);
 			},
 
+			random() {
+				return Math.random() - 0.5;
+			},
+
 			// Timers
 
 			attachTimer() {

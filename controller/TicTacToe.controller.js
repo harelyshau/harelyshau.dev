@@ -31,7 +31,7 @@ sap.ui.define([
 
         isGameFinished(bTurn) {
             const aCells = this.getProperty('/field').flat();
-            const bDraw = aCells.every(({ value }) => value !== undefined);
+            const bDraw = !aCells.some(this.isCellUnopened);
             const bSomeoneWon = this.getWinCombinations().some((aCells) => {
                 const bWinLine = aCells.every((cell) => cell.value === bTurn);
                 if (bWinLine) aCells.forEach(cell => cell.win = true);
@@ -101,22 +101,25 @@ sap.ui.define([
         },
 
         makeMediumMove() {
-            const isUnopened = ({ value }) => value === undefined;
-            const aCombinations = this.getWinCombinations().filter(cells => cells.some(isUnopened));
-            const isFilled = (cells, bVal) => cells.filter(({ value }) => value === bVal).length === 2;
+            const aCombinations = this.getWinCombinations()
+                .filter(cells => cells.some(this.isCellUnopened)).sort(this.random);
+            const isFilled = (aCells, bVal) => aCells.filter(({ value }) => value === bVal).length === 2;
             const bTurn = this.getProperty('/turn');
-            const aWinCells = aCombinations.find(cells => isFilled(cells, bTurn));
-            const aDangerousCells = aCombinations.find(cells => isFilled(cells, !bTurn));
-            const oCellToOpen = (aWinCells ?? aDangerousCells)?.find(isUnopened);
+            const aWinCells = aCombinations.find(aCells => isFilled(aCells, bTurn));
+            const aDangerousCells = aCombinations.find(aCells => isFilled(aCells, !bTurn));
+            const oCellToOpen = (aWinCells ?? aDangerousCells)?.find(this.isCellUnopened);
             oCellToOpen ? this.makeMove(oCellToOpen) : this.makeEasyMove();
         },
 
         makeEasyMove() {
             const oCellToOpen = this.getProperty('/field').flat()
-                .filter(oCell => oCell.value === undefined)
-                .sort(() => Math.random() - 0.5)[0];
+                .sort(this.random).find(this.isCellUnopened);
             this.makeMove(oCellToOpen);
         },
+
+        isCellUnopened({ value }) {
+            return value === undefined;
+        }
 
     });
 });

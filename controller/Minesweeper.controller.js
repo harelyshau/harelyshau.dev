@@ -61,7 +61,7 @@ sap.ui.define([
             const { Width, Height, Mines } = this.getCurrentLevel();
             const aMineIndecies = [...Array(Width * Height).keys()]
                 .filter(i => i !== iCurrentID)
-                .sort(() => Math.random() - 0.5)
+                .sort(this.random)
                 .slice(0, Mines);
             const aCells = this.getCells();
             aCells.forEach(oCell => oCell.IsMine = aMineIndecies.includes(oCell.ID));
