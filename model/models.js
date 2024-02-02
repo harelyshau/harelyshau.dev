@@ -104,7 +104,7 @@ sap.ui.define([
 		// View Models
 
 		createAppModel() {
-			const oData = { theme: themeHelper.mapTheme() };
+			const oData = { theme: themeHelper.getTheme() };
 			return new JSONModel(oData);
 		},
 

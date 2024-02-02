@@ -9,7 +9,7 @@
 	border-top: 3px solid #7c7c7c;
 }
 
-.sapUiTheme-sap_horizon_dark .phMinesweeper {
+.ph_dark .phMinesweeper {
 	border-right: 3px solid #4e5e6c;
 	border-bottom: 3px solid #4e5e6c;
 	border-left: 3px solid black;
@@ -32,7 +32,7 @@
 	cursor: pointer;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell {
+.ph_dark .phCell {
 	background-color: #1d232a;
 	border-left: 3px solid #4e5e6c;
 	border-top: 3px solid #4e5e6c;
@@ -48,7 +48,7 @@
 	cursor: default;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell:disabled {
+.ph_dark .phCell:disabled {
 	background-color: black;
 	border-top: 1px solid #4e5e6c;
 	border-left: 1px solid #4e5e6c;
@@ -65,7 +65,7 @@
 	border-left: 1px solid #7c7c7c;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell:active:hover:enabled[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
+.ph_dark .phCell:active:hover:enabled[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
 	background-color: black;
 	border-top: 1px solid #4e5e6c;
 	border-left: 1px solid #4e5e6c;
@@ -82,7 +82,7 @@
 	padding-right: 0.5px;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell span::before {
+.ph_dark .phCell span::before {
 	color: lightgray;
 }
 
@@ -90,7 +90,7 @@
 	color: blue;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateBlue"] {
+.ph_dark .phCell[data-cell="stateBlue"] {
 	color: #2db2fd;
 }
 
@@ -98,7 +98,7 @@
 	color: green;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateGreen"] {
+.ph_dark .phCell[data-cell="stateGreen"] {
 	color: #00e053;
 }
 
@@ -110,7 +110,7 @@
 	color: darkblue;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateDarkBlue"] {
+.ph_dark .phCell[data-cell="stateDarkBlue"] {
 	color: #6363fe;
 }
 
@@ -118,7 +118,7 @@
 	color: brown;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateBrown"] {
+.ph_dark .phCell[data-cell="stateBrown"] {
 	color: #ff7338;
 }
 
@@ -126,7 +126,7 @@
 	color: #30968c;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateTurquoise"] {
+.ph_dark .phCell[data-cell="stateTurquoise"] {
 	color: turquoise;
 }
 
@@ -134,7 +134,7 @@
 	color: black;
 }
 
-.sapUiTheme-sap_horizon_dark .phCell[data-cell="stateBlack"] {
+.ph_dark .phCell[data-cell="stateBlack"] {
 	color: grey;
 }
 
@@ -146,7 +146,7 @@
 	background-color: red;
 }
 
-.sapUiTheme-sap_horizon_dark  .phCell[data-cell="stateMine"] {
+.ph_dark .phCell[data-cell="stateMine"] {
 	background-color: #860303;
 }
 

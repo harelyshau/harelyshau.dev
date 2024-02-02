@@ -1,54 +1,54 @@
 sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 	'use strict';
 
-	function setThemeColor(sThemeKey) {
-		const oColors = {
-			light: '#eaecee',
-			dark: '#0a0d10',
-			hcw: '#fff',
-			hcb: '#000'
-		};
-		document.querySelector('meta[name="theme-color"]').content = oColors[sThemeKey];
-	}
-
 	function getLightMedia() {
 		return matchMedia('(prefers-color-scheme: light)');
 	}
 
+	function setThemeColor(sTheme) {
+		const oColors = { light: '#eaecee', dark: '#0a0d10' };
+		document.querySelector('meta[name="theme-color"]').content = oColors[sTheme];
+	}
+
+	function getThemeSAP(sTheme) {
+		const oThemes = { light: 'sap_horizon', dark: 'sap_horizon_dark' };
+		return oThemes[sTheme];
+	}
+
+	function setThemeClass(sTheme) {
+		const oClassList = document.documentElement.classList;
+		const sPrevThemeClass = oClassList.value.split(' ')
+			.find(sClass => sClass.startsWith('ph_'));
+		const sNewThemeClass = `ph_${sTheme}`;
+		sPrevThemeClass 
+			? oClassList.replace(sPrevThemeClass, sNewThemeClass)
+			: oClassList.add(sNewThemeClass);
+	}
+
 	return {
+
 		getTheme() {
-			return localStorage.getItem('theme');
+			const sTheme = getLightMedia().matches ? 'light' : 'dark';
+			return localStorage.getItem('theme') ?? sTheme;
 		},
 
-		setTheme(sThemeKey) {
-			if (sThemeKey) localStorage.setItem('theme', sThemeKey);
-			else {
-				localStorage.removeItem('theme');
-				sThemeKey = getLightMedia().matches ? 'light' : 'dark';
-			}
-
-			Theming.setTheme(this.mapTheme(sThemeKey));
-			setThemeColor(sThemeKey);
-		},
-
-		mapTheme(sKey) {
-			const oThemes = {
-				light: 'sap_horizon',
-				dark: 'sap_horizon_dark',
-				hcw: 'sap_horizon_hcw',
-				hcb: 'sap_horizon_hcb'
-			};
-			// return value by key
-			if (sKey) return oThemes[sKey];
-			// return key by value
-			const aThemeKeys = Object.keys(oThemes);
-			return aThemeKeys.find((sKey) => oThemes[sKey] === Theming.getTheme());
+		setTheme(sTheme) {
+			if (sTheme) localStorage.setItem('theme', sTheme);
+			sTheme = this.getTheme();
+			Theming.setTheme(getThemeSAP(sTheme));
+			setThemeColor(sTheme);
+			setThemeClass(sTheme);
 		},
 
 		initTheme() {
-			const changeTheme = () => this.setTheme(this.getTheme());
-			getLightMedia().addEventListener('change', changeTheme);
-			changeTheme();
+			const init = () => this.setTheme();
+			this.attachChange(init);
+			init();
+		},
+
+		attachChange(fnFunction) {
+			getLightMedia().addEventListener('change', fnFunction);
 		}
+
 	};
 });

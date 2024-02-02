@@ -171,9 +171,9 @@ sap.ui.define(
 
 			attachTimer() {
 				this.getView().addEventDelegate({
-					onBeforeHide: this.stopTimer.bind(this),
-					onBeforeShow: this.startTimer.bind(this)
-				});
+					onBeforeHide: this.stopTimer,
+					onBeforeShow: this.startTimer
+				}, this);
 			},
 
 			startTimer() {

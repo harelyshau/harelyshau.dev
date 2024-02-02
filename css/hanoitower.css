@@ -26,8 +26,8 @@
 	bottom: 0;
 }
 /* Peg Color depending on theme */
-.sapUiTheme-sap_horizon .phPegBox::before,
-.sapUiTheme-sap_horizon .phPegBox::after {
+.ph_light .phPegBox::before,
+.ph_light .phPegBox::after {
 	background-color: #0064d9;
 }
 /* Vertical Line */

@@ -1,7 +1,7 @@
-.sapUiTheme-sap_horizon .phToolbarSeparator {
+.phToolbarSeparator {
 	border-bottom-color: #dedede !important;
 }
 
-.sapUiTheme-sap_horizon_dark .phToolbarSeparator {
+.ph_dark .phToolbarSeparator {
 	border-bottom-color: #4a4a4a !important;
 }
