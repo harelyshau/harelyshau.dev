@@ -316,8 +316,7 @@ sap.ui.define([
 			if (oAppointment.ID !== 'new') this.resetEditableAppointment();
 			this.setEditableAppointment(null);
 			this.refreshAppointments();
-			const view = this.byId('calendar').getSelectedView();
-			this.navigateTo('Calendar', { view });
+			this.navigateTo('Calendar');
 		},
 
 		//////////////////////////////////
