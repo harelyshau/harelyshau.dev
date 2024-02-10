@@ -5,14 +5,7 @@ sap.ui.define([
 	'../model/models',
 	'../model/formatter',
 	'../util/calendarManager'
-], (
-	BaseController,
-	MessageToast,
-	MessageBox,
-	models,
-	formatter,
-	calendarManager
-) => {
+], (BaseController, MessageToast, MessageBox, models, formatter, calendarManager) => {
 	'use strict';
 
 	return BaseController.extend('pharelyshau.controller.Calendar', {

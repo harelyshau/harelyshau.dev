@@ -1,10 +1,7 @@
 sap.ui.define([
 	'./BaseController',
-	'sap/m/MessageToast',
-	'sap/m/InstanceManager',
-	'sap/ui/core/ResizeHandler',
 	'../model/models'
-], (BaseController, MessageToast, InstanceManager, ResizeHandler, models) => {
+], (BaseController, models) => {
     'use strict';
 
     return BaseController.extend('pharelyshau.controller.HanotoiTower', {
