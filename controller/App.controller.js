@@ -10,7 +10,7 @@ sap.ui.define([
 		return BaseController.extend('pharelyshau.controller.App', {
 
 			onInit() {
-				this.getView().addStyleClass(this.getContentDensityClass());
+				this.addContentDensityClass(this.getView());
 				this.setModel(models.createAppModel(), 'app');
 				this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
 				this.getRouter().attachTitleChanged(this.onTitleChanged.bind(this));

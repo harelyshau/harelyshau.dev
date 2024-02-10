@@ -42,8 +42,9 @@ sap.ui.define(
 				return oI18nModel.getResourceBundle().getText(sKey, aParams);
 			},
 
-			getContentDensityClass() {
-				return Device.support.touch ? 'sapUiSizeCozy' : 'sapUiSizeCompact';
+			addContentDensityClass(oControl) {
+				const bTouch = Device.support.touch;
+				oControl.addStyleClass(bTouch ? 'sapUiSizeCozy' : 'sapUiSizeCompact');
 			},
 
 			setBusy(bBusy) {
@@ -92,17 +93,14 @@ sap.ui.define(
 			async openDialog(sFragmentName, sBinndingPath) {
 				const oDialog = await this.loadAndAssignFragment(sFragmentName);
 				if (sBinndingPath) oDialog.bindElement(sBinndingPath);
-				oDialog.open();
+				return oDialog.open();
 			},
 
 			async openPopover(sFragmentName, oControl, sBinndingPath) {
 				const oPopover = await this.loadAndAssignFragment(sFragmentName);
-				if (this.isPopoverOpen(oPopover, sBinndingPath)) {
-					oPopover.close();
-					return;
-				}
+				if (this.isPopoverOpen(oPopover, sBinndingPath)) return oPopover.close();
 				if (sBinndingPath) oPopover.bindElement(sBinndingPath);
-				oPopover.openBy(oControl);
+				return oPopover.openBy(oControl);
 			},
 
 			async loadAndAssignFragment(sFragment) {
@@ -111,7 +109,7 @@ sap.ui.define(
 				const sPath = `pharelyshau.fragment.${sCurrentPage}.${sFragment}`;
 				this[sPrefixFragment] ??= this.loadFragment({ name: sPath });
 				this[sPrefixFragment] = await this[sPrefixFragment];
-				this[sPrefixFragment].addStyleClass(this.getContentDensityClass());
+				this.addContentDensityClass(this[sPrefixFragment]);
 				return this[sPrefixFragment];
 			},
 
@@ -123,7 +121,8 @@ sap.ui.define(
 
 			openConfirmationMessageBox(sMessage, fnCallbackOK, fnCallbackCancel) {
 				MessageBox.confirm(sMessage, {
-					onClose: (sAction) => sAction === 'OK' ? fnCallbackOK() : fnCallbackCancel()
+					onClose: (sAction) => sAction === 'OK'
+						? fnCallbackOK() : fnCallbackCancel()
 				});
 			},
 

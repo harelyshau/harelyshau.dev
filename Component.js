@@ -13,8 +13,8 @@ sap.ui.define([
 			manifest: 'json'
 		},
 
-		init() {
-			UIComponent.prototype.init.apply(this, arguments);
+		init(...aArguments) {
+			UIComponent.prototype.init.apply(this, aArguments);
 			this.getRouter().initialize();
 			this.setModel(models.createDeviceModel(), 'device');
 			languageHelper.initLanguage();

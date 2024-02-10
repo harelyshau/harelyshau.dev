@@ -250,7 +250,7 @@ sap.ui.define([
 		async onPressCreateEditAppointment(oEvent) {
 			if (!this.validateEmailInput()) return;
 			this.oAppointmentDialog.close();
-			let oAppointment = this.getObjectByEvent(oEvent);
+			const oAppointment = this.getObjectByEvent(oEvent);
 			localStorage.setItem('email', oAppointment.Email);
 			if (oAppointment.ID === 'new') this.createAppointmentGC(oAppointment);
 			else this.updateAppointmentGC(oAppointment);
