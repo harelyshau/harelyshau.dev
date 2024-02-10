@@ -50,12 +50,12 @@
 						type="Emphasized" class="phResponsiveMarginEnd"/>
 				</actions>
 				<views>
-					<SinglePlanningCalendarDayView key="day" title="{i18n>ttlDay}"/>
-					<cc:TwoDaysView key="two-days" title="{i18n>ttlTwoDays}"/>
-					<cc:ThreeDaysView key="three-days" title="{i18n>ttlThreeDays}"/>
-					<SinglePlanningCalendarWorkWeekView key="work-week" title="{i18n>ttlWorkWeek}"/>
-					<SinglePlanningCalendarWeekView key="week" title="{i18n>ttlWeek}"/>
-					<SinglePlanningCalendarMonthView key="month" title="{i18n>ttlMonth}"/>
+					<SinglePlanningCalendarDayView id="day" key="day" title="{i18n>ttlDay}"/>
+					<cc:TwoDaysView id="two-days" key="two-days" title="{i18n>ttlTwoDays}"/>
+					<cc:ThreeDaysView id="three-days" key="three-days" title="{i18n>ttlThreeDays}"/>
+					<SinglePlanningCalendarWorkWeekView id="work-week" key="work-week" title="{i18n>ttlWorkWeek}"/>
+					<SinglePlanningCalendarWeekView id="week" key="week" title="{i18n>ttlWeek}"/>
+					<SinglePlanningCalendarMonthView id="month" key="month" title="{i18n>ttlMonth}"/>
 				</views>
 				<appointments>
 					<unified:CalendarAppointment text= "{= ${Available} ? ${Description} : '' }"

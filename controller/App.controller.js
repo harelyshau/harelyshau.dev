@@ -12,8 +12,8 @@ sap.ui.define([
 		onInit() {
 			this.addContentDensityClass(this.getView());
 			this.setModel(models.createAppModel(), 'app');
-			this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this));
-			this.getRouter().attachTitleChanged(this.onTitleChanged.bind(this));
+			this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this))
+				.attachTitleChanged(this.onTitleChanged.bind(this));
 			themeHelper.attachChange(() => {
 				this.setProperty('/theme', themeHelper.getTheme(), 'app');
 			});
