@@ -234,9 +234,8 @@ sap.ui.define([
 			const oDevice = this.getOwnerComponent().getModel('device').getData();
 			const bSmallScreen = oDevice.system.phone || oDevice.resize.width <= 800;
 			const oCalendar = this.byId('calendar');
-			const aViewsToRemove = (bSmallScreen ? [4] : [1, 2])
-				.map((i) => oCalendar.getViews()[i]);
-			aViewsToRemove.forEach((oView) => oCalendar.removeView(oView));
+			(bSmallScreen ? ['week'] : ['two-days', 'three-days'])
+				.forEach(sKey => oCalendar.removeView(oCalendar.getViewByKey(sKey)));
 		},
 
 		//////////////////////////////////
