@@ -7,8 +7,8 @@ sap.ui.define([
 	'use strict';
 
 	function getPluralForm(nQuantity, ...aTexts) {
-		if (!nQuantity || nQuantity <= 0) return '';
-		return nQuantity + '\u00A0' + getRightForm(nQuantity, ...aTexts);
+		return nQuantity <= 0
+			? '' : `${nQuantity}\u00A0${getRightForm(nQuantity, ...aTexts)}`;
 	}
 
 	function getRightForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
@@ -29,11 +29,10 @@ sap.ui.define([
 		//////////////////////////////////
 
 		stringDate(sDate) {
-			if (!sDate || sDate === 'Present') return this.i18n('lPresent');
 			return DateFormat.getDateInstance({ format: 'yMMM' }).format(new Date(sDate));
 		},
 
-		datesPeriod(sStartDate, sEndDate) {
+		datesPeriod(sStartDate, sEndDate, sYear, sYears, sYearPlural, ...aMonthTexts) {
 			if (!sStartDate || !sEndDate) return '';
 			const oStartDate = new Date(sStartDate);
 			const oEndDate = sEndDate === 'Present' ? new Date() : new Date(sEndDate);
@@ -46,10 +45,8 @@ sap.ui.define([
 				iYears--;
 				iMonths += 12;
 			}
-			const aYearTexts = ['lYear', 'lYears', 'lYearPlural'].map((sKey) => this.i18n(sKey));
-			let sResult = getPluralForm(iYears, ...aYearTexts);
-			sResult += iMonths && iYears ? '\u00A0' : '';
-			const aMonthTexts = ['lMonth', 'lMonths', 'lMonthPlural'].map((sKey) => this.i18n(sKey));
+			let sResult = getPluralForm(iYears, sYear, sYears, sYearPlural);
+			if (iMonths && iYears) sResult += '\u00A0';
 			sResult += getPluralForm(iMonths, ...aMonthTexts);
 			return sResult;
 		},

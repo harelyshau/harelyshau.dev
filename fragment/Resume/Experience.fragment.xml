@@ -21,12 +21,30 @@
                 <!-- Device Desktop -->
                 <VBox visible="{= !${device>/system/phone} &amp;&amp; ${device>/resize/width} > 550 }"
                     alignItems="End" class="sapUiTinyMarginTop">
-                    <Label text="{path: 'StartDate', formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'}"/>
-                    <Label text="{parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'}"/>
+                    <Label text="{
+                        path: 'StartDate',
+                        formatter: '.formatter.stringDate'
+                    } – {= ${EndDate} === 'Present'
+                        ? ${i18n>lPresent}
+                        : ${path: 'EndDate',  formatter: '.formatter.stringDate'}
+                    }"/>
+                    <Label text="{
+                        parts: ['StartDate', 'EndDate', 'i18n>lYear', 'i18n>lYears', 'i18n>lYearPlural', 'i18n>lMonth', 'i18n>lMonths', 'i18n>lMonthPlural'],
+                        formatter: '.formatter.datesPeriod'
+                    }"/>
                 </VBox>
                 <!-- Device Phone -->
                 <Label visible="{= ${device>/system/phone} || 550 >= ${device>/resize/width} }" wrapping="true"
-                    text="{path: 'StartDate',  formatter: '.formatter.stringDate'} – {path: 'EndDate',  formatter: '.formatter.stringDate'} ({parts: ['StartDate', 'EndDate'], formatter: '.formatter.datesPeriod'})"/>
+                    text="{
+                        path: 'StartDate', 
+                        formatter: '.formatter.stringDate'
+                    } – {= ${EndDate} === 'Present'
+                        ? ${i18n>lPresent}
+                        : ${path: 'EndDate',  formatter: '.formatter.stringDate'}
+                    } ({
+                        parts: ['StartDate', 'EndDate', 'i18n>lYear', 'i18n>lYears', 'i18n>lYearPlural', 'i18n>lMonth', 'i18n>lMonths', 'i18n>lMonthPlural'],
+                        formatter: '.formatter.datesPeriod'
+                    })"/>
             </FlexBox>
         </HBox>
         <!-- Description -->
