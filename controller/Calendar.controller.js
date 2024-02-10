@@ -2,12 +2,6 @@ sap.ui.define([
 	'./BaseController',
 	'sap/m/MessageToast',
 	'sap/m/MessageBox',
-	'sap/m/SinglePlanningCalendarDayView',
-	'sap/m/SinglePlanningCalendarWorkWeekView',
-	'sap/m/SinglePlanningCalendarWeekView',
-	'sap/m/SinglePlanningCalendarMonthView',
-	'../fragment/Calendar/TwoDaysView',
-	'../fragment/Calendar/ThreeDaysView',
 	'../model/models',
 	'../model/formatter',
 	'../util/calendarManager'
@@ -15,12 +9,6 @@ sap.ui.define([
 	BaseController,
 	MessageToast,
 	MessageBox,
-	DayView,
-	WorkWeekView,
-	WeekView,
-	MonthView,
-	TwoDaysView,
-	ThreeDaysView,
 	models,
 	formatter,
 	calendarManager
@@ -31,7 +19,7 @@ sap.ui.define([
 		formatter,
 
 		onInit() {
-			this.addCalendarViews();
+			this.removeCalendarViews();
 			this.setModel(models.createCalendarModel());
 			this.setModel(models.createCalendarViewModel(), 'view');
 			this.pCalendarAPI = this.initCalendarManager();
@@ -242,35 +230,13 @@ sap.ui.define([
 			this.setBusy(false);
 		},
 
-		addCalendarViews() {
-			const oDeviceData = this.getOwnerComponent().getModel('device').getData();
-			const bDevicePhone = oDeviceData.system.phone;
-			const bSmallWidth = oDeviceData.resize.width <= 800;
-			const bSmallScreen = bDevicePhone || bSmallWidth;
-			const aDiffViewKeys = bSmallScreen
-				? ['two-days', 'three-days', 'work-week']
-				: ['work-week', 'week'];
-			const aViewKeys = ['day', ...aDiffViewKeys, 'month'];
-			aViewKeys.forEach((sViewKey) => this.addCalendarView(sViewKey));
-		},
-
-		addCalendarView(key) {
-			const oViews = {
-				DayView,
-				WorkWeekView,
-				WeekView,
-				MonthView,
-				TwoDaysView,
-				ThreeDaysView
-			};
-			const sPascalCaseKey = key
-				.split('-')
-				.map((s) => s[0].toUpperCase() + s.slice(1))
-				.join('');
-			const title = this.i18n(`ttl${sPascalCaseKey}`);
-			const oViewParams = { id: key, key, title };
-			const oView = new oViews[`${sPascalCaseKey}View`](oViewParams);
-			this.byId('calendar').addView(oView);
+		removeCalendarViews() {
+			const oDevice = this.getOwnerComponent().getModel('device').getData();
+			const bSmallScreen = oDevice.system.phone || oDevice.resize.width <= 800;
+			const oCalendar = this.byId('calendar');
+			const aViewsToRemove = (bSmallScreen ? [4] : [1, 2])
+				.map((i) => oCalendar.getViews()[i]);
+			aViewsToRemove.forEach((oView) => oCalendar.removeView(oView));
 		},
 
 		//////////////////////////////////

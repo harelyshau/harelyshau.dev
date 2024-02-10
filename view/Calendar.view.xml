@@ -3,7 +3,8 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
-	xmlns:unified="sap.ui.unified">
+	xmlns:unified="sap.ui.unified"
+	xmlns:cc="pharelyshau.control">
 	<f:DynamicPage class="sapUiNoContentPadding">
 		<f:title>
 			<f:DynamicPageTitle>
@@ -48,6 +49,14 @@
 							? ${i18n>btnMake} : ${i18n>btnMakeAppointment} }"
 						type="Emphasized" class="phResponsiveMarginEnd"/>
 				</actions>
+				<views>
+					<SinglePlanningCalendarDayView key="day" title="{i18n>ttlDay}"/>
+					<cc:TwoDaysView key="two-days" title="{i18n>ttlTwoDays}"/>
+					<cc:ThreeDaysView key="three-days" title="{i18n>ttlThreeDays}"/>
+					<SinglePlanningCalendarWorkWeekView key="work-week" title="{i18n>ttlWorkWeek}"/>
+					<SinglePlanningCalendarWeekView key="week" title="{i18n>ttlWeek}"/>
+					<SinglePlanningCalendarMonthView key="month" title="{i18n>ttlMonth}"/>
+				</views>
 				<appointments>
 					<unified:CalendarAppointment text= "{= ${Available} ? ${Description} : '' }"
 						type= "{= ${Available} ? ${ID} === 'new' ? 'Type08' : 'Type01' : 'Type16' }"
