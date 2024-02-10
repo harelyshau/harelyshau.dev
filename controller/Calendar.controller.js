@@ -109,7 +109,7 @@ sap.ui.define([
 		//////////////////////////////////
 
 		setAppointments(aAppointments) {
-			this.getModel().setProperty('/ExistingAppointments', aAppointments);
+			this.setProperty('/ExistingAppointments', aAppointments);
 			this.refreshAppointments();
 		},
 
@@ -124,7 +124,7 @@ sap.ui.define([
 		setAppointmentsWithEditable() {
 			const aAppointments = [...this.getExistingAppointments()];
 			this.addEditableAppointment(aAppointments);
-			this.getModel().setProperty('/Appointments', aAppointments);
+			this.setProperty('/Appointments', aAppointments);
 		},
 
 		addEditableAppointment(aAppointments) {
@@ -288,12 +288,12 @@ sap.ui.define([
 		onPressAddGoogleMeet(oEvent) {
 			const sPath = this.getPathByEvent(oEvent) + '/GoogleMeet';
 			const sGoogleMeet = this.getInitialAppointment()?.GoogleMeet;
-			this.getModel().setProperty(sPath, sGoogleMeet ?? 'willBeCreated');
+			this.setProperty(sPath, sGoogleMeet ?? 'willBeCreated');
 		},
 
 		onPressRemoveGoogleMeet(oEvent) {
 			const sPath = this.getPathByEvent(oEvent) + '/GoogleMeet';
-			this.getModel().setProperty(sPath, null);
+			this.setProperty(sPath, null);
 		},
 
 		// Pickers
@@ -314,7 +314,7 @@ sap.ui.define([
 				this.setCalendarStartDate(oNewDate);
 			}
 			oAppointment[sField] = oNewDate;
-			this.getModel().refresh(true);
+			this.refreshModel();
 		},
 
 		onAfterCloseAppointmentDialog(oEvent) {
@@ -406,8 +406,8 @@ sap.ui.define([
 				StartDate.setTime(this.roundUpDateTo15Min(oCalendarStartDate).getTime());
 			}
 
-			const nDuration = this.getModel('view').getProperty('/appointmentDuration');
-			const EndDate = new Date(StartDate.getTime() + nDuration);
+			const iDuration = this.getProperty('/appointmentDuration', 'view');
+			const EndDate = new Date(StartDate.getTime() + iDuration);
 			return { StartDate, EndDate };
 		},
 
@@ -488,7 +488,7 @@ sap.ui.define([
 		},
 
 		setEditableAppointment(oAppointment) {
-			this.getModel().setProperty('/EditableAppointment', oAppointment);
+			this.setProperty('/EditableAppointment', oAppointment);
 		},
 
 		// Get Initial
@@ -497,7 +497,7 @@ sap.ui.define([
 		},
 
 		setInitialAppointment(oAppointment) {
-			this.getModel().setProperty('/InitialAppointment', { ...oAppointment });
+			this.setProperty('/InitialAppointment', { ...oAppointment });
 		}
 
 	});

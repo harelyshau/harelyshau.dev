@@ -13,10 +13,10 @@ sap.ui.define(
 			},
 
 			onPressToggleSideNavigation() {
-				const bPhone = this.getModel('device').getProperty('/system/phone');
+				const bPhone = this.getProperty('/system/phone', 'device');
 				const oPage = bPhone ? this.getView().getParent().getParent() : this.byId('page');
 				const bExpanded = this.toggleSideNavigation(oPage, this.byId('sideNavigation'));
-				this.getModel('view').setProperty('/sideExpanded', bExpanded);
+				this.setProperty('/sideExpanded', bExpanded, 'view');
 			},
 
 			onAlgorithmsMatched(oEvent) {
@@ -27,13 +27,13 @@ sap.ui.define(
 
 			async setCurrentArticle(sArticleId) {
 				this.setBusy(true);
-				this.getModel('view').setProperty('/ArticleID', sArticleId);
+				this.setProperty('/ArticleID', sArticleId, 'view');
 				try {
 					const oArticle = await this.getArticle(this.getArticlePath(sArticleId));
-					this.getModel().setProperty('/Article', oArticle);
+					this.setProperty('/Article', oArticle);
 				} catch (oError) {
 					if (oError.name === 'AbortError') return;
-					this.getModel().setProperty('/Article', { NotFound: true });
+					this.setProperty('/Article', { NotFound: true });
 				}
 				this.setBusy(false);
 			},
@@ -93,12 +93,12 @@ sap.ui.define(
 				const sPath = this.getPathByEvent(oEvent);
 				const oBlock = this.getObjectByEvent(oEvent);
 				if (oBlock.Editable) this.getCodeEditorByButtonClick(oEvent).setValue(oBlock.Code);
-				this.getModel().setProperty(`${sPath}/Editable`, !oBlock.Editable);
+				this.setProperty(`${sPath}/Editable`, !oBlock.Editable);
 			},
 
 			preventSelection(oEvent) {
 				queueMicrotask(() => {
-					const sKey = this.getModel('view').getProperty('/ArticleID');
+					const sKey = this.getProperty('/ArticleID', 'view');
 					oEvent.getSource().setSelectedKey(sKey);
 				});
 			}

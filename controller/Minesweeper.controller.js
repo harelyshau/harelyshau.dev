@@ -260,7 +260,7 @@ sap.ui.define([
             const oRecord = aRecords.find((oRecord) => oRecord.Key === Key);
             if (oRecord) oRecord.Time = Math.min(oRecord.Time, Time);
             else aRecords.push({ Key, Time });
-            this.getModel().refresh(true);
+            this.refreshModel();
             localStorage.setItem('minesweeperRecords', JSON.stringify(aRecords));
         },
 

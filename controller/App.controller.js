@@ -29,7 +29,7 @@ sap.ui.define([
 
 			onRouteMatched(oEvent) {
 				const sPage = oEvent.getParameter('config').target;
-				this.getModel('app').setProperty('/page', sPage);
+				this.setProperty('/page', sPage, 'app');
 				this.byId('page').setSideExpanded(false);
 			},
 
@@ -42,11 +42,11 @@ sap.ui.define([
 			},
 
 			onPressToggleTheme() {
-				const sCurrentTheme = this.getModel('app').getProperty('/theme');
+				const sCurrentTheme = this.getProperty('/theme', 'app');
 				const oOppositeThemes = { light: 'dark', dark: 'light' };
 				const sTheme = oOppositeThemes[sCurrentTheme];
 				themeHelper.setTheme(sTheme);
-				this.getModel('app').setProperty('/theme', sTheme);
+				this.setProperty('/theme', sTheme, 'app');
 			},
 
 			onSelectLanguage(oEvent) {

@@ -25,7 +25,7 @@ sap.ui.define(
 			//////////////////////////////////
 
 			setPegBoxHeight() {
-				this.getModel('view').setProperty('/pegBoxHeight', null);
+				this.setProperty('/pegBoxHeight', null, 'view');
 				setTimeout(() => {
 					const oDomPegBox = this.getDomPegBox();
 					if (!oDomPegBox) {
@@ -33,7 +33,7 @@ sap.ui.define(
 						return;
 					}
 					const iPegBoxHeight = oDomPegBox.clientHeight;
-					this.getModel('view').setProperty('/pegBoxHeight', iPegBoxHeight);
+					this.setProperty('/pegBoxHeight', iPegBoxHeight, 'view');
 				});
 			},
 
@@ -42,7 +42,7 @@ sap.ui.define(
 					const oDomPegBox = this.getDomPegBox();
 					if (!oDomPegBox) return;
 					const iPegBoxWidth = oDomPegBox.clientWidth;
-					this.getModel('view').setProperty('/discButtonMaxWidth', iPegBoxWidth);
+					this.setProperty('/discButtonMaxWidth', iPegBoxWidth, 'view');
 				});
 			},
 
@@ -76,8 +76,8 @@ sap.ui.define(
 
 			onPressMoveDiscByBox(oEvent) {
 				const aTargetPeg = this.getObjectByEvent(oEvent);
-				const aSelectedPeg = this.getModel('view').getProperty('/selectedPeg');
-				this.getModel('view').setProperty('/selectedPeg', !aSelectedPeg ? aTargetPeg : null);
+				const aSelectedPeg = this.getProperty('/selectedPeg', 'view');
+				this.setProperty('/selectedPeg', !aSelectedPeg ? aTargetPeg : null, 'view');
 				if (aSelectedPeg) this.tryMovingDisc(aSelectedPeg, aTargetPeg);
 			},
 
@@ -115,13 +115,13 @@ sap.ui.define(
 			//////////////////////////////////
 
 			onPressLevelUp() {
-				const iDiscCount = this.getModel().getProperty('/DiscCount') + 1;
+				const iDiscCount = this.getProperty('/DiscCount') + 1;
 				this.setNewLevel(iDiscCount);
 			},
 
 			onAfterCloseWinDialog() {
 				this.setupGame();
-				this.getModel('view').setProperty('/previousRecord', null);
+				this.setProperty('/previousRecord', null, 'view');
 			},
 
 			//////////////////////////////////
@@ -129,7 +129,7 @@ sap.ui.define(
 			//////////////////////////////////
 
 			setupGame() {
-				this.getModel('view').setProperty('/selectedPeg', null);
+				this.setProperty('/selectedPeg', null, 'view');
 				this.stopTimer();
 				this.resetTimeAndMoves();
 				this.setPegs();
@@ -137,24 +137,24 @@ sap.ui.define(
 			},
 
 			resetTimeAndMoves() {
-				this.getModel().setProperty('/Time', 0);
-				this.getModel().setProperty('/Moves', 0);
+				this.setProperty('/Time', 0);
+				this.setProperty('/Moves', 0);
 			},
 
 			setPegs() {
 				const aPegs = [this.getDiscs(), [], []];
-				this.getModel().setProperty('/Pegs', aPegs);
-				this.getModel().refresh(true);
+				this.setProperty('/Pegs', aPegs);
+				this.refreshModel();
 			},
 
 			getDiscs() {
-				const length = this.getModel().getProperty('/DiscCount');
+				const length = this.getProperty('/DiscCount');
 				return Array.from({ length }).map((_, i) => i + 1);
 			},
 
 			tryMovingDisc(aCurrentPeg, aTargetPeg) {
 				if (aCurrentPeg === aTargetPeg) return;
-				this.getModel('view').setProperty('/selectedPeg', null);
+				this.setProperty('/selectedPeg', null, 'view');
 				const bImpossible = aCurrentPeg[0] > aTargetPeg[0] || !aCurrentPeg.length;
 				if (bImpossible) return MessageToast.show(this.i18n('msgImpossibleMove'));
 				this.moveDisc(aCurrentPeg, aTargetPeg);
@@ -166,7 +166,7 @@ sap.ui.define(
 			moveDisc(aCurrentPeg, aTargetPeg) {
 				aTargetPeg.unshift(aCurrentPeg[0]);
 				aCurrentPeg.shift();
-				this.getModel().refresh(true);
+				this.refreshModel();
 			},
 
 			finishGame() {
@@ -176,19 +176,19 @@ sap.ui.define(
 			},
 
 			setNewRecord() {
-				const aRecords = this.getModel().getProperty('/Records');
+				const aRecords = this.getProperty('/Records');
 				const oResult = this.getCurrentResult();
 				const oRecord = aRecords.find((oRecord) => oRecord.DiscCount === oResult.DiscCount);
 				this.setPreviousRecord({ ...oRecord });
 				oRecord ? this.updateExistingRecord(oRecord, oResult) : aRecords.push(oResult);
-				this.getModel().refresh(true);
+				this.refreshModel();
 				localStorage.setItem('records', JSON.stringify(aRecords));
 			},
 
 			// save to view model to show it in WinDialog
 			setPreviousRecord(oRecord) {
-				this.getModel('view').setProperty('/previousRecord', null);
-				this.getModel('view').setProperty('/previousRecord', oRecord);
+				this.setProperty('/previousRecord', null, 'view');
+				this.setProperty('/previousRecord', oRecord, 'view');
 			},
 
 			updateExistingRecord(oRecord, oResult) {
@@ -202,8 +202,8 @@ sap.ui.define(
 			},
 
 			increaseMoves() {
-				const iMoves = this.getModel().getProperty('/Moves');
-				this.getModel().setProperty('/Moves', iMoves + 1);
+				const iMoves = this.getProperty('/Moves');
+				this.setProperty('/Moves', iMoves + 1);
 			},
 
 			//////////////////////////////////
@@ -211,7 +211,7 @@ sap.ui.define(
 			//////////////////////////////////
 
 			isGameStarted() {
-				const iMoves = this.getModel().getProperty('/Moves');
+				const iMoves = this.getProperty('/Moves');
 				return iMoves && !this.isGameFinished();
 			},
 
@@ -222,7 +222,7 @@ sap.ui.define(
 
 			setNewLevel(iDiscCount) {
 				this.confirmRestart(() => {
-					this.getModel().setProperty('/DiscCount', iDiscCount);
+					this.setProperty('/DiscCount', iDiscCount);
 					localStorage.setItem('discs', iDiscCount);
 					this.setupGame();
 					InstanceManager.closeAllDialogs();
@@ -234,7 +234,7 @@ sap.ui.define(
 				this.stopTimer();
 				const fnCallbackCancel = () => {
 					this.startTimer();
-					this.getModel().refresh(true);
+					this.refreshModel();
 				};
 				const sMessage = this.i18n('msgConfirmRestartGame');
 				this.openConfirmationMessageBox(sMessage, fnCallback, fnCallbackCancel);

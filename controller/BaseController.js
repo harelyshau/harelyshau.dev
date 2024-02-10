@@ -33,6 +33,10 @@ sap.ui.define(
 				return this.getModel(sModel).setProperty(sPath, oValue, null, true);
 			},
 
+			refreshModel() {
+				this.getModel().refresh(true);
+			},
+
 			i18n(sKey, aParams) {
 				const oI18nModel = this.getOwnerComponent().getModel('i18n');
 				return oI18nModel.getResourceBundle().getText(sKey, aParams);
@@ -43,7 +47,7 @@ sap.ui.define(
 			},
 
 			setBusy(bBusy) {
-				this.getModel('view').setProperty('/busy', bBusy);
+				this.setProperty('/busy', bBusy, 'view');
 			},
 
 			// Common Buttons
@@ -103,7 +107,7 @@ sap.ui.define(
 
 			async loadAndAssignFragment(sFragment) {
 				const sPrefixFragment = `o${sFragment}`;
-				const sCurrentPage = this.getModel('app').getProperty('/page');
+				const sCurrentPage = this.getProperty('/page', 'app');
 				const sPath = `pharelyshau.fragment.${sCurrentPage}.${sFragment}`;
 				this[sPrefixFragment] ??= this.loadFragment({ name: sPath });
 				this[sPrefixFragment] = await this[sPrefixFragment];
@@ -178,9 +182,9 @@ sap.ui.define(
 
 			startTimer() {
 				if (this.timerId || !this.isGameStarted()) return;
-				let iTime = this.getModel().getProperty('/Time');
+				let iTime = this.getProperty('/Time');
 				this.timerId = setInterval(() => {
-					this.getModel().setProperty('/Time', ++iTime);
+					this.setProperty('/Time', ++iTime);
 				}, 1000);
 			},
 
