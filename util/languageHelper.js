@@ -4,43 +4,29 @@ sap.ui.define([
 ], (Localization, Component) => {
 	'use strict';
 
-	function getManifest() {
-		const oComponent = Component.get('container-pharelyshau');
-		return oComponent.getManifest();
-	}
-
-	function getCurrentLanguage() {
-		return Localization.getLanguage().slice(0, 2);
-	}
-
 	return {
+
 		getLanguage() {
-			return localStorage.getItem('language');
+			const i18n = Component.get('container-pharelyshau')
+				.getManifest()['sap.app'].i18n;
+			const sCurLanguage = Localization.getLanguage().slice(0, 2);
+			const sLanguage = i18n.supportedLocales.includes(sCurLanguage)
+				? sCurLanguage : i18n.fallbackLocale;
+			return localStorage.getItem('language') ?? sLanguage;
 		},
 
 		setLanguage(sLanguage) {
 			if (sLanguage) localStorage.setItem('language', sLanguage);
-			sLanguage = this.getSupportedLanguage(sLanguage);
-			Localization.setLanguage(sLanguage);
-		},
-
-		getFallBackLanguage() {
-			return getManifest()['sap.app'].i18n.fallbackLocale;
-		},
-
-		getSupportedLanguages() {
-			return getManifest()['sap.app'].i18n.supportedLocales;
-		},
-
-		getSupportedLanguage(sLanguage) {
-			sLanguage ??= getCurrentLanguage();
-			const bSupported = this.getSupportedLanguages().includes(sLanguage);
-			return bSupported ? sLanguage : this.getFallBackLanguage();
+			Localization.setLanguage(this.getLanguage());
 		},
 
 		initLanguage() {
-			const sLanguage = this.getLanguage();
-			this.setLanguage(sLanguage);
+			this.setLanguage();
+		},
+
+		attachChange(fnFunction) {
+			Localization.attachChange(fnFunction);
 		}
+
 	};
 });

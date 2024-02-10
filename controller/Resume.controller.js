@@ -1,14 +1,18 @@
-sap.ui.define(
-	['./BaseController', '../model/models', '../model/formatter'],
-	(BaseController, models, formatter) => {
+sap.ui.define([
+	'./BaseController',
+	'../model/models',
+	'../model/formatter',
+	'../util/languageHelper'
+], (BaseController, models, formatter, languageHelper) => {
 		'use strict';
 
 		return BaseController.extend('pharelyshau.controller.Resume', {
 			formatter,
 
 			onInit() {
-				// set the resume model
-				this.setModel(models.createResumeModel());
+				const setModel = () => this.setModel(models.createResumeModel());
+				languageHelper.attachChange(setModel);
+				setModel();
 			},
 
 			// Header

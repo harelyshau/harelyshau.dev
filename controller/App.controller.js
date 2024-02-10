@@ -51,7 +51,7 @@ sap.ui.define([
 
 			onSelectLanguage(oEvent) {
 				languageHelper.setLanguage(oEvent.getParameter('item').getKey());
-				window.location.reload(); // need to refresh to change controls language
+				// window.location.reload(); // need to refresh to change controls language
 			},
 
 			onPressToggleSideNavigation() {

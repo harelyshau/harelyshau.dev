@@ -19,7 +19,7 @@ sap.ui.define([
 		// Data Models
 
 		createResumeModel() {
-			const sLanguage = languageHelper.getSupportedLanguage();
+			const sLanguage = languageHelper.getLanguage();
 			const sFilePath = `resource/data/Resume/resume-${sLanguage}.json`;
 			const oModel = new JSONModel();
 			oModel.setDefaultBindingMode('OneWay').loadData(sFilePath);

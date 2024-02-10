@@ -1,9 +1,7 @@
 sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 	'use strict';
 
-	function getLightMedia() {
-		return matchMedia('(prefers-color-scheme: light)');
-	}
+	const oLightMedia = matchMedia('(prefers-color-scheme: light)');
 
 	function setThemeColor(sTheme) {
 		const oColors = { light: '#eaecee', dark: '#0a0d10' };
@@ -28,7 +26,7 @@ sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 	return {
 
 		getTheme() {
-			const sTheme = getLightMedia().matches ? 'light' : 'dark';
+			const sTheme = oLightMedia.matches ? 'light' : 'dark';
 			return localStorage.getItem('theme') ?? sTheme;
 		},
 
@@ -47,7 +45,7 @@ sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 		},
 
 		attachChange(fnFunction) {
-			getLightMedia().addEventListener('change', fnFunction);
+			oLightMedia.addEventListener('change', fnFunction);
 		}
 
 	};
