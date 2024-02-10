@@ -188,7 +188,8 @@ sap.ui.define([
 		},
 
 		onViewChange(oEvent) {
-			const view = oEvent.getSource().getSelectedView();
+			const sViewId = oEvent.getSource().getSelectedView();
+			const view = sViewId.replace(this.createId(''), '');
 			this.navigateTo('Calendar', { view });
 		},
 
