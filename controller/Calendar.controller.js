@@ -125,7 +125,7 @@ sap.ui.define([
 			if (!oEditableAppointment) return;
 			const bAlreadyHas = aAppointments.some((oAppointment, i) => {
 				const bEditable = oAppointment.ID === oEditableAppointment.ID;
-				return bEditable && !!(aAppointments[i] = oEditableAppointment);
+				return bEditable && (aAppointments[i] = oEditableAppointment);
 			});
 			if (!bAlreadyHas) aAppointments.push(oEditableAppointment);
 		},
@@ -142,10 +142,8 @@ sap.ui.define([
 		// Create by Drag & Drop
 		onAppointmentCreateOpenDialog(oEvent) {
 			const oStartDate = oEvent.getParameter('startDate');
-			if (!this.isDateInFuture(oStartDate)) {
-				MessageToast.show(this.i18n('msgStartDateMustBeInFuture'));
-				return;
-			}
+			const sMsg = this.i18n('msgStartDateMustBeInFuture')
+			if (!this.isDateInFuture(oStartDate)) return MessageToast.show(sMsg);
 			const start = oStartDate.toISOString();
 			const end = oEvent.getParameter('endDate').toISOString();
 			const oParams = { '?query': { start, end }};
@@ -157,10 +155,8 @@ sap.ui.define([
 			const oControl = oEvent.getParameter('appointment');
 			if (!oControl || oControl.getSelected()) return;
 			const oAppointment = this.getObjectByControl(oControl);
-			if (!oAppointment.Available) {
-				MessageToast.show(this.i18n('msgBusyAtThisTime'));
-				return;
-			}
+			const sMsgBusy = this.i18n('msgBusyAtThisTime');
+			if (!oAppointment.Available) return MessageToast.show(sMsgBusy);
 			const sPath = this.getPathByControl(oControl);
 			this.openPopover('AppointmentPopover', oControl, sPath);
 		},
@@ -464,7 +460,7 @@ sap.ui.define([
 			const aAppointments = this.getExistingAppointments();
 			const oAppointment = aAppointments.find(oAppointment => oAppointment.ID === sID);
 			const oInitialAppointment = this.getInitialAppointment();
-			Object.keys(oAppointment || {}).forEach((sKey) => {
+			Object.keys(oAppointment ?? {}).forEach((sKey) => {
 				oAppointment[sKey] = oInitialAppointment[sKey];
 			});
 		},
