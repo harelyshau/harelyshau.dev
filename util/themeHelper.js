@@ -39,13 +39,12 @@ sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 		},
 
 		initTheme() {
-			const fnInit = () => this.setTheme();
-			this.attachChange(fnInit);
-			fnInit();
+			this.setTheme();
+			oLightMedia.addEventListener('change', () => this.setTheme());
 		},
 
 		attachChange(fnFunction) {
-			oLightMedia.addEventListener('change', fnFunction);
+			Theming.attachApplied(fnFunction);
 		}
 
 	};
