@@ -10,9 +10,9 @@ sap.ui.define([
 		formatter,
 
 		onInit() {
-			const setModel = () => this.setModel(models.createResumeModel());
-			languageHelper.attachChange(setModel);
-			setModel();
+			const fnSetModel = () => this.setModel(models.createResumeModel());
+			languageHelper.attachChange(fnSetModel);
+			fnSetModel();
 		},
 
 		// Header

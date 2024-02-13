@@ -12,7 +12,8 @@ sap.ui.define([
 		onInit() {
 			this.addContentDensityClass(this.getView());
 			this.setModel(models.createAppModel(), 'app');
-			this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this))
+			this.getRouter()
+				.attachRouteMatched(this.onRouteMatched.bind(this))
 				.attachTitleChanged(this.onTitleChanged.bind(this));
 			themeHelper.attachChange(() => {
 				this.setProperty('/theme', themeHelper.getTheme(), 'app');
@@ -38,20 +39,21 @@ sap.ui.define([
 		},
 
 		onSelectPage(oEvent) {
-			this.getRouter().navTo(oEvent.getParameter('item').getKey());
+			const sPage = oEvent.getParameter('item').getKey();
+			this.getRouter().navTo(sPage);
 		},
 
 		onPressToggleTheme() {
-			const sCurrentTheme = this.getProperty('/theme', 'app');
+			const sCurrentTheme = themeHelper.getTheme()
 			const oOppositeThemes = { light: 'dark', dark: 'light' };
-			const sTheme = oOppositeThemes[sCurrentTheme];
-			themeHelper.setTheme(sTheme);
-			this.setProperty('/theme', sTheme, 'app');
+			themeHelper.setTheme(oOppositeThemes[sCurrentTheme]);
 		},
 
 		onSelectLanguage(oEvent) {
-			languageHelper.setLanguage(oEvent.getParameter('item').getKey());
-			// window.location.reload(); // need to refresh to change controls language
+			const sLanguage = oEvent.getParameter('item').getKey();
+			languageHelper.setLanguage(sLanguage);
+			// need to refresh to change controls language
+			// window.location.reload(); 
 		},
 
 		onPressToggleSideNavigation() {

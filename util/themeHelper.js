@@ -39,9 +39,9 @@ sap.ui.define(['sap/ui/core/Theming'], (Theming) => {
 		},
 
 		initTheme() {
-			const init = () => this.setTheme();
-			this.attachChange(init);
-			init();
+			const fnInit = () => this.setTheme();
+			this.attachChange(fnInit);
+			fnInit();
 		},
 
 		attachChange(fnFunction) {
