@@ -50,19 +50,18 @@ sap.ui.define([
 			const [iCustomW, iCustomH, iCustomMines] = ['Width', 'Height', 'Mines']
 				.map(sProperty => +localStorage.getItem('custom' + sProperty));
 			const oCustomLevel = {
-				Key: 'Custom',
+				Key: 'custom',
 				Width: iCustomW || 30,
 				Height: iCustomH || 60,
 				Mines: iCustomMines || 150
 			};
 			const Levels = [
-				{ Key: 'Easy', Width: 9, Height: 9, Mines: 10 },
-				{ Key: 'Medium', Width: 16, Height: 16, Mines: 40},
-				{ Key: 'Hard', Width: 30, Height: 16, Mines: 99},
+				{ Key: 'easy', Width: 9, Height: 9, Mines: 10 },
+				{ Key: 'medium', Width: 16, Height: 16, Mines: 40},
+				{ Key: 'hard', Width: 30, Height: 16, Mines: 99},
 				oCustomLevel
 			];
-			const sLevelKey = localStorage.getItem('level') || 'Easy';
-			const Level = Levels.find(oLevel => oLevel.Key === sLevelKey);
+			const Level = Levels.find(oLevel => oLevel.Key === Levels[0].Key);
 			const Records = JSON.parse(localStorage.getItem('minesweeperRecords')) ?? [];
 			const oData = { Levels, Level, Time: 0, Records };
 			return new JSONModel(oData);

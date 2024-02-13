@@ -11,6 +11,7 @@ sap.ui.define([
         onInit() {
             this.setModel(models.createTicTacToeModel());
             this.setupGame();
+            this.bindLevelTexts();
         },
 
         setupGame() {

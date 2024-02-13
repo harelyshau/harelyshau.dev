@@ -27,10 +27,10 @@
                     <headerToolbar>
                         <OverflowToolbar height="3rem">
                             <!-- Levels -->
-                            <Label id="lblLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
-                            <Select items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
-                                change="onChangeLevel" ariaLabelledBy="lblLevels">
-                                <core:ListItem text="{Key}" key="{Key}"/>
+                            <Label labelFor="slctLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
+                            <Select id='slctLevels' items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
+                                change="onChangeLevel">
+                                <core:ListItem key="{Key}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>

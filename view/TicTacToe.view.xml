@@ -26,10 +26,10 @@
                     <headerToolbar>
                         <OverflowToolbar height="3rem">
                             <!-- Levels -->
-                            <Label id="lblLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
-                            <Select items="{/levels}" selectedKey="{/level}"
+                            <Label labelFor="slctLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
+                            <Select id="slctLevels" items="{/levels}" selectedKey="{/level}"
                                 change="onChangeLevel" ariaLabelledBy="lblLevels">
-                                <core:ListItem text="{path: '', formatter: '.formatter.levelText' }" key="{}"/>
+                                <core:ListItem key="{}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData priority="Low"/>
                                 </layoutData>

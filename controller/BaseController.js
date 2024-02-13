@@ -196,7 +196,16 @@ sap.ui.define([
 			const bValid = oInput.getValueState() !== 'Error';
 			const bFilled = oInput.getValue();
 			return bValid && bFilled;
-		}
+		},
+
+		bindLevelTexts() {
+            const aLevelItems = this.byId('slctLevels').getItems();
+            aLevelItems.forEach(oItem => {
+                const sKey = oItem.getKey();
+                const sBinding = `i18n>tLevel${sKey[0].toUpperCase()}${sKey.slice(1)}`;
+                oItem.bindProperty('text', sBinding)
+            })
+        }
 
 	});
 });

@@ -29,9 +29,9 @@ sap.ui.define([
 		//////////////////////////////////
 
 		attachRoutesMatched() {
-			this.attachRouteMatched('Calendar', this.onCalendarMatched.bind(this));
-			this.attachRouteMatched('Appointment', this.onAppointmentMatched.bind(this));
-			this.attachRouteMatched('NewAppointment', this.onNewAppointmentMatched.bind(this));
+			['Calendar', 'Appointment', 'NewAppointment'].forEach(sRoute => 
+				this.attachRouteMatched(sRoute, this[`on${sRoute}Matched`].bind(this))
+			);
 		},
 
 		async onNewAppointmentMatched(oEvent) {
@@ -64,10 +64,9 @@ sap.ui.define([
 		onCalendarMatched(oEvent) {
 			this.oAppointmentDialog?.close();
 			const { view } = oEvent.getParameter('arguments');
-			if (!view) return;
 			const oView = this.byId('calendar').getViewByKey(view);
 			if (!oView) return this.navigateTo('Calendar');
-			this.byId('calendar').setSelectedView(view);
+			this.byId('calendar').setSelectedView(oView);
 		},
 
 		//////////////////////////////////
@@ -163,7 +162,8 @@ sap.ui.define([
 
 		// Resize & Drop
 		onAppointmentResizeDrop(oEvent) {
-			const oAppointment = this.getObjectByControl(oEvent.getParameter('appointment'));
+			const { appointment } = oEvent.getParameters();
+			const oAppointment = this.getObjectByControl(appointment);
 			if (!oAppointment.Available || oAppointment.ID === 'new') return;
 			this.setInitialAppointment(oAppointment);
 			oAppointment.StartDate = oEvent.getParameter('startDate');

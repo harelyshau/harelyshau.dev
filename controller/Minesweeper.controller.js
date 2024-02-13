@@ -10,8 +10,20 @@ sap.ui.define([
         onInit() {
             this.setModel(models.createMinesweeperModel());
             this.setModel(models.createMinesweeperViewModel(), 'view');
-            this.setupGame();
             this.attachTimer();
+            this.attachRouteMatched('Minesweeper', this.onMinewsweeperMatched.bind(this));
+            this.bindLevelTexts();
+        },
+
+        onMinewsweeperMatched(oEvent) {
+            const { level } = oEvent.getParameter('arguments');
+            const aLevels = this.getProperty('/Levels');
+            const fnIsCurLevel = ({ Key }) => Key === level;
+            const oLevel = aLevels.find(fnIsCurLevel);
+			oLevel
+                ? this.setProperty('/Level', oLevel)
+                : this.navigateTo('Minesweeper');
+            this.setupGame();
         },
 
         //////////////////////////////////
@@ -176,16 +188,12 @@ sap.ui.define([
         },
 
         onChangeLevel(oEvent) {
-            const sLevelKey = oEvent.getParameter('selectedItem').getKey();
-            this.setNewLevel(sLevelKey);
+            const sLevel = oEvent.getParameter('selectedItem').getKey();
+            this.setNewLevel(sLevel);
         },
 
-        setNewLevel(sLevelKey) {
-            const aLevels = this.getProperty('/Levels');
-            const oLevel = aLevels.find(oLevel => oLevel.Key === sLevelKey);
-            this.setProperty('/Level', oLevel);
-            localStorage.setItem('level', sLevelKey)
-            this.setupGame();
+        setNewLevel(level) {
+            this.navigateTo('Minesweeper', { level });
         },
 
         isGameStarted() {
@@ -231,7 +239,7 @@ sap.ui.define([
             const oLevel = this.getProperty('/CustomLevel', 'view');
             Object.keys(oLevel)
                 .filter(sKey => sKey !== 'Key')
-                .forEach(sKey => localStorage.setItem('custom' + sKey, oLevel[sKey]));
+                .forEach(sKey => localStorage.setItem(`custom${sKey}`, oLevel[sKey]));
         },
 
         isSettingsValid() {
@@ -269,7 +277,6 @@ sap.ui.define([
 			this.setNewLevel(sLevelKey);
             this.oRecordsDialog.close();
         }
-
 
     });
 });
