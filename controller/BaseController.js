@@ -27,8 +27,8 @@ sap.ui.define([
 			return this.getModel(sModel).getProperty(sPath);
 		},
 
-		setProperty(sPath, oValue, sModel) {
-			return this.getModel(sModel).setProperty(sPath, oValue, null, true);
+		setProperty(sPath, oValue, sModel, bSync) {
+			return this.getModel(sModel).setProperty(sPath, oValue, null, !bSync);
 		},
 
 		refreshModel() {

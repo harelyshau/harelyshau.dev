@@ -23,7 +23,7 @@ sap.ui.define([
 		//////////////////////////////////
 
 		setPegBoxHeight() {
-			this.setProperty('/pegBoxHeight', null, 'view');
+			this.setProperty('/pegBoxHeight', null, 'view', true);
 			setTimeout(() => {
 				const oDomPegBox = this.getDomPegBox();
 				if (!oDomPegBox) {
@@ -179,7 +179,7 @@ sap.ui.define([
 			const oRecord = aRecords.find((oRecord) => oRecord.DiscCount === oResult.DiscCount);
 			this.setPreviousRecord({ ...oRecord });
 			oRecord ? this.updateExistingRecord(oRecord, oResult) : aRecords.push(oResult);
-			this.refreshModel();
+			this.setProperty('/Records', [...aRecords]);
 			localStorage.setItem('records', JSON.stringify(aRecords));
 		},
 
