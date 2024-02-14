@@ -276,13 +276,13 @@ sap.ui.define([
 
 		// Google Meet
 		onPressAddGoogleMeet(oEvent) {
-			const sPath = this.getPathByEvent(oEvent) + '/GoogleMeet';
+			const sPath = `${this.getPathByEvent(oEvent)}/GoogleMeet`;
 			const sGoogleMeet = this.getInitialAppointment()?.GoogleMeet;
 			this.setProperty(sPath, sGoogleMeet ?? 'willBeCreated');
 		},
 
 		onPressRemoveGoogleMeet(oEvent) {
-			const sPath = this.getPathByEvent(oEvent) + '/GoogleMeet';
+			const sPath = `${this.getPathByEvent(oEvent)}/GoogleMeet`;
 			this.setProperty(sPath, null);
 		},
 
@@ -401,8 +401,8 @@ sap.ui.define([
 		},
 
 		roundUpDateTo15Min(oDate) {
-			const nRemainder = oDate.getMinutes() % 15;
-			return new Date(oDate.getTime() + (15 - nRemainder) * 60000);
+			const iRemainder = oDate.getMinutes() % 15;
+			return new Date(oDate.getTime() + (15 - iRemainder) * 60000);
 		},
 
 		isDateInFuture(oDate) {
@@ -467,8 +467,8 @@ sap.ui.define([
 
 		// Update End Date
 		updateAppointmentEndDateByDuration(oNewStartDate, oAppointment) {
-			const nDuration = oAppointment.EndDate - oAppointment.StartDate;
-			oAppointment.EndDate = new Date(oNewStartDate.getTime() + nDuration);
+			const iDuration = oAppointment.EndDate - oAppointment.StartDate;
+			oAppointment.EndDate = new Date(oNewStartDate.getTime() + iDuration);
 		},
 
 		// Get Editable

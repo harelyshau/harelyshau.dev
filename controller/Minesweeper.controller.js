@@ -99,7 +99,7 @@ sap.ui.define([
 
         onRightPressCell(oEvent) {
             if (!this.isGameStarted()) return;
-            const sPath = this.getPathByEvent(oEvent) + '/IsFlagged';
+            const sPath = `${this.getPathByEvent(oEvent)}/IsFlagged`;
             const bFlagged = !this.getProperty(sPath);
             this.setProperty(sPath, bFlagged);
             this.updateFlagCount(bFlagged);

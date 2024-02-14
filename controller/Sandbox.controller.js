@@ -22,14 +22,14 @@ sap.ui.define([
             const sPath = this.getPathByEvent(oEvent);
             const { unsaved } = this.getProperty(sPath);
             const bUnsaved = unsaved === undefined ? false : true;
-            this.setProperty(sPath + '/unsaved', bUnsaved);
+            this.setProperty(`${sPath}/unsaved`, bUnsaved);
         },
 
         onPressSave() {
             const oEditor = this.byId('filesNavContainer').getCurrentPage();
             const sPath = this.getPathByControl(oEditor);
-            this.setProperty(sPath + '/value', oEditor.getValue());
-            this.setProperty(sPath + '/unsaved', false);
+            this.setProperty(`${sPath}/value`, oEditor.getValue());
+            this.setProperty(`${sPath}/unsaved`, false);
         },
 
         getFiles() {

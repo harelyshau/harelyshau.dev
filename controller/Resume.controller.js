@@ -30,7 +30,7 @@ sap.ui.define([
 		// Page Content
 		onPressOpenCompanyPopover(oEvent) {
 			const oControl = oEvent.getSource();
-			const sPath = this.getPathByEvent(oEvent) + '/Company';
+			const sPath = `${this.getPathByEvent(oEvent)}/Company`;
 			this.openPopover('CompanyPopover', oControl, sPath);
 		}
 
