@@ -7,11 +7,11 @@ sap.ui.define([
 	return {
 
 		getLanguage() {
-			const i18n = Component.get('container-pharelyshau')
+			const oI18n = Component.get('container-pharelyshau')
 				.getManifest()['sap.app'].i18n;
 			const sCurLanguage = Localization.getLanguage().slice(0, 2);
-			const sLanguage = i18n.supportedLocales.includes(sCurLanguage)
-				? sCurLanguage : i18n.fallbackLocale;
+			const sLanguage = oI18n.supportedLocales.includes(sCurLanguage)
+				? sCurLanguage : oI18n.fallbackLocale;
 			return localStorage.getItem('language') ?? sLanguage;
 		},
 

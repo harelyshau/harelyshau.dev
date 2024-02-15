@@ -2,9 +2,8 @@ sap.ui.define([
 	'./BaseController',
 	'sap/m/MessageToast',
 	'sap/m/InstanceManager',
-	'sap/ui/core/ResizeHandler',
 	'../model/models'
-], (BaseController, MessageToast, InstanceManager, ResizeHandler, models) => {
+], (BaseController, MessageToast, InstanceManager, models) => {
 	'use strict';
 
 	return BaseController.extend('pharelyshau.controller.HanotoiTower', {
@@ -12,10 +11,23 @@ sap.ui.define([
 		onInit() {
 			this.setModel(models.createHanoiTowerModel());
 			this.setModel(models.createHanoiTowerViewModel(), 'view');
-			this.setupGame();
+			this.attachResize(this.setDiscButtonMaxWidth.bind(this));
+			this.attachRouteMatched(this.onHanoiTowerMatched);
 			this.setDiscButtonMaxWidth();
-			ResizeHandler.register(this.getView(), this.setDiscButtonMaxWidth.bind(this));
 			this.attachTimer();
+			this.setupGame();
+		},
+
+		onHanoiTowerMatched(oEvent) {
+			const { discs } = oEvent.getParameter('arguments');
+            const aDiscCounts = this.getProperty('/DiscCounts');
+            const fnIsCurLevel = (iDiscCount) => iDiscCount == discs;
+            const iDiscCount = aDiscCounts.find(fnIsCurLevel);
+			iDiscCount
+                ? this.setProperty('/DiscCount', iDiscCount)
+                : this.navigateTo('HanoiTower');
+			InstanceManager.closeAllDialogs();
+            this.setupGame();
 		},
 
 		//////////////////////////////////
@@ -218,13 +230,10 @@ sap.ui.define([
 			return Pegs[2].length === DiscCount;
 		},
 
-		setNewLevel(iDiscCount) {
-			this.confirmRestart(() => {
-				this.setProperty('/DiscCount', iDiscCount);
-				localStorage.setItem('discs', iDiscCount);
-				this.setupGame();
-				InstanceManager.closeAllDialogs();
-			});
+		setNewLevel(discs) {
+			this.confirmRestart(
+				() => this.navigateTo('HanoiTower', { discs })
+			);
 		},
 
 		confirmRestart(fnCallback) {

@@ -11,7 +11,7 @@ sap.ui.define([
             this.setModel(models.createMinesweeperModel());
             this.setModel(models.createMinesweeperViewModel(), 'view');
             this.attachTimer();
-            this.attachRouteMatched('Minesweeper', this.onMinewsweeperMatched.bind(this));
+            this.attachRouteMatched(this.onMinewsweeperMatched);
             this.bindLevelTexts();
         },
 

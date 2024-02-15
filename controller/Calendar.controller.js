@@ -30,7 +30,7 @@ sap.ui.define([
 
 		attachRoutesMatched() {
 			['Calendar', 'Appointment', 'NewAppointment'].forEach(sRoute => 
-				this.attachRouteMatched(sRoute, this[`on${sRoute}Matched`].bind(this))
+				this.attachRouteMatched(this[`on${sRoute}Matched`], sRoute)
 			);
 		},
 

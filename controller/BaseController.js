@@ -4,12 +4,25 @@ sap.ui.define([
 	'sap/ui/Device',
 	'sap/m/MessageToast',
 	'sap/m/MessageBox',
-	'sap/m/IllustrationPool'
-], (Controller, UIComponent, Device, MessageToast, MessageBox, IllustrationPool) => {
+	'sap/m/IllustrationPool',
+	'sap/ui/core/ResizeHandler'
+], (Controller, UIComponent, Device, MessageToast, MessageBox, IllustrationPool, ResizeHandler) => {
 	'use strict';
 
 	return Controller.extend('pharelyshau.controller.BaseController', {
 		// DEFAULT
+
+		attachRouteMatched(fnCallback, sRoute) {
+			const oRouter = this.getRouter();
+			const oRoute = sRoute
+				? oRouter.getRoute(sRoute)
+				: oRouter.getRouteByHash(oRouter.getHashChanger().getHash());
+			oRoute.attachPatternMatched(fnCallback, this);
+		},
+
+		attachResize(fnFunction) {
+			ResizeHandler.register(this.getView(), fnFunction);
+		},
 
 		getRouter() {
 			return UIComponent.getRouterFor(this);
@@ -50,10 +63,6 @@ sap.ui.define([
 		},
 
 		// Common Buttons
-
-		attachRouteMatched(sRoute, fnCallback) {
-			this.getRouter().getRoute(sRoute).attachMatched(fnCallback);
-		},
 
 		navigateTo(sPage, oParams) {
 			this.getRouter().navTo(sPage, oParams);

@@ -156,7 +156,7 @@ sap.ui.define(['./getGoogleApiToken', './lib/GoogleAPI'], (getGoogleApiToken, Go
 			if (!oAppointment.Available) return oAppointment;
 
 			const Email = oAppointmentGC.attendees.find(
-				(oAttendee) => oAttendee.email !== calendarId
+				({ email }) => email !== calendarId
 			).email;
 			const oAvailableAppointment = {
 				...oAppointment,
