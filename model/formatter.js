@@ -81,12 +81,13 @@ sap.ui.define([
 			const sHours = iHours ? `${iHours}${sHour} ` : '';
 			const sMinutes = iMinutes ? `${iMinutes}${sMinute} ` : '';
 			const sSeconds = iMinutes || iHours ? `${iSeconds}${sSec}` : `${iSeconds} ${sSecond}`;
-			return sHours + sMinutes + sSeconds;
+			return `${sHours}${sMinutes}${sSeconds}`;
 		},
 
 		discWidth(iDisc, iDiscCount, iMaxWidth) {
 			const [iMin, iMax, sUnit] = iMaxWidth ? [28, iMaxWidth, 'px'] : [30, 100, '%'];
-			return ((iMax - iMin) / (iDiscCount - 1)) * (iDisc - 1) + iMin + sUnit;
+			const iWidth = ((iMax - iMin) / (iDiscCount - 1)) * (iDisc - 1) + iMin;
+			return `${iWidth}${sUnit}`;
 		},
 
 		discType(iDisc) {

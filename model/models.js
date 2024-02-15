@@ -48,7 +48,7 @@ sap.ui.define([
 
 		createMinesweeperModel() {
 			const [iCustomW, iCustomH, iCustomMines] = ['Width', 'Height', 'Mines']
-				.map(sProperty => +localStorage.getItem('custom' + sProperty));
+				.map(sProperty => +localStorage.getItem(`custom${sProperty}`));
 			const oCustomLevel = {
 				Key: 'custom',
 				Width: iCustomW || 30,

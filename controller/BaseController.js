@@ -199,12 +199,12 @@ sap.ui.define([
 		},
 
 		bindLevelTexts() {
-            const aLevelItems = this.byId('slctLevels').getItems();
-            aLevelItems.forEach(oItem => {
+            this.byId('slctLevels').getItems().forEach(oItem => {
                 const sKey = oItem.getKey();
-                const sBinding = `i18n>tLevel${sKey[0].toUpperCase()}${sKey.slice(1)}`;
-                oItem.bindProperty('text', sBinding)
-            })
+				const sPascalCase = `${sKey[0].toUpperCase()}${sKey.slice(1)}`;
+                const sBinding = `i18n>tLevel${sPascalCase}`;
+                oItem.bindProperty('text', sBinding);
+            });
         }
 
 	});
