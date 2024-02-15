@@ -210,11 +210,14 @@ sap.ui.define([
 		bindLevelTexts() {
             this.byId('slctLevels').getItems().forEach(oItem => {
                 const sKey = oItem.getKey();
-				const sPascalCase = `${sKey[0].toUpperCase()}${sKey.slice(1)}`;
-                const sBinding = `i18n>tLevel${sPascalCase}`;
+                const sBinding = `i18n>tLevel${this.toPascalCase(sKey)}`;
                 oItem.bindProperty('text', sBinding);
             });
-        }
+        },
+
+		toPascalCase(sString) {
+			return `${sString[0].toUpperCase()}${sString.slice(1)}`;
+		}
 
 	});
 });

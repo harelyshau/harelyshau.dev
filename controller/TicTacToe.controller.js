@@ -11,7 +11,24 @@ sap.ui.define([
         onInit() {
             this.setModel(models.createTicTacToeModel());
             this.setupGame();
+            this.attachRouteMatched(this.onTicTacToeMatched);
             this.bindLevelTexts();
+        },
+
+        onTicTacToeMatched(oEvent) {
+            const { level } = oEvent.getParameter('arguments');
+            this.getProperty('/levels').includes(level)
+                ? this.setProperty('/level', level)
+                : this.navigateTo('TicTacToe');
+            this.resetScore();
+            this.setupGame();
+        },
+
+        resetScore() {
+            this.setProperty('/scoreX', 0);
+            this.setProperty('/score0', 0);
+            this.setProperty('/gameFinished', null);
+            this.setProperty('/first', null);
         },
 
         setupGame() {
@@ -84,19 +101,16 @@ sap.ui.define([
         },
 
         onChangeLevel() {
-            this.setProperty('/scoreX', 0);
-            this.setProperty('/score0', 0);
-            this.setProperty('/gameFinished', null);
-            this.setProperty('/first', null);
-            this.setupGame();
+            const level = this.getProperty('/level');
+            this.navigateTo('TicTacToe', { level });
         },
 
         makeBotMove() {
             const sLevel = this.getProperty('/level');
-            if (sLevel === 'Friend') return;
+            if (sLevel === 'friend') return;
             this.setProperty('/botIsThinking', true);
             setTimeout(() => {
-                this[`make${sLevel}Move`]();
+                this[`make${this.toPascalCase(sLevel)}Move`]();
                 this.setProperty('/botIsThinking', false);
             }, 500);
         },
