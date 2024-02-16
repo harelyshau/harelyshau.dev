@@ -35,7 +35,7 @@
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
                             </Select>
-                            <OverflowToolbarButton icon="sap-icon://action-settings" visible="{= ${/level/key} === 'Custom' }"
+                            <OverflowToolbarButton icon="sap-icon://action-settings" visible="{= ${/level/key} === 'custom' }"
                                 text="Settings" press="onPressOpenSettingsDialog">
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1"  priority="Low"/>

@@ -10,10 +10,10 @@ sap.ui.define([
         onInit() {
             this.setModel(models.createMinesweeperModel());
             this.setModel(models.createMinesweeperViewModel(), 'view');
-            this.attachTimer();
             this.attachRouteMatched(this.onMinewsweeperMatched);
-            this.setLevelTexts();
             this.attachLanguageChange(this.setLevelTexts);
+            this.attachTimer();
+            this.setLevelTexts();
         },
 
         onMinewsweeperMatched(oEvent) {
