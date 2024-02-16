@@ -26,7 +26,6 @@ sap.ui.define([
 			iDiscCount
                 ? this.setProperty('/discCount', iDiscCount)
                 : this.navigateTo('HanoiTower');
-			InstanceManager.closeAllDialogs();
             this.setupGame();
 		},
 
@@ -231,15 +230,19 @@ sap.ui.define([
 		},
 
 		setNewLevel(discs) {
-			this.confirmRestart(
-				() => this.navigateTo('HanoiTower', { discs })
-			);
+			const fnCallback = () => {
+				this.navigateTo('HanoiTower', { discs });
+				this.setupGame();
+				InstanceManager.closeAllDialogs();
+			};
+			this.confirmRestart(fnCallback);
 		},
 
 		confirmRestart(fnCallback) {
 			if (!this.isGameStarted()) return fnCallback();
 			this.stopTimer();
 			const fnCallbackCancel = () => {
+				if (InstanceManager.hasOpenDialog()) return;
 				this.startTimer();
 				this.refreshModel();
 			};
