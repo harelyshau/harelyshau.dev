@@ -96,7 +96,7 @@ sap.ui.define([
 		},
 
 		discCountIcon(iDiscCount, aRecords) {
-			const bCompleted = aRecords.some((oRecord) => oRecord.DiscCount === iDiscCount);
+			const bCompleted = aRecords.some(({ discCount }) => discCount === iDiscCount);
 			return bCompleted ? 'sap-icon://accept' : '';
 		},
 
@@ -126,9 +126,9 @@ sap.ui.define([
 		/////////// MINESWEEPER //////////
 		//////////////////////////////////
 
-		cellState(ID, IsOpen, IsMine, IsFlagged, MineCount, iCellsLeft, bGameFinished, SelectedMineID) {
-			if (IsFlagged) return bGameFinished && !IsMine ? 'WrongFlag' : 'Flag';
-			if (IsMine && IsOpen) return iCellsLeft ? SelectedMineID === ID ? 'Mine' : '' : 'Flag';
+		cellState(id, isOpen, isMine, isFlagged, mineCount, iCellsLeft, bGameFinished, selectedMineID) {
+			if (isFlagged) return bGameFinished && !isMine ? 'WrongFlag' : 'Flag';
+			if (isMine && isOpen) return iCellsLeft ? selectedMineID === id ? 'Mine' : '' : 'Flag';
 			const aColors = [
 				'Blue',
 				'Green',
@@ -139,7 +139,7 @@ sap.ui.define([
 				'Black',
 				'White'
 			];
-			return aColors[MineCount - 1];
+			return aColors[mineCount - 1];
 		},
 
 		cellEnabled(bOpen, bMine, iCellsLeft) {
@@ -148,6 +148,10 @@ sap.ui.define([
 
 		minesCountState(iMines, iWidth, iHeight) {
 			return iMines > 0 && iMines < iWidth * iHeight ? 'None' : 'Error';
+		},
+
+		recordText(sLevelKey, aLevels) {
+			return aLevels.find(({ key }) => key === sLevelKey).text;
 		}
 
 	};

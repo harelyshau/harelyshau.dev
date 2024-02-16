@@ -202,9 +202,9 @@ sap.ui.define([
 
 		startTimer() {
 			if (this.timerId || !this.isGameStarted()) return;
-			let iTime = this.getProperty('/Time');
+			let iTime = this.getProperty('/time');
 			this.timerId = setInterval(() => {
-				this.setProperty('/Time', ++iTime);
+				this.setProperty('/time', ++iTime);
 			}, 1000);
 		},
 
@@ -242,8 +242,8 @@ sap.ui.define([
 					custom: 'Individuell'
 				}
 			}[languageHelper.getLanguage()];
-			this.getProperty('/Levels').forEach(({ Key }, i) => 
-				this.setProperty(`/Levels/${i}/Text`, oTexts[Key])
+			this.getProperty('/levels').forEach(({ key }, i) => 
+				this.setProperty(`/levels/${i}/text`, oTexts[key])
 			);
 		},
 

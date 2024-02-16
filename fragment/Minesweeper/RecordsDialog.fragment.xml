@@ -6,18 +6,18 @@
         formatMessage: 'sap/base/strings/formatMessage'
     }">
     <Dialog title="{i18n>ttlYourRecords}" icon="{i18n>iAchievement}" afterClose="startTimer">
-        <List items="{/Records}" visible="{= ${/Records}.length > 0}">
+        <List items="{/records}" visible="{= ${/records}.length > 0}">
             <CustomListItem class="phNoFocus">
                 <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiTinyMarginTopBottom" justifyContent="SpaceBetween">
                     <VBox class="sapUiSmallMarginEnd" renderType="Bare">
                         <Title titleStyle="H6"
-                            text="{Key}: {parts: ['Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
+                            text="{parts: ['key', '/levels'], formatter: 'formatter.recordText' }: {parts: ['time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
                     </VBox>
                     <Button icon="{i18n>iImprove}" tooltip="{i18n>btnTryToImprove}" press="onPressImrpoveResult"/>
                 </HBox>
             </CustomListItem>
         </List>
-        <IllustratedMessage visible="{= ${/Records}.length === 0}" illustrationSize="Spot"
+        <IllustratedMessage visible="{= ${/records}.length === 0}" illustrationSize="Spot"
             title="{i18n>ttlNoRecords}" illustrationType="sapIllus-SuccessBalloon"
             description="{i18n>tCompleteToSeeRecord}"/>
         <endButton>

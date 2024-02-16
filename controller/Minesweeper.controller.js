@@ -18,11 +18,11 @@ sap.ui.define([
 
         onMinewsweeperMatched(oEvent) {
             const { level } = oEvent.getParameter('arguments');
-            const aLevels = this.getProperty('/Levels');
-            const fnIsCurLevel = ({ Key }) => Key === level;
+            const aLevels = this.getProperty('/levels');
+            const fnIsCurLevel = ({ key }) => key === level;
             const oLevel = aLevels.find(fnIsCurLevel);
 			oLevel
-                ? this.setProperty('/Level', oLevel)
+                ? this.setProperty('/level', oLevel)
                 : this.navigateTo('Minesweeper');
             this.setupGame();
         },
@@ -32,7 +32,7 @@ sap.ui.define([
         //////////////////////////////////
 
         setupGame() {
-            this.setProperty('/GameFinished', false);
+            this.setProperty('/gameFinished', false);
             this.createField();
             this.resetStartupParams();
             this.stopTimer();
@@ -44,26 +44,26 @@ sap.ui.define([
                 const oCellButton = this.byId('gameBox').getItems()[0].getItems()[0];
                 const oHtmlButton = oCellButton.getDomRef();
                 if (!oHtmlButton) return this.setGameWidth();
-                const { Width } = this.getCurrentLevel();
-                const iWidth = oHtmlButton.offsetWidth * Width;
+                const { width } = this.getCurrentLevel();
+                const iWidth = oHtmlButton.offsetWidth * width;
                 this.setProperty('/fullWidth', iWidth > 700, 'view');
             }, iDelay);
         },
 
         resetStartupParams() {
-            const { Mines, Width, Height } = this.getCurrentLevel();
-            this.setProperty('/CellsLeft', Width * Height - Mines);
-            this.setProperty('/Flags', Mines);
-            this.setProperty('/Time', 0);
+            const { mines, width, height } = this.getCurrentLevel();
+            this.setProperty('/cellsLeft', width * height - mines);
+            this.setProperty('/Flags', mines);
+            this.setProperty('/time', 0);
         },
 
         createField() {
-            const { Width, Height } = this.getCurrentLevel();
+            const { width, height } = this.getCurrentLevel();
             const aField = Array.from(
-                { length: Height },
+                { length: height },
                 (_, x) => Array.from(
-                    { length: Width },
-                    (_, y) => ({ ID: x * Width + y, Coordinates: [x, y] })
+                    { length: width },
+                    (_, y) => ({ id: x * width + y, Coordinates: [x, y] })
                 )
             );
             this.setProperty('/Field', aField);
@@ -71,19 +71,19 @@ sap.ui.define([
 
         insertMines(iCurrentID) {
             if (this.isAlreadyMined()) return;
-            const { Width, Height, Mines } = this.getCurrentLevel();
-            const aMineIndecies = [...Array(Width * Height).keys()]
+            const { width, height, mines } = this.getCurrentLevel();
+            const aMineIndecies = [...Array(width * height).keys()]
                 .filter(i => i !== iCurrentID)
                 .sort(this.random)
-                .slice(0, Mines);
+                .slice(0, mines);
             const aCells = this.getCells();
-            aCells.forEach(oCell => oCell.IsMine = aMineIndecies.includes(oCell.ID));
+            aCells.forEach(oCell => oCell.isMine = aMineIndecies.includes(oCell.id));
         },
 
         isAlreadyMined() {
             const aField = this.getField();
             const oCell = aField[0][0];
-            return 'IsMine' in oCell;
+            return 'isMine' in oCell;
         },
 
         //////////////////////////////////
@@ -92,16 +92,16 @@ sap.ui.define([
 
         onPressCell(oEvent) {
             const oCell = this.getObjectByEvent(oEvent);
-            if (this.isGameFinished() || oCell.IsFlagged) return;
-            this.insertMines(oCell.ID);
+            if (this.isGameFinished() || oCell.isFlagged) return;
+            this.insertMines(oCell.id);
             this.handleOpeningCell(oCell);
             this.startTimer();
         },
 
         onRightPressCell(oEvent) {
-            const { IsOpen } = this.getObjectByEvent(oEvent);
-            if (!this.isGameStarted() || IsOpen) return;
-            const sPath = `${this.getPathByEvent(oEvent)}/IsFlagged`;
+            const { isOpen } = this.getObjectByEvent(oEvent);
+            if (!this.isGameStarted() || isOpen) return;
+            const sPath = `${this.getPathByEvent(oEvent)}/isFlagged`;
             const bFlagged = !this.getProperty(sPath);
             this.setProperty(sPath, bFlagged);
             this.updateFlagCount(bFlagged);
@@ -110,38 +110,38 @@ sap.ui.define([
         onDoublePressCell(oEvent) {
             const oCell = this.getObjectByEvent(oEvent);
             const aNeighbours = this.getNeighbourCells(oCell);
-            const aFlaggedNeighbours = aNeighbours.filter(({ IsFlagged }) => IsFlagged);
-            const bReadyToOpen = oCell.MineCount === aFlaggedNeighbours.length;
+            const aFlaggedNeighbours = aNeighbours.filter(({ isFlagged }) => isFlagged);
+            const bReadyToOpen = oCell.mineCount === aFlaggedNeighbours.length;
             if (!bReadyToOpen) return;
-            aNeighbours.filter(({ IsFlagged, IsOpen }) => !IsFlagged && !IsOpen)
+            aNeighbours.filter(({ isFlagged, isOpen }) => !isFlagged && !isOpen)
                 .forEach(oCell => this.handleOpeningCell(oCell));
         },
 
         handleOpeningCell(oCell) {
             this.openCells(oCell);
-            const bGameLost = oCell.IsMine;
-            if (bGameLost) this.setProperty('/SelectedMine', oCell.ID)
+            const bGameLost = oCell.isMine;
+            if (bGameLost) this.setProperty('/selectedMine', oCell.id)
             if (bGameLost || this.isGameWon()) this.finishGame(!bGameLost);
         },
 
         // TODO: check callstack for big fields
         openCells(oCell) {
             oCell = this.openCell(oCell);
-            if (!oCell || oCell.MineCount || oCell.IsMine) return;
+            if (!oCell || oCell.mineCount || oCell.isMine) return;
             const aNeighbours = this.getNeighbourCells(oCell);
             aNeighbours.forEach(oCell => this.openCells(oCell));
         },
 
         openCell(oCell) {
-            if (oCell.IsOpen) return;
-            if (!oCell.IsMine) {
-                const iCellsLeft = this.getProperty('/CellsLeft') - 1;
-                this.setProperty('/CellsLeft', iCellsLeft);
-                oCell.MineCount = this.getCellMineCount(oCell) || '';
+            if (oCell.isOpen) return;
+            if (!oCell.isMine) {
+                const iCellsLeft = this.getProperty('/cellsLeft') - 1;
+                this.setProperty('/cellsLeft', iCellsLeft);
+                oCell.mineCount = this.getCellMineCount(oCell) || '';
             };
-            if (oCell.IsFlagged) this.updateFlagCount();
-            oCell.IsFlagged = false;
-            oCell.IsOpen = true;
+            if (oCell.isFlagged) this.updateFlagCount();
+            oCell.isFlagged = false;
+            oCell.isOpen = true;
             return oCell;
         },
 
@@ -152,7 +152,7 @@ sap.ui.define([
 
         getCellMineCount(oCell) {
             const aNeighbours = this.getNeighbourCells(oCell);
-            return aNeighbours.filter(({ IsMine }) => IsMine).length;
+            return aNeighbours.filter(({ isMine }) => isMine).length;
         },
 
         getNeighbourCells(oCell) {
@@ -170,7 +170,7 @@ sap.ui.define([
         },
 
         finishGame(bWon) {
-            this.setProperty('/GameFinished', true);
+            this.setProperty('/gameFinished', true);
             MessageToast.show(bWon ? 'You won' : 'Game over');
             this.showMines();
             this.stopTimer();
@@ -181,7 +181,7 @@ sap.ui.define([
 
         showMines() {
             const aCells = this.getCells();
-            const aMines = aCells.filter(({ IsMine, IsFlagged }) => IsMine && !IsFlagged);
+            const aMines = aCells.filter(({ isMine, isFlagged }) => isMine && !isFlagged);
             aMines.forEach(oMine => this.openCell(oMine));
         },
 
@@ -199,18 +199,18 @@ sap.ui.define([
         },
 
         isGameStarted() {
-            const iCellsLeft = this.getProperty('/CellsLeft');
-            const { Width, Height, Mines } = this.getCurrentLevel();
-            const bStarted = iCellsLeft !== Width * Height - Mines;
+            const iCellsLeft = this.getProperty('/cellsLeft');
+            const { width, height, mines } = this.getCurrentLevel();
+            const bStarted = iCellsLeft !== width * height - mines;
             return bStarted && !this.isGameFinished();
         },
 
         isGameWon() {
-            return !this.getProperty('/CellsLeft');
+            return !this.getProperty('/cellsLeft');
         },
 
         isGameFinished() {
-            return this.getProperty('/GameFinished');
+            return this.getProperty('/gameFinished');
         },
 
         getField() {
@@ -222,25 +222,25 @@ sap.ui.define([
         },
 
         getCurrentLevel() {
-            return this.getProperty('/Level');
+            return this.getProperty('/level');
         },
 
         // Settings for custom field
 
         onPressApplySettings() {
             if (!this.isSettingsValid()) return MessageToast.show('Enter correct values');
-            const oLevel = this.getProperty('/CustomLevel', 'view');
-            this.setProperty('/Level', oLevel);
-            this.setProperty('/Levels/3', oLevel);
+            const oLevel = this.getProperty('/customLevel', 'view');
+            this.setProperty('/level', oLevel);
+            this.setProperty('/levels/3', oLevel);
             this.saveSettingsToLocalStorage();
             this.setupGame();
             this.oSettingsDialog.close();
         },
 
         saveSettingsToLocalStorage() {
-            const oLevel = this.getProperty('/CustomLevel', 'view');
+            const oLevel = this.getProperty('/customLevel', 'view');
             Object.keys(oLevel)
-                .filter(sKey => sKey !== 'Key')
+                .filter(sKey => sKey !== 'key')
                 .forEach(sKey => localStorage.setItem(`custom${sKey}`, oLevel[sKey]));
         },
 
@@ -253,7 +253,7 @@ sap.ui.define([
         onPressOpenSettingsDialog() {
             this.stopTimer();
             const oLevel = { ...this.getCurrentLevel() };
-            this.setProperty('/CustomLevel', oLevel, 'view');
+            this.setProperty('/customLevel', oLevel, 'view');
             this.openDialog('SettingsDialog');
         },
 
@@ -263,19 +263,19 @@ sap.ui.define([
         },
 
         setNewRecord() {
-            const { Key } = this.getCurrentLevel();
-            if (Key === 'Custom') return;
-            const aRecords = this.getProperty('/Records');
-            const Time = this.getProperty('/Time');
-            const oRecord = aRecords.find((oRecord) => oRecord.Key === Key);
-            if (oRecord) oRecord.Time = Math.min(oRecord.Time, Time);
-            else aRecords.push({ Key, Time });
-            this.setProperty('/Records', aRecords);
+            const { key } = this.getCurrentLevel();
+            if (key === 'custom') return;
+            const aRecords = this.getProperty('/records');
+            const time = this.getProperty('/time');
+            const oRecord = aRecords.find((oRecord) => oRecord.key === key);
+            if (oRecord) oRecord.time = Math.min(oRecord.time, time);
+            else aRecords.push({ key, time });
+            this.refreshModel();
             localStorage.setItem('minesweeperRecords', JSON.stringify(aRecords));
         },
 
         onPressImrpoveResult(oEvent) {
-            const sLevelKey = this.getObjectByEvent(oEvent).Key;
+            const sLevelKey = this.getObjectByEvent(oEvent).key;
 			this.setNewLevel(sLevelKey);
             this.oRecordsDialog.close();
         }

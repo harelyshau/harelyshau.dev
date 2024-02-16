@@ -37,11 +37,11 @@ sap.ui.define([
 
 		createHanoiTowerModel() {
 			const oData = {
-				DiscCounts: Array.from({ length: 18 }, (_, i) => i + 3),
-				DiscCount: 5,
-				Records: JSON.parse(localStorage.getItem('records')) ?? [],
-				Moves: 0,
-				Time: 0
+				discCounts: Array.from({ length: 18 }, (_, i) => i + 3),
+				discCount: 5,
+				records: JSON.parse(localStorage.getItem('records')) ?? [],
+				moves: 0,
+				time: 0
 			};
 			return new JSONModel(oData);
 		},
@@ -50,20 +50,19 @@ sap.ui.define([
 			const [iCustomW, iCustomH, iCustomMines] = ['Width', 'Height', 'Mines']
 				.map(sProperty => +localStorage.getItem(`custom${sProperty}`));
 			const oCustomLevel = {
-				Key: 'custom',
-				Width: iCustomW || 30,
-				Height: iCustomH || 60,
-				Mines: iCustomMines || 150
+				key: 'custom',
+				width: iCustomW || 30,
+				height: iCustomH || 60,
+				mines: iCustomMines || 150
 			};
-			const Levels = [
-				{ Key: 'easy', Width: 9, Height: 9, Mines: 10 },
-				{ Key: 'medium', Width: 16, Height: 16, Mines: 40},
-				{ Key: 'hard', Width: 30, Height: 16, Mines: 99},
+			const levels = [
+				{ key: 'easy', width: 9, height: 9, mines: 10 },
+				{ key: 'medium', width: 16, height: 16, mines: 40},
+				{ key: 'hard', width: 30, height: 16, mines: 99},
 				oCustomLevel
 			];
-			const Level = Levels.find(oLevel => oLevel.Key === Levels[0].Key);
-			const Records = JSON.parse(localStorage.getItem('minesweeperRecords')) ?? [];
-			const oData = { Levels, Level, Time: 0, Records };
+			const records = JSON.parse(localStorage.getItem('minesweeperRecords')) ?? [];
+			const oData = { levels, level: levels[0], time: 0, records };
 			return new JSONModel(oData);
 		},
 

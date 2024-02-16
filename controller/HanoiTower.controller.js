@@ -20,11 +20,11 @@ sap.ui.define([
 
 		onHanoiTowerMatched(oEvent) {
 			const { discs } = oEvent.getParameter('arguments');
-            const aDiscCounts = this.getProperty('/DiscCounts');
+            const aDiscCounts = this.getProperty('/discCounts');
             const fnIsCurLevel = (iDiscCount) => iDiscCount == discs;
             const iDiscCount = aDiscCounts.find(fnIsCurLevel);
 			iDiscCount
-                ? this.setProperty('/DiscCount', iDiscCount)
+                ? this.setProperty('/discCount', iDiscCount)
                 : this.navigateTo('HanoiTower');
 			InstanceManager.closeAllDialogs();
             this.setupGame();
@@ -116,8 +116,8 @@ sap.ui.define([
 		//////////////////////////////////
 
 		onPressImrpoveResult(oEvent) {
-			const iDiscCount = this.getObjectByEvent(oEvent).DiscCount;
-			this.setNewLevel(iDiscCount);
+			const { discCount } = this.getObjectByEvent(oEvent);
+			this.setNewLevel(discCount);
 		},
 
 		//////////////////////////////////
@@ -125,7 +125,7 @@ sap.ui.define([
 		//////////////////////////////////
 
 		onPressLevelUp() {
-			const iDiscCount = this.getProperty('/DiscCount') + 1;
+			const iDiscCount = this.getProperty('/discCount') + 1;
 			this.setNewLevel(iDiscCount);
 		},
 
@@ -147,18 +147,18 @@ sap.ui.define([
 		},
 
 		resetTimeAndMoves() {
-			this.setProperty('/Time', 0);
-			this.setProperty('/Moves', 0);
+			this.setProperty('/time', 0);
+			this.setProperty('/moves', 0);
 		},
 
 		setPegs() {
 			const aPegs = [this.getDiscs(), [], []];
-			this.setProperty('/Pegs', aPegs);
+			this.setProperty('/pegs', aPegs);
 			this.refreshModel();
 		},
 
 		getDiscs() {
-			const length = this.getProperty('/DiscCount');
+			const length = this.getProperty('/discCount');
 			return Array.from({ length }).map((_, i) => i + 1);
 		},
 
@@ -186,12 +186,12 @@ sap.ui.define([
 		},
 
 		setNewRecord() {
-			const aRecords = this.getProperty('/Records');
+			const aRecords = this.getProperty('/records');
 			const oResult = this.getCurrentResult();
-			const oRecord = aRecords.find((oRecord) => oRecord.DiscCount === oResult.DiscCount);
+			const oRecord = aRecords.find(({ discCount }) => discCount === oResult.discCount);
 			this.setPreviousRecord({ ...oRecord });
 			oRecord ? this.updateExistingRecord(oRecord, oResult) : aRecords.push(oResult);
-			this.setProperty('/Records', [...aRecords]);
+			this.setProperty('/records', [...aRecords]);
 			localStorage.setItem('records', JSON.stringify(aRecords));
 		},
 
@@ -202,18 +202,18 @@ sap.ui.define([
 		},
 
 		updateExistingRecord(oRecord, oResult) {
-			oRecord.Time = Math.min(oRecord.Time, oResult.Time);
-			oRecord.Moves = Math.min(oRecord.Moves, oResult.Moves);
+			oRecord.time = Math.min(oRecord.time, oResult.time);
+			oRecord.moves = Math.min(oRecord.moves, oResult.moves);
 		},
 
 		getCurrentResult() {
-			const { DiscCount, Time, Moves } = this.getModel().getData();
-			return { DiscCount, Time, Moves };
+			const { discCount, time, moves } = this.getModel().getData();
+			return { discCount, time, moves };
 		},
 
 		increaseMoves() {
-			const iMoves = this.getProperty('/Moves');
-			this.setProperty('/Moves', iMoves + 1);
+			const iMoves = this.getProperty('/moves');
+			this.setProperty('/moves', iMoves + 1);
 		},
 
 		//////////////////////////////////
@@ -221,13 +221,13 @@ sap.ui.define([
 		//////////////////////////////////
 
 		isGameStarted() {
-			const iMoves = this.getProperty('/Moves');
+			const iMoves = this.getProperty('/moves');
 			return iMoves && !this.isGameFinished();
 		},
 
 		isGameFinished() {
-			const { Pegs, DiscCount } = this.getModel().getData();
-			return Pegs[2].length === DiscCount;
+			const { pegs, discCount } = this.getModel().getData();
+			return pegs[2].length === discCount;
 		},
 
 		setNewLevel(discs) {

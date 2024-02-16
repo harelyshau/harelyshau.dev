@@ -28,14 +28,14 @@
                         <OverflowToolbar height="3rem">
                             <!-- Levels -->
                             <Label labelFor="slctLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
-                            <Select id='slctLevels' items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
+                            <Select id='slctLevels' items="{/levels}" selectedKey="{path: '/level/key', mode: 'OneWay'}"
                                 change="onChangeLevel">
-                                <core:ListItem key="{Key}" text="{Text}"/>
+                                <core:ListItem key="{key}" text="{text}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
                             </Select>
-                            <OverflowToolbarButton icon="sap-icon://action-settings" visible="{= ${/Level/Key} === 'Custom' }"
+                            <OverflowToolbarButton icon="sap-icon://action-settings" visible="{= ${/level/key} === 'Custom' }"
                                 text="Settings" press="onPressOpenSettingsDialog">
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1"  priority="Low"/>
@@ -46,7 +46,7 @@
                             <core:Icon src="sap-icon://flag-2" class="sapUiSmallMarginBegin"/>
                             <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Flags}"
                                 class="sapUiTinyMarginEnd"/>
-                            <Button text="{= !${/CellsLeft} ? '😎' : ${/GameFinished} ? '😵' : '🙂' }"
+                            <Button text="{= !${/cellsLeft} ? '😎' : ${/gameFinished} ? '😵' : '🙂' }"
                                 type="Ghost" press="onPressRestartGame">
                                 <layoutData>
                                     <OverflowToolbarLayoutData priority="NeverOverflow"/>
@@ -56,7 +56,7 @@
                             <core:Icon src="{i18n>iTime}" class="sapUiSmallMarginBegin"/>
                             <FlexBox renderType="Bare" class="sapUiSmallMarginEnd">
                                 <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
-                                    {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
+                                    {parts: ['/time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData shrinkable="true" />
                                 </layoutData>
@@ -75,22 +75,22 @@
                         <VBox renderType="Bare" class="sapUiTinyMarginBottom">
                             <VBox items="{/Field}" renderType="Bare" id="gameBox" class="phMinesweeper">
                                 <HBox items="{ path: '', templateShareable: false }" renderType="Bare" justifyContent="Center" height="1.8rem">
-                                    <cc:CellButton text="{MineCount}" type="Unstyled"
-                                        icon="{= ${IsFlagged} || ${IsMine} &amp;&amp; !${/CellsLeft} ? 'sap-icon://flag' : ${IsMine} &amp;&amp; ${IsOpen} ? 'sap-icon://action-settings' : '' }"
-                                        enabled="{= !${/GameFinished} &amp;&amp; (!${IsOpen} || !!${MineCount}) }" width="1.8rem"
+                                    <cc:CellButton text="{mineCount}" type="Unstyled"
+                                        icon="{= ${isFlagged} || ${isMine} &amp;&amp; !${/cellsLeft} ? 'sap-icon://flag' : ${isMine} &amp;&amp; ${isOpen} ? 'sap-icon://action-settings' : '' }"
+                                        enabled="{= !${/gameFinished} &amp;&amp; (!${isOpen} || !!${mineCount}) }" width="1.8rem"
                                         press="onPressCell" rightPress="onRightPressCell" doublePress="onDoublePressCell"
                                         class="phCell">
                                         <cc:customData>
                                             <core:CustomData key="cell" writeToDom="true"
-                                                value="state{parts: ['ID', 'IsOpen', 'IsMine', 'IsFlagged', 'MineCount', '/CellsLeft', '/GameFinished', '/SelectedMine'], formatter: 'formatter.cellState'}"/>
+                                                value="state{parts: ['id', 'isOpen', 'isMine', 'isFlagged', 'mineCount', '/cellsLeft', '/gameFinished', '/selectedMine'], formatter: 'formatter.cellState'}"/>
                                         </cc:customData>
                                         <cc:customData>
                                             <core:CustomData key="enabled" writeToDom="true"
-                                                value="is{parts: ['IsOpen', 'IsMine', '/CellsLeft'], formatter: 'formatter.cellEnabled'}"/>
+                                                value="is{parts: ['isOpen', 'isMine', '/cellsLeft'], formatter: 'formatter.cellEnabled'}"/>
                                         </cc:customData>
                                         <cc:customData>
                                             <core:CustomData key="gameFinished" writeToDom="true"
-                                                value="is{/GameFinished}"/>
+                                                value="is{/gameFinished}"/>
                                         </cc:customData>
                                         <cc:layoutData>
                                             <FlexItemData maxWidth="auto"/>

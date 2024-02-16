@@ -33,9 +33,9 @@
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
                             </Label>
-                            <Select items="{/DiscCounts}" selectedKey="{path: '/DiscCount', type: 'sap.ui.model.type.Integer', mode: 'OneWay'}"
+                            <Select items="{/discCounts}" selectedKey="{path: '/discCount', type: 'sap.ui.model.type.Integer', mode: 'OneWay'}"
                                 change="onChangeDiscsCount" ariaLabelledBy="lblDiscCount">
-                                <core:ListItem text="{}" key="{}" icon="{parts: ['', '/Records'], formatter: 'formatter.discCountIcon'}"/>
+                                <core:ListItem text="{}" key="{}" icon="{parts: ['', '/records'], formatter: 'formatter.discCountIcon'}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
@@ -45,14 +45,14 @@
                             <core:Icon src="{i18n>iTime}"/>
                             <FlexBox renderType="Bare">
                                 <Title text="{= !${device>/system/phone} ? ${i18n>ttlTime} + ':' : '' }
-                                    {parts: ['/Time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
+                                    {parts: ['/time', 'i18n>tHour', 'i18n>tMinute', 'i18n>tSecond', 'i18n>tSec'], formatter: 'formatter.timeMinSec'}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData shrinkable="true"/>
                                 </layoutData>
                             </FlexBox>
                             <!-- Moves -->
                             <core:Icon src="{i18n>iStep}" class="sapUiSmallMarginBegin"/>
-                            <Title text="{= !${device>/system/phone} ? ${i18n>ttlMoves} + ':' : '' } {/Moves}" />
+                            <Title text="{= !${device>/system/phone} ? ${i18n>ttlMoves} + ':' : '' } {/moves}" />
                             <ToolbarSpacer/>
                             <!-- Buttons -->
                             <Button text="{i18n>btnRestart}" press="onPressRestartGame" icon="{i18n>iRestart}"/>
@@ -60,18 +60,18 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <!-- GAME -->
-                    <grid:CSSGrid id="gameGrid" items="{/Pegs}" gridAutoFlow="Column"
+                    <grid:CSSGrid id="gameGrid" items="{/pegs}" gridAutoFlow="Column"
                         gridTemplateColumns="repeat(3, 33.3333%)">
                         <!-- Peg -->
                         <VBox width="100%" alignItems="Center" justifyContent="End" renderType="Bare">
                             <Title visible="{view>/showMoveButtons}" titleStyle="H6" wrapping="true" wrappingType="Hyphenated" textAlign="Center"
-                                text="{i18n>ttlPeg} {= String.fromCharCode(${/Pegs}.indexOf(${}) + 65) }" class="sapUiSmallMarginTop"/>
+                                text="{i18n>ttlPeg} {= String.fromCharCode(${/pegs}.indexOf(${}) + 65) }" class="sapUiSmallMarginTop"/>
                             <CustomListItem type="{= !${}.length &amp;&amp; !${view>/selectedPeg} ? 'Inactive' : 'Active'}"
                                 press="onPressMoveDiscByBox" selected="{= ${} === ${view>/selectedPeg} }" class="phNoFocus phCustomListItem sapUiSmallMarginTop">
                                 <VBox renderType="Bare" items="{path: '', templateShareable: true}" class="phPegBox sapUiSmallMarginTop" alignItems="Center" fieldGroupIds="pegs"
                                     height="{= !${view>/pegBoxHeight} ? '100%' : ${view>/pegBoxHeight} + 'px' }" justifyContent="End">
                                     <!-- Disc -->
-                                    <Button width="{parts: ['', '/DiscCount', 'view>/discButtonMaxWidth'], formatter: 'formatter.discWidth'}"
+                                    <Button width="{parts: ['', '/discCount', 'view>/discButtonMaxWidth'], formatter: 'formatter.discWidth'}"
                                         text="{}" type="{path: '', formatter: 'formatter.discType'}"
                                         press="onPressFirePegPress" class="phDiscButton">
                                         <layoutData>
@@ -91,10 +91,10 @@
                         </VBox>
                     </grid:CSSGrid>
                     <!-- BUTTONS -->
-                    <grid:CSSGrid visible="{view>/showMoveButtons}" items="{/Pegs}" gridAutoFlow="Column"
+                    <grid:CSSGrid visible="{view>/showMoveButtons}" items="{/pegs}" gridAutoFlow="Column"
                         gridTemplateColumns="repeat(3, 33.3333%)" class="sapUiSmallMarginTop">
-                        <VBox  items="{path: '/Pegs', templateShareable: true}" alignItems="Center">
-                            <Button text="{i18n>btnTo} {= String.fromCharCode(${/Pegs}.indexOf(${}) + 65) }"
+                        <VBox  items="{path: '/pegs', templateShareable: true}" alignItems="Center">
+                            <Button text="{i18n>btnTo} {= String.fromCharCode(${/pegs}.indexOf(${}) + 65) }"
                                 core:require="{moveButtonVisible: 'pharelyshau/model/formatMoveButtonVisible'}"
                                 press="onPressMoveDiscByButton" visible="{path: '', formatter: 'moveButtonVisible'}"/>
                         </VBox>
@@ -107,7 +107,7 @@
                             <Switch state="{view>/showMoveButtons}" customTextOn=" " customTextOff=" "
                                 change="onChangeMoveButtonsSwith"/>
                         </HBox>
-                        <Label wrapping="true" text="{i18n>lMinMovesToWin}: {path: '/DiscCount', formatter: 'formatter.formattedMinMovesToWin'}"/>
+                        <Label wrapping="true" text="{i18n>lMinMovesToWin}: {path: '/discCount', formatter: 'formatter.formattedMinMovesToWin'}"/>
                     </HBox>
                 </Panel>
                 <!-- INSTRUCTIONS -->

@@ -7,13 +7,13 @@
         Integer: 'sap/ui/model/type/Integer'
     }">
     <Dialog title="Set up field" icon="sap-icon://table-view"
-        afterClose="startTimer" binding="{view>/CustomLevel}">
+        afterClose="startTimer" binding="{view>/customLevel}">
         <HBox class="sapUiSmallMargin" justifyContent="SpaceBetween" id="settingsBox">
             <VBox>
                 <Label text="Width" showColon="true" design="Bold"/>
                 <Input width="5rem" type="Number"
                     value="{
-                        path: 'view>Width',
+                        path: 'view>width',
                         type: 'Integer',
                         constraints: { minimum: 1, maximum: 100}
                     }"/>
@@ -22,7 +22,7 @@
                 <Label text="Height" showColon="true" design="Bold"/>
                 <Input width="5rem" type="Number"
                     value="{
-                        path: 'view>Height',
+                        path: 'view>height',
                         type: 'Integer',
                         constraints: { minimum: 1, maximum: 100}
                     }"/>
@@ -31,12 +31,12 @@
                 <Label text="Mines" showColon="true" design="Bold"/>
                 <Input width="5rem" type="Number"
                 id="inpMines"
-                    value="{path: 'view>Mines', type: 'sap.ui.model.type.Integer' }"
-                    valueState="{ parts: ['view>Mines', 'view>Width', 'view>Height'], formatter: 'formatter.minesCountState' }"
-                    valueStateText="{= 1 > ${view>Mines} 
+                    value="{path: 'view>mines', type: 'sap.ui.model.type.Integer' }"
+                    valueState="{ parts: ['view>mines', 'view>width', 'view>height'], formatter: 'formatter.minesCountState' }"
+                    valueStateText="{= 1 > ${view>mines} 
                         ? 'Enter a number greater than or equal to 1' 
-                        : ${view>Mines} >= ${view>Width} * ${view>Height} 
-                            ? 'Enter a number less than or equal to ' + (${view>Width} * ${view>Height} - 1)
+                        : ${view>mines} >= ${view>width} * ${view>height} 
+                            ? 'Enter a number less than or equal to ' + (${view>width} * ${view>height} - 1)
                             : '' }"/>
             </VBox>
         </HBox>

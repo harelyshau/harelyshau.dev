@@ -7,18 +7,18 @@
     }">
     <Dialog title="{i18n>ttlYourRecords}" icon="{i18n>iAchievement}" afterClose="startTimer"
         class="phRecordsDialog">
-        <List items="{/Records}" visible="{= ${/Records}.length > 0}">
+        <List items="{/records}" visible="{= ${/records}.length > 0}">
             <CustomListItem class="phNoFocus">
                 <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMargin" justifyContent="SpaceBetween">
                     <VBox class="sapUiSmallMarginEnd" renderType="Bare">
-                        <Title text="{parts: ['i18n>ttlRecord', 'DiscCount'], formatter: 'formatMessage'}" titleStyle="H6"/>
+                        <Title text="{parts: ['i18n>ttlRecord', 'discCount'], formatter: 'formatMessage'}" titleStyle="H6"/>
                         <core:Fragment fragmentName="pharelyshau.fragment.HanoiTower.Result" type="XML"/>
                     </VBox>
                     <Button icon="{i18n>iImprove}" tooltip="{i18n>btnTryToImprove}" press="onPressImrpoveResult"/>
                 </HBox>
             </CustomListItem>
         </List>
-        <IllustratedMessage visible="{= ${/Records}.length === 0}" illustrationSize="Spot"
+        <IllustratedMessage visible="{= ${/records}.length === 0}" illustrationSize="Spot"
             title="{i18n>ttlNoRecords}" illustrationType="sapIllus-SuccessBalloon"
             description="{i18n>tCompleteToSeeRecord}"/>
         <endButton>
