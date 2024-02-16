@@ -1,9 +1,6 @@
 sap.ui.define([
-	'./BaseController',
-	'../model/models',
-	'../model/formatter',
-	'../util/languageHelper'
-], (BaseController, models, formatter, languageHelper) => {
+	'./BaseController', '../model/models', '../model/formatter'
+], (BaseController, models, formatter) => {
 	'use strict';
 
 	return BaseController.extend('pharelyshau.controller.Resume', {
@@ -11,7 +8,7 @@ sap.ui.define([
 
 		onInit() {
 			const fnSetModel = () => this.setModel(models.createResumeModel());
-			languageHelper.attachChange(fnSetModel);
+			this.attachLanguageChange(fnSetModel);
 			fnSetModel();
 		},
 

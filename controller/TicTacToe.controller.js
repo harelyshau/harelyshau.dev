@@ -1,11 +1,9 @@
 sap.ui.define([
-    './BaseController',
-    '../model/models',
-    '../model/formatter',
-], (BaseController, models, formatter) => {
+    './GameController', '../model/models', '../model/formatter'
+], (GameController, models, formatter) => {
     'use strict';
 
-    return BaseController.extend('pharelyshau.controller.TicTacToe', {
+    return GameController.extend('pharelyshau.controller.TicTacToe', {
         formatter,
 
         onInit() {
