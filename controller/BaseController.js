@@ -5,8 +5,18 @@ sap.ui.define([
 	'sap/m/MessageToast',
 	'sap/m/MessageBox',
 	'sap/m/IllustrationPool',
-	'sap/ui/core/ResizeHandler'
-], (Controller, UIComponent, Device, MessageToast, MessageBox, IllustrationPool, ResizeHandler) => {
+	'sap/ui/core/ResizeHandler',
+	'../util/languageHelper'
+], (
+	Controller,
+	UIComponent,
+	Device,
+	MessageToast,
+	MessageBox,
+	IllustrationPool,
+	ResizeHandler,
+	languageHelper
+) => {
 	'use strict';
 
 	return Controller.extend('pharelyshau.controller.BaseController', {
@@ -22,6 +32,10 @@ sap.ui.define([
 
 		attachResize(fnFunction) {
 			ResizeHandler.register(this.getView(), fnFunction);
+		},
+
+		attachLangugaeChange(fnFunction) {
+			languageHelper.attachChange(fnFunction.bind(this));
 		},
 
 		getRouter() {
@@ -207,13 +221,31 @@ sap.ui.define([
 			return bValid && bFilled;
 		},
 
-		bindLevelTexts() {
-            this.byId('slctLevels').getItems().forEach(oItem => {
-                const sKey = oItem.getKey();
-                const sBinding = `i18n>tLevel${this.toPascalCase(sKey)}`;
-                oItem.bindProperty('text', sBinding);
-            });
-        },
+		setLevelTexts() {
+			const oTexts = {
+				en: {
+					easy: 'Easy',
+					medium: 'Medium',
+					hard: 'Hard',
+					custom: 'Custom'
+				},
+				ru: {
+					easy: 'Легкий',
+					medium: 'Средний',
+					hard: 'Тяжелый',
+					custom: 'Пользовательский'
+				},
+				de: {
+					easy: 'Einfach',
+					medium: 'Mittel',
+					hard: 'Schwer',
+					custom: 'Individuell'
+				}
+			}[languageHelper.getLanguage()];
+			this.getProperty('/Levels').forEach(({ Key }, i) => 
+				this.setProperty(`/Levels/${i}/Text`, oTexts[Key])
+			);
+		},
 
 		toPascalCase(sString) {
 			return `${sString[0].toUpperCase()}${sString.slice(1)}`;

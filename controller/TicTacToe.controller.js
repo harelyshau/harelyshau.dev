@@ -1,7 +1,7 @@
 sap.ui.define([
     './BaseController',
     '../model/models',
-    '../model/formatter'
+    '../model/formatter',
 ], (BaseController, models, formatter) => {
     'use strict';
 
@@ -12,7 +12,8 @@ sap.ui.define([
             this.setModel(models.createTicTacToeModel());
             this.setupGame();
             this.attachRouteMatched(this.onTicTacToeMatched);
-            this.bindLevelTexts();
+            this.setLevelTexts();
+            this.attachLanguageChange(this.setLevelTexts);
         },
 
         onTicTacToeMatched(oEvent) {
@@ -61,7 +62,8 @@ sap.ui.define([
         getWinCombinations() {
             const aRows = this.getProperty('/field');
             const aColumns = aRows.map(
-                (_, i) => aRows.flat().filter(({ coordinates }) => coordinates[1] === i)
+                (_, i) => aRows.flat()
+                    .filter(({ coordinates }) => coordinates[1] === i)
             );
             const aDiagonals = [
                 [aRows[0][0], aRows[1][1], aRows[2][2]],
@@ -96,12 +98,14 @@ sap.ui.define([
         makeMove(oCell) {
             const bTurn = this.getProperty('/turn');
             const [bFinished, bDraw] = this.isGameFinished(oCell.value = bTurn);
-            bFinished ? this.finishGame(bTurn, bDraw) : this.setProperty('/turn', !bTurn);
+            bFinished
+                ? this.finishGame(bTurn, bDraw)
+                : this.setProperty('/turn', !bTurn);
             return bFinished;
         },
 
-        onChangeLevel() {
-            const level = this.getProperty('/level');
+        onChangeLevel(oEvent) {
+            const level = oEvent.getParameter('selectedItem').getKey();
             this.navigateTo('TicTacToe', { level });
         },
 
@@ -118,7 +122,8 @@ sap.ui.define([
         makeMediumMove() {
             const aCombinations = this.getWinCombinations()
                 .filter(cells => cells.some(this.isCellUnopened)).sort(this.random);
-            const isFilled = (aCells, bVal) => aCells.filter(({ value }) => value === bVal).length === 2;
+            const isFilled = (aCells, bVal) => aCells
+                .filter(({ value }) => value === bVal).length === 2;
             const bTurn = this.getProperty('/turn');
             const aWinCells = aCombinations.find(aCells => isFilled(aCells, bTurn));
             const aDangerousCells = aCombinations.find(aCells => isFilled(aCells, !bTurn));

@@ -30,7 +30,7 @@
                             <Label labelFor="slctLevels" text="{i18n>lLevel}" showColon="true" visible="false"/>
                             <Select id='slctLevels' items="{/Levels}" selectedKey="{path: '/Level/Key', mode: 'OneWay'}"
                                 change="onChangeLevel">
-                                <core:ListItem key="{Key}"/>
+                                <core:ListItem key="{Key}" text="{Text}"/>
                                 <layoutData>
                                     <OverflowToolbarLayoutData group="1" priority="Low"/>
                                 </layoutData>
