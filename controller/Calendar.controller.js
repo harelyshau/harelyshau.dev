@@ -65,8 +65,8 @@ sap.ui.define([
 			this.oAppointmentDialog?.close();
 			const { view } = oEvent.getParameter('arguments');
 			const oView = this.byId('calendar').getViewByKey(view);
-			if (!oView) return this.navigateTo('Calendar');
-			this.byId('calendar').setSelectedView(oView);
+			if (view && !oView) return this.navigateTo('Calendar');
+			if (oView) this.byId('calendar').setSelectedView(oView);
 		},
 
 		//////////////////////////////////
