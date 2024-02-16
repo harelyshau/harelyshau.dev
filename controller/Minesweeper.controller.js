@@ -13,7 +13,7 @@ sap.ui.define([
             this.attachTimer();
             this.attachRouteMatched(this.onMinewsweeperMatched);
             this.setLevelTexts();
-            this.attachLangugaeChange(this.setLevelTexts);
+            this.attachLanguageChange(this.setLevelTexts);
         },
 
         onMinewsweeperMatched(oEvent) {

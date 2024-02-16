@@ -34,7 +34,7 @@ sap.ui.define([
 			ResizeHandler.register(this.getView(), fnFunction);
 		},
 
-		attachLangugaeChange(fnFunction) {
+		attachLanguageChange(fnFunction) {
 			languageHelper.attachChange(fnFunction.bind(this));
 		},
 
