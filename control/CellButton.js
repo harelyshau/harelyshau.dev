@@ -17,7 +17,7 @@ sap.ui.define(['sap/m/Button'], (Button) => {
         },
 
         ondblclick() {
-            !this.getEnabled() && this.fireDoublePress();
+            this.fireDoublePress();
         }
 
     });

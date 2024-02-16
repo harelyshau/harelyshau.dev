@@ -98,7 +98,8 @@ sap.ui.define([
         },
 
         onRightPressCell(oEvent) {
-            if (!this.isGameStarted()) return;
+            const { IsOpen } = this.getObjectByEvent(oEvent);
+            if (!this.isGameStarted() || IsOpen) return;
             const sPath = `${this.getPathByEvent(oEvent)}/IsFlagged`;
             const bFlagged = !this.getProperty(sPath);
             this.setProperty(sPath, bFlagged);
@@ -108,10 +109,10 @@ sap.ui.define([
         onDoublePressCell(oEvent) {
             const oCell = this.getObjectByEvent(oEvent);
             const aNeighbours = this.getNeighbourCells(oCell);
-            const aFlaggedNeighbours = aNeighbours.filter(oCell => oCell.IsFlagged);
+            const aFlaggedNeighbours = aNeighbours.filter(({ IsFlagged }) => IsFlagged);
             const bReadyToOpen = oCell.MineCount === aFlaggedNeighbours.length;
             if (!bReadyToOpen) return;
-            aNeighbours.filter(oCell => !oCell.IsFlagged && !oCell.IsOpen)
+            aNeighbours.filter(({ IsFlagged, IsOpen }) => !IsFlagged && !IsOpen)
                 .forEach(oCell => this.handleOpeningCell(oCell));
         },
 
@@ -150,7 +151,7 @@ sap.ui.define([
 
         getCellMineCount(oCell) {
             const aNeighbours = this.getNeighbourCells(oCell);
-            return aNeighbours.filter(oCell => oCell.IsMine).length;
+            return aNeighbours.filter(({ IsMine }) => IsMine).length;
         },
 
         getNeighbourCells(oCell) {
@@ -179,7 +180,7 @@ sap.ui.define([
 
         showMines() {
             const aCells = this.getCells();
-            const aMines = aCells.filter(oCell => oCell.IsMine && !oCell.IsFlagged);
+            const aMines = aCells.filter(({ IsMine, IsFlagged }) => IsMine && !IsFlagged);
             aMines.forEach(oMine => this.openCell(oMine));
         },
 

@@ -142,6 +142,10 @@ sap.ui.define([
 			return aColors[MineCount - 1];
 		},
 
+		cellEnabled(bOpen, bMine, iCellsLeft) {
+			return !bOpen || bMine && !iCellsLeft;
+		},
+
 		minesCountState(iMines, iWidth, iHeight) {
 			return iMines > 0 && iMines < iWidth * iHeight ? 'None' : 'Error';
 		}

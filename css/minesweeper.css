@@ -40,7 +40,7 @@
 	border-bottom: 3px solid black;
 }
 
-.phCell:disabled {
+.phCell[data-enabled="isfalse"] {
 	border-bottom: 0;
 	border-right: 0;
 	border-top: 1px solid #7c7c7c;
@@ -48,7 +48,7 @@
 	cursor: default;
 }
 
-.ph_dark .phCell:disabled {
+.ph_dark .phCell[data-enabled="isfalse"] {
 	background-color: black;
 	border-top: 1px solid #4e5e6c;
 	border-left: 1px solid #4e5e6c;
@@ -58,14 +58,14 @@
 	cursor: default;
 }
 
-.phCell:active:hover:enabled[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
+.phCell:active:hover[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
 	border-bottom: 0;
 	border-right: 0;
 	border-top: 1px solid #7c7c7c;
 	border-left: 1px solid #7c7c7c;
 }
 
-.ph_dark .phCell:active:hover:enabled[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
+.ph_dark .phCell:active:hover[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
 	background-color: black;
 	border-top: 1px solid #4e5e6c;
 	border-left: 1px solid #4e5e6c;
