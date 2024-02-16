@@ -191,7 +191,7 @@ sap.ui.define([
 			const oRecord = aRecords.find(({ discCount }) => discCount === oResult.discCount);
 			this.setPreviousRecord({ ...oRecord });
 			oRecord ? this.updateExistingRecord(oRecord, oResult) : aRecords.push(oResult);
-			this.setProperty('/records', [...aRecords]);
+			this.refreshModel();
 			localStorage.setItem('records', JSON.stringify(aRecords));
 		},
 
