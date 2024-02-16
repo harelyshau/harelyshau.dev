@@ -227,19 +227,22 @@ sap.ui.define([
 					easy: 'Easy',
 					medium: 'Medium',
 					hard: 'Hard',
-					custom: 'Custom'
+					custom: 'Custom',
+					friend: 'Against a friend'
 				},
 				ru: {
 					easy: 'Легкий',
 					medium: 'Средний',
 					hard: 'Тяжелый',
-					custom: 'Пользовательский'
+					custom: 'Пользовательский',
+					friend: 'Против друга'
 				},
 				de: {
 					easy: 'Einfach',
 					medium: 'Mittel',
 					hard: 'Schwer',
-					custom: 'Individuell'
+					custom: 'Individuell',
+					friend: 'Gegen einen Freund'
 				}
 			}[languageHelper.getLanguage()];
 			this.getProperty('/levels').forEach(({ key }, i) => 

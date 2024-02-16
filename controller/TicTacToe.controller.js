@@ -18,7 +18,8 @@ sap.ui.define([
 
         onTicTacToeMatched(oEvent) {
             const { level } = oEvent.getParameter('arguments');
-            this.getProperty('/levels').includes(level)
+            const aLevels = this.getProperty('/levels');
+            aLevels.some(({ key }) => key === level)
                 ? this.setProperty('/level', level)
                 : this.navigateTo('TicTacToe');
             this.resetScore();
