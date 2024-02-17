@@ -15,7 +15,7 @@ sap.ui.define([
 		// Header
 		onPressDownloadResume() {
 			const sFileURL = '/resource/file/Resume Pavel Harelyshau.pdf';
-			sap.m.URLHelper.redirect(sFileURL, true);
+			this.openLink(sFileURL, true);
 		},
 
 		onPressOpenRelocationPopover(oEvent) {

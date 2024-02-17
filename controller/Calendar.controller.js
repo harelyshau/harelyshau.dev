@@ -347,16 +347,14 @@ sap.ui.define([
 
 		// Copy Conference
 		onPressCopyConferenceLink(oEvent) {
-			const oAppointment = this.getObjectByEvent(oEvent);
-			const sConferenceLink = oAppointment.GoogleMeet ?? oAppointment.Conference;
-			this.copyToClipboard(sConferenceLink);
+			const { GoogleMeet, Conference } = this.getObjectByEvent(oEvent);
+			this.copyToClipboard(GoogleMeet ?? Conference);
 		},
 
 		// Join to Conference
 		onPressJoinToConference(oEvent) {
-			const oAppointment = this.getObjectByEvent(oEvent);
-			const sConferenceLink = oAppointment.GoogleMeet ?? oAppointment.Conference;
-			sap.m.URLHelper.redirect(sConferenceLink, true);
+			const { GoogleMeet, Conference } = this.getObjectByEvent(oEvent);
+			this.openLink(GoogleMeet ?? Conference, true);
 		},
 
 		//////////////////////////////////
@@ -458,7 +456,7 @@ sap.ui.define([
 		resetEditableAppointment() {
 			const sID = this.getEditableAppointment().ID;
 			const aAppointments = this.getExistingAppointments();
-			const oAppointment = aAppointments.find(oAppointment => oAppointment.ID === sID);
+			const oAppointment = aAppointments.find(({ ID }) => ID === sID);
 			const oInitialAppointment = this.getInitialAppointment();
 			Object.keys(oAppointment ?? {}).forEach((sKey) => {
 				oAppointment[sKey] = oInitialAppointment[sKey];
