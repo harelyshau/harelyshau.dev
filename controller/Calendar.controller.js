@@ -237,11 +237,11 @@ sap.ui.define([
 		// Save Button
 		async onPressCreateEditAppointment(oEvent) {
 			if (!this.validateEmailInput()) return;
-			this.oAppointmentDialog.close();
 			const oAppointment = this.getObjectByEvent(oEvent);
 			localStorage.setItem('email', oAppointment.Email);
 			if (oAppointment.ID === 'new') this.createAppointmentGC(oAppointment);
 			else this.updateAppointmentGC(oAppointment);
+			this.oAppointmentDialog.close();
 		},
 
 		async createAppointmentGC(oAppointment) {
