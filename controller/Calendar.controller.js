@@ -39,11 +39,9 @@ sap.ui.define([
 			await this.pCalendarAPI;
 			const oQuery = oEvent.getParameter('arguments')['?query'] ?? {};
 			const { title, agenda, start, end } = oQuery;
-			const [Name, Description] = [title, agenda];
-			const { StartDate, EndDate } = start && end 
-				? { StartDate: new Date(start), EndDate: new Date(end) }
-				: this.getDatesForNewAppointment();
-			this.createAppointment({ Name, Description, StartDate, EndDate });
+			const { StartDate, EndDate } = this.getDatesForNewAppointment(start, end);
+			const oArgs = { Name: title, Description: agenda, StartDate, EndDate }
+			this.createAppointment(oArgs);
 			this.setCalendarStartDate(StartDate);
 			this.openAppointmentDialog();
 		},
@@ -386,15 +384,19 @@ sap.ui.define([
 		///////////// DATES //////////////
 		//////////////////////////////////
 
-		getDatesForNewAppointment() {
-			const StartDate = this.roundUpDateTo15Min(new Date());
-			const oCalendarStartDate = this.byId('calendar').getStartDate();
-			if (this.isDateInFuture(oCalendarStartDate)) {
-				StartDate.setTime(this.roundUpDateTo15Min(oCalendarStartDate).getTime());
-			}
-
+		getDatesForNewAppointment(sStartDate, sEndDate) {
+			const oArgStartDate = new Date(sStartDate);
+			const oArgEndDate = new Date(sEndDate);
+			const oCalendarDate = this.byId('calendar').getStartDate();
 			const iDuration = this.getProperty('/appointmentDuration', 'view');
-			const EndDate = new Date(StartDate.getTime() + iDuration);
+			const StartDate = this.isValidDate(oArgStartDate)
+				? oArgStartDate
+				: this.roundUpDateTo15Min(
+					this.isDateInFuture(oCalendarDate) ? oCalendarDate : new Date()
+				);
+			const EndDate = this.isValidDate(oArgEndDate) && oArgEndDate > StartDate
+				? oArgEndDate
+				: new Date(StartDate.getTime() + iDuration);
 			return { StartDate, EndDate };
 		},
 
@@ -403,14 +405,14 @@ sap.ui.define([
 			return new Date(oDate.getTime() + (15 - iRemainder) * 60000);
 		},
 
-		isDateInFuture(oDate) {
-			return new Date() < oDate;
-		},
+		isValidDate: (oDate) => oDate instanceof Date && !isNaN(oDate),
+
+		isDateInFuture: (oDate) => new Date() < oDate,
 
 		areDatesInSameDay(oDate1, oDate2) {
-			const nTime1 = new Date(oDate1).setHours(0, 0, 0, 0);
-			const nTime2 = new Date(oDate2).setHours(0, 0, 0, 0);
-			return nTime1 === nTime2;
+			const iTime1 = new Date(oDate1).setHours(0, 0, 0, 0);
+			const iTime2 = new Date(oDate2).setHours(0, 0, 0, 0);
+			return iTime1 === iTime2;
 		},
 
 		//////////////////////////////////

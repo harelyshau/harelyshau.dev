@@ -113,7 +113,7 @@ sap.ui.define([
 				startHour: 8,
 				endHour: 21,
 				currentDate: new Date(),
-				appointmentDuration: 3600000
+				appointmentDuration: 3600000 // 1 hour
 			};
 			return new JSONModel(oData);
 		},
