@@ -35,7 +35,7 @@ sap.ui.define([
 		},
 
 		async onNewAppointmentMatched(oEvent) {
-			this.onCalendarMatched(oEvent);
+			this.onCalendarMatched(oEvent, true);
 			await this.pCalendarAPI;
 			const oQuery = oEvent.getParameter('arguments')['?query'] ?? {};
 			const { title, agenda, start, end } = oQuery;
@@ -49,7 +49,7 @@ sap.ui.define([
 		},
 
 		async onAppointmentMatched(oEvent) {
-			this.onCalendarMatched(oEvent);
+			this.onCalendarMatched(oEvent, true);
 			await this.pCalendarAPI;
 			const { appointment } = oEvent.getParameter('arguments');
 			calendarManager.get(appointment).then(oAppointment => {
@@ -61,8 +61,8 @@ sap.ui.define([
 			}).catch(() => this.navigateTo('Calendar'));
 		},
 
-		onCalendarMatched(oEvent) {
-			this.oAppointmentDialog?.close();
+		onCalendarMatched(oEvent, bKeepDialog) {
+			!bKeepDialog && this.oAppointmentDialog?.close();
 			const { view } = oEvent.getParameter('arguments');
 			const oView = this.byId('calendar').getViewByKey(view);
 			if (view && !oView) return this.navigateTo('Calendar');
@@ -307,7 +307,7 @@ sap.ui.define([
 			this.refreshModel();
 		},
 
-		onAfterCloseAppointmentDialog(oEvent) {
+		onBeforeCloseAppointmentDialog(oEvent) {
 			const oAppointment = this.getObjectByEvent(oEvent);
 			if (oAppointment.ID !== 'new') this.resetEditableAppointment();
 			this.setEditableAppointment(null);

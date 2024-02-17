@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <Dialog stretch="{device>/system/phone}" resizable="true" draggable="true"
-        afterClose="onAfterCloseAppointmentDialog">
+        beforeClose="onBeforeCloseAppointmentDialog">
         <customHeader>
             <Toolbar style="Clear">
                 <Title class="phNoMargin" text="{= ${ID} === 'new'
