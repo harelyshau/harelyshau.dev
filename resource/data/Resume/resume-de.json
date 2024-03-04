@@ -51,7 +51,7 @@
 				"Logo": "/resource/image/EPAMLogo.jpg"
 			},
 			"StartDate": "2022-07",
-			"EndDate": "Present",
+			"EndDate": "present",
 			"Description": "Führende Frontend-Entwicklung mit SAPUI5- und Fiori-Elements-Frameworks",
 			"Projects": ["SAP BTP-Lösung zur Verwaltung von Bestellungen"],
 			"Responsobilities": [

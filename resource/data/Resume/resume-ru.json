@@ -51,7 +51,7 @@
 				"Logo": "/resource/image/EPAMLogo.jpg"
 			},
 			"StartDate": "2022-07",
-			"EndDate": "Present",
+			"EndDate": "present",
 			"Description": "Разработка пользовательского интерфейса с использованием фреймворков SAPUI5 и Fiori Elements",
 			"Projects": ["SAP BTP решение для управления заказами на покупку"],
 			"Responsobilities": [

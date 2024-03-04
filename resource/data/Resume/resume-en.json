@@ -51,7 +51,7 @@
 				"Logo": "/resource/image/EPAMLogo.jpg"
 			},
 			"StartDate": "2022-07",
-			"EndDate": "Present",
+			"EndDate": "present",
 			"Description": "Spearheading frontend development using SAPUI5 & Fiori Elements frameworks",
 			"Projects": ["SAP BTP solution for managing purchase orders"],
 			"Responsobilities": [

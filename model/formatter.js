@@ -6,21 +6,19 @@ sap.ui.define([
 ], (DateFormat, NumberFormat, Configuration, formatMessage) => {
 	'use strict';
 
-	function getPluralForm(nQuantity, ...aTexts) {
-		return nQuantity <= 0
-			? '' : `${nQuantity}\u00A0${getRightForm(nQuantity, ...aTexts)}`;
+	function getPluralForm(iQuantity, ...aTexts) {
+		return iQuantity <= 0
+			? '' : `${iQuantity}\u00A0${getRightForm(iQuantity, ...aTexts)}`;
 	}
 
-	function getRightForm(nQuantity, sTextSingular, sTextPlural, sTextPlural2) {
-		if (nQuantity === 1) return sTextSingular;
+	function getRightForm(iQuantity, sTextSingular, sTextPlural, sTextPlural2 = sTextPlural) {
+		const sLanguage = Configuration.getLanguage();
+		if (sLanguage !== 'ru') return iQuantity === 1 ? sTextSingular : sTextPlural;
 		// for Russian plural forms
-		if (Configuration.getLanguage() === 'ru') {
-			const sLastDigits = String(nQuantity).slice(-2);
-			const iLastDigits = sLastDigits > 20 ? +sLastDigits.slice(-1) : +sLastDigits;
-			if (iLastDigits === 1) return sTextSingular;
-			if (iLastDigits > 4) return sTextPlural2 || sTextPlural;
-		}
-		return sTextPlural;
+		const sLastDigits = String(iQuantity).slice(-2);
+		const iLastDigits = sLastDigits > 20 ? +sLastDigits.slice(-1) : +sLastDigits;
+		return iLastDigits === 1 ? sTextSingular : iLastDigits > 4
+			? sTextPlural2 : sTextPlural;
 	}
 
 	return {
@@ -28,14 +26,16 @@ sap.ui.define([
 		///////////// RESUME /////////////
 		//////////////////////////////////
 
-		stringDate(sDate) {
-			return DateFormat.getDateInstance({ format: 'yMMM' }).format(new Date(sDate));
+		stringDate(sDate, sPresentText) {
+			return sDate === 'present'
+				? sPresentText
+				: DateFormat.getDateInstance({ format: 'yMMM' }).format(new Date(sDate));
 		},
 
 		datesPeriod(sStartDate, sEndDate, sYear, sYears, sYearPlural, ...aMonthTexts) {
 			if (!sStartDate || !sEndDate) return '';
 			const oStartDate = new Date(sStartDate);
-			const oEndDate = sEndDate === 'Present' ? new Date() : new Date(sEndDate);
+			const oEndDate = sEndDate === 'present' ? new Date() : new Date(sEndDate);
 			// round up
 			oEndDate.setMonth(oEndDate.getMonth() + 1);
 			let iYears = oEndDate.getFullYear() - oStartDate.getFullYear();
