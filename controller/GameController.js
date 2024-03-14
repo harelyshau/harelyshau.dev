@@ -13,9 +13,7 @@ sap.ui.define([
 			});
 		},
 
-		random() {
-			return Math.random() - 0.5;
-		},
+		random: () => Math.random() - 0.5,
 
 		// Timers
 

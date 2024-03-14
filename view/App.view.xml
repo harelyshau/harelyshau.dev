@@ -15,7 +15,7 @@
 						<IconTabFilter key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
 						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
 						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithm}"/>
-						<IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
+						<!-- <IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/> -->
 						<IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
 						<IconTabFilter key="Minesweeper" text="{i18n>ttlMinesweeper}" icon="{i18n>iFlag}"/>
 						<IconTabFilter key="TicTacToe" text="{i18n>ttlTicTacToe}" icon="{i18n>iTicTacToe}"/>
@@ -43,7 +43,7 @@
 					<tnt:NavigationListItem key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
 					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithm}"/>
 					<tnt:NavigationListItem key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
-					<tnt:NavigationListItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/>
+					<!-- <tnt:NavigationListItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/> -->
 					<tnt:NavigationListItem key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
 					<tnt:NavigationListItem key="Minesweeper" text="{i18n>ttlMinesweeper}" icon="{i18n>iFlag}"/>
 					<tnt:NavigationListItem key="TicTacToe" text="{i18n>ttlTicTacToe}" icon="{i18n>iTicTacToe}"/>
