@@ -1,10 +1,9 @@
 sap.ui.define([
-    './GameController', '../model/models', '../model/formatter'
-], (GameController, models, formatter) => {
+    './GameController', '../model/models'
+], (GameController, models) => {
     'use strict';
 
     return GameController.extend('pharelyshau.controller.TicTacToe', {
-        formatter,
 
         onInit() {
             this.setModel(models.createTicTacToeModel());

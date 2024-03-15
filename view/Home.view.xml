@@ -57,7 +57,7 @@
                     </IllustratedMessage>
                 </Panel>
                 <!-- RESUME -->
-                <Panel class="sapUiSmallMarginTop">
+                <!-- <Panel class="sapUiSmallMarginTop">
                     <IllustratedMessage illustrationType="sapIllus-ResizeColumn"
                         title="{i18n>ttlResume}" description="{i18n>tResumeOverview}"
                         illustrationSize="{= ${device>/system/phone} || 370 > ${device>/resize/width}
@@ -67,7 +67,7 @@
                                 press="navigateTo('Resume')" class="phButton"/>
                         </additionalContent>
                     </IllustratedMessage>
-                </Panel>
+                </Panel> -->
                 <!-- HANOI TOWER -->
                 <Panel class="sapUiSmallMarginTop">
                     <IllustratedMessage illustrationType="tnt-Company"
