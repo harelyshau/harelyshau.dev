@@ -53,7 +53,7 @@ sap.ui.define([
         resetStartupParams() {
             const { mines, width, height } = this.getCurrentLevel();
             this.setProperty('/cellsLeft', width * height - mines);
-            this.setProperty('/Flags', mines);
+            this.setProperty('/flags', mines);
             this.setProperty('/time', 0);
         },
 
@@ -63,7 +63,7 @@ sap.ui.define([
                 { length: height },
                 (_, x) => Array.from(
                     { length: width },
-                    (_, y) => ({ id: x * width + y, Coordinates: [x, y] })
+                    (_, y) => ({ id: x * width + y, coordinates: [x, y] })
                 )
             );
             this.setProperty('/Field', aField);
@@ -146,8 +146,8 @@ sap.ui.define([
         },
 
         updateFlagCount(bDecrease) {
-            const iFlags = this.getProperty('/Flags');
-            this.setProperty('/Flags', bDecrease ? iFlags - 1 : iFlags + 1);
+            const iFlags = this.getProperty('/flags');
+            this.setProperty('/flags', bDecrease ? iFlags - 1 : iFlags + 1);
         },
 
         getCellMineCount(oCell) {
@@ -161,7 +161,7 @@ sap.ui.define([
             const aNeighbours = [];
             aDiff.forEach(iRowDiff => {
                 aDiff.forEach(iColDiff => {
-                    const [x, y] = oCell.Coordinates;
+                    const [x, y] = oCell.coordinates;
                     const oNeighbour = aField[x + iColDiff]?.[y + iRowDiff];
                     if (oNeighbour && oCell !== oNeighbour) aNeighbours.push(oNeighbour);
                 });
@@ -175,7 +175,7 @@ sap.ui.define([
             this.showMines();
             this.stopTimer();
             if (!bWon) return;
-            this.setProperty('/Flags', 0);
+            this.setProperty('/flags', 0);
             this.setNewRecord();
         },
 
@@ -240,14 +240,16 @@ sap.ui.define([
         saveSettingsToLocalStorage() {
             const oLevel = this.getProperty('/customLevel', 'view');
             Object.keys(oLevel)
-                .filter(sKey => sKey !== 'key')
-                .forEach(sKey => localStorage.setItem(`custom${sKey}`, oLevel[sKey]));
+                .filter(sKey => !['key', 'text'].includes(sKey))
+                .forEach(sKey => localStorage.setItem(
+                    `custom${this.toPascalCase(sKey)}`, oLevel[sKey]
+                ));
         },
 
         isSettingsValid() {
             const aInputs = this.byId('settingsBox').getItems()
                 .map(oBox => oBox.getItems()[1]);
-            return aInputs.every(oInput => oInput.getValueState() === 'None');
+            return aInputs.every(this.isInputFilledAndValid);
         },
 
         onPressOpenSettingsDialog() {

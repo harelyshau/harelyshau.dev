@@ -44,7 +44,7 @@
                             <ToolbarSpacer class="sapUiSmallMarginBeginEnd"/>
                             <!-- Mines -->
                             <core:Icon src="sap-icon://flag-2" class="sapUiSmallMarginBegin"/>
-                            <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/Flags}"
+                            <Title text="{= !${device>/system/phone} ? ${i18n>ttlMines} + ':' : '' } {/flags}"
                                 class="sapUiTinyMarginEnd"/>
                             <Button text="{= !${/cellsLeft} ? '😎' : ${/gameFinished} ? '😵' : '🙂' }"
                                 type="Ghost" press="onPressRestartGame">
