@@ -9,7 +9,7 @@ sap.ui.define(['sap/m/Button'], (Button) => {
             }
         },
 
-        renderer: {},
+        renderer: 'sap.m.ButtonRenderer',
 
         oncontextmenu(oEvent) {
             oEvent.preventDefault();
