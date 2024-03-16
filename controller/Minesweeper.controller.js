@@ -66,7 +66,7 @@ sap.ui.define([
                     (_, y) => ({ id: x * width + y, coordinates: [x, y] })
                 )
             );
-            this.setProperty('/Field', aField);
+            this.setProperty('/field', aField);
         },
 
         insertMines(iCurrentID) {
@@ -124,7 +124,7 @@ sap.ui.define([
             if (bGameLost || this.isGameWon()) this.finishGame(!bGameLost);
         },
 
-        // TODO: check callstack for big fields
+        // TODO:
         openCells(oCell) {
             oCell = this.openCell(oCell);
             if (!oCell || oCell.mineCount || oCell.isMine) return;
@@ -214,7 +214,7 @@ sap.ui.define([
         },
 
         getField() {
-            return this.getProperty('/Field')
+            return this.getProperty('/field')
         },
 
         getCells() {
