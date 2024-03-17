@@ -110,7 +110,7 @@
 				{
 					"pattern": "games/minesweeper/:level:",
 					"name": "Minesweeper",
-					"target": ["Games", "Minesweeper"]
+					"target": "Minesweeper"
 				},
 				{
 					"pattern": "algorithms/:article:",
@@ -125,15 +125,13 @@
 				{
 					"pattern": "games",
 					"name": "Games",
-					"target": "Games",
-					"level": 1
+					"target": "Games"
 				}
 			],
 			"targets": {
 				"Games": {
 					"name": "Games",
-					"title": "{i18n>ttlGames}",
-					"level": 2
+					"title": "{i18n>ttlGames}"
 				},
 				"Home": {
 					"name": "Home",

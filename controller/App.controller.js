@@ -23,10 +23,12 @@ sap.ui.define([
 		},
 
 		onRouteMatched(oEvent) {
-			const { target } = oEvent.getParameter('config');
-			const sTarget = Array.isArray(target) ? target.at(-1) : target;
-			this.setProperty('/page', sTarget, 'app');
+			const { target, targetParent } = oEvent.getParameter('config');
+			this.setProperty('/page', target, 'app');
+			// TODO: get root (parent) target to show selectedKey for icon tab header
+			this.setProperty('/rootPage', target, 'app');
 			this.byId('page').setSideExpanded(false);
+			
 		},
 
 		onTitleChanged(oEvent) {

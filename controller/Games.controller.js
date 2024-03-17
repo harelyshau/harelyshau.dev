@@ -5,8 +5,13 @@ sap.ui.define([
 
 	return BaseController.extend('pharelyshau.controller.Games', {
 
+		onInit() {
+			console.log(333)
+		},
+
 		onSelectNavigateToGame(oEvent) {
-			debugger
+			const sGame = oEvent.getParameter('item').getKey();
+			this.navigateTo(sGame);
 		},
 
 		openConfirmationMessageBox(sMessage, fnCallbackOK, fnCallbackCancel) {
