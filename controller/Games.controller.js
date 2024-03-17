@@ -3,7 +3,11 @@ sap.ui.define([
 ], (BaseController, MessageBox, languageHelper) => {
 	'use strict';
 
-	return BaseController.extend('pharelyshau.controller.GameController', {
+	return BaseController.extend('pharelyshau.controller.Games', {
+
+		onSelectNavigateToGame(oEvent) {
+			debugger
+		},
 
 		openConfirmationMessageBox(sMessage, fnCallbackOK, fnCallbackCancel) {
 			MessageBox.confirm(sMessage, {

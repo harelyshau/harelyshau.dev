@@ -19,6 +19,9 @@
                 <f:expandedContent>
                     <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
                 </f:expandedContent>
+                <f:actions>
+                    <Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
+                </f:actions>
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>

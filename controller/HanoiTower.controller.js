@@ -1,12 +1,12 @@
 sap.ui.define([
-	'./GameController',
+	'./Games.controller',
 	'sap/m/MessageToast',
 	'sap/m/InstanceManager',
 	'../model/models'
-], (GameController, MessageToast, InstanceManager, models) => {
+], (GamesController, MessageToast, InstanceManager, models) => {
 	'use strict';
 
-	return GameController.extend('pharelyshau.controller.HanotoiTower', {
+	return GamesController.extend('pharelyshau.controller.HanotoiTower', {
 
 		onInit() {
 			this.setModel(models.createHanoiTowerModel());

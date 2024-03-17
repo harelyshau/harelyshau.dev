@@ -1,11 +1,9 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.tnt">
-    <SideNavigation id="sideNavigation" itemSelect="preventSelection"
-		selectedKey="{path: 'view>/ArticleID', mode: 'OneWay'}">
-		<NavigationList items="{/Articles}" itemSelect="onSelectNavigateToArticle">
-			<NavigationListItem text="{Title}" icon="{Icon}" key="{ID}"
-				items="{path: 'Articles', templateShareable: false}">
-				<NavigationListItem text="{Title}" key="{ID}"/>
-			</NavigationListItem>
+    <SideNavigation id="sideNavigation">
+		<NavigationList itemSelect="onSelectNavigateToGame">
+            <NavigationListItem icon="sap-icon://flag-2" text="{i18n>ttlMinesweeper}" key="Minesweeper"/>
+            <NavigationListItem icon="{i18n>iHanoiTower}" text="{i18n>ttlHanoiTower}" key="HanoiTower"/>
+            <NavigationListItem icon="{i18n>iTicTacToe}" text="{i18n>ttlTicTacToe}" key="TicTacToe"/>
 		</NavigationList>
 		<fixedItem>
 			<NavigationList>

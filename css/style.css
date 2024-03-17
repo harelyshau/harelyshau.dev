@@ -6,6 +6,16 @@
 	margin-right: auto;
 }
 
+.phTntPage {
+	padding: 0 !important;
+}
+.phTntPage aside {
+	margin-top: 0 !important;
+}
+.phTntPage .sapTntToolPageMain {
+	margin-top: 0 !important;
+}
+
 .phAlignCenter {
 	margin-left: auto;
 	margin-right: auto;

@@ -98,19 +98,19 @@
 					"target": "Calendar"
 				},
 				{
-					"pattern": "hanoitower/:discs:",
+					"pattern": "games/hanoitower/:discs:",
 					"name": "HanoiTower",
 					"target": "HanoiTower"
 				},
 				{
-					"pattern": "tictactoe/:level:",
+					"pattern": "games/tictactoe/:level:",
 					"name": "TicTacToe",
 					"target": "TicTacToe"
 				},
 				{
-					"pattern": "minesweeper/:level:",
+					"pattern": "games/minesweeper/:level:",
 					"name": "Minesweeper",
-					"target": "Minesweeper"
+					"target": ["Games", "Minesweeper"]
 				},
 				{
 					"pattern": "algorithms/:article:",
@@ -121,9 +121,20 @@
 					"pattern": "sandbox",
 					"name": "Sandbox",
 					"target": "Sandbox"
+				},
+				{
+					"pattern": "games",
+					"name": "Games",
+					"target": "Games",
+					"level": 1
 				}
 			],
 			"targets": {
+				"Games": {
+					"name": "Games",
+					"title": "{i18n>ttlGames}",
+					"level": 2
+				},
 				"Home": {
 					"name": "Home",
 					"title": "harelyshau.dev"
@@ -137,16 +148,25 @@
 					"title": "{i18n>ttlPavelsCalendar}"
 				},
 				"HanoiTower": {
+					"parent": "Games",
 					"name": "HanoiTower",
-					"title": "{i18n>ttlHanoiTower}"
+					"title": "{i18n>ttlHanoiTower}",
+					"controlId": "game",
+					"controlAggregation": "pages"
 				},
 				"Minesweeper": {
+					"parent": "Games",
 					"name": "Minesweeper",
-					"title": "{i18n>ttlMinesweeper}"
+					"title": "{i18n>ttlMinesweeper}",
+					"controlId": "game",
+					"controlAggregation": "pages"
 				},
 				"TicTacToe": {
+					"parent": "Games",
 					"name": "TicTacToe",
-					"title": "{i18n>ttlTicTacToe}"
+					"title": "{i18n>ttlTicTacToe}",
+					"controlId": "game",
+					"controlAggregation": "pages"
 				},
 				"Algorithms": {
 					"name": "Algorithms",

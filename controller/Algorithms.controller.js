@@ -12,13 +12,6 @@ sap.ui.define(
 				this.registerIllustrationSet('tnt', 'sap/tnt/themes/base/illustrations');
 			},
 
-			onPressToggleSideNavigation() {
-				const bPhone = this.getProperty('/system/phone', 'device');
-				const oPage = bPhone ? this.getView().getParent().getParent() : this.byId('page');
-				const bExpanded = this.toggleSideNavigation(oPage, this.byId('sideNavigation'));
-				this.setProperty('/sideExpanded', bExpanded, 'view');
-			},
-
 			onAlgorithmsMatched(oEvent) {
 				const { article } = oEvent.getParameter('arguments');
 				this.setCurrentArticle(article);

@@ -5,7 +5,7 @@
 	xmlns:f="sap.f"
 	xmlns:core="sap.ui.core"
 	xmlns:tnt="sap.tnt">
-	<tnt:ToolPage id="page" class="phAlgorithmsPage">
+	<tnt:ToolPage id="page" class="phTntPage phAlgorithmsPage">
 		<tnt:sideContent>
 			<core:Fragment fragmentName="pharelyshau.fragment.Algorithms.SideNavigation" type="XML"/>
 		</tnt:sideContent>

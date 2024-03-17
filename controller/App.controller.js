@@ -24,7 +24,8 @@ sap.ui.define([
 
 		onRouteMatched(oEvent) {
 			const { target } = oEvent.getParameter('config');
-			this.setProperty('/page', target, 'app');
+			const sTarget = Array.isArray(target) ? target.at(-1) : target;
+			this.setProperty('/page', sTarget, 'app');
 			this.byId('page').setSideExpanded(false);
 		},
 

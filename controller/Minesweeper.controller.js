@@ -1,11 +1,11 @@
 sap.ui.define([
-    './GameController',
+    './Games.controller',
     'sap/m/MessageToast',
     '../model/models'
-], (GameController, MessageToast, models) => {
+], (GamesController, MessageToast, models) => {
     'use strict';
 
-    return GameController.extend('pharelyshau.controller.Minesweeper', {
+    return GamesController.extend('pharelyshau.controller.Minesweeper', {
 
         onInit() {
             this.setModel(models.createMinesweeperModel());
