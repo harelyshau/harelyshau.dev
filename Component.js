@@ -24,8 +24,8 @@ sap.ui.define([
 
 		loadFioriIcons() {
 			const oFioriIconsFont = {
-				fontFamily: "SAP-icons-TNT",
-				fontURI: sap.ui.require.toUrl("sap/tnt/themes/base/fonts/")
+				fontFamily: 'SAP-icons-TNT',
+				fontURI: sap.ui.require.toUrl('sap/tnt/themes/base/fonts/')
 			};
 			IconPool.registerFont(oFioriIconsFont);
 		}

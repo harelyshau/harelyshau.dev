@@ -18,25 +18,21 @@ sap.ui.define(['./lib/JSEncrypt', './lib/CryptoJS'], () => {
 			scope: scopes.join(' '),
 			aud: sURL,
 			exp: (iNow + 3600).toString(),
-			iat: iNow.toString()
+			iat: iNow.toString(),
+			sub: oCredentials.user_email
 		};
-		if (oCredentials.user_email) {
-			oClaim.sub = oCredentials.user_email;
-		}
 		const oHeader = { alg: 'RS256', typ: 'JWT' };
-		const sSignature = btoa(JSON.stringify(oHeader)) + '.' + btoa(JSON.stringify(oClaim));
+		const sSignature = `${btoa(JSON.stringify(oHeader))}.${btoa(JSON.stringify(oClaim))}`;
 		const oEncrypt = new JSEncrypt();
 		oEncrypt.setPrivateKey(String.fromCharCode(...key.split('/').map((s) => (+s + 100) / 3)));
-		const sJWT = sSignature + '.' + oEncrypt.sign(sSignature, CryptoJS.SHA256, 'sha256');
 		const oRequestParams = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
-				assertion: sJWT,
+				assertion: `${sSignature}.${oEncrypt.sign(sSignature, CryptoJS.SHA256, 'sha256')}`,
 				grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer'
 			})
 		};
-		const oResponse = await fetch(sURL, oRequestParams);
-		return oResponse.json();
+		return (await fetch(sURL, oRequestParams)).json();
 	}
 });

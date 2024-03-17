@@ -100,7 +100,7 @@ sap.ui.define([
 		onDropMoveDisc(oEvent) {
 			const oPegControl = oEvent.getSource().getParent().getParent();
 			const aCurrentPeg = this.getObjectByControl(oPegControl);
-			const aTargetPeg = this.getObjectByControl(oEvent.getParameter("droppedControl"));
+			const aTargetPeg = this.getObjectByControl(oEvent.getParameter('droppedControl'));
 			this.tryMovingDisc(aCurrentPeg, aTargetPeg);
 		},
 

@@ -1,6 +1,6 @@
 sap.ui.define([
 	'sap/ui/core/format/DateFormat',
-	"sap/ui/core/format/NumberFormat",
+	'sap/ui/core/format/NumberFormat',
 	'sap/ui/core/Configuration',
 	'sap/base/strings/formatMessage'
 ], (DateFormat, NumberFormat, Configuration, formatMessage) => {

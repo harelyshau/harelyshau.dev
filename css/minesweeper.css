@@ -40,7 +40,7 @@
 	border-bottom: 3px solid black;
 }
 
-.phCell[data-enabled="isfalse"] {
+.phCell[data-enabled='isfalse'] {
 	border-bottom: 0;
 	border-right: 0;
 	border-top: 1px solid #7c7c7c;
@@ -48,24 +48,24 @@
 	cursor: default;
 }
 
-.ph_dark .phCell[data-enabled="isfalse"] {
+.ph_dark .phCell[data-enabled='isfalse'] {
 	background-color: black;
 	border-top: 1px solid #4e5e6c;
 	border-left: 1px solid #4e5e6c;
 }
 
-.phCell[data-gameFinished="istrue"], .phCell[data-cell="stateFlag"] {
+.phCell[data-gameFinished='istrue'], .phCell[data-cell='stateFlag'] {
 	cursor: default;
 }
 
-.phCell:active:hover[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
+.phCell:active:hover[data-gameFinished='isfalse']:not([data-cell='stateFlag']) {
 	border-bottom: 0;
 	border-right: 0;
 	border-top: 1px solid #7c7c7c;
 	border-left: 1px solid #7c7c7c;
 }
 
-.ph_dark .phCell:active:hover[data-gameFinished="isfalse"]:not([data-cell="stateFlag"]) {
+.ph_dark .phCell:active:hover[data-gameFinished='isfalse']:not([data-cell='stateFlag']) {
 	background-color: black;
 	border-top: 1px solid #4e5e6c;
 	border-left: 1px solid #4e5e6c;
@@ -86,78 +86,78 @@
 	color: lightgray;
 }
 
-.phCell[data-cell="stateBlue"] {
+.phCell[data-cell='stateBlue'] {
 	color: blue;
 }
 
-.ph_dark .phCell[data-cell="stateBlue"] {
+.ph_dark .phCell[data-cell='stateBlue'] {
 	color: #2db2fd;
 }
 
-.phCell[data-cell="stateGreen"] {
+.phCell[data-cell='stateGreen'] {
 	color: green;
 }
 
-.ph_dark .phCell[data-cell="stateGreen"] {
+.ph_dark .phCell[data-cell='stateGreen'] {
 	color: #00e053;
 }
 
-.phCell[data-cell="stateRed"] {
+.phCell[data-cell='stateRed'] {
 	color: red;
 }
 
-.phCell[data-cell="stateDarkBlue"] {
+.phCell[data-cell='stateDarkBlue'] {
 	color: darkblue;
 }
 
-.ph_dark .phCell[data-cell="stateDarkBlue"] {
+.ph_dark .phCell[data-cell='stateDarkBlue'] {
 	color: #6363fe;
 }
 
-.phCell[data-cell="stateBrown"] {
+.phCell[data-cell='stateBrown'] {
 	color: brown;
 }
 
-.ph_dark .phCell[data-cell="stateBrown"] {
+.ph_dark .phCell[data-cell='stateBrown'] {
 	color: #ff7338;
 }
 
-.phCell[data-cell="stateTurquoise"] {
+.phCell[data-cell='stateTurquoise'] {
 	color: #30968c;
 }
 
-.ph_dark .phCell[data-cell="stateTurquoise"] {
+.ph_dark .phCell[data-cell='stateTurquoise'] {
 	color: turquoise;
 }
 
-.phCell[data-cell="stateBlack"] {
+.phCell[data-cell='stateBlack'] {
 	color: black;
 }
 
-.ph_dark .phCell[data-cell="stateBlack"] {
+.ph_dark .phCell[data-cell='stateBlack'] {
 	color: grey;
 }
 
-.phCell[data-cell="stateWhite"] {
+.phCell[data-cell='stateWhite'] {
 	color: white;
 }
 
-.phCell[data-cell="stateMine"] {
+.phCell[data-cell='stateMine'] {
 	background-color: red;
 }
 
-.ph_dark .phCell[data-cell="stateMine"] {
+.ph_dark .phCell[data-cell='stateMine'] {
 	background-color: #860303;
 }
 
-.phCell[data-cell="stateFlag"] span::before {
+.phCell[data-cell='stateFlag'] span::before {
 	color: red;
 }
 
-.phCell[data-cell="stateWrongFlag"] {
+.phCell[data-cell='stateWrongFlag'] {
 	background-color: #ff000063;
 }
 
-.phCell[data-cell="stateWrongFlag"] span::before {
+.phCell[data-cell='stateWrongFlag'] span::before {
 	color: red;
 }
