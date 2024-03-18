@@ -24,7 +24,7 @@ sap.ui.define([
 			oLevel
                 ? this.setProperty('/level', oLevel)
                 : this.navigateTo('Minesweeper');
-            this.setupGame();
+            (oLevel ?? !this.isGameStarted()) && this.setupGame();
         },
 
         //////////////////////////////////
@@ -201,7 +201,7 @@ sap.ui.define([
         isGameStarted() {
             const iCellsLeft = this.getProperty('/cellsLeft');
             const { width, height, mines } = this.getCurrentLevel();
-            const bStarted = iCellsLeft !== width * height - mines;
+            const bStarted = iCellsLeft !== undefined && iCellsLeft !== width * height - mines;
             return bStarted && !this.isGameFinished();
         },
 

@@ -26,7 +26,7 @@ sap.ui.define([
 			iDiscCount
                 ? this.setProperty('/discCount', iDiscCount)
                 : this.navigateTo('HanoiTower');
-            this.setupGame();
+			(iDiscCount ?? !this.isGameStarted()) && this.setupGame();
 		},
 
 		//////////////////////////////////

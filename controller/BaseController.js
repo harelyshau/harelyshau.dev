@@ -143,10 +143,8 @@ sap.ui.define([
 		onPressToggleSideNavigation(sModel) {
 			const bPhone = this.getProperty('/system/phone', 'device');
 			const sPage = this.getProperty('/rootPage', 'app');
-			const sPrefix = this.getOwnerComponent().createId('');
-			const getElementById = sap.ui.core.Element.getElementById;
-			const oPage = getElementById(`${sPrefix}${bPhone ? 'app' : sPage}--page`);
-			const oSideNavigation = getElementById(`${sPrefix}${sPage}--sideNavigation`);
+			const oPage = this.getElementById(`${bPhone ? 'app' : sPage}--page`);
+			const oSideNavigation = this.getElementById(`${sPage}--sideNavigation`);
 			const bExpanded = this.toggleSideNavigation(oPage, oSideNavigation);
 			this.setProperty('/sideExpanded', bExpanded, sModel);
 		},
@@ -197,6 +195,11 @@ sap.ui.define([
 			const bValid = oInput.getValueState() !== 'Error';
 			const bFilled = !!oInput.getValue();
 			return bValid && bFilled;
+		},
+
+		getElementById(sId) {
+			const sFullId = this.getOwnerComponent().createId(sId);
+			return sap.ui.core.Element.getElementById(sFullId);
 		}
 
 	});
