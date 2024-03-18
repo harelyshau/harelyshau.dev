@@ -5,7 +5,8 @@
     xmlns="sap.tnt">
 	<ToolPage id="page" class="phTntPage">
 		<sideContent>
-			<SideNavigation id="sideNavigation" selectedKey="{app>/page}">
+			<SideNavigation id="sideNavigation" selectedKey="{path: 'app>/page', mode: 'OneWay'}"
+				itemSelect="preventSelection($event, ${app>/page})">
 				<NavigationList itemSelect="onSelectNavigateToGame">
 					<NavigationListItem icon="sap-icon://flag-2" text="{i18n>ttlMinesweeper}" key="Minesweeper"/>
 					<NavigationListItem icon="{i18n>iHanoiTower}" text="{i18n>ttlHanoiTower}" key="HanoiTower"/>

@@ -142,7 +142,8 @@ sap.ui.define([
 
 		onPressToggleSideNavigation(sModel) {
 			const bPhone = this.getProperty('/system/phone', 'device');
-			const sPage = this.getProperty('/rootPage', 'app').slice(0, -1);
+			const sRootPage = this.getProperty('/rootPage', 'app');
+			const sPage = sRootPage === 'Games' ? sRootPage.slice(0, -1) : sRootPage;
 			const oPage = this.getElementById(`${bPhone ? 'app' : sPage}--page`);
 			const oSideNavigation = this.getElementById(`${sPage}--sideNavigation`);
 			const bExpanded = this.toggleSideNavigation(oPage, oSideNavigation);
@@ -159,6 +160,10 @@ sap.ui.define([
 
 			setTimeout(() => oPage.setSideExpanded(!bExpanded));
 			return !bExpanded;
+		},
+
+		preventSelection(oEvent, sKey) {
+			queueMicrotask(() => oEvent.getSource().setSelectedKey(sKey));
 		},
 
 		// Get Object

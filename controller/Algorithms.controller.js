@@ -87,13 +87,6 @@ sap.ui.define(
 				const oBlock = this.getObjectByEvent(oEvent);
 				if (oBlock.Editable) this.getCodeEditorByButtonClick(oEvent).setValue(oBlock.Code);
 				this.setProperty(`${sPath}/Editable`, !oBlock.Editable);
-			},
-
-			preventSelection(oEvent) {
-				queueMicrotask(() => {
-					const sKey = this.getProperty('/ArticleID', 'view');
-					oEvent.getSource().setSelectedKey(sKey);
-				});
 			}
 
 		});
