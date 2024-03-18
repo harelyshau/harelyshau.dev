@@ -10,6 +10,10 @@ sap.ui.define([
 
 		onInit() {
 			this.setModel(models.createAlgorithmsViewModel(), 'games', true);
+			this.attachRouteMatched(
+				() => this.getElementById('Game--sideNavigation')
+					.setSelectedItem(null)
+			);
 		},
 
 		onSelectNavigateToGame(oEvent) {

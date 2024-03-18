@@ -54,7 +54,7 @@
 								</VBox>
 								<VBox class="sapUiSmallMarginBegin">
 									<Title text="{i18n>ttlTicTacToe}" titleStyle="H4"/>
-									<Text text="{i18n>tGameDescription}"/>
+									<Text text="{i18n>tTicTacToeDescription}"/>
 								</VBox>
 							</HBox>
 						</VBox>
