@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.tnt">
     <SideNavigation id="sideNavigation" selectedKey="{app>/page}">
 		<NavigationList itemSelect="onSelectNavigateToGame">
-            <NavigationListItem icon="sap-icon://flag-2" text="{i18n>ttlMinesweeper}" key="Minesweeper"/>
+            <NavigationListItem icon="{i18n>iFlag}" text="{i18n>ttlMinesweeper}" key="Minesweeper"/>
             <NavigationListItem icon="{i18n>iHanoiTower}" text="{i18n>ttlHanoiTower}" key="HanoiTower"/>
             <NavigationListItem icon="{i18n>iTicTacToe}" text="{i18n>ttlTicTacToe}" key="TicTacToe"/>
 		</NavigationList>
