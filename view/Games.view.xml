@@ -32,40 +32,46 @@
 					<f:GridListItem highlight="Error" press="navigateTo('Minesweeper')" type="Active">
 						<VBox class="sapUiSmallMargin">
 							<HBox>
-								<Avatar displaySize="L" displayShape="Square" src="{i18n>iFlag}" backgroundColor="Accent3"/>
+								<VBox renderType="Bare">
+									<Avatar displaySize="L" displayShape="Square" src="{i18n>iFlag}" backgroundColor="Accent3"/>
+									<Button text="{i18n>btnPlay}" type="Negative" press="navigateTo('Minesweeper')"
+										icon="sap-icon://begin" class="sapUiTinyMarginTop"/>
+								</VBox>
 								<VBox class="sapUiSmallMarginBegin">
 									<Title text="{i18n>ttlMinesweeper}" titleStyle="H4"/>
 									<Text text="{i18n>tMinesweeperDescription} {i18n>tMinesweeperObjective}"/>
 								</VBox>
 							</HBox>
-							<Button text="{i18n>lTryMinesweeper}" type="Negative"
-								icon="sap-icon://action" class="sapUiTinyMarginTop phButton"/>
 						</VBox>
 					</f:GridListItem>
 					<f:GridListItem highlight="Warning" press="navigateTo('TicTacToe')" type="Active">
 						<VBox class="sapUiSmallMargin">
 							<HBox>
-								<Avatar displaySize="L" displayShape="Square" src="{i18n>iTicTacToe}" backgroundColor="Accent1"/>
+								<VBox renderType="Bare">
+									<Avatar displaySize="L" displayShape="Square" src="{i18n>iTicTacToe}" backgroundColor="Accent1"/>
+									<Button text="{i18n>btnPlay}" type="Critical" press="navigateTo('TicTacToe')"
+										icon="sap-icon://begin" class="sapUiTinyMarginTop"/>
+								</VBox>
 								<VBox class="sapUiSmallMarginBegin">
 									<Title text="{i18n>ttlTicTacToe}" titleStyle="H4"/>
-									<Text text="{i18n>tMinesweeperDescription} {i18n>tMinesweeperObjective}"/>
+									<Text text="{i18n>tGameDescription}"/>
 								</VBox>
 							</HBox>
-							<Button text="{i18n>lTryMinesweeper}" type="Critical"
-								icon="sap-icon://action" class="sapUiTinyMarginTop phButton"/>
 						</VBox>
 					</f:GridListItem>
 					<f:GridListItem highlight="Success" press="navigateTo('HanoiTower')" type="Active">
 						<VBox class="sapUiSmallMargin">
 							<HBox>
-								<Avatar displaySize="L" displayShape="Square" src="{i18n>iHanoiTower}" backgroundColor="Accent8"/>
+								<VBox renderType="Bare">
+									<Avatar displaySize="L" displayShape="Square" src="{i18n>iHanoiTower}" backgroundColor="Accent8"/>
+									<Button text="{i18n>btnPlay}" type="Success" press="navigateTo('HanoiTower')"
+										icon="sap-icon://begin" class="sapUiTinyMarginTop"/>
+								</VBox>
 								<VBox class="sapUiSmallMarginBegin">
 									<Title text="{i18n>ttlHanoiTower}" titleStyle="H4"/>
-									<Text text="{i18n>tMinesweeperDescription} {i18n>tMinesweeperObjective}"/>
+									<Text text="{i18n>tGameDescription}"/>
 								</VBox>
 							</HBox>
-							<Button text="{i18n>lTryHanoiTower}" type="Success"
-								icon="sap-icon://action" class="sapUiTinyMarginTop phButton"/>
 						</VBox>
 					</f:GridListItem>
 				</f:GridList>
