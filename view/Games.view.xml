@@ -23,11 +23,45 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<VBox class="phLimitedPageContent sapUiSmallMarginBottom" alignItems="Center" renderType="Bare" width="100%">
-                <Panel>
-                    <!-- GAME -->
-                    <Title text="Hello"></Title>
-                </Panel>
+			<VBox class="sapUiSmallMarginBottom" alignItems="Center" renderType="Bare" width="100%">
+                <f:GridList inset="true" includeItemInSelection="true">
+					<CustomListItem class="sapUiMediumMarginEnd">
+						<VBox class="sapUiSmallMargin">
+							<HBox>
+								<Avatar displaySize="L" displayShape="Square" src="{i18n>iFlag}"/>
+								<VBox class="sapUiSmallMarginBegin">
+									<Title text="{i18n>ttlMinesweeper}" titleStyle="H4"/>
+									<Text text="{i18n>tMinesweeperDescription} {i18n>tMinesweeperObjective}"/>
+								</VBox>
+							</HBox>
+							<Button text="{i18n>lTryMinesweeper}" class="sapUiTinyMarginTop phButton"/>
+						</VBox>
+					</CustomListItem>
+					<CustomListItem class="sapUiMediumMarginEnd">
+						<VBox class="sapUiSmallMargin">
+							<HBox>
+								<Avatar displaySize="L" displayShape="Square" src="{i18n>iFlag}"/>
+								<VBox class="sapUiSmallMarginBegin">
+									<Title text="{i18n>ttlMinesweeper}" titleStyle="H4"/>
+									<Text text="{i18n>tMinesweeperDescription} {i18n>tMinesweeperObjective}"/>
+								</VBox>
+							</HBox>
+							<Button text="{i18n>lTryMinesweeper}" class="sapUiTinyMarginTop phButton"/>
+						</VBox>
+					</CustomListItem>
+					<CustomListItem>
+						<VBox class="sapUiSmallMargin">
+							<HBox>
+								<Avatar displaySize="L" displayShape="Square" src="{i18n>iFlag}"/>
+								<VBox class="sapUiSmallMarginBegin">
+									<Title text="{i18n>ttlMinesweeper}" titleStyle="H4"/>
+									<Text text="{i18n>tMinesweeperDescription} {i18n>tMinesweeperObjective}"/>
+								</VBox>
+							</HBox>
+							<Button text="{i18n>lTryMinesweeper}" class="sapUiTinyMarginTop phButton"/>
+						</VBox>
+					</CustomListItem>
+				</f:GridList>
                 <!-- INSTRUCTIONS -->
                 <!-- <core:Fragment fragmentName="pharelyshau.fragment.Minesweeper.Instructions"
 					type="XML" class="sapUiSmallMarginTop"/> -->
