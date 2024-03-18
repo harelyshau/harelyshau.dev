@@ -9,8 +9,8 @@
 				itemSelect="preventSelection($event, ${app>/page})">
 				<NavigationList itemSelect="onSelectNavigateToGame">
 					<NavigationListItem icon="{i18n>iFlag}" text="{i18n>ttlMinesweeper}" key="Minesweeper"/>
-					<NavigationListItem icon="{i18n>iHanoiTower}" text="{i18n>ttlHanoiTower}" key="HanoiTower"/>
 					<NavigationListItem icon="{i18n>iTicTacToe}" text="{i18n>ttlTicTacToe}" key="TicTacToe"/>
+					<NavigationListItem icon="{i18n>iHanoiTower}" text="{i18n>ttlHanoiTower}" key="HanoiTower"/>
 				</NavigationList>
 				<fixedItem>
 					<NavigationList>

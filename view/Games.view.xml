@@ -13,10 +13,10 @@
 					<Title text="{i18n>ttlGames}" wrapping="true"/>
 				</f:heading>
 				<f:snappedContent>
-                    <Label text="{i18n>lTryTicTacToe}" wrapping="true"/>
+                    <Label text="{i18n>lTryGames}" wrapping="true"/>
                 </f:snappedContent>
                 <f:expandedContent>
-                    <Label text="{i18n>lTryTicTacToe}" wrapping="true"/>
+                    <Label text="{i18n>lTryGames}" wrapping="true"/>
                 </f:expandedContent>
                 <f:actions>
                     <Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation('games')"/>
@@ -25,54 +25,64 @@
 		</f:title>
 		<f:content>
 			<VBox class="sapUiSmallMarginBottom" alignItems="Center" renderType="Bare" width="100%">
-                <f:GridList inset="true" includeItemInSelection="true">
+                <f:GridList inset="{= !${device>/system/phone} }" includeItemInSelection="true">
 					<f:customLayout>
-						<grid:GridBasicLayout gridTemplateColumns="repeat(auto-fit, minmax(24rem, 1fr))" gridGap="2.5rem" />
+						<grid:GridResponsiveLayout containerQuery="true">
+							<grid:layout>
+								<grid:GridSettings gridTemplateColumns="repeat(2, 1fr)" gridGap="2rem" />
+							</grid:layout>
+							<grid:layoutXL>
+								<grid:GridSettings gridTemplateColumns="repeat(3, 1fr)" gridGap="2.5rem" />
+							</grid:layoutXL>
+							<grid:layoutS>
+								<grid:GridSettings gridTemplateColumns="repeat(1, 1fr)" gridGap="1.5rem" />
+							</grid:layoutS>
+						</grid:GridResponsiveLayout>
 					</f:customLayout>
 					<f:GridListItem highlight="Error" press="navigateTo('Minesweeper')" type="Active">
-						<VBox class="sapUiSmallMargin">
-							<HBox>
-								<VBox renderType="Bare">
-									<Avatar displaySize="L" displayShape="Square" src="{i18n>iFlag}" backgroundColor="Accent3"/>
-									<Button text="{i18n>btnPlay}" type="Negative" press="navigateTo('Minesweeper')"
-										icon="sap-icon://begin" class="sapUiTinyMarginTop"/>
-								</VBox>
-								<VBox class="sapUiSmallMarginBegin">
-									<Title text="{i18n>ttlMinesweeper}" titleStyle="H4"/>
-									<Text text="{i18n>tMinesweeperDescription} {i18n>tMinesweeperObjective}"/>
-								</VBox>
-							</HBox>
-						</VBox>
+						<HBox wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap'}" class="sapUiSmallMargin" renderType="Bare">
+							<VBox renderType="Bare" class="sapUiSmallMarginEnd">
+								<Avatar displaySize="L" displayShape="Square" class="sapUiTinyMarginBottom"
+									src="{i18n>iFlag}" backgroundColor="Accent3"/>
+								<Button visible="{= !${device>/system/phone} }"
+									text="{i18n>btnPlay}" type="Negative" press="navigateTo('Minesweeper')"
+									icon="sap-icon://begin"/>
+							</VBox>
+							<VBox renderType="Bare">
+								<Title text="{i18n>ttlMinesweeper}" titleStyle="H4"/>
+								<Text text="{i18n>tMinesweeperDescription} {i18n>tMinesweeperObjective}"/>
+							</VBox>
+						</HBox>
 					</f:GridListItem>
 					<f:GridListItem highlight="Warning" press="navigateTo('TicTacToe')" type="Active">
-						<VBox class="sapUiSmallMargin">
-							<HBox>
-								<VBox renderType="Bare">
-									<Avatar displaySize="L" displayShape="Square" src="{i18n>iTicTacToe}" backgroundColor="Accent1"/>
-									<Button text="{i18n>btnPlay}" type="Critical" press="navigateTo('TicTacToe')"
-										icon="sap-icon://begin" class="sapUiTinyMarginTop"/>
-								</VBox>
-								<VBox class="sapUiSmallMarginBegin">
-									<Title text="{i18n>ttlTicTacToe}" titleStyle="H4"/>
-									<Text text="{i18n>tTicTacToeDescription}"/>
-								</VBox>
-							</HBox>
-						</VBox>
+						<HBox wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap'}" class="sapUiSmallMargin" renderType="Bare">
+							<VBox renderType="Bare" class="sapUiSmallMarginEnd">
+								<Avatar displaySize="L" displayShape="Square" class="sapUiTinyMarginBottom"
+									src="{i18n>iTicTacToe}" backgroundColor="Accent1"/>
+								<Button visible="{= !${device>/system/phone} }"
+									text="{i18n>btnPlay}" type="Critical" press="navigateTo('TicTacToe')"
+									icon="sap-icon://begin"/>
+							</VBox>
+							<VBox renderType="Bare">
+								<Title text="{i18n>ttlTicTacToe}" titleStyle="H4"/>
+								<Text text="{i18n>tTicTacToeDescription}"/>
+							</VBox>
+						</HBox>
 					</f:GridListItem>
 					<f:GridListItem highlight="Success" press="navigateTo('HanoiTower')" type="Active">
-						<VBox class="sapUiSmallMargin">
-							<HBox>
-								<VBox renderType="Bare">
-									<Avatar displaySize="L" displayShape="Square" src="{i18n>iHanoiTower}" backgroundColor="Accent8"/>
-									<Button text="{i18n>btnPlay}" type="Success" press="navigateTo('HanoiTower')"
-										icon="sap-icon://begin" class="sapUiTinyMarginTop"/>
-								</VBox>
-								<VBox class="sapUiSmallMarginBegin">
-									<Title text="{i18n>ttlHanoiTower}" titleStyle="H4"/>
-									<Text text="{i18n>tGameDescription}"/>
-								</VBox>
-							</HBox>
-						</VBox>
+						<HBox wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap'}" class="sapUiSmallMargin" renderType="Bare">
+							<VBox renderType="Bare" class="sapUiSmallMarginEnd">
+								<Avatar displaySize="L" displayShape="Square" class="sapUiTinyMarginBottom"
+									src="{i18n>iHanoiTower}" backgroundColor="Accent8"/>
+								<Button visible="{= !${device>/system/phone} }"
+									text="{i18n>btnPlay}" type="Critical" press="navigateTo('HanoiTower')"
+									icon="sap-icon://begin"/>
+							</VBox>
+							<VBox renderType="Bare">
+								<Title text="{i18n>ttlHanoiTower}" titleStyle="H4"/>
+								<Text text="{i18n>tGameDescription}"/>
+							</VBox>
+						</HBox>
 					</f:GridListItem>
 				</f:GridList>
 			</VBox>
