@@ -1,17 +1,37 @@
 <mvc:View xmlns:core="sap.ui.core"
-    controllerName="pharelyshau.controller.Games"
+    controllerName="pharelyshau.controller.Game"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
-    xmlns:tnt="sap.tnt">
-	<tnt:ToolPage id="page" class="phTntPage">
-		<tnt:sideContent>
-			<core:Fragment fragmentName="pharelyshau.fragment.Games.SideNavigation" type="XML"/>
-		</tnt:sideContent>
-		<tnt:mainContents>
-            <NavContainer id="game">
-                <Title text="Hello"></Title>
-            </NavContainer>
-		</tnt:mainContents>
-	</tnt:ToolPage>
+    xmlns:cc="pharelyshau.control">
+	<f:DynamicPage>
+        <!-- HEADER -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>ttlGames}" wrapping="true"/>
+				</f:heading>
+				<f:snappedContent>
+                    <Label text="{i18n>lTryTicTacToe}" wrapping="true"/>
+                </f:snappedContent>
+                <f:expandedContent>
+                    <Label text="{i18n>lTryTicTacToe}" wrapping="true"/>
+                </f:expandedContent>
+                <f:actions>
+                    <Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation('games')"/>
+                </f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox class="phLimitedPageContent sapUiSmallMarginBottom" alignItems="Center" renderType="Bare" width="100%">
+                <Panel>
+                    <!-- GAME -->
+                    <Title text="Hello"></Title>
+                </Panel>
+                <!-- INSTRUCTIONS -->
+                <!-- <core:Fragment fragmentName="pharelyshau.fragment.Minesweeper.Instructions"
+					type="XML" class="sapUiSmallMarginTop"/> -->
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
 </mvc:View>

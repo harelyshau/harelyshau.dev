@@ -26,8 +26,8 @@ sap.ui.define([
 			const { target, targetParent } = oEvent.getParameter('config');
 			this.setProperty('/page', target, 'app');
 			// TODO: get root (parent) target to show selectedKey for icon tab header
-			const sRootPage = ['Minesweeper', 'HanoiTower', 'TicTacToe'].includes(target)
-				? 'Games' : target;
+			const sRootPage = ['Minesweeper', 'HanoiTower', 'TicTacToe', 'Games']
+				.includes(target) ? 'Games' : target;
 			this.setProperty('/rootPage', sRootPage, 'app');
 			this.byId('page').setSideExpanded(false);
 			

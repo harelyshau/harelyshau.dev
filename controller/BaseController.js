@@ -142,7 +142,7 @@ sap.ui.define([
 
 		onPressToggleSideNavigation(sModel) {
 			const bPhone = this.getProperty('/system/phone', 'device');
-			const sPage = this.getProperty('/rootPage', 'app');
+			const sPage = this.getProperty('/rootPage', 'app').slice(0, -1);
 			const oPage = this.getElementById(`${bPhone ? 'app' : sPage}--page`);
 			const oSideNavigation = this.getElementById(`${sPage}--sideNavigation`);
 			const bExpanded = this.toggleSideNavigation(oPage, oSideNavigation);

@@ -6,7 +6,7 @@ sap.ui.define([
 ], (BaseController, MessageBox, languageHelper, models) => {
 	'use strict';
 
-	return BaseController.extend('pharelyshau.controller.Games', {
+	return BaseController.extend('pharelyshau.controller.Game', {
 
 		onInit() {
 			this.setModel(models.createAlgorithmsViewModel(), 'games', true);

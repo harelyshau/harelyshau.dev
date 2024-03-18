@@ -130,9 +130,16 @@
 			],
 			"targets": {
 				"Games": {
+					"parent": "Game",
 					"name": "Games",
 					"title": "{i18n>ttlGames}",
+					"controlId": "game",
+					"controlAggregation": "pages",
 					"id": "Games"
+				},
+				"Game": {
+					"name": "Game",
+					"id": "Game"
 				},
 				"Home": {
 					"name": "Home",
@@ -150,7 +157,7 @@
 					"id": "Calendar"
 				},
 				"HanoiTower": {
-					"parent": "Games",
+					"parent": "Game",
 					"name": "HanoiTower",
 					"title": "{i18n>ttlHanoiTower}",
 					"controlId": "game",
@@ -158,7 +165,7 @@
 					"id": "HanoiTower"
 				},
 				"Minesweeper": {
-					"parent": "Games",
+					"parent": "Game",
 					"name": "Minesweeper",
 					"title": "{i18n>ttlMinesweeper}",
 					"controlId": "game",
@@ -166,7 +173,7 @@
 					"id": "Minesweeper"
 				},
 				"TicTacToe": {
-					"parent": "Games",
+					"parent": "Game",
 					"name": "TicTacToe",
 					"title": "{i18n>ttlTicTacToe}",
 					"controlId": "game",

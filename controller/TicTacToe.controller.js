@@ -1,9 +1,9 @@
 sap.ui.define([
-    './Games.controller', '../model/models'
-], (GamesController, models) => {
+    './Game.controller', '../model/models'
+], (GameController, models) => {
     'use strict';
 
-    return GamesController.extend('pharelyshau.controller.TicTacToe', {
+    return GameController.extend('pharelyshau.controller.TicTacToe', {
 
         onInit() {
             this.setModel(models.createTicTacToeModel());
