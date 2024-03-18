@@ -131,52 +131,62 @@
 			"targets": {
 				"Games": {
 					"name": "Games",
-					"title": "{i18n>ttlGames}"
+					"title": "{i18n>ttlGames}",
+					"id": "Games"
 				},
 				"Home": {
 					"name": "Home",
-					"title": "harelyshau.dev"
+					"title": "harelyshau.dev",
+					"id": "Home"
 				},
 				"Resume": {
 					"name": "Resume",
-					"title": "{/FirstName} {/LastName}"
+					"title": "{/FirstName} {/LastName}",
+					"id": "Resume"
 				},
 				"Calendar": {
 					"name": "Calendar",
-					"title": "{i18n>ttlPavelsCalendar}"
+					"title": "{i18n>ttlPavelsCalendar}",
+					"id": "Calendar"
 				},
 				"HanoiTower": {
 					"parent": "Games",
 					"name": "HanoiTower",
 					"title": "{i18n>ttlHanoiTower}",
 					"controlId": "game",
-					"controlAggregation": "pages"
+					"controlAggregation": "pages",
+					"id": "HanoiTower"
 				},
 				"Minesweeper": {
 					"parent": "Games",
 					"name": "Minesweeper",
 					"title": "{i18n>ttlMinesweeper}",
 					"controlId": "game",
-					"controlAggregation": "pages"
+					"controlAggregation": "pages",
+					"id": "Minesweeper"
 				},
 				"TicTacToe": {
 					"parent": "Games",
 					"name": "TicTacToe",
 					"title": "{i18n>ttlTicTacToe}",
 					"controlId": "game",
-					"controlAggregation": "pages"
+					"controlAggregation": "pages",
+					"id": "TicTacToe"
 				},
 				"Algorithms": {
 					"name": "Algorithms",
-					"title": "{= ${/Article/Title} || ${i18n>ttlAlgorithms} }"
+					"title": "{= ${/Article/Title} || ${i18n>ttlAlgorithms} }",
+					"id": "Algorithms"
 				},
 				"Sandbox": {
 					"name": "Sandbox",
-					"title": "{i18n>ttlSandbox}"
+					"title": "{i18n>ttlSandbox}",
+					"id": "Sandbox"
 				},
 				"NotFound": {
 					"name": "NotFound",
-					"title": "{i18n>ttlPageNotFound}"
+					"title": "{i18n>ttlPageNotFound}",
+					"id": "NotFound"
 				}
 			}
 		},

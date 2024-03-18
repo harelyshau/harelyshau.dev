@@ -140,8 +140,12 @@ sap.ui.define([
 
 		onPressToggleSideNavigation() {
 			const bPhone = this.getProperty('/system/phone', 'device');
-			const oPage = bPhone ? this.getView().getParent().getParent() : this.byId('page');
-			const bExpanded = this.toggleSideNavigation(oPage, this.byId('sideNavigation'));
+			const sPage = this.getProperty('/rootPage', 'app');
+			const sPrefix = this.getOwnerComponent().createId('');
+			const getElementById = sap.ui.core.Element.getElementById;
+			const oPage = getElementById(`${sPrefix}${bPhone ? 'app' : sPage}--page`);
+			const oSideNavigation = getElementById(`${sPrefix}${sPage}--sideNavigation`);
+			const bExpanded = this.toggleSideNavigation(oPage, oSideNavigation);
 			this.setProperty('/sideExpanded', bExpanded, 'view');
 		},
 
