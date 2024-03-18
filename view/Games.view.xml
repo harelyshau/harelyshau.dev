@@ -75,7 +75,7 @@
 								<Avatar displaySize="L" displayShape="Square" class="sapUiTinyMarginBottom"
 									src="{i18n>iHanoiTower}" backgroundColor="Accent8"/>
 								<Button visible="{= !${device>/system/phone} }"
-									text="{i18n>btnPlay}" type="Critical" press="navigateTo('HanoiTower')"
+									text="{i18n>btnPlay}" type="Success" press="navigateTo('HanoiTower')"
 									icon="sap-icon://begin"/>
 							</VBox>
 							<VBox renderType="Bare">
