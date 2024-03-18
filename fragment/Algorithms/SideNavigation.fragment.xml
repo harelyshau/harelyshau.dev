@@ -10,7 +10,7 @@
 		<fixedItem>
 			<NavigationList>
 				<!-- Expand/Collapse/Close Button -->
-				<NavigationListItem select="onPressToggleSideNavigation"
+				<NavigationListItem select="onPressToggleSideNavigation('view')"
 					text="{= ${device>/system/phone} ? ${i18n>btnClose} : ${view>/sideExpanded} ? 'Collapse' : 'Expand' }"
 					icon="{= ${device>/system/phone} ? ${i18n>iClose} : ${view>/sideExpanded} ? 'sap-icon://close-command-field' : 'sap-icon://open-command-field' }"/>
 			</NavigationList>

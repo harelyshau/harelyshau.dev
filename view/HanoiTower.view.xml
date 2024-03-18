@@ -20,7 +20,7 @@
                     <Label text="{i18n>lTryHanoiTower}" wrapping="true"/>
                 </f:expandedContent>
                 <f:actions>
-                    <Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation"/>
+                    <Button icon="{i18n>iMenu}" press="onPressToggleSideNavigation('games')"/>
                 </f:actions>
 			</f:DynamicPageTitle>
 		</f:title>

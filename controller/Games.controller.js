@@ -1,12 +1,15 @@
 sap.ui.define([
-    './BaseController', 'sap/m/MessageBox', '../util/languageHelper'
-], (BaseController, MessageBox, languageHelper) => {
+    './BaseController',
+	'sap/m/MessageBox',
+	'../util/languageHelper',
+	'../model/models'
+], (BaseController, MessageBox, languageHelper, models) => {
 	'use strict';
 
 	return BaseController.extend('pharelyshau.controller.Games', {
 
 		onInit() {
-			console.log(333)
+			this.setModel(models.createAlgorithmsViewModel(), 'games', true);
 		},
 
 		onSelectNavigateToGame(oEvent) {

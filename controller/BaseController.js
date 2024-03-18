@@ -41,11 +41,13 @@ sap.ui.define([
 		},
 
 		getModel(sName) {
-			return this.getView().getModel(sName);
+			return this.getView().getModel(sName) ??
+				this.getOwnerComponent().getModel(sName);
 		},
 
-		setModel(oModel, sName) {
-			return this.getView().setModel(oModel, sName);
+		setModel(oModel, sName, bGlobal) {
+			return this[bGlobal ? 'getOwnerComponent' : 'getView']()
+				.setModel(oModel, sName);
 		},
 
 		getProperty(sPath, sModel) {
@@ -138,7 +140,7 @@ sap.ui.define([
 			return bOpen && bSamePath;
 		},
 
-		onPressToggleSideNavigation() {
+		onPressToggleSideNavigation(sModel) {
 			const bPhone = this.getProperty('/system/phone', 'device');
 			const sPage = this.getProperty('/rootPage', 'app');
 			const sPrefix = this.getOwnerComponent().createId('');
@@ -146,7 +148,7 @@ sap.ui.define([
 			const oPage = getElementById(`${sPrefix}${bPhone ? 'app' : sPage}--page`);
 			const oSideNavigation = getElementById(`${sPrefix}${sPage}--sideNavigation`);
 			const bExpanded = this.toggleSideNavigation(oPage, oSideNavigation);
-			this.setProperty('/sideExpanded', bExpanded, 'view');
+			this.setProperty('/sideExpanded', bExpanded, sModel);
 		},
 
 		toggleSideNavigation(oPage, oSideNavigation) {

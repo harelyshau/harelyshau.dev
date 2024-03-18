@@ -130,9 +130,7 @@ sap.ui.define([
 		},
 
 		createAlgorithmsViewModel() {
-			const oData = {
-				sideExpanded: true
-			};
+			const oData = { sideExpanded: true };
 			return new JSONModel(oData);
 		}
 	};
