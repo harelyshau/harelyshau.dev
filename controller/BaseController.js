@@ -1,24 +1,25 @@
 sap.ui.define([
 	'sap/ui/core/mvc/Controller',
 	'sap/ui/core/UIComponent',
-	'sap/ui/Device',
 	'sap/m/MessageToast',
 	'sap/m/IllustrationPool',
 	'sap/ui/core/ResizeHandler',
+	'sap/ui/util/Storage',
 	'../util/languageHelper'
 ], (
 	Controller,
 	UIComponent,
-	Device,
 	MessageToast,
 	IllustrationPool,
 	ResizeHandler,
+	Storage,
 	languageHelper
 ) => {
 	'use strict';
 
 	return Controller.extend('pharelyshau.controller.BaseController', {
-		// DEFAULT
+
+		// Attaching to events
 
 		attachRouteMatched(fnCallback, sRoute) {
 			const oRouter = this.getRouter();
@@ -36,9 +37,23 @@ sap.ui.define([
 			languageHelper.attachChange(fnFunction.bind(this));
 		},
 
-		getRouter() {
-			return UIComponent.getRouterFor(this);
+		// localStorage
+
+		getStorage(sPrefix) {
+			const sPage = this.getProperty('/page', 'app');
+			sPrefix ??= `${sPage[0].toLowerCase()}${sPage.slice(1)}`;
+			return new Storage(Storage.Type.local, sPrefix)
 		},
+
+		getStorageItem(sKey, sPrefix) {
+			return this.getStorage(sPrefix).get(sKey);
+		},
+
+		setStorageItem(sKey, vValue) {
+			this.getStorage().put(sKey, vValue);
+		},
+
+		// Model and properties
 
 		getModel(sName) {
 			return this.getView().getModel(sName) ??
@@ -68,7 +83,7 @@ sap.ui.define([
 		},
 
 		addContentDensityClass(oControl) {
-			const bTouch = Device.support.touch;
+			const bTouch = this.getProperty('/support/touch', 'device');
 			oControl.addStyleClass(bTouch ? 'sapUiSizeCozy' : 'sapUiSizeCompact');
 		},
 
@@ -76,7 +91,11 @@ sap.ui.define([
 			this.setProperty('/busy', bBusy, 'view');
 		},
 
-		// Common Buttons
+		// Routing and navigation
+
+		getRouter() {
+			return UIComponent.getRouterFor(this);
+		},
 
 		navigateTo(sPage, oParams) {
 			this.getRouter().navTo(sPage, oParams);
@@ -116,6 +135,7 @@ sap.ui.define([
 		},
 
 		// MODAL WINDOWS
+
 		async openDialog(sFragmentName, sBinndingPath) {
 			const oDialog = await this.loadAndAssignFragment(sFragmentName);
 			if (sBinndingPath) oDialog.bindElement(sBinndingPath);

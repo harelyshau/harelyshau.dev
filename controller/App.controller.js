@@ -10,7 +10,6 @@ sap.ui.define([
 
 		onInit() {
 			this.addContentDensityClass(this.getView());
-			this.setModel(models.createAppModel(), 'app');
 			this.getRouter()
 				.attachRouteMatched(this.onRouteMatched.bind(this))
 				.attachTitleChanged(this.onTitleChanged.bind(this));

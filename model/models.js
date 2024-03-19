@@ -109,7 +109,7 @@ sap.ui.define([
 		createCalendarViewModel() {
 			const oData = {
 				busy: true,
-				fullDay: !!JSON.parse(localStorage.getItem('fullDay')),
+				fullDay: !!this.getStorageItem('fullDay', 'calendar'),
 				startHour: 8,
 				endHour: 21,
 				currentDate: new Date(),

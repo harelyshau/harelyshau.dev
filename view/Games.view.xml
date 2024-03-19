@@ -24,17 +24,17 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<f:GridList inset="{= !${device>/system/phone} }" includeItemInSelection="true">
+			<f:GridList inset="{= !${device>/system/phone} }" class="sapUiSmallMarginBottom">
 				<f:customLayout>
 					<grid:GridResponsiveLayout containerQuery="true">
-						<grid:layout>
-							<grid:GridSettings gridTemplateColumns="repeat(2, 1fr)" gridGap="2rem" />
-						</grid:layout>
 						<grid:layoutXL>
-							<grid:GridSettings gridTemplateColumns="repeat(3, 1fr)" gridGap="2.5rem" />
+							<grid:GridSettings gridTemplateColumns="repeat(3, 1fr)" gridGap="2.5rem"/>
 						</grid:layoutXL>
+						<grid:layout>
+							<grid:GridSettings gridTemplateColumns="repeat(2, 1fr)" gridGap="2rem"/>
+						</grid:layout>
 						<grid:layoutS>
-							<grid:GridSettings gridTemplateColumns="repeat(1, 1fr)" gridGap="1.5rem" />
+							<grid:GridSettings gridTemplateColumns="repeat(1, 1fr)" gridGap="1.5rem"/>
 						</grid:layoutS>
 					</grid:GridResponsiveLayout>
 				</f:customLayout>

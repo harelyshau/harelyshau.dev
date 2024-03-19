@@ -14,7 +14,7 @@ sap.ui.define([
 		onInit() {
 			this.removeCalendarViews();
 			this.setModel(models.createCalendarModel());
-			this.setModel(models.createCalendarViewModel(), 'view');
+			this.setModel(models.createCalendarViewModel.call(this), 'view');
 			this.pCalendarAPI = this.initCalendarManager();
 			this.attachRoutesMatched();
 		},
@@ -189,7 +189,7 @@ sap.ui.define([
 
 		onPressToggleFullDay(oEvent) {
 			const bPressed = oEvent.getSource().getProperty('pressed');
-			localStorage.setItem('fullDay', bPressed);
+			this.setStorageItem('fullDay', bPressed);
 		},
 
 		setCalendarStartDate(oDate) {
@@ -238,7 +238,7 @@ sap.ui.define([
 		async onPressCreateEditAppointment(oEvent) {
 			if (!this.validateEmailInput()) return;
 			const oAppointment = this.getObjectByEvent(oEvent);
-			localStorage.setItem('email', oAppointment.Email);
+			this.setStorageItem('email', oAppointment.Email);
 			if (oAppointment.ID === 'new') this.createAppointmentGC(oAppointment);
 			else this.updateAppointmentGC(oAppointment);
 			this.oAppointmentDialog.close();
@@ -436,7 +436,7 @@ sap.ui.define([
 		createAppointment(oParams) {
 			const oAppointment = {
 				ID: 'new',
-				Email: localStorage.getItem('email'),
+				Email: this.getStorageItem('email'),
 				Mode: 'create',
 				Available: true,
 				GoogleMeet: 'willBeCreated',

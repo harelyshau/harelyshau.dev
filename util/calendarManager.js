@@ -1,7 +1,12 @@
-sap.ui.define(['./getGoogleApiToken', './lib/GoogleAPI'], (getGoogleApiToken, GoogleAPI) => {
+sap.ui.define([
+	'sap/ui/util/Storage',
+	'./getGoogleApiToken',
+	'./lib/GoogleAPI'
+], (Storage, getGoogleApiToken, GoogleAPI) => {
 	'use strict';
 
 	const calendarId = 'pavel@harelyshau.dev';
+	const storage = new Storage(Storage.Type.local, 'calendar');
 
 	/* This Class allows managing appointments in Google Calendar
     and provide following 5 public methods: "init", "list", "get",
@@ -97,19 +102,19 @@ sap.ui.define(['./getGoogleApiToken', './lib/GoogleAPI'], (getGoogleApiToken, Go
 		//////////////////////////////////
 
 		#getAvailableAppointmentIDs() {
-			return JSON.parse(localStorage.getItem('appointments')) ?? [];
+			return storage.get('appointments') ?? [];
 		}
 
 		#addAppointmentIdToLocalStorage(sAppointmentID) {
 			const aAppointmentIDs = this.#getAvailableAppointmentIDs();
 			aAppointmentIDs.push(sAppointmentID);
-			localStorage.setItem('appointments', JSON.stringify(aAppointmentIDs));
+			storage.put('appointments', aAppointmentIDs);
 		}
 
 		#removeAppointmentIdFromLocalStorage(sAppointmentID) {
 			const aAppointmentIDs = this.#getAvailableAppointmentIDs();
 			aAppointmentIDs.splice(aAppointmentIDs.indexOf(sAppointmentID), 1);
-			localStorage.setItem('appointments', JSON.stringify(aAppointmentIDs));
+			storage.put('appointments', aAppointmentIDs);
 		}
 
 		//////////////////////////////////

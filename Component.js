@@ -13,13 +13,14 @@ sap.ui.define([
 			manifest: 'json'
 		},
 
-		init(...aArguments) {
-			UIComponent.prototype.init.apply(this, aArguments);
-			this.getRouter().initialize();
-			this.setModel(models.createDeviceModel(), 'device');
+		init() {
+			UIComponent.prototype.init.call(this);
 			languageHelper.initLanguage();
 			themeHelper.initTheme();
+			this.getRouter().initialize();
 			this.loadFioriIcons();
+			this.setModel(models.createDeviceModel(), 'device');
+			this.setModel(models.createAppModel(), 'app');
 		},
 
 		loadFioriIcons() {
