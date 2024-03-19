@@ -10,7 +10,7 @@ sap.ui.define([
 
 		onInit() {
 			this.setModel(models.createHanoiTowerModel.call(this));
-			this.setModel(models.createHanoiTowerViewModel(), 'view');
+			this.setModel(models.createHanoiTowerViewModel.call(this), 'view');
 			this.attachResize(this.setDiscButtonMaxWidth.bind(this));
 			this.attachRouteMatched(this.onHanoiTowerMatched);
 			this.setDiscButtonMaxWidth();
