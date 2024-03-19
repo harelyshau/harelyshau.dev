@@ -39,7 +39,7 @@ sap.ui.define([
 			const oData = {
 				discCounts: Array.from({ length: 18 }, (_, i) => i + 3),
 				discCount: 5,
-				records: JSON.parse(localStorage.getItem('records')) ?? [],
+				records: this.getStorageItem('records', 'hanoiTower') ?? [],
 				moves: 0,
 				time: 0
 			};
@@ -48,7 +48,7 @@ sap.ui.define([
 
 		createMinesweeperModel() {
 			const [iCustomW, iCustomH, iCustomMines] = ['Width', 'Height', 'Mines']
-				.map(sProperty => +localStorage.getItem(`custom${sProperty}`));
+				.map(sProperty => this.getStorageItem(`custom${sProperty}`, 'minesweeper'));
 			const oCustomLevel = {
 				key: 'custom',
 				width: iCustomW || 30,
@@ -61,7 +61,7 @@ sap.ui.define([
 				{ key: 'hard', width: 30, height: 16, mines: 99},
 				oCustomLevel
 			];
-			const records = JSON.parse(localStorage.getItem('minesweeperRecords')) ?? [];
+			const records = this.getStorageItem('records', 'minesweeper') ?? [];
 			const oData = { levels, level: levels[0], time: 0, records };
 			return new JSONModel(oData);
 		},
@@ -119,10 +119,8 @@ sap.ui.define([
 		},
 
 		createHanoiTowerViewModel() {
-			const oData = {
-				showMoveButtons: !!JSON.parse(localStorage.getItem('moveButtons'))
-			};
-			return new JSONModel(oData);
+			const showMoveButtons = !!this.getStorageItem('moveButtons', 'hanoiTower');
+			return new JSONModel({ showMoveButtons });
 		},
 
 		createMinesweeperViewModel() {

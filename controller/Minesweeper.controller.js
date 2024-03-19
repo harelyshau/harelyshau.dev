@@ -8,7 +8,7 @@ sap.ui.define([
     return GameController.extend('pharelyshau.controller.Minesweeper', {
 
         onInit() {
-            this.setModel(models.createMinesweeperModel());
+            this.setModel(models.createMinesweeperModel.call(this));
             this.setModel(models.createMinesweeperViewModel(), 'view');
             this.attachRouteMatched(this.onMinewsweeperMatched);
             this.attachLanguageChange(this.setLevelTexts);
@@ -241,7 +241,7 @@ sap.ui.define([
             const oLevel = this.getProperty('/customLevel', 'view');
             Object.keys(oLevel)
                 .filter(sKey => !['key', 'text'].includes(sKey))
-                .forEach(sKey => localStorage.setItem(
+                .forEach(sKey => this.setStorageItem(
                     `custom${this.toPascalCase(sKey)}`, oLevel[sKey]
                 ));
         },
@@ -273,7 +273,7 @@ sap.ui.define([
             if (oRecord) oRecord.time = Math.min(oRecord.time, time);
             else aRecords.push({ key, time });
             this.refreshModel();
-            localStorage.setItem('minesweeperRecords', JSON.stringify(aRecords));
+            this.setStorageItem('records', aRecords);
         },
 
         onPressImrpoveResult(oEvent) {

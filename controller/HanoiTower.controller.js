@@ -9,7 +9,7 @@ sap.ui.define([
 	return GameController.extend('pharelyshau.controller.HanotoiTower', {
 
 		onInit() {
-			this.setModel(models.createHanoiTowerModel());
+			this.setModel(models.createHanoiTowerModel.call(this));
 			this.setModel(models.createHanoiTowerViewModel(), 'view');
 			this.attachResize(this.setDiscButtonMaxWidth.bind(this));
 			this.attachRouteMatched(this.onHanoiTowerMatched);
@@ -80,7 +80,7 @@ sap.ui.define([
 		},
 
 		onChangeMoveButtonsSwith(oEvent) {
-			localStorage.setItem('moveButtons', oEvent.getParameter('state'));
+			this.setStorageItem('moveButtons', oEvent.getParameter('state'));
 		},
 
 		onPressMoveDiscByBox(oEvent) {
@@ -191,7 +191,7 @@ sap.ui.define([
 			this.setPreviousRecord({ ...oRecord });
 			oRecord ? this.updateExistingRecord(oRecord, oResult) : aRecords.push(oResult);
 			this.refreshModel();
-			localStorage.setItem('records', JSON.stringify(aRecords));
+			this.setStorageItem('records', aRecords);
 		},
 
 		// save to view model to show it in WinDialog
