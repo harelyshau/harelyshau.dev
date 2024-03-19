@@ -9,16 +9,15 @@ sap.ui.define([
 	return GameController.extend('pharelyshau.controller.HanotoiTower', {
 
 		onInit() {
-			this.setModel(models.createHanoiTowerModel.call(this));
-			this.setModel(models.createHanoiTowerViewModel.call(this), 'view');
 			this.attachResize(this.setDiscButtonMaxWidth.bind(this));
 			this.attachRouteMatched(this.onHanoiTowerMatched);
-			this.setDiscButtonMaxWidth();
-			this.attachTimer();
-			this.setupGame();
 		},
 
 		onHanoiTowerMatched(oEvent) {
+			this.setModel(models.createHanoiTowerModel.call(this));
+			this.setModel(models.createHanoiTowerViewModel.call(this), 'view');
+			this.setDiscButtonMaxWidth();
+			this.attachTimer();
 			const { discs } = oEvent.getParameter('arguments');
             const aDiscCounts = this.getProperty('/discCounts');
             const fnIsCurLevel = (iDiscCount) => iDiscCount == discs;

@@ -13,15 +13,8 @@ sap.ui.define([
 
 		onInit() {
 			this.removeCalendarViews();
-			this.setModel(models.createCalendarModel());
-			this.setModel(models.createCalendarViewModel.call(this), 'view');
 			this.pCalendarAPI = this.initCalendarManager();
 			this.attachRoutesMatched();
-		},
-
-		onAfterRendering() {
-			// to see max count of appointments
-			this.getModel().setSizeLimit(250);
 		},
 
 		//////////////////////////////////
@@ -60,6 +53,8 @@ sap.ui.define([
 		},
 
 		onCalendarMatched(oEvent, bKeepDialog) {
+			this.setModel(models.createCalendarModel());
+			this.setModel(models.createCalendarViewModel.call(this), 'view');
 			!bKeepDialog && this.oAppointmentDialog?.close();
 			const { view } = oEvent.getParameter('arguments');
 			const oView = this.byId('calendar').getViewByKey(view);

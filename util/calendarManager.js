@@ -28,8 +28,8 @@ sap.ui.define([
 		}
 
 		#initGoogleApiClient() {
-			const sLink = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-			return gapi.client.init({ discoveryDocs: [sLink] });
+			const discoveryDocs = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
+			return gapi.client.init({ discoveryDocs });
 		}
 
 		async #setGoogleApiAuthToken() {
