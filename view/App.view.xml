@@ -10,7 +10,7 @@
 				<Button visible="{device>/system/phone}" icon="{i18n>iMenu}" press="onPressToggleSideNavigation" tooltip="Menu"/>
 				<Image alt="harelyshau logo" decorative="false" src="resource/image/favicon/favicon.svg" press="navigateTo('Home')"/>
 				<IconTabHeader visible="{= !${device>/system/phone} }" mode="Inline"
-					selectedKey="{app>/rootPage}" select="onSelectPage">
+					selectedKey="{app>/rootPage}" select="onSelectNavigateToPage">
 					<items>
 						<IconTabFilter key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
 						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
@@ -39,7 +39,7 @@
 		</tnt:header>
 		<tnt:sideContent>
 			<tnt:SideNavigation id="sideNavigation" visible="{device>/system/phone}"
-				selectedKey="{app>/rootPage}" itemSelect="onSelectPage">
+				selectedKey="{app>/rootPage}" itemSelect="onSelectNavigateToPage">
 				<tnt:NavigationList>
 					<tnt:NavigationListItem key="Home" text="{i18n>ttlHome}" icon="{i18n>iHome}"/>
 					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithm}"/>

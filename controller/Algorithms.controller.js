@@ -52,7 +52,7 @@ sap.ui.define(
 			},
 
 			navigateToArticle(article) {
-				this.getRouter().navTo('Algorithms', { article });
+				this.navigateTo('Algorithms', { article });
 			},
 
 			factoryBlocks(sId, oContext) {

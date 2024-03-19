@@ -7,7 +7,7 @@
 		<sideContent>
 			<SideNavigation id="sideNavigation" selectedKey="{path: 'app>/page', mode: 'OneWay'}"
 				itemSelect="preventSelection($event, ${app>/page})">
-				<NavigationList itemSelect="onSelectNavigateToGame">
+				<NavigationList itemSelect="onSelectNavigateToPage">
 					<NavigationListItem icon="{i18n>iFlag}" text="{i18n>ttlMinesweeper}" key="Minesweeper"/>
 					<NavigationListItem icon="{i18n>iTicTacToe}" text="{i18n>ttlTicTacToe}" key="TicTacToe"/>
 					<NavigationListItem icon="{i18n>iHanoiTower}" text="{i18n>ttlHanoiTower}" key="HanoiTower"/>

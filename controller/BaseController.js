@@ -101,6 +101,11 @@ sap.ui.define([
 			oParent.close?.() ?? oParent.getParent().close();
 		},
 
+		onSelectNavigateToPage(oEvent) {
+			const sPage = oEvent.getParameter('item').getKey();
+			this.navigateTo(sPage);
+		},
+
 		async copyToClipboard(sValueToCopy) {
 			try {
 				await navigator.clipboard.writeText(sValueToCopy);

@@ -13,7 +13,7 @@
                             <FlexItemData maxWidth="35rem"/>
                         </layoutData>
                     </Title>
-                     <Button icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" press="onPressShowCode"
+                    <Button icon="{i18n>iGitHub}" text="{i18n>btnSeeCode}" press="onPressShowCode"
                         type="Emphasized" class="phButton phActionButton sapUiMediumMarginTopBottom"/>
                 </VBox>
             </f:DynamicPageHeader>

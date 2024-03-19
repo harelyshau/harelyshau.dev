@@ -37,11 +37,6 @@ sap.ui.define([
 			document.title = oEvent.getParameter('title');
 		},
 
-		onSelectPage(oEvent) {
-			const sPage = oEvent.getParameter('item').getKey();
-			this.getRouter().navTo(sPage);
-		},
-
 		onPressToggleTheme() {
 			const sCurrentTheme = themeHelper.getTheme()
 			const oOppositeThemes = { light: 'dark', dark: 'light' };

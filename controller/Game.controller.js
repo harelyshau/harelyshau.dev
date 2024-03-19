@@ -16,11 +16,6 @@ sap.ui.define([
 			);
 		},
 
-		onSelectNavigateToGame(oEvent) {
-			const sGame = oEvent.getParameter('item').getKey();
-			this.navigateTo(sGame);
-		},
-
 		openConfirmationMessageBox(sMessage, fnCallbackOK, fnCallbackCancel) {
 			MessageBox.confirm(sMessage, {
 				onClose: (sAction) => sAction === 'OK'
