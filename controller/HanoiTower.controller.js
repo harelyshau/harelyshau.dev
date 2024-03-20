@@ -11,21 +11,22 @@ sap.ui.define([
 		onInit() {
 			this.attachResize(this.setDiscButtonMaxWidth.bind(this));
 			this.attachRouteMatched(this.onHanoiTowerMatched);
-		},
-
-		onHanoiTowerMatched(oEvent) {
+			this.attachTimer();
 			this.setModel(models.createHanoiTowerModel.call(this));
 			this.setModel(models.createHanoiTowerViewModel.call(this), 'view');
 			this.setDiscButtonMaxWidth();
-			this.attachTimer();
+		},
+
+		onHanoiTowerMatched(oEvent) {
 			const { discs } = oEvent.getParameter('arguments');
             const aDiscCounts = this.getProperty('/discCounts');
             const fnIsCurLevel = (iDiscCount) => iDiscCount == discs;
             const iDiscCount = aDiscCounts.find(fnIsCurLevel);
+			const bAnotherLevel = iDiscCount !== this.getProperty('/discCount');
 			iDiscCount
                 ? this.setProperty('/discCount', iDiscCount)
                 : this.navigateTo('HanoiTower');
-			(iDiscCount ?? !this.isGameStarted()) && this.setupGame();
+			(iDiscCount && bAnotherLevel || !this.isGameStarted()) && this.setupGame();
 		},
 
 		//////////////////////////////////

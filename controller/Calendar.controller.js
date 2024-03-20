@@ -21,6 +21,9 @@ sap.ui.define([
 		//////////////////////////////////
 
 		attachRoutesMatched() {
+			this.setModel(models.createCalendarModel());
+			this.setModel(models.createCalendarViewModel.call(this), 'view');
+			this.pCalendarAPI = this.initCalendarManager();
 			['Calendar', 'Appointment', 'NewAppointment'].forEach(sRoute => 
 				this.attachRouteMatched(this[`on${sRoute}Matched`], sRoute)
 			);
@@ -52,9 +55,6 @@ sap.ui.define([
 		},
 
 		onCalendarMatched(oEvent, bKeepDialog) {
-			this.setModel(models.createCalendarModel());
-			this.setModel(models.createCalendarViewModel.call(this), 'view');
-			this.pCalendarAPI = this.initCalendarManager();
 			!bKeepDialog && this.oAppointmentDialog?.close();
 			const { view } = oEvent.getParameter('arguments');
 			const oView = this.byId('calendar').getViewByKey(view);

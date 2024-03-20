@@ -8,24 +8,24 @@ sap.ui.define([
     return GameController.extend('pharelyshau.controller.Minesweeper', {
 
         onInit() {
-            
             this.attachRouteMatched(this.onMinewsweeperMatched);
             this.attachLanguageChange(this.setLevelTexts);
-        },
-
-        onMinewsweeperMatched(oEvent) {
             this.setModel(models.createMinesweeperModel.call(this));
             this.setModel(models.createMinesweeperViewModel(), 'view');
             this.attachTimer();
             this.setLevelTexts();
+        },
+
+        onMinewsweeperMatched(oEvent) {
             const { level } = oEvent.getParameter('arguments');
             const aLevels = this.getProperty('/levels');
             const fnIsCurLevel = ({ key }) => key === level;
             const oLevel = aLevels.find(fnIsCurLevel);
-			oLevel
+            const bAnotherLevel = oLevel !== this.getProperty('/level');
+			oLevel 
                 ? this.setProperty('/level', oLevel)
                 : this.navigateTo('Minesweeper');
-            (oLevel ?? !this.isGameStarted()) && this.setupGame();
+            (oLevel && bAnotherLevel || !this.isGameStarted()) && this.setupGame();
         },
 
         //////////////////////////////////

@@ -41,7 +41,7 @@ sap.ui.define([
 			const oData = {
 				discCounts: Array.from({ length: 18 }, (_, i) => i + 3),
 				discCount: 5,
-				records: this.getStorageItem('records') ?? [],
+				records: this.getStorageItem('records', 'hanoiTower') ?? [],
 				moves: 0,
 				time: 0
 			};
@@ -49,8 +49,9 @@ sap.ui.define([
 		},
 
 		createMinesweeperModel() {
+			const sId = 'minesweeper';
 			const [iCustomW, iCustomH, iCustomMines] = ['Width', 'Height', 'Mines']
-				.map(sProperty => this.getStorageItem(`custom${sProperty}`));
+				.map(sProperty => this.getStorageItem(`custom${sProperty}`, sId));
 			const oCustomLevel = {
 				key: 'custom',
 				width: iCustomW || 30,
@@ -63,7 +64,7 @@ sap.ui.define([
 				{ key: 'hard', width: 30, height: 16, mines: 99},
 				oCustomLevel
 			];
-			const records = this.getStorageItem('records') ?? [];
+			const records = this.getStorageItem('records', sId) ?? [];
 			const oData = { levels, level: levels[0], time: 0, records };
 			return new JSONModel(oData);
 		},
@@ -111,7 +112,7 @@ sap.ui.define([
 		createCalendarViewModel() {
 			const oData = {
 				busy: true,
-				fullDay: !!this.getStorageItem('fullDay'),
+				fullDay: !!this.getStorageItem('fullDay', 'calendar'),
 				startHour: 8,
 				endHour: 21,
 				currentDate: new Date(),
@@ -121,7 +122,7 @@ sap.ui.define([
 		},
 
 		createHanoiTowerViewModel() {
-			const showMoveButtons = !!this.getStorageItem('moveButtons');
+			const showMoveButtons = !!this.getStorageItem('moveButtons', 'hanoiTower');
 			return new JSONModel({ showMoveButtons });
 		},
 

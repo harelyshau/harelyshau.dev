@@ -7,8 +7,9 @@ sap.ui.define([
 
         onInit() {
             this.setModel(models.createTicTacToeModel());
-            this.attachRouteMatched(this.onTicTacToeMatched);
             this.setLevelTexts();
+            this.setupGame();
+            this.attachRouteMatched(this.onTicTacToeMatched);
             this.attachLanguageChange(this.setLevelTexts);
         },
 

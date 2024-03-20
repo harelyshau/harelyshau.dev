@@ -39,14 +39,14 @@ sap.ui.define([
 
 		// localStorage
 
-		getStorage() {
+		getStorage(sPrefix) {
 			const sPage = this.getProperty('/page', 'app');
-			const sKey = `${sPage[0].toLowerCase()}${sPage.slice(1)}`;
-			return new Storage(Storage.Type.local, sKey)
+			sPrefix ??= `${sPage[0].toLowerCase()}${sPage.slice(1)}`;
+			return new Storage(Storage.Type.local, sPrefix)
 		},
 
-		getStorageItem(sKey) {
-			return this.getStorage().get(sKey);
+		getStorageItem(sKey, sPrefix) {
+			return this.getStorage(sPrefix).get(sKey);
 		},
 
 		setStorageItem(sKey, vValue) {
