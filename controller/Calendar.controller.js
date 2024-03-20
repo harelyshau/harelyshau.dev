@@ -14,6 +14,9 @@ sap.ui.define([
 		onInit() {
 			this.removeCalendarViews();
 			this.attachRoutesMatched();
+			this.setModel(models.createCalendarModel());
+			this.setModel(models.createCalendarViewModel.call(this), 'view');
+			this.pCalendarAPI = this.initCalendarManager();
 		},
 
 		//////////////////////////////////
@@ -21,9 +24,6 @@ sap.ui.define([
 		//////////////////////////////////
 
 		attachRoutesMatched() {
-			this.setModel(models.createCalendarModel());
-			this.setModel(models.createCalendarViewModel.call(this), 'view');
-			this.pCalendarAPI = this.initCalendarManager();
 			['Calendar', 'Appointment', 'NewAppointment'].forEach(sRoute => 
 				this.attachRouteMatched(this[`on${sRoute}Matched`], sRoute)
 			);
