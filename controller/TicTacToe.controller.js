@@ -7,7 +7,6 @@ sap.ui.define([
 
         onInit() {
             this.setModel(models.createTicTacToeModel());
-            this.setupGame();
             this.attachRouteMatched(this.onTicTacToeMatched);
             this.setLevelTexts();
             this.attachLanguageChange(this.setLevelTexts);
@@ -16,12 +15,11 @@ sap.ui.define([
         onTicTacToeMatched(oEvent) {
             const { level } = oEvent.getParameter('arguments');
             const aLevels = this.getProperty('/levels');
-            const bLevelExists = aLevels.some(({ key }) => key === level);
-            bLevelExists
+            aLevels.some(({ key }) => key === level)
                 ? this.setProperty('/level', level)
                 : this.navigateTo('TicTacToe');
             this.resetScore();
-            (bLevelExists ?? !this.isGameStarted()) && this.setupGame();
+            this.setupGame();
         },
 
         resetScore() {
