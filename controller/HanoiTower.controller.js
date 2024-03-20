@@ -36,10 +36,7 @@ sap.ui.define([
 			this.setProperty('/pegBoxHeight', null, 'view', true);
 			setTimeout(() => {
 				const oDomPegBox = this.getDomPegBox();
-				if (!oDomPegBox) {
-					setTimeout(this.setPegBoxHeight.bind(this), 500);
-					return;
-				}
+				if (!oDomPegBox) return setTimeout(this.setPegBoxHeight.bind(this), 500);
 				const iPegBoxHeight = oDomPegBox.clientHeight;
 				this.setProperty('/pegBoxHeight', iPegBoxHeight, 'view');
 			});

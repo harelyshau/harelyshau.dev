@@ -13,7 +13,6 @@ sap.ui.define([
 
 		onInit() {
 			this.removeCalendarViews();
-			this.pCalendarAPI = this.initCalendarManager();
 			this.attachRoutesMatched();
 		},
 
@@ -55,6 +54,7 @@ sap.ui.define([
 		onCalendarMatched(oEvent, bKeepDialog) {
 			this.setModel(models.createCalendarModel());
 			this.setModel(models.createCalendarViewModel.call(this), 'view');
+			this.pCalendarAPI = this.initCalendarManager();
 			!bKeepDialog && this.oAppointmentDialog?.close();
 			const { view } = oEvent.getParameter('arguments');
 			const oView = this.byId('calendar').getViewByKey(view);
