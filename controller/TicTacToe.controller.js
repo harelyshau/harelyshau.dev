@@ -16,11 +16,15 @@ sap.ui.define([
         onTicTacToeMatched(oEvent) {
             const { level } = oEvent.getParameter('arguments');
             const aLevels = this.getProperty('/levels');
-            aLevels.some(({ key }) => key === level)
+            const bLevelExists = aLevels.some(({ key }) => key === level);
+            const bAntoherLevel = level !== this.getProperty('/level');
+            bLevelExists
                 ? this.setProperty('/level', level)
                 : this.navigateTo('TicTacToe');
-            this.resetScore();
-            this.setupGame();
+            if (bLevelExists && bAntoherLevel) {
+                this.resetScore();
+                this.setupGame();
+            }
         },
 
         resetScore() {
