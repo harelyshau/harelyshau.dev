@@ -152,8 +152,8 @@ sap.ui.define([
 		async loadAndAssignFragment(sFragment) {
 			const sPrefixFragment = `o${sFragment}`;
 			const sCurrentPage = this.getProperty('/page', 'app');
-			const sPath = `pharelyshau.fragment.${sCurrentPage}.${sFragment}`;
-			this[sPrefixFragment] ??= this.loadFragment({ name: sPath });
+			const name = `pharelyshau.fragment.${sCurrentPage}.${sFragment}`;
+			this[sPrefixFragment] ??= this.loadFragment({ name });
 			this[sPrefixFragment] = await this[sPrefixFragment];
 			this.addContentDensityClass(this[sPrefixFragment]);
 			return this[sPrefixFragment];
