@@ -160,14 +160,13 @@ sap.ui.define([
 			};
 			if (!oAppointment.Available) return oAppointment;
 
-			const Email = oAppointmentGC.attendees.find(
-				({ email }) => email !== calendarId
-			).email;
+			const { email } = oAppointmentGC.attendees
+				.find(({ email }) => email !== calendarId);
 			const oAvailableAppointment = {
 				...oAppointment,
 				Name: oAppointmentGC.summary,
 				Description: oAppointmentGC.description,
-				Email,
+				Email: email,
 				GoogleMeet: oAppointmentGC.hangoutLink,
 				Conference: oAppointmentGC.location
 			};

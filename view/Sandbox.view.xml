@@ -3,7 +3,7 @@
 	xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:l="sap.ui.layout"
-    xmlns:ce="sap.ui.codeeditor"
+    xmlns:codeeditor="sap.ui.codeeditor"
 	xmlns:mvc="sap.ui.core.mvc">
 	<f:DynamicPage class="sapUiNoContentPadding">
 		<f:title>
@@ -42,10 +42,9 @@
                                 </OverflowToolbar>
                             </customHeader>
                             <NavContainer pages="{/files}" id="filesNavContainer">
-                                <ce:CodeEditor value="{ path: 'value', mode: 'OneWay' }" syntaxHints="false"
+                                <codeeditor:CodeEditor value="{ path: 'value', mode: 'OneWay' }" syntaxHints="false"
                                     type="{= ${name}.toLowerCase() }" height="100%" liveChange="onChangeCode"/>
                             </NavContainer>
-                            
                         </Page>
                     </l:SplitPane>
                     <l:SplitPane requiredParentWidth="400" id="result">
