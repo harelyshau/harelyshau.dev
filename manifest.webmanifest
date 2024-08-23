@@ -1,6 +1,7 @@
 {
 	"name": "harelyshau.dev",
 	"short_name": "Harelyshau",
+	"description": "Progressive Web Application on OpenUI5",
 	"icons": [
 		{
 			"src": "resource/image/favicon/icon-192.png",
@@ -19,8 +20,28 @@
 			"purpose": "any maskable"
 		}
 	],
+	"screenshots": [
+		{
+			"src": "resource/image/ScreenshotWide.jpg",
+			"type": "image/jpeg",
+			"sizes": "3024x1712",
+			"form_factor": "wide"
+		},
+		{
+			"src": "resource/image/ScreenshotNarrow.jpg",
+			"type": "image/jpeg",
+			"sizes": "708x726",
+			"form_factor": "narrow"
+		}
+	],
 	"start_url": "/",
 	"display": "standalone",
 	"theme_color": "#fff",
-	"background_color": "#191414"
+	"background_color": "#191414",
+	"related_applications": [
+		{
+			"platform": "webapp",
+			"url": "https://harelyshau.dev/manifest.webmanifest"
+		}
+	]
 }
