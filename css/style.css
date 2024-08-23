@@ -41,3 +41,9 @@
 iframe {
 	border: none
 }
+
+@media (display-mode: standalone) {
+	.phInstallButton {
+		display: none;
+	}
+}

@@ -16,6 +16,7 @@
 
 		<script>
 			navigator.serviceWorker?.register('/service-worker.js');
+			window.addEventListener('beforeinstallprompt', (installEvent) => window.ph = { installEvent });
 		</script>
 		<script
 			id="sap-ui-bootstrap"

@@ -6,6 +6,8 @@ sap.ui.define([
 ], (BaseController, models, themeHelper, languageHelper) => {
 	'use strict';
 
+	const { installEvent } = window.ph ?? {};
+
 	return BaseController.extend('pharelyshau.controller.App', {
 
 		onInit() {
@@ -19,6 +21,8 @@ sap.ui.define([
 			this.attachResize(
 				() => this.setModel(models.createDeviceModel(), 'device')
 			);
+			this.setInstallButtonVisibility();
+			window.addEventListener('appinstalled', () => this.onInstall());
 		},
 
 		onRouteMatched(oEvent) {
@@ -49,6 +53,22 @@ sap.ui.define([
 		onPressToggleSideNavigation() {
 			const oPage = this.byId('page');
 			this.toggleSideNavigation(oPage, this.byId('sideNavigation'));
+		},
+
+		async onPressInstallApp() {
+			if (!installEvent) return;
+			installEvent.prompt();
+			const oRes = await installEvent.userChoice;
+			if (oRes.outcome === 'accepted') this.onInstall();
+		},
+
+		async setInstallButtonVisibility() {
+			const aApps = await navigator.getInstalledRelatedApps?.();
+			(!aApps || aApps.length || !installEvent) && this.onInstall();
+		},
+
+		onInstall() {
+			this.byId('btnInstall').setVisible(false)
 		}
 
 	});
