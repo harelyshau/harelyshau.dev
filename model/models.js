@@ -133,6 +133,17 @@ sap.ui.define([
 		createAlgorithmsViewModel() {
 			const oData = { sideExpanded: true };
 			return new JSONModel(oData);
+		},
+
+		createPWAModel() {
+			const notification = {
+				title: 'Notification from harelyshau.dev',
+				body: 'Any description here',
+				icon: 'https://harelyshau.dev/resource/image/favicon/favicon.svg',
+				delay: 20,
+				vibration: true
+			}
+			return new JSONModel({ notification });
 		}
 	};
 });
