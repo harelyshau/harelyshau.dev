@@ -12,7 +12,8 @@ sap.ui.define([
 			this.setModel(models.createPWAModel());
 		},
 
-		async onPressShowNotification() {
+		async onPressShowNotification(oEvent) {
+			const oButton = oEvent.getSource().setBusy(true);
 			const perm = await Notification.requestPermission();
 			const sErrorMessage = 'Please enable notifications for this site in settings';
 			if (perm !== 'granted') return MessageBox.error(sErrorMessage);
@@ -26,6 +27,8 @@ sap.ui.define([
 				MessageToast.show('Notification will be showed after delay');
 			} catch {
 				MessageBox.error('Something went wrong. Please try againg');
+			} finally {
+				oButton.setBusy(false);
 			}
 		},
 
