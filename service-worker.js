@@ -30,7 +30,7 @@ async function subscribeToNotifications() {
 	const apiHost = isProd
 		? 'https://harelyshau-api.onrender.com'
 		: 'http://localhost:3000';
-	fetch(`${apiHost}/notifications`, {
+	fetch(`${apiHost}/notifications/subscribe`, {
 		method: 'POST',
 		body: JSON.stringify(sub),
 		headers: { 'Content-Type': 'application/json' }

@@ -5,7 +5,7 @@
 		"id": "pharelyshau",
 		"type": "application",
 		"applicationVersion": {
-			"version": "1.0.0"
+			"version": "1.0.2"
 		},
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
@@ -83,6 +83,11 @@
 					"target": "Resume"
 				},
 				{
+					"pattern": "pwa",
+					"name": "PWA",
+					"target": "PWA"
+				},
+				{
 					"pattern": "calendar/appointment:?query:",
 					"name": "NewAppointment",
 					"target": "Calendar"
@@ -150,6 +155,11 @@
 					"name": "Resume",
 					"title": "{/FirstName} {/LastName}",
 					"id": "Resume"
+				},
+				"PWA": {
+					"name": "PWA",
+					"title": "Progressive Web App",
+					"id": "PWA"
 				},
 				"Calendar": {
 					"name": "Calendar",

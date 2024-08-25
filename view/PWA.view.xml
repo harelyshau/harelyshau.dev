@@ -1,0 +1,66 @@
+<mvc:View xmlns:uxap="sap.uxap"
+	controllerName="pharelyshau.controller.PWA"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	core:require="{ formatMessage: 'sap/base/strings/formatMessage' }">
+	<uxap:ObjectPageLayout>
+        <uxap:headerTitle>
+            <uxap:ObjectPageHeader objectTitle="Progressive Web App Features"/>
+        </uxap:headerTitle>
+        <uxap:ObjectPageSection title="Push Notifications"
+            titleUppercase="false"
+            class="phLimitedPageContent">
+            <uxap:ObjectPageSubSection>
+                <VBox class="sapUiTinyMarginTop"
+                    binding="{/notification}">
+                    <Label text="Title"
+                        showColon="true"/>
+                    <Input value="{title}"/>
+                    <Label text="Body"
+                        showColon="true"
+                        class="sapUiSmallMarginTop"/>
+                    <TextArea width="100%"
+                        value="{body}"/>
+                    <HBox alignItems="Center"
+                        renderType="Bare"
+                        class="sapUiSmallMarginTop">
+                        <VBox renderType="Bare"
+                            width="100%"
+                            class="sapUiSmallMarginEnd">
+                            <Label text="Icon"
+                                showColon="true"/>
+                            <Input value="{icon}"/>
+                        </VBox>
+                        <Image
+                            height="2.5em"
+                            src="{icon}"/>
+                    </HBox>
+                    <HBox class="sapUiSmallMarginTop"
+                        alignItems="Center">
+                        <Label text="Vibration"
+                            showColon="true"/>
+                        <CheckBox class="sapUiMediumMarginEnd"
+                            selected="{vibration}"/>
+                        <Label text="Delay (sec)"
+                            showColon="true" class="sapUiTinyMarginEnd"/>
+                        <StepInput value="{delay}"
+                            width="7em"
+                            min="0"
+                            step="5"
+                            largerStep="60"/>
+                    </HBox>
+                    <Toolbar style="Clear"
+                        class="sapUiSmallMarginTop">
+                        <ToolbarSpacer/>
+                        <Button text="Show Notification"
+                            icon="sap-icon://bell"
+                            type="Emphasized"
+                            press="onPressShowNotification"/>
+                    </Toolbar>
+                </VBox>
+            </uxap:ObjectPageSubSection>
+        </uxap:ObjectPageSection>
+	</uxap:ObjectPageLayout>
+</mvc:View>
