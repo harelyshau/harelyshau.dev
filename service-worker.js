@@ -18,6 +18,24 @@ const preloadResources = [
 	'/resource/data/Resume/resume-ru.json'
 ];
 
+async function subscribeToNotifications() {
+	const sub = await self.registration.pushManager.subscribe({
+		userVisibleOnly: true,
+		applicationServerKey: 'BB_OayafrL0WJmdmEsikI5zSxplbn4KxShNwOK_3_1H6DG_lP0d4SC0-2gWqCFxV51wtL5fEXjAfQvn3tRxwIIk'
+	});
+	fetch('http://localhost:3000/notifications', {
+		method: 'POST',
+		body: JSON.stringify(sub),
+		headers: { 'Content-Type': 'application/json' }
+	});
+}
+
+self.addEventListener('push', (event) => {
+	const { title, options } = event.data.json();
+	const promise = self.registration.showNotification(title, options);
+	event.waitUntil(promise);
+});
+
 self.addEventListener('install', async () => {
 	const cache = await caches.open(staticCacheKey);
 	await cache.addAll(preloadResources);
@@ -30,6 +48,7 @@ self.addEventListener('activate', async () => {
 			.filter((key) => ![staticCacheKey, dynamicCacheKey].includes(key))
 			.map((key) => caches.delete(key))
 	);
+	subscribeToNotifications();
 });
 
 self.addEventListener('fetch', (event) => {
