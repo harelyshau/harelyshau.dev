@@ -19,11 +19,15 @@ const preloadResources = [
 ];
 
 async function subscribeToNotifications() {
+	const isProd = location.origin.startsWith('https://harelyshau.dev');
+	const applicationServerKey = isProd
+		? 'BAo7eqjJe07at8zLt4tB97KpD62Lv4TdTUTmdI8CZ5YyDIe-pwjDrMczltmCldqO9xPfQaOhf3pNS6gLFJb2zRg'
+		: 'BEy6fJH3SAngYaCQF1Vsc44niGbFOrcf9qg3ENu_AH84lNSXe7gdnOd6-U_FcH3__XopXGLYkp5gpn4kYvREa-w';
 	const sub = await self.registration.pushManager.subscribe({
 		userVisibleOnly: true,
-		applicationServerKey: 'BB_OayafrL0WJmdmEsikI5zSxplbn4KxShNwOK_3_1H6DG_lP0d4SC0-2gWqCFxV51wtL5fEXjAfQvn3tRxwIIk'
+		applicationServerKey
 	});
-	const apiHost = location.origin.startsWith('https://harelyshau.dev')
+	const apiHost = isProd
 		? 'http://localhost:3000'
 		: 'https://harelyshau-api.onrender.com';
 	fetch(`${apiHost}/appointments`, {
