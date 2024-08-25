@@ -13,10 +13,10 @@ sap.ui.define([
 		},
 
 		async onPressShowNotification(oEvent) {
-			const oButton = oEvent.getSource().setBusy(true);
 			const perm = await Notification.requestPermission();
 			const sErrorMessage = 'Please enable notifications for this site in settings';
 			if (perm !== 'granted') return MessageBox.error(sErrorMessage);
+			const oButton = oEvent.getSource().setBusy(true);
 			const { notification } = this.getProperty('/');
 			try {
 				await fetch(`${this.getApiHost()}/notifications`, {
