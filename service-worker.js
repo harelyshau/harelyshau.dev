@@ -23,7 +23,10 @@ async function subscribeToNotifications() {
 		userVisibleOnly: true,
 		applicationServerKey: 'BB_OayafrL0WJmdmEsikI5zSxplbn4KxShNwOK_3_1H6DG_lP0d4SC0-2gWqCFxV51wtL5fEXjAfQvn3tRxwIIk'
 	});
-	fetch('http://localhost:3000/notifications', {
+	const apiHost = location.origin.startsWith('https://harelyshau.dev')
+		? 'http://localhost:3000'
+		: 'https://harelyshau-api.onrender.com';
+	fetch(`${apiHost}/appointments`, {
 		method: 'POST',
 		body: JSON.stringify(sub),
 		headers: { 'Content-Type': 'application/json' }
