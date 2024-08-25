@@ -28,8 +28,8 @@ async function subscribeToNotifications() {
 		applicationServerKey
 	});
 	const apiHost = isProd
-		? 'http://localhost:3000'
-		: 'https://harelyshau-api.onrender.com';
+		? 'https://harelyshau-api.onrender.com'
+		: 'http://localhost:3000';
 	fetch(`${apiHost}/notifications`, {
 		method: 'POST',
 		body: JSON.stringify(sub),
