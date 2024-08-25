@@ -1,5 +1,5 @@
-const staticCacheKey = 'static-ph-v0.0.2';
-const dynamicCacheKey = 'dynamic-ph-v0.0.2';
+const staticCacheKey = 'static-ph-v0.0.3';
+const dynamicCacheKey = 'dynamic-ph-v0.0.3';
 
 const preloadResources = [
 	// core
@@ -38,17 +38,17 @@ self.addEventListener('fetch', (event) => {
 	if (url.origin === location.origin) {
 		event.respondWith(cacheFirst(request));
 	} else if (request.url.startsWith('http')) {
-		event.respondWith(networkFirst(request));
+		event.respondWith(networkFirst(request, dynamicCacheKey));
 	}
 });
 
 async function cacheFirst(request) {
 	const cached = await caches.match(request);
-	return cached ?? (await fetch(request));
+	return cached ?? (await networkFirst(request, staticCacheKey));
 }
 
-async function networkFirst(request) {
-	const cache = await caches.open(dynamicCacheKey);
+async function networkFirst(request, cacheKey) {
+	const cache = await caches.open(cacheKey);
 	try {
 		const response = await fetch(request);
 		if (request.method !== 'POST') cache.put(request, response.clone());
