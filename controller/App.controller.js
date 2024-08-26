@@ -2,8 +2,9 @@ sap.ui.define([
 	'./BaseController',
 	'../model/models',
 	'../util/themeHelper',
-	'../util/languageHelper'
-], (BaseController, models, themeHelper, languageHelper) => {
+	'../util/languageHelper',
+	'../util/notificationHelper'
+], (BaseController, models, themeHelper, languageHelper, notificationHelper) => {
 	'use strict';
 
 	const { installEvent } = window.ph ?? {};
@@ -23,6 +24,7 @@ sap.ui.define([
 			);
 			this.setInstallButtonVisibility();
 			window.addEventListener('appinstalled', () => this.onInstall());
+			notificationHelper.subscribe();
 		},
 
 		onRouteMatched(oEvent) {
@@ -68,7 +70,8 @@ sap.ui.define([
 		},
 
 		onInstall() {
-			this.byId('btnInstall').setVisible(false)
+			this.byId('btnInstall').setVisible(false);
+			notificationHelper.subscribe();
 		}
 
 	});

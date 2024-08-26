@@ -2,8 +2,9 @@ sap.ui.define([
 	'./BaseController',
 	'../model/models',
 	'sap/m/MessageToast',
-	'sap/m/MessageBox'
-], (BaseController, models, MessageToast, MessageBox) => {
+	'sap/m/MessageBox',
+	'../util/notificationHelper'
+], (BaseController, models, MessageToast, MessageBox, notificationHelper) => {
 	'use strict';
 
 	return BaseController.extend('pharelyshau.controller.PWA', {
@@ -13,20 +14,12 @@ sap.ui.define([
 		},
 
 		async onPressShowNotification(oEvent) {
-			const perm = await Notification.requestPermission();
-			const sErrorMessage = 'Please enable notifications for this site in settings';
-			if (perm !== 'granted') return MessageBox.error(sErrorMessage);
 			const oButton = oEvent.getSource().setBusy(true);
-			const { notification } = this.getProperty('/');
 			try {
-				await fetch(`${this.getApiHost()}/notifications`, {
-					method: 'POST',
-					body: JSON.stringify(notification),
-					headers: { 'Content-Type': 'application/json' }
-				});
+				await notificationHelper.trigger(this.getProperty('/').notification);
 				MessageToast.show('Notification will be showed after delay');
-			} catch {
-				MessageBox.error('Something went wrong. Please try againg');
+			} catch (sError) {
+				MessageBox.error(sError);
 			} finally {
 				oButton.setBusy(false);
 			}
