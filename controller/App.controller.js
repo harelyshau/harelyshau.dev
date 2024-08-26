@@ -1,10 +1,11 @@
 sap.ui.define([
 	'./BaseController',
 	'../model/models',
+	'sap/m/MessageBox',
 	'../util/themeHelper',
 	'../util/languageHelper',
 	'../util/notificationHelper'
-], (BaseController, models, themeHelper, languageHelper, notificationHelper) => {
+], (BaseController, models, MessageBox, themeHelper, languageHelper, notificationHelper) => {
 	'use strict';
 
 	const { installEvent } = window.ph ?? {};
@@ -25,8 +26,8 @@ sap.ui.define([
 			this.setInstallButtonVisibility();
 			window.addEventListener('appinstalled', () => this.onInstall());
 			notificationHelper.subscribe()
-				.then(() => sap.m.MessageBox.confirm('subscribed'))
-				.catch((e) => sap.m.MessageBox.error(JSON.stringify(e)));
+				.then(() => MessageBox.success('subscribed'))
+				.catch((e) => MessageBox.error(JSON.stringify(e)));
 		},
 
 		onRouteMatched(oEvent) {

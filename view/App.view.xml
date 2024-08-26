@@ -16,6 +16,7 @@
 						<IconTabFilter key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
 						<IconTabFilter key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithm}"/>
 						<IconTabFilter key="Games" text="{i18n>ttlGames}" icon="{i18n>iPuzzle}"/>
+						<IconTabFilter key="PWA" text="PWA" icon="sap-icon://SAP-icons-TNT/application"/>
 						<!-- <IconTabFilter key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/> -->
 						<!-- <IconTabFilter key="HanoiTower" text="{i18n>ttlHanoiTower}" icon="{i18n>iHanoiTower}"/>
 						<IconTabFilter key="Minesweeper" text="{i18n>ttlMinesweeper}" icon="{i18n>iFlag}"/>
@@ -51,7 +52,7 @@
 					<tnt:NavigationListItem key="Algorithms" text="{i18n>ttlAlgorithms}" icon="{i18n>iAlgorithm}"/>
 					<tnt:NavigationListItem key="Calendar" text="{i18n>ttlCalendar}" icon="{i18n>iAppointment}"/>
 					<tnt:NavigationListItem key="Games" text="{i18n>ttlGames}" icon="{i18n>iPuzzle}"/>
-					<!-- <tnt:NavigationListItem key="Resume" text="{i18n>ttlResume}" icon="{i18n>iResume}"/> -->
+					<tnt:NavigationListItem key="PWA" text="PWA" icon="sap-icon://SAP-icons-TNT/application"/>
 				</tnt:NavigationList>
 			</tnt:SideNavigation>
 		</tnt:sideContent>
