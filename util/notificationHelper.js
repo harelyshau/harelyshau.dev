@@ -16,7 +16,6 @@ sap.ui.define(() => {
                 userVisibleOnly: true,
                 applicationServerKey
             });
-            
             return fetch(`${apiHost}/notifications/subscribe`, {
                 method: 'POST',
                 body: JSON.stringify(sub),
@@ -25,7 +24,6 @@ sap.ui.define(() => {
         },
 
         trigger: async (notification) => {
-            if (!Notification) throw new Error('Please Add app to Home Screen');
             const perm = await Notification.requestPermission();
             const sError = 'Please enable notifications for this site in settings';
             if (perm !== 'granted') throw new Error(sError);

@@ -15,7 +15,7 @@
 		<link rel="manifest" href="./manifest.webmanifest" />
 
 		<script>
-			navigator.serviceWorker?.register('/service-worker.js');
+			navigator.serviceWorker.register('/service-worker.js');
 			window.addEventListener('beforeinstallprompt', (installEvent) => window.ph = { installEvent });
 		</script>
 		<script

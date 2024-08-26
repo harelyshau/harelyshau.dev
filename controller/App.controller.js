@@ -25,9 +25,6 @@ sap.ui.define([
 			);
 			this.setInstallButtonVisibility();
 			window.addEventListener('appinstalled', () => this.onInstall());
-			notificationHelper.subscribe()
-				.then(() => MessageBox.success('subscribed'))
-				.catch((e) => MessageBox.error(JSON.stringify(e)));
 		},
 
 		onRouteMatched(oEvent) {
@@ -74,7 +71,6 @@ sap.ui.define([
 
 		onInstall() {
 			this.byId('btnInstall').setVisible(false);
-			notificationHelper.subscribe();
 		}
 
 	});

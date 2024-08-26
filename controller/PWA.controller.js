@@ -16,6 +16,7 @@ sap.ui.define([
 		async onPressShowNotification(oEvent) {
 			const oButton = oEvent.getSource().setBusy(true);
 			try {
+				await notificationHelper.subscribe();
 				await notificationHelper.trigger(this.getProperty('/').notification);
 				MessageToast.show('Notification will be showed after delay');
 			} catch (sError) {
