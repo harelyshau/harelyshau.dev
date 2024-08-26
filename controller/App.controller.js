@@ -24,7 +24,8 @@ sap.ui.define([
 			);
 			this.setInstallButtonVisibility();
 			window.addEventListener('appinstalled', () => this.onInstall());
-			notificationHelper.subscribe();
+			notificationHelper.subscribe()
+				.catch((e) => sap.m.MessageBox.error(JSON.stringify(e)));
 		},
 
 		onRouteMatched(oEvent) {

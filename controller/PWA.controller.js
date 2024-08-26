@@ -23,11 +23,7 @@ sap.ui.define([
 			} finally {
 				oButton.setBusy(false);
 			}
-		},
-
-		getApiHost: () => location.origin.startsWith('https://harelyshau.dev')
-			? 'https://harelyshau-api.onrender.com'
-			: 'http://localhost:3000'
+		}
 
 	});
 });
