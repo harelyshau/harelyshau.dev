@@ -40,8 +40,8 @@ sap.ui.define([
 		// localStorage
 
 		getStorage(sPrefix) {
-			const sPage = this.getProperty('/page', 'app');
-			sPrefix ??= `${sPage[0].toLowerCase()}${sPage.slice(1)}`;
+			const { page } = this.getProperty('/', 'app');
+			sPrefix ??= `${page[0].toLowerCase()}${page.slice(1)}`;
 			return new Storage(Storage.Type.local, sPrefix)
 		},
 
@@ -83,8 +83,8 @@ sap.ui.define([
 		},
 
 		addContentDensityClass(oControl) {
-			const bTouch = this.getProperty('/support/touch', 'device');
-			oControl.addStyleClass(bTouch ? 'sapUiSizeCozy' : 'sapUiSizeCompact');
+			const { touch } = this.getProperty('/support', 'device');
+			oControl.addStyleClass(touch ? 'sapUiSizeCozy' : 'sapUiSizeCompact');
 		},
 
 		setBusy(bBusy) {
@@ -151,8 +151,8 @@ sap.ui.define([
 
 		async loadAndAssignFragment(sFragment) {
 			const sPrefixFragment = `o${sFragment}`;
-			const sCurrentPage = this.getProperty('/page', 'app');
-			const name = `pharelyshau.fragment.${sCurrentPage}.${sFragment}`;
+			const { page } = this.getProperty('/', 'app');
+			const name = `pharelyshau.fragment.${page}.${sFragment}`;
 			this[sPrefixFragment] ??= this.loadFragment({ name });
 			this[sPrefixFragment] = await this[sPrefixFragment];
 			this.addContentDensityClass(this[sPrefixFragment]);
@@ -166,10 +166,10 @@ sap.ui.define([
 		},
 
 		onPressToggleSideNavigation(sModel) {
-			const bPhone = this.getProperty('/system/phone', 'device');
-			const sRootPage = this.getProperty('/rootPage', 'app');
-			const sPage = sRootPage === 'Games' ? sRootPage.slice(0, -1) : sRootPage;
-			const oPage = this.getElementById(`${bPhone ? 'app' : sPage}--page`);
+			const { phone } = this.getProperty('/system', 'device');
+			const { rootPage } = this.getProperty('/', 'app');
+			const sPage = rootPage === 'Games' ? rootPage.slice(0, -1) : rootPage;
+			const oPage = this.getElementById(`${phone ? 'app' : sPage}--page`);
 			const oSideNavigation = this.getElementById(`${sPage}--sideNavigation`);
 			const bExpanded = this.toggleSideNavigation(oPage, oSideNavigation);
 			this.setProperty('/sideExpanded', bExpanded, sModel);
